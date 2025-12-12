@@ -1,0 +1,130 @@
+{
+  "Drop Shadow": {
+    "0": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "12px",
+          "spread": "0px",
+          "color": "{Color.Shadow.None}"
+        }
+      ]
+    },
+    "50": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "{Color.Shadow.Subtle}"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "8px",
+          "spread": "-8px",
+          "color": "{Color.Shadow.Subtle}"
+        }
+      ]
+    },
+    "100": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "4px",
+          "spread": "0px",
+          "color": "{Color.Shadow.Subtle}"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "4px",
+          "spread": "-2px",
+          "color": "{Color.Shadow.Subtle}"
+        }
+      ]
+    },
+    "200": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "-4px",
+          "blur": "9px",
+          "spread": "-6px",
+          "color": "{Color.Shadow.Subtle}"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "6px",
+          "spread": "-2px",
+          "color": "{Color.Shadow.Subtle}"
+        }
+      ]
+    },
+    "300": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "-6px",
+          "blur": "16px",
+          "spread": "-8px",
+          "color": "{Color.Shadow.Subtle}"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "6px",
+          "spread": "0px",
+          "color": "{Color.Shadow.Subtle}"
+        }
+      ]
+    },
+    "400": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "12px",
+          "blur": "42px",
+          "spread": "-4px",
+          "color": "{Color.Shadow.Subtle}"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "18px",
+          "spread": "-6px",
+          "color": "{Color.Shadow.Subtle}"
+        }
+      ]
+    },
+    "500": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "18px",
+          "blur": "88px",
+          "spread": "-4px",
+          "color": "{Color.Shadow.Subtle}"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "28px",
+          "spread": "-6px",
+          "color": "{Color.Shadow.Subtle}"
+        }
+      ]
+    }
+  }
+}

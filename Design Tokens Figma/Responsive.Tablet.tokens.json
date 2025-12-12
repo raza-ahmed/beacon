@@ -1,0 +1,198 @@
+{
+  "Device_Width": {
+    "$type": "dimension",
+    "$value": "834px"
+  },
+  "Fonts": {
+    "Heading": {
+      "H1": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "60px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "64px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "64px"
+        }
+      },
+      "H2": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "48px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "56px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "56px"
+        }
+      },
+      "H3": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "36px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "40px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "40px"
+        }
+      },
+      "H4": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "32px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "36px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "36px"
+        }
+      },
+      "H5": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "28px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "28px"
+        }
+      },
+      "H6": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "24px"
+        }
+      }
+    },
+    "Body": {
+      "Extra_Small": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "12px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "18px"
+        }
+      },
+      "Small": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "14px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "20px"
+        }
+      },
+      "Regular": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "16px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "24px"
+        }
+      },
+      "Medium": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "28px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "28px"
+        }
+      }
+    }
+  },
+  "Adaptive_Set": {
+    "96->80->32": {
+      "$type": "dimension",
+      "$value": "80px"
+    },
+    "96->48->32": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "64->80->32": {
+      "$type": "dimension",
+      "$value": "80px"
+    },
+    "80->64->48": {
+      "$type": "dimension",
+      "$value": "64px"
+    },
+    "32->80->32": {
+      "$type": "dimension",
+      "$value": "80px"
+    }
+  },
+  "Menu": {
+    "Width": {
+      "$type": "dimension",
+      "$value": "{Device_Width}"
+    }
+  },
+  "Visibility": {
+    "Only_Desktop": {
+      "$type": "boolean",
+      "$value": false
+    },
+    "Only_Mobile": {
+      "$type": "boolean",
+      "$value": false
+    },
+    "Desktop_&_Tablet": {
+      "$type": "boolean",
+      "$value": true
+    },
+    "Tablet_&_Mobile": {
+      "$type": "boolean",
+      "$value": true
+    }
+  }
+}

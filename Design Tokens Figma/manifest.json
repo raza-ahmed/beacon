@@ -1,0 +1,59 @@
+{
+  "name": "Design Tokens",
+  "collections": {
+    "Primitives": {
+      "modes": {
+        "Value": [
+          "Primitives.Value.tokens.json"
+        ]
+      }
+    },
+    "Semantic": {
+      "modes": {
+        "Hue Sky": [
+          "Semantic.Hue Sky.tokens.json"
+        ],
+        "Hue Indigo": [
+          "Semantic.Hue Indigo.tokens.json"
+        ],
+        "Chromatic Prime": [
+          "Semantic.Chromatic Prime.tokens.json"
+        ]
+      }
+    },
+    "Brand": {
+      "modes": {
+        "Light": [
+          "Brand.Light.tokens.json"
+        ],
+        "Dark": [
+          "Brand.Dark.tokens.json"
+        ]
+      }
+    },
+    "Responsive": {
+      "modes": {
+        "Desktop": [
+          "Responsive.Desktop.tokens.json"
+        ],
+        "Tablet": [
+          "Responsive.Tablet.tokens.json"
+        ],
+        "Mobile": [
+          "Responsive.Mobile.tokens.json"
+        ]
+      }
+    }
+  },
+  "styles": {
+    "text": [
+      "text.styles.tokens.json"
+    ],
+    "effect": [
+      "effect.styles.tokens.json"
+    ],
+    "grid": [
+      "grid.styles.tokens.json"
+    ]
+  }
+}

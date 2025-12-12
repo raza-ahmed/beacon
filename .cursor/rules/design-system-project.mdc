@@ -1,0 +1,29 @@
+---
+alwaysApply: false
+---
+# Project Rule: Figma-Aligned TypeScript Design System
+
+## Source of Truth
+- Figma tokens and components are the primary reference.
+- Do not introduce new colors, spacing values, typography scales, radii, or motion values unless they match Figma or are approved extensions.
+
+## Token Usage
+- All style values must reference typed tokens (color, spacing, typography, radius, motion).
+- Avoid hard-coded values such as hex codes, numeric spacing, or arbitrary durations.
+- Tokens must come from a centralized token module with full TypeScript typing.
+
+## Component Architecture
+- Each component must map directly to its Figma definition.
+- Component props must reflect Figma variants, states, and interactions.
+- Components must be written as pure, composable TypeScript/React functions.
+- Ensure strict naming consistency with Figma variant names.
+
+## Documentation Requirements
+- Each component must include:
+  - A clear purpose statement.
+  - Prop definitions with TypeScript types.
+  - Developers must be able to select and copy examples directly from definition.
+  - Allowed token references.
+  - Usage examples and code snippets.
+  - Documentation must be accessible to designers and developers through the web project.
+  - Usage guidelines for both designers and developers.

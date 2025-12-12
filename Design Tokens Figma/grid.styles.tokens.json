@@ -1,0 +1,77 @@
+{
+  "Desktop": {
+    "Menu Open": {
+      "$type": "grid",
+      "$value": [
+        {
+          "pattern": "columns",
+          "visible": true,
+          "alignment": "max",
+          "color": "#22b1941a",
+          "gutterSize": "24px",
+          "count": 12,
+          "offset": "64px"
+        },
+        {
+          "pattern": "columns",
+          "visible": true,
+          "alignment": "min",
+          "color": "#a601591a",
+          "gutterSize": "20px",
+          "count": 1,
+          "offset": "0px"
+        }
+      ]
+    }
+  },
+  "Tablet": {
+    "Default Header": {
+      "$type": "grid",
+      "$value": [
+        {
+          "pattern": "columns",
+          "visible": true,
+          "alignment": "stretch",
+          "color": "#22b1941a",
+          "gutterSize": "24px",
+          "count": 8,
+          "offset": "80px"
+        },
+        {
+          "pattern": "rows",
+          "visible": true,
+          "alignment": "min",
+          "color": "#a601591a",
+          "gutterSize": "20px",
+          "count": 1,
+          "offset": "0px"
+        }
+      ]
+    }
+  },
+  "Mobile": {
+    "Default Header": {
+      "$type": "grid",
+      "$value": [
+        {
+          "pattern": "columns",
+          "visible": true,
+          "alignment": "stretch",
+          "color": "#22b1941a",
+          "gutterSize": "24px",
+          "count": 4,
+          "offset": "32px"
+        },
+        {
+          "pattern": "rows",
+          "visible": true,
+          "alignment": "min",
+          "color": "#a601591a",
+          "gutterSize": "20px",
+          "count": 1,
+          "offset": "0px"
+        }
+      ]
+    }
+  }
+}
