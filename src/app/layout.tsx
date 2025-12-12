@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import "@/tokens/generated/index.css";
 import "./globals.css";
+import "@/tokens/generated/index.css";
 
 export const metadata: Metadata = {
   title: "Design System Beacon",
