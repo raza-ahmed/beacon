@@ -1,14 +1,16 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 # Dependencies
-node_modules
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing
+/coverage
+.nyc_output
 
 # Build outputs
 dist
@@ -16,22 +18,33 @@ dist-ssr
 build
 *.local
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-.env.production
-.env.development
+# Next.js
+/.next/
+/out/
 
-# TypeScript
-*.tsbuildinfo
+# Production
+/build
 
-# Vite
-.vite
+# OS
+.DS_Store
+.DS_Store?
+.DS_*
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Testing
-coverage
-.nyc_output
+# Misc
+*.pem
+
+# Debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
 
 # Editor directories and files
 .vscode/*
@@ -43,12 +56,20 @@ coverage
 *.sln
 *.sw?
 
-# OS
-.DS_Store
-.DS_Store?
-.DS_*
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Env files
+.env*
+!.env.example
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Generated tokens (can be regenerated)
+src/tokens/generated/

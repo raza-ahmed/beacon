@@ -150,23 +150,23 @@
     }
   },
   "Adaptive_Set": {
-    "96->80->32": {
+    "d96-t80-m32": {
       "$type": "dimension",
       "$value": "96px"
     },
-    "96->48->32": {
+    "d96-t48-m32": {
       "$type": "dimension",
       "$value": "96px"
     },
-    "64->80->32": {
+    "d64-t80-m32": {
       "$type": "dimension",
       "$value": "64px"
     },
-    "80->64->48": {
+    "d80-t64-m48": {
       "$type": "dimension",
       "$value": "80px"
     },
-    "32->80->32": {
+    "d32-t80-m32": {
       "$type": "dimension",
       "$value": "32px"
     }

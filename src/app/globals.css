@@ -1,0 +1,119 @@
+/* Base reset and global styles using design tokens */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-secondary), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-page-primary);
+  color: var(--fg-neutral);
+  min-height: 100vh;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary), serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--fg-neutral);
+}
+
+h1 {
+  font-size: var(--heading-h1-text-size);
+  line-height: var(--heading-h1-line-height);
+}
+
+h2 {
+  font-size: var(--heading-h2-text-size);
+  line-height: var(--heading-h2-line-height);
+}
+
+h3 {
+  font-size: var(--heading-h3-text-size);
+  line-height: var(--heading-h3-line-height);
+}
+
+h4 {
+  font-size: var(--heading-h4-text-size);
+  line-height: var(--heading-h4-line-height);
+}
+
+h5 {
+  font-size: var(--heading-h5-text-size);
+  line-height: var(--heading-h5-line-height);
+}
+
+h6 {
+  font-size: var(--heading-h6-text-size);
+  line-height: var(--heading-h6-line-height);
+}
+
+p {
+  font-size: var(--body-regular-text-size);
+  line-height: var(--body-regular-line-height);
+  color: var(--fg-neutral-secondary);
+}
+
+a {
+  color: var(--fg-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--fg-primary-on-hover);
+}
+
+/* Page layout utilities */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-600) var(--spacing-400);
+}
+
+.page-header {
+  margin-bottom: var(--spacing-700);
+  padding-bottom: var(--spacing-500);
+  border-bottom: 1px solid var(--border-neutral-tertiary);
+}
+
+.page-header h1 {
+  margin-bottom: var(--spacing-200);
+}
+
+.content-section {
+  margin-bottom: var(--spacing-600);
+}
+
+.content-section h2 {
+  margin-bottom: var(--spacing-300);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--border-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--bg-brand-tonal);
+  color: var(--fg-neutral);
+}
