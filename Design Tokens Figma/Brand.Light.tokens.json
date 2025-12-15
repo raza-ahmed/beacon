@@ -2,7 +2,7 @@
   "Background": {
     "White": {
       "$type": "color",
-      "$value": "{Color.Neutral.White}"
+      "$value": "{Color.Alpha-Neutral.White-1000}"
     },
     "Page_Primary": {
       "$type": "color",
@@ -102,7 +102,7 @@
     },
     "Transparent": {
       "$type": "color",
-      "$value": "{Color.White.0}"
+      "$value": "{Color.Alpha-Neutral.White-0}"
     }
   },
   "Foreground": {
@@ -125,6 +125,10 @@
     "Primary_Tonal": {
       "$type": "color",
       "$value": "{Color.Primary.100}"
+    },
+    "Primary_Disabled": {
+      "$type": "color",
+      "$value": "{Color.Primary.400}"
     },
     "Primary_Pressed": {
       "$type": "color",
@@ -180,15 +184,15 @@
     },
     "On_Action": {
       "$type": "color",
-      "$value": "{Color.Neutral.White}"
+      "$value": "{Color.Alpha-Neutral.White-1000}"
     },
     "White": {
       "$type": "color",
-      "$value": "{Color.Neutral.White}"
+      "$value": "{Color.Alpha-Neutral.White-1000}"
     },
     "Disabled": {
       "$type": "color",
-      "$value": "{Color.Neutral.200}"
+      "$value": "{Color.Neutral.300}"
     },
     "On_Disabled": {
       "$type": "color",
@@ -200,9 +204,13 @@
       "$type": "color",
       "$value": "{Color.Neutral.800}"
     },
-    "Strong-10": {
+    "Strong-100": {
       "$type": "color",
-      "$value": "{Color.Black.100}"
+      "$value": "{Color.Alpha-Neutral.Black-100}"
+    },
+    "Strong-200": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-200}"
     },
     "Neutral_Primary": {
       "$type": "color",
@@ -223,6 +231,10 @@
     "Primary_Tonal": {
       "$type": "color",
       "$value": "{Color.Primary.100}"
+    },
+    "Primary_Disabled": {
+      "$type": "color",
+      "$value": "{Color.Primary.300}"
     },
     "Primary-_On_Hover": {
       "$type": "color",
@@ -258,11 +270,11 @@
     },
     "On_Action": {
       "$type": "color",
-      "$value": "{Color.Neutral.White}"
+      "$value": "{Color.Alpha-Neutral.White-1000}"
     },
     "White": {
       "$type": "color",
-      "$value": "{Color.Neutral.White}"
+      "$value": "{Color.Alpha-Neutral.White-1000}"
     },
     "Disabled": {
       "$type": "color",
@@ -272,7 +284,7 @@
   "Static": {
     "Light-_On_Dark": {
       "$type": "color",
-      "$value": "{Color.Neutral.Black}"
+      "$value": "{Color.Alpha-Neutral.Black-1000}"
     },
     "Primary": {
       "$type": "color",
@@ -280,29 +292,51 @@
     },
     "White": {
       "$type": "color",
-      "$value": "{Color.Neutral.White}"
+      "$value": "{Color.Alpha-Neutral.White-1000}"
     },
     "Black": {
       "$type": "color",
-      "$value": "{Color.Neutral.Black}"
+      "$value": "{Color.Alpha-Neutral.Black-1000}"
     }
   },
   "Utilities": {
     "Overlay_Dull": {
       "$type": "color",
-      "$value": "{Color.Black.200}"
+      "$value": "{Color.Alpha-Neutral.Black-200}"
     },
     "Overlay_Light": {
       "$type": "color",
-      "$value": "{Color.Black.300}"
+      "$value": "{Color.Alpha-Neutral.Black-300}"
     },
     "Overlay_Medium": {
       "$type": "color",
-      "$value": "{Color.Black.500}"
+      "$value": "{Color.Alpha-Neutral.Black-500}"
     },
     "Overlay_Strong": {
       "$type": "color",
-      "$value": "{Color.Black.700}"
+      "$value": "{Color.Alpha-Neutral.Black-700}"
+    }
+  },
+  "Shadow": {
+    "None": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-0}"
+    },
+    "Subtle": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-100}"
+    },
+    "Normal": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-200}"
+    },
+    "Medium": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-300}"
+    },
+    "Strong": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-400}"
     }
   }
 }

@@ -90,6 +90,36 @@
         }
       }
     },
+    "Title": {
+      "Small": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "16px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "24px"
+        }
+      },
+      "Regular": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "26px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "26px"
+        }
+      }
+    },
     "Body": {
       "Extra_Small": {
         "Text_Size": {
@@ -157,6 +187,10 @@
     "d96-t48-m32": {
       "$type": "dimension",
       "$value": "32px"
+    },
+    "d48-t32-m24": {
+      "$type": "dimension",
+      "$value": "24px"
     },
     "d64-t80-m32": {
       "$type": "dimension",

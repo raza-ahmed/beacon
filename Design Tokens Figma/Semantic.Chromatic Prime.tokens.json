@@ -1,5 +1,39 @@
 {
   "Color": {
+    "Primary": {
+      "100": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.100}"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.200}"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.300}"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.400}"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.500}"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.600}"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.700}"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{Color.Chromatic.800}"
+      }
+    },
     "Neutral": {
       "50": {
         "$type": "color",
@@ -44,40 +78,6 @@
       "Black": {
         "$type": "color",
         "$value": "{Color.Black.1000}"
-      }
-    },
-    "Primary": {
-      "100": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.100}"
-      },
-      "200": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.200}"
-      },
-      "300": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.300}"
-      },
-      "400": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.400}"
-      },
-      "500": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.500}"
-      },
-      "600": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.600}"
-      },
-      "700": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.700}"
-      },
-      "800": {
-        "$type": "color",
-        "$value": "{Color.Chromatic.800}"
       }
     },
     "Success": {
@@ -182,56 +182,86 @@
         "$value": "{Color.Red.800}"
       }
     },
-    "Shadow": {
-      "None": {
+    "Alpha-Neutral": {
+      "White-0": {
+        "$type": "color",
+        "$value": "{Color.White.0}"
+      },
+      "White-100": {
+        "$type": "color",
+        "$value": "{Color.White.100}"
+      },
+      "White-200": {
+        "$type": "color",
+        "$value": "{Color.White.200}"
+      },
+      "White-300": {
+        "$type": "color",
+        "$value": "{Color.White.300}"
+      },
+      "White-400": {
+        "$type": "color",
+        "$value": "{Color.White.400}"
+      },
+      "White-500": {
+        "$type": "color",
+        "$value": "{Color.White.500}"
+      },
+      "White-600": {
+        "$type": "color",
+        "$value": "{Color.White.600}"
+      },
+      "White-700": {
+        "$type": "color",
+        "$value": "{Color.White.700}"
+      },
+      "White-800": {
+        "$type": "color",
+        "$value": "{Color.White.800}"
+      },
+      "White-1000": {
+        "$type": "color",
+        "$value": "{Color.White.1000}"
+      },
+      "Black-0": {
         "$type": "color",
         "$value": "{Color.Black.0}"
       },
-      "Subtle": {
+      "Black-100": {
         "$type": "color",
         "$value": "{Color.Black.100}"
       },
-      "Normal": {
+      "Black-200": {
         "$type": "color",
         "$value": "{Color.Black.200}"
       },
-      "Medium": {
+      "Black-300": {
         "$type": "color",
         "$value": "{Color.Black.300}"
       },
-      "Strong": {
-        "$type": "color",
-        "$value": "{Color.Black.400}"
-      }
-    },
-    "Tint_Dark": {
-      "0": {
-        "$type": "color",
-        "$value": "{Color.Black.0}"
-      },
-      "100": {
-        "$type": "color",
-        "$value": "{Color.Black.100}"
-      },
-      "200": {
-        "$type": "color",
-        "$value": "{Color.Black.200}"
-      },
-      "300": {
-        "$type": "color",
-        "$value": "{Color.Black.300}"
-      },
-      "400": {
+      "Black-400": {
         "$type": "color",
         "$value": "{Color.Black.400}"
       },
-      "500": {
+      "Black-500": {
         "$type": "color",
         "$value": "{Color.Black.500}"
       },
-      "700": {
+      "Black-600": {
+        "$type": "color",
+        "$value": "{Color.Black.600}"
+      },
+      "Black-700": {
         "$type": "color",
         "$value": "{Color.Black.700}"
+      },
+      "Black-800": {
+        "$type": "color",
+        "$value": "{Color.Black.800}"
+      },
+      "Black-1000": {
+        "$type": "color",
+        "$value": "{Color.Black.1000}"
       }
     }
   },

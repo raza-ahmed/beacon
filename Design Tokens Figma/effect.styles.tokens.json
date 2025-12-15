@@ -8,7 +8,7 @@
           "offsetY": "2px",
           "blur": "12px",
           "spread": "0px",
-          "color": "{Color.Shadow.None}"
+          "color": "{Shadow.None}"
         }
       ]
     },
@@ -20,14 +20,14 @@
           "offsetY": "1px",
           "blur": "8px",
           "spread": "-2px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         },
         {
           "offsetX": "0px",
           "offsetY": "1px",
           "blur": "8px",
           "spread": "-8px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         }
       ]
     },
@@ -39,14 +39,14 @@
           "offsetY": "1px",
           "blur": "4px",
           "spread": "0px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         },
         {
           "offsetX": "0px",
           "offsetY": "1px",
           "blur": "4px",
           "spread": "-2px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         }
       ]
     },
@@ -58,14 +58,14 @@
           "offsetY": "-4px",
           "blur": "9px",
           "spread": "-6px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         },
         {
           "offsetX": "0px",
           "offsetY": "4px",
           "blur": "6px",
           "spread": "-2px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         }
       ]
     },
@@ -77,14 +77,14 @@
           "offsetY": "-6px",
           "blur": "16px",
           "spread": "-8px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         },
         {
           "offsetX": "0px",
           "offsetY": "4px",
           "blur": "6px",
           "spread": "0px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         }
       ]
     },
@@ -96,14 +96,14 @@
           "offsetY": "12px",
           "blur": "42px",
           "spread": "-4px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         },
         {
           "offsetX": "0px",
           "offsetY": "8px",
           "blur": "18px",
           "spread": "-6px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         }
       ]
     },
@@ -115,14 +115,14 @@
           "offsetY": "18px",
           "blur": "88px",
           "spread": "-4px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         },
         {
           "offsetX": "0px",
           "offsetY": "8px",
           "blur": "28px",
           "spread": "-6px",
-          "color": "{Color.Shadow.Subtle}"
+          "color": "{Shadow.Subtle}"
         }
       ]
     }

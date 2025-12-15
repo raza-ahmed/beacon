@@ -1,4 +1,30 @@
 {
+  "Title": {
+    "Small": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontSize": "{Fonts.Title.Small.Text Size}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Bold}",
+        "letterSpacing": "0%",
+        "lineHeight": "{Fonts.Title.Small.Line Height}",
+        "textTransform": "none",
+        "textDecoration": "none"
+      }
+    },
+    "Regular": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontSize": "{Fonts.Title.Regular.Text Size}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Bold}",
+        "letterSpacing": "0%",
+        "lineHeight": "{Fonts.Title.Regular.Line Height}",
+        "textTransform": "none",
+        "textDecoration": "none"
+      }
+    }
+  },
   "Heading": {
     "H1": {
       "$type": "typography",
@@ -27,7 +53,7 @@
     "H3": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Primary}",
         "fontSize": "{Fonts.Heading.H3.Text Size}",
         "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
         "letterSpacing": "0%",
