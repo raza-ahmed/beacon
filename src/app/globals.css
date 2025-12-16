@@ -38,6 +38,7 @@ body {
   display: flex;
   flex: 1;
   overflow: hidden;
+  padding: 0 var(--adaptive-set-d48-t32-m24);
 }
 
 .ds-layout__main {
@@ -234,7 +235,7 @@ body {
   width: var(--menu-width);
   flex-shrink: 0;
   overflow-y: auto;
-  padding: 0 var(--spacing-300) var(--spacing-500) var(--adaptive-set-d48-t32-m24);
+  padding: 0 var(--spacing-300) var(--spacing-500) 0;
   border-right: var(--border-width-25) solid var(--border-strong-200);
 }
 
@@ -531,7 +532,7 @@ body {
   
   .ds-sidebar {
     width: 200px;
-    padding-left: var(--spacing-400);
+    padding-left: 0;
   }
 }
 
