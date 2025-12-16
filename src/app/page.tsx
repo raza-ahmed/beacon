@@ -13,14 +13,14 @@ export default function IntroductionPage() {
     <PageLayout tocItems={tocItems} currentPath="/">
       <article className="ds-content">
         <header className="ds-content__header">
-          <h1 className="ds-content__title">Introduction</h1>
+          <h3 className="ds-content__title">Introduction</h3>
           <p className="ds-content__subtitle">
             Welcome to Beacon Design System
           </p>
         </header>
 
         <section id="about" className="ds-content__section">
-          <h2 className="ds-content__section-title">About Design System</h2>
+          <h6 className="ds-content__section-title">About Design System</h6>
           <p className="ds-content__text">
             Beacon Design System creates a seamless, user-friendly, and visually
             coherent digital environment. This system will serve as the
@@ -34,7 +34,7 @@ export default function IntroductionPage() {
         </section>
 
         <section id="links" className="ds-content__section">
-          <h2 className="ds-content__section-title">Important Links</h2>
+          <h6 className="ds-content__section-title">Important Links</h6>
           <ul className="ds-content__link-list">
             <li>
               <a href="#" className="ds-content__link">
@@ -64,7 +64,7 @@ export default function IntroductionPage() {
         </section>
 
         <section id="versioning" className="ds-content__section">
-          <h2 className="ds-content__section-title">Versioning & Releases</h2>
+          <h6 className="ds-content__section-title">Versioning & Releases</h6>
           <p className="ds-content__text">
             The system is designed to evolve incrementally. Components, tokens,
             and patterns may be added, refined, or deprecated as product
@@ -73,7 +73,7 @@ export default function IntroductionPage() {
           </p>
           <div className="ds-content__version-info">
             <span className="ds-content__version-label">Current Version:</span>
-            <span className="ds-content__version-value">V 2.102</span>
+            <span className="ds-content__version-value">V 2.3</span>
           </div>
         </section>
       </article>

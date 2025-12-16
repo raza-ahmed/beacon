@@ -99,7 +99,7 @@ body {
 
 .ds-header__logo-text {
   font-family: var(--font-secondary);
-  font-weight: 700;
+  font-weight: var(--font-weight-secondary-bold);
   font-size: var(--fonts-title-regular-text-size);
   color: var(--fg-neutral);
 }
@@ -141,7 +141,7 @@ body {
   border-radius: var(--corner-radius-200);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
-  font-weight: 500;
+  font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary-on-tonal);
 }
 
@@ -266,7 +266,7 @@ body {
   padding: var(--spacing-400) 0 0 0;
   font-family: var(--font-secondary);
   font-size: var(--fonts-title-small-text-size);
-  font-weight: 700;
+  font-weight: var(--font-weight-secondary-bold);
   line-height: var(--fonts-title-small-line-height);
   color: var(--fg-neutral-secondary);
 }
@@ -305,7 +305,7 @@ body {
 .ds-sidebar__nav-item.active {
   background-color: var(--bg-brand-tonal);
   color: var(--fg-primary-on-tonal);
-  font-weight: 500;
+  font-weight: var(--font-weight-secondary-medium);
 }
 
 .ds-sidebar__nav-group {
@@ -374,7 +374,7 @@ body {
 
 .ds-toc__item.active {
   color: var(--fg-primary-on-tonal);
-  font-weight: 500;
+  font-weight: var(--font-weight-secondary-medium);
 }
 
 /* ============================================
@@ -392,7 +392,7 @@ body {
 .ds-content__title {
   font-family: var(--font-primary);
   font-size: var(--heading-h3-text-size);
-  font-weight: 600;
+  font-weight: var(--font-weight-primary-semibold);
   line-height: var(--heading-h3-line-height);
   color: var(--fg-neutral);
   text-transform: capitalize;
@@ -413,7 +413,7 @@ body {
 .ds-content__section-title {
   font-family: var(--font-secondary);
   font-size: var(--fonts-title-regular-text-size);
-  font-weight: 700;
+  font-weight: var(--font-weight-secondary-bold);
   line-height: var(--fonts-title-regular-line-height);
   color: var(--fg-neutral);
   margin-bottom: var(--spacing-300);
@@ -479,7 +479,7 @@ body {
 .ds-content__link {
   font-family: var(--font-secondary);
   font-size: var(--body-regular-text-size);
-  font-weight: 500;
+  font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -507,7 +507,7 @@ body {
 .ds-content__version-label {
   font-family: var(--font-secondary);
   font-size: var(--fonts-title-small-text-size);
-  font-weight: 700;
+  font-weight: var(--font-weight-secondary-bold);
   line-height: var(--fonts-title-small-line-height);
   color: var(--fg-neutral);
 }
@@ -515,7 +515,7 @@ body {
 .ds-content__version-value {
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
-  font-weight: 500;
+  font-weight: var(--font-weight-secondary-medium);
   line-height: var(--body-small-line-height);
   color: var(--fg-neutral-tertiary);
 }

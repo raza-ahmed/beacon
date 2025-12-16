@@ -171,7 +171,27 @@ function generatePrimitivesCss(): string {
 
   for (const [tokenPath, { type, value }] of tokens) {
     const cssVar = tokenPathToCssVar(tokenPath);
-    const cssValue = tokenValueToCss(value, type, primitiveValues);
+    let cssValue = tokenValueToCss(value, type, primitiveValues);
+
+    // Normalize font weight tokens to numeric values for CSS consumption.
+    // Figma exports these as labels (e.g., "Regular", "SemiBold"), but CSS expects numbers.
+    if (
+      typeof value === "string" &&
+      !isReference(value) &&
+      cssVar.startsWith("--fonts-") &&
+      cssVar.includes("-weight-")
+    ) {
+      const normalized = value.toLowerCase().replace(/\s+/g, "");
+      if (normalized.includes("bold") && !normalized.includes("semi")) {
+        cssValue = "700";
+      } else if (normalized.includes("semibold")) {
+        cssValue = "600";
+      } else if (normalized.includes("medium")) {
+        cssValue = "500";
+      } else if (normalized.includes("regular")) {
+        cssValue = "400";
+      }
+    }
 
     // Store for later reference resolution
     if (typeof value === "string" && !isReference(value)) {
@@ -458,6 +478,21 @@ function generateTypographyCss(): string {
   lines.push("  /* Font families from semantic tokens */");
   lines.push('  --font-primary: "IBM Plex Serif", serif;');
   lines.push('  --font-secondary: "DM Sans", sans-serif;');
+  lines.push("");
+  lines.push("  /* Font weight tokens mapped from primitives */");
+  lines.push("  --font-weight-regular: var(--fonts-dm-sans-weight-regular);");
+  lines.push("  --font-weight-medium: var(--fonts-dm-sans-weight-medium);");
+  lines.push("  --font-weight-semibold: var(--fonts-dm-sans-weight-semibold);");
+  lines.push("  --font-weight-bold: var(--fonts-dm-sans-weight-bold);");
+  lines.push("  --font-weight-primary-regular: var(--fonts-ibm-plex-serif-weight-regular);");
+  lines.push("  --font-weight-primary-medium: var(--fonts-ibm-plex-serif-weight-medium);");
+  lines.push("  --font-weight-primary-semibold: var(--fonts-ibm-plex-serif-weight-semibold);");
+  // IBM Plex Serif export doesn't include a bold token in primitives - fall back to 700.
+  lines.push("  --font-weight-primary-bold: var(--font-weight-bold);");
+  lines.push("  --font-weight-secondary-regular: var(--fonts-dm-sans-weight-regular);");
+  lines.push("  --font-weight-secondary-medium: var(--fonts-dm-sans-weight-medium);");
+  lines.push("  --font-weight-secondary-semibold: var(--fonts-dm-sans-weight-semibold);");
+  lines.push("  --font-weight-secondary-bold: var(--fonts-dm-sans-weight-bold);");
   lines.push("}");
 
   // Generate utility classes for typography styles
@@ -491,14 +526,17 @@ function generateTypographyCss(): string {
 
     if (typographyValue.fontWeight) {
       const weight = typographyValue.fontWeight;
+      const isPrimaryFont = Boolean(typographyValue.fontFamily && typographyValue.fontFamily.includes("IBM"));
+      const prefix = isPrimaryFont ? "primary" : "secondary";
+
       if (weight.includes("Bold")) {
-        lines.push("  font-weight: 700;");
+        lines.push(`  font-weight: var(--font-weight-${prefix}-bold);`);
       } else if (weight.includes("Semibold") || weight.includes("SemiBold")) {
-        lines.push("  font-weight: 600;");
+        lines.push(`  font-weight: var(--font-weight-${prefix}-semibold);`);
       } else if (weight.includes("Medium")) {
-        lines.push("  font-weight: 500;");
+        lines.push(`  font-weight: var(--font-weight-${prefix}-medium);`);
       } else {
-        lines.push("  font-weight: 400;");
+        lines.push(`  font-weight: var(--font-weight-${prefix}-regular);`);
       }
     }
 

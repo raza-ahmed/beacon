@@ -60,7 +60,7 @@ export function Header() {
       </div>
 
       <div className="ds-header__end">
-        <div className="ds-header__version-badge">Version: 1.2</div>
+        <div className="ds-header__version-badge">Version: 2.3</div>
 
         <div className="ds-header__hue-select" ref={dropdownRef}>
           <button
