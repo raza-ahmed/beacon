@@ -360,7 +360,8 @@ function generateResponsiveCss(): string {
     // Skip visibility and non-dimension tokens for CSS vars
     if (type === "boolean") continue;
 
-    let cssVar = tokenPathToCssVar(tokenPath);
+    const originalCssVar = tokenPathToCssVar(tokenPath);
+    let cssVar = originalCssVar;
 
     // Map font tokens to cleaner names
     if (tokenPath.startsWith("Fonts.Heading.")) {
@@ -381,6 +382,11 @@ function generateResponsiveCss(): string {
 
     const cssValue = tokenValueToCss(value, type, primitiveValues);
     lines.push(`  ${cssVar}: ${cssValue};`);
+    // Also emit the canonical tokenPath var name so references like
+    // {Fonts.Heading.H3.Text Size} -> var(--fonts-heading-h3-text-size) resolve correctly.
+    if (cssVar !== originalCssVar) {
+      lines.push(`  ${originalCssVar}: ${cssValue};`);
+    }
   }
   lines.push("}");
 
@@ -390,7 +396,8 @@ function generateResponsiveCss(): string {
   for (const [tokenPath, { type, value }] of tabletTokens) {
     if (type === "boolean") continue;
 
-    let cssVar = tokenPathToCssVar(tokenPath);
+    const originalCssVar = tokenPathToCssVar(tokenPath);
+    let cssVar = originalCssVar;
 
     if (tokenPath.startsWith("Fonts.Heading.")) {
       const match = tokenPath.match(/Fonts\.Heading\.(H\d)\.(.+)/);
@@ -410,6 +417,9 @@ function generateResponsiveCss(): string {
 
     const cssValue = tokenValueToCss(value, type, primitiveValues);
     lines.push(`    ${cssVar}: ${cssValue};`);
+    if (cssVar !== originalCssVar) {
+      lines.push(`    ${originalCssVar}: ${cssValue};`);
+    }
   }
   lines.push("  }");
   lines.push("}");
@@ -420,7 +430,8 @@ function generateResponsiveCss(): string {
   for (const [tokenPath, { type, value }] of mobileTokens) {
     if (type === "boolean") continue;
 
-    let cssVar = tokenPathToCssVar(tokenPath);
+    const originalCssVar = tokenPathToCssVar(tokenPath);
+    let cssVar = originalCssVar;
 
     if (tokenPath.startsWith("Fonts.Heading.")) {
       const match = tokenPath.match(/Fonts\.Heading\.(H\d)\.(.+)/);
@@ -440,6 +451,9 @@ function generateResponsiveCss(): string {
 
     const cssValue = tokenValueToCss(value, type, primitiveValues);
     lines.push(`    ${cssVar}: ${cssValue};`);
+    if (cssVar !== originalCssVar) {
+      lines.push(`    ${originalCssVar}: ${cssValue};`);
+    }
   }
   lines.push("  }");
   lines.push("}");
@@ -475,9 +489,9 @@ function generateTypographyCss(): string {
 
   // Generate CSS custom properties for typography
   lines.push(":root {");
-  lines.push("  /* Font families from semantic tokens */");
-  lines.push('  --font-primary: "IBM Plex Serif", serif;');
-  lines.push('  --font-secondary: "DM Sans", sans-serif;');
+  lines.push("  /* Font families mapped from primitives */");
+  lines.push("  --font-primary: var(--fonts-ibm-plex-serif-style-ibm-plex-serif), serif;");
+  lines.push("  --font-secondary: var(--fonts-dm-sans-style-dm-sans), sans-serif;");
   lines.push("");
   lines.push("  /* Font weight tokens mapped from primitives */");
   lines.push("  --font-weight-regular: var(--fonts-dm-sans-weight-regular);");
@@ -517,16 +531,24 @@ function generateTypographyCss(): string {
 
     if (typographyValue.fontFamily) {
       const fontRef = typographyValue.fontFamily;
-      if (fontRef.includes("IBM")) {
-        lines.push("  font-family: var(--font-primary);");
-      } else {
-        lines.push("  font-family: var(--font-secondary);");
-      }
+      const tokenRef = isReference(fontRef) ? fontRef.slice(1, -1).toLowerCase() : "";
+      const isPrimaryFont =
+        tokenRef.includes("font.primary") ||
+        tokenRef.includes("ibm") ||
+        (!isReference(fontRef) && fontRef.includes("IBM"));
+      lines.push(`  font-family: var(--font-${isPrimaryFont ? "primary" : "secondary"});`);
     }
 
     if (typographyValue.fontWeight) {
       const weight = typographyValue.fontWeight;
-      const isPrimaryFont = Boolean(typographyValue.fontFamily && typographyValue.fontFamily.includes("IBM"));
+      const tokenRef = typographyValue.fontFamily && isReference(typographyValue.fontFamily)
+        ? typographyValue.fontFamily.slice(1, -1).toLowerCase()
+        : "";
+      const isPrimaryFont = Boolean(
+        (typographyValue.fontFamily && !isReference(typographyValue.fontFamily) && typographyValue.fontFamily.includes("IBM")) ||
+          tokenRef.includes("font.primary") ||
+          tokenRef.includes("ibm")
+      );
       const prefix = isPrimaryFont ? "primary" : "secondary";
 
       if (weight.includes("Bold")) {
@@ -548,8 +570,19 @@ function generateTypographyCss(): string {
       lines.push(`  text-decoration: ${typographyValue.textDecoration};`);
     }
 
+    if (typographyValue.fontSize) {
+      const size = typographyValue.fontSize;
+      lines.push(`  font-size: ${isReference(size) ? resolveReference(size, primitiveValues, semanticValues) : size};`);
+    }
+
+    if (typographyValue.lineHeight) {
+      const lh = typographyValue.lineHeight;
+      lines.push(`  line-height: ${isReference(lh) ? resolveReference(lh, primitiveValues, semanticValues) : lh};`);
+    }
+
     if (typographyValue.letterSpacing && typographyValue.letterSpacing !== "0%") {
-      lines.push(`  letter-spacing: ${typographyValue.letterSpacing};`);
+      const ls = typographyValue.letterSpacing;
+      lines.push(`  letter-spacing: ${isReference(ls) ? resolveReference(ls, primitiveValues, semanticValues) : ls};`);
     }
 
     lines.push("}");
