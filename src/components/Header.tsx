@@ -10,6 +10,7 @@ import {
   ChevronDownIcon,
   SunIcon,
   MoonIcon,
+  MenuIcon,
 } from "./icons";
 
 const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
@@ -18,7 +19,11 @@ const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "chromatic-prime", label: "Chromatic" },
 ];
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick?: () => void;
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   const { theme, hue, toggleTheme, setHue } = useTheme();
   const [isHueDropdownOpen, setIsHueDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -44,6 +49,15 @@ export function Header() {
   return (
     <header className="ds-header">
       <div className="ds-header__start">
+        <button
+          type="button"
+          className="ds-header__menu-button"
+          onClick={onMenuClick}
+          aria-label="Open navigation menu"
+        >
+          <MenuIcon size="rg" />
+        </button>
+
         <a href="/" className="ds-header__logo">
           <BeaconIcon size="rg" />
           <span className="ds-header__logo-text">Beacon</span>
@@ -69,7 +83,7 @@ export function Header() {
             aria-expanded={isHueDropdownOpen}
             aria-haspopup="listbox"
           >
-            <PaletteIcon size="xs" />
+            <PaletteIcon size="xs" className="ds-header__hue-icon" />
             <span>{currentHueLabel}</span>
             <ChevronDownIcon size="xs" />
           </button>

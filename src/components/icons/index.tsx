@@ -196,3 +196,47 @@ export function MoonIcon({ size = "rg", className }: IconProps) {
   );
 }
 
+export function MenuIcon({ size = "rg", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      style={style}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 7h16M4 12h16M4 17h16"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function CloseIcon({ size = "rg", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      style={style}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 6l12 12M18 6L6 18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+

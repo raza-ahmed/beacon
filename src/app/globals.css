@@ -82,6 +82,25 @@ body {
   gap: var(--spacing-500);
 }
 
+.ds-header__menu-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--corner-radius-full);
+  color: var(--fg-neutral-secondary);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.ds-header__menu-button:hover {
+  color: var(--fg-neutral);
+  background-color: var(--bg-page-secondary);
+}
+
 .ds-header__logo {
   display: flex;
   align-items: center;
@@ -144,6 +163,10 @@ body {
   line-height: var(--body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary-on-tonal);
+}
+
+.ds-header__hue-icon {
+  display: inline-flex;
 }
 
 .ds-header__hue-select {
@@ -225,6 +248,149 @@ body {
 
 .ds-header__theme-toggle:hover {
   color: var(--fg-primary);
+}
+
+/* ============================================
+   MOBILE DRAWER
+   ============================================ */
+
+.ds-mobile-drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.ds-mobile-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.ds-mobile-drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: min(320px, 88vw);
+  background-color: var(--bg-page-primary);
+  border-right: var(--border-width-25) solid var(--border-strong-200);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 200ms ease;
+}
+
+.ds-mobile-drawer-root[data-state="open"] .ds-mobile-drawer-backdrop {
+  opacity: 1;
+}
+
+.ds-mobile-drawer-root[data-state="open"] .ds-mobile-drawer {
+  transform: translateX(0);
+}
+
+.ds-mobile-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-200);
+  padding: var(--spacing-300) var(--spacing-300);
+  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  flex-shrink: 0;
+}
+
+.ds-mobile-drawer__search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-100);
+  padding: var(--spacing-200);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-100);
+  color: var(--fg-disabled);
+  flex: 1;
+  min-width: 0;
+}
+
+.ds-mobile-drawer__search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral);
+  width: 100%;
+  min-width: 0;
+}
+
+.ds-mobile-drawer__search-input::placeholder {
+  color: var(--fg-disabled);
+}
+
+.ds-mobile-drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--corner-radius-full);
+  color: var(--fg-neutral-secondary);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.ds-mobile-drawer__close:hover {
+  color: var(--fg-neutral);
+  background-color: var(--bg-page-secondary);
+}
+
+.ds-mobile-drawer .ds-sidebar {
+  display: block;
+  width: 100%;
+  border-right: none;
+  padding: var(--spacing-300);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Make the drawer nav look scrollable on mobile by showing a thin scrollbar here only */
+.ds-mobile-drawer .ds-sidebar {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--border-strong-200) transparent; /* Firefox */
+  -ms-overflow-style: auto; /* IE/Edge legacy */
+}
+
+.ds-mobile-drawer .ds-sidebar::-webkit-scrollbar {
+  width: 6px;
+  display: block;
+}
+
+.ds-mobile-drawer .ds-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ds-mobile-drawer .ds-sidebar::-webkit-scrollbar-thumb {
+  background: var(--border-strong-200);
+  border-radius: var(--corner-radius-full);
+}
+
+.ds-mobile-drawer .ds-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong-100);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-mobile-drawer-backdrop,
+  .ds-mobile-drawer {
+    transition: none;
+  }
 }
 
 /* ============================================
@@ -440,14 +606,7 @@ body {
 .ds-content__gradient-image {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary-700) 0%,
-    var(--color-primary-500) 25%,
-    #a855f7 50%,
-    var(--color-primary-400) 75%,
-    var(--color-primary-300) 100%
-  );
+  background: linear-gradient(135deg, #00c6ff 0%, #0118ff 25%, #a855f7 50%, #39fff1 75%, #91ff7c 100%);
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
 }
@@ -542,6 +701,18 @@ body {
   }
   
   .ds-header__search {
+    display: none;
+  }
+
+  .ds-header__version-badge {
+    display: none;
+  }
+
+  .ds-header__menu-button {
+    display: flex;
+  }
+
+  .ds-header__logo-text {
     display: none;
   }
   
