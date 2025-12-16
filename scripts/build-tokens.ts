@@ -595,22 +595,40 @@ function generateTypes(): string {
 }
 
 /**
- * Generate index CSS that imports all token files
+ * Generate index CSS that includes all token files.
+ *
+ * Important: Avoid CSS @import here. Next.js will bundle CSS from multiple files
+ * into a single stylesheet, and any @import that is not at the very top of the
+ * final stylesheet will be ignored by browsers.
  */
-function generateIndexCss(): string {
-  return `/* Design System Tokens - Auto-generated */
-/* Do not edit directly - regenerate with npm run build:tokens */
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap');
-
-@import "./primitives.css";
-@import "./semantic.css";
-@import "./brand-light.css";
-@import "./brand-dark.css";
-@import "./responsive.css";
-@import "./effects.css";
-@import "./typography.css";
-`;
+function generateIndexCss(parts: {
+  primitivesCss: string;
+  semanticCss: string;
+  brandLightCss: string;
+  brandDarkCss: string;
+  responsiveCss: string;
+  effectsCss: string;
+  typographyCss: string;
+}): string {
+  return [
+    "/* Design System Tokens - Auto-generated */",
+    "/* Do not edit directly - regenerate with npm run build:tokens */",
+    "",
+    parts.primitivesCss.trim(),
+    "",
+    parts.semanticCss.trim(),
+    "",
+    parts.brandLightCss.trim(),
+    "",
+    parts.brandDarkCss.trim(),
+    "",
+    parts.responsiveCss.trim(),
+    "",
+    parts.effectsCss.trim(),
+    "",
+    parts.typographyCss.trim(),
+    "",
+  ].join("\n");
 }
 
 /**
@@ -654,7 +672,15 @@ async function build() {
   fs.writeFileSync(path.join(OUTPUT_DIR, "typography.css"), typographyCss);
 
   console.log("Generating index.css...");
-  const indexCss = generateIndexCss();
+  const indexCss = generateIndexCss({
+    primitivesCss,
+    semanticCss,
+    brandLightCss,
+    brandDarkCss,
+    responsiveCss,
+    effectsCss,
+    typographyCss,
+  });
   fs.writeFileSync(path.join(OUTPUT_DIR, "index.css"), indexCss);
 
   console.log("Generating types.ts...");
