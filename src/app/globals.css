@@ -89,6 +89,14 @@ body {
   color: inherit;
 }
 
+.ds-header__logo svg {
+  width: var(--icon-size-rg);
+  height: var(--icon-size-rg);
+  flex: 0 0 var(--icon-size-rg);
+  aspect-ratio: 1 / 1;
+  display: block;
+}
+
 .ds-header__logo-text {
   font-family: var(--font-secondary);
   font-weight: 700;
@@ -320,8 +328,7 @@ body {
 .ds-toc {
   width: 200px;
   flex-shrink: 0;
-  padding: var(--spacing-600) 0 var(--spacing-600) var(--spacing-300);
-  border-left: var(--border-width-25) solid var(--border-strong-200);
+  padding: var(--spacing-600) 0;
   overflow-y: auto;
 }
 
@@ -341,6 +348,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-100);
+  border-left: var(--border-width-25) solid var(--border-strong-200);
+  padding-left: var(--spacing-300);
 }
 
 .ds-toc__item {

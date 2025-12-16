@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import {
+  BeaconIcon,
   SearchIcon,
   PaletteIcon,
   ChevronDownIcon,
@@ -44,34 +45,12 @@ export function Header() {
     <header className="ds-header">
       <div className="ds-header__start">
         <a href="/" className="ds-header__logo">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="12" cy="12" r="10" fill="var(--fg-primary)" />
-            <circle cx="12" cy="8" r="3" fill="var(--bg-page-primary)" />
-            <path
-              d="M12 11v5"
-              stroke="var(--bg-page-primary)"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M9 14l3 3 3-3"
-              stroke="var(--bg-page-primary)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <BeaconIcon size="rg" />
           <span className="ds-header__logo-text">Beacon</span>
         </a>
 
         <div className="ds-header__search">
-          <SearchIcon size={16} />
+          <SearchIcon size="xs" />
           <input
             type="text"
             placeholder="Search Components..."
@@ -90,9 +69,9 @@ export function Header() {
             aria-expanded={isHueDropdownOpen}
             aria-haspopup="listbox"
           >
-            <PaletteIcon size={16} />
+            <PaletteIcon size="xs" />
             <span>{currentHueLabel}</span>
-            <ChevronDownIcon size={16} />
+            <ChevronDownIcon size="xs" />
           </button>
 
           {isHueDropdownOpen && (
@@ -122,7 +101,7 @@ export function Header() {
           onClick={toggleTheme}
           aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
         >
-          {theme === "light" ? <MoonIcon size={24} /> : <SunIcon size={24} />}
+          {theme === "light" ? <MoonIcon size="rg" /> : <SunIcon size="rg" />}
         </button>
       </div>
     </header>

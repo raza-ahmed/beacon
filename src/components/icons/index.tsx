@@ -2,46 +2,68 @@
 import React from "react";
 
 interface IconProps {
-  size?: number;
+  size?: number | IconSize;
   className?: string;
 }
 
-export function BeaconIcon({ size = 24, className }: IconProps) {
+type IconSize = "xs" | "sm" | "rg" | "md" | "lg" | "xl" | "2xl";
+
+function iconSizeVar(size: IconSize) {
+  return `var(--icon-size-${size})`;
+}
+
+/**
+ * CSS variables are not valid in SVG width/height attributes in browsers.
+ * For token sizes, apply width/height via style instead of attributes.
+ */
+function getSvgSizeProps(size: number | IconSize) {
+  if (typeof size === "number") {
+    return {
+      width: size,
+      height: size,
+      style: undefined as React.CSSProperties | undefined,
+    };
+  }
+
+  const v = iconSizeVar(size);
+  return {
+    width: undefined as number | undefined,
+    height: undefined as number | undefined,
+    style: { width: v, height: v } as React.CSSProperties,
+  };
+}
+
+export function BeaconIcon({ size = "rg", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       className={className}
-      xmlns="http://www.w3.org/2000/svg"
+      style={style}
     >
       <path
-        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+        d="M12 1C5.9 1 1 6 1 12.1C1 18.2 4.7 21.9 9.7 23V13.7C9.7 12.3 10.9 11.1 12.3 11.1C13.7 11.1 14.9 12.3 14.9 13.7V22.8C19.6 21.5 23.1 17.2 23.1 12C23.1 6.8 18.1 1 12 1ZM18.2 10.2C18 10.3 17.7 10.4 17.5 10.4C17 10.4 16.6 10.2 16.3 9.7C15.4 8.1 13.8 7.2 12 7.2C10.2 7.2 8.6 8.2 7.7 9.7C7.3 10.4 6.5 10.6 5.8 10.2C5.1 9.8 4.9 9 5.3 8.3C6 7.1 6.9 6.2 8.1 5.5C9.3 4.8 10.6 4.4 12 4.4C13.4 4.4 14.7 4.8 15.9 5.5C17 6.2 18 7.2 18.7 8.3C19.1 9 18.9 9.8 18.2 10.2Z"
         fill="var(--fg-primary)"
       />
-      <circle cx="12" cy="12" r="8" stroke="var(--fg-primary)" strokeWidth="2" fill="none" />
-      <circle cx="12" cy="8" r="2" fill="var(--fg-primary)" />
-      <path
-        d="M12 10v6M9 13l3 3 3-3"
-        stroke="var(--fg-primary)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
     </svg>
+
   );
 }
 
-export function SearchIcon({ size = 16, className }: IconProps) {
+export function SearchIcon({ size = "xs", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      width={width}
+      height={height}
       viewBox="0 0 16 16"
       fill="none"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -55,14 +77,16 @@ export function SearchIcon({ size = 16, className }: IconProps) {
   );
 }
 
-export function PaletteIcon({ size = 16, className }: IconProps) {
+export function PaletteIcon({ size = "xs", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      width={width}
+      height={height}
       viewBox="0 0 16 16"
       fill="none"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -80,14 +104,16 @@ export function PaletteIcon({ size = 16, className }: IconProps) {
   );
 }
 
-export function ChevronDownIcon({ size = 16, className }: IconProps) {
+export function ChevronDownIcon({ size = "xs", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      width={width}
+      height={height}
       viewBox="0 0 16 16"
       fill="none"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -101,14 +127,16 @@ export function ChevronDownIcon({ size = 16, className }: IconProps) {
   );
 }
 
-export function ChevronUpIcon({ size = 16, className }: IconProps) {
+export function ChevronUpIcon({ size = "xs", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      width={width}
+      height={height}
       viewBox="0 0 16 16"
       fill="none"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -122,14 +150,16 @@ export function ChevronUpIcon({ size = 16, className }: IconProps) {
   );
 }
 
-export function SunIcon({ size = 24, className }: IconProps) {
+export function SunIcon({ size = "rg", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
@@ -143,14 +173,16 @@ export function SunIcon({ size = 24, className }: IconProps) {
   );
 }
 
-export function MoonIcon({ size = 24, className }: IconProps) {
+export function MoonIcon({ size = "rg", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg
-      width={size}
-      height={size}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       className={className}
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

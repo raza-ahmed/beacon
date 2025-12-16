@@ -73,7 +73,7 @@ function NavItemComponent({ item, isActive, level = 0 }: NavItemComponentProps) 
           aria-expanded={isExpanded}
         >
           <span>{item.label}</span>
-          {isExpanded ? <ChevronUpIcon size={20} /> : <ChevronDownIcon size={20} />}
+          {isExpanded ? <ChevronUpIcon size="sm" /> : <ChevronDownIcon size="sm" />}
         </button>
         {isExpanded && (
           <div className="ds-sidebar__nav-submenu">
