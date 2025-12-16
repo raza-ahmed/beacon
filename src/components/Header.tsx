@@ -12,9 +12,9 @@ import {
 } from "./icons";
 
 const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
-  { value: "chromatic-prime", label: "Chromatic" },
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
+  { value: "chromatic-prime", label: "Chromatic" },
 ];
 
 export function Header() {

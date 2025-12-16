@@ -46,6 +46,17 @@ body {
   padding: var(--spacing-500) 0;
 }
 
+.ds-layout__main {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+.ds-layout__main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari */
+}
+
 .ds-layout__content {
   max-width: 100%;
 }
@@ -219,6 +230,18 @@ body {
   border-right: var(--border-width-25) solid var(--border-strong-200);
 }
 
+/* Hide visible scrollbar but keep scrolling */
+.ds-sidebar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+.ds-sidebar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari */
+}
+
 .ds-sidebar__nav {
   display: flex;
   flex-direction: column;
@@ -300,6 +323,18 @@ body {
   padding: var(--spacing-600) 0 var(--spacing-600) var(--spacing-300);
   border-left: var(--border-width-25) solid var(--border-strong-200);
   overflow-y: auto;
+}
+
+/* Hide visible scrollbar but keep scrolling */
+.ds-toc {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+.ds-toc::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari */
 }
 
 .ds-toc__nav {

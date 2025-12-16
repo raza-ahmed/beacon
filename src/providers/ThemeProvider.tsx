@@ -32,7 +32,7 @@ interface ThemeProviderProps {
 export function ThemeProvider({
   children,
   defaultTheme = "light",
-  defaultHue = "chromatic-prime",
+  defaultHue = "hue-sky",
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
   const [hue, setHueState] = useState<HueVariant>(defaultHue);
