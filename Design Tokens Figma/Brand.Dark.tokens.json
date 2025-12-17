@@ -18,19 +18,31 @@
     },
     "Disabled": {
       "$type": "color",
-      "$value": "{Color.Neutral.600}"
+      "$value": "{Color.Neutral.700}"
     },
     "Brand": {
       "$type": "color",
       "$value": "{Color.Primary.500}"
     },
-    "Brand-On_Hover": {
-      "$type": "color",
-      "$value": "{Color.Primary.400}"
-    },
     "Brand_Tonal": {
       "$type": "color",
       "$value": "{Color.Primary.800}"
+    },
+    "Brand_Pressed": {
+      "$type": "color",
+      "$value": "{Color.Primary.700}"
+    },
+    "Brand_Disabled": {
+      "$type": "color",
+      "$value": "{Color.Primary.700}"
+    },
+    "Brand_Dark": {
+      "$type": "color",
+      "$value": "{Color.Primary.100}"
+    },
+    "Brand-On_Hover": {
+      "$type": "color",
+      "$value": "{Color.Primary.400}"
     },
     "Brand_Tonal-On_Hover": {
       "$type": "color",
@@ -40,25 +52,9 @@
       "$type": "color",
       "$value": "{Color.Primary.400}"
     },
-    "Brand_Disabled": {
-      "$type": "color",
-      "$value": "{Color.Primary.700}"
-    },
-    "Brand_Pressed": {
-      "$type": "color",
-      "$value": "{Color.Primary.700}"
-    },
-    "Brand_Dark": {
-      "$type": "color",
-      "$value": "{Color.Primary.100}"
-    },
     "Success": {
       "$type": "color",
       "$value": "{Color.Success.500}"
-    },
-    "Success-On_Hover": {
-      "$type": "color",
-      "$value": "{Color.Success.400}"
     },
     "Success_Tonal": {
       "$type": "color",
@@ -68,13 +64,13 @@
       "$type": "color",
       "$value": "{Color.Success.100}"
     },
+    "Success-On_Hover": {
+      "$type": "color",
+      "$value": "{Color.Success.400}"
+    },
     "Warning": {
       "$type": "color",
       "$value": "{Color.Warning.500}"
-    },
-    "Warning-On_Hover": {
-      "$type": "color",
-      "$value": "{Color.Warning.400}"
     },
     "Warning_Tonal": {
       "$type": "color",
@@ -84,13 +80,13 @@
       "$type": "color",
       "$value": "{Color.Warning.100}"
     },
+    "Warning-On_Hover": {
+      "$type": "color",
+      "$value": "{Color.Warning.400}"
+    },
     "Critical": {
       "$type": "color",
       "$value": "{Color.Critical.500}"
-    },
-    "Critical-On_Hover": {
-      "$type": "color",
-      "$value": "{Color.Critical.400}"
     },
     "Critical_Tonal": {
       "$type": "color",
@@ -99,6 +95,10 @@
     "Critical_Dark": {
       "$type": "color",
       "$value": "{Color.Critical.100}"
+    },
+    "Critical-On_Hover": {
+      "$type": "color",
+      "$value": "{Color.Critical.400}"
     },
     "Transparent": {
       "$type": "color",
@@ -136,7 +136,7 @@
     },
     "Primary_-_On_Tonal": {
       "$type": "color",
-      "$value": "{Color.Primary.100}"
+      "$value": "{Color.Primary.600}"
     },
     "Primary-_On_Focus": {
       "$type": "color",
