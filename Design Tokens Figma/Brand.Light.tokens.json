@@ -122,10 +122,6 @@
       "$type": "color",
       "$value": "{Color.Primary.500}"
     },
-    "Primary_Tonal": {
-      "$type": "color",
-      "$value": "{Color.Primary.100}"
-    },
     "Primary_Disabled": {
       "$type": "color",
       "$value": "{Color.Primary.400}"
@@ -136,7 +132,7 @@
     },
     "Primary_-_On_Tonal": {
       "$type": "color",
-      "$value": "{Color.Primary.600}"
+      "$value": "{Color.Primary.500}"
     },
     "Primary-_On_Focus": {
       "$type": "color",
@@ -156,15 +152,11 @@
     },
     "Critical-_On_Tonal": {
       "$type": "color",
-      "$value": "{Color.Critical.600}"
+      "$value": "{Color.Critical.500}"
     },
     "Warning": {
       "$type": "color",
       "$value": "{Color.Orange.500}"
-    },
-    "Warning_Tonal": {
-      "$type": "color",
-      "$value": "{Color.Orange.100}"
     },
     "Warning-_On_Tonal": {
       "$type": "color",
@@ -174,13 +166,9 @@
       "$type": "color",
       "$value": "{Color.Green.500}"
     },
-    "Success_Tonal": {
-      "$type": "color",
-      "$value": "{Color.Green.100}"
-    },
     "Success-_On_Tonal": {
       "$type": "color",
-      "$value": "{Color.Green.600}"
+      "$value": "{Color.Green.500}"
     },
     "On_Action": {
       "$type": "color",

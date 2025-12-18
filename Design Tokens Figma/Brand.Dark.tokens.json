@@ -122,10 +122,6 @@
       "$type": "color",
       "$value": "{Color.Primary.500}"
     },
-    "Primary_Tonal": {
-      "$type": "color",
-      "$value": "{Color.Primary.100}"
-    },
     "Primary_Disabled": {
       "$type": "color",
       "$value": "{Color.Primary.700}"
@@ -136,7 +132,7 @@
     },
     "Primary_-_On_Tonal": {
       "$type": "color",
-      "$value": "{Color.Primary.600}"
+      "$value": "{Color.Primary.300}"
     },
     "Primary-_On_Focus": {
       "$type": "color",
@@ -162,10 +158,6 @@
       "$type": "color",
       "$value": "{Color.Orange.500}"
     },
-    "Warning_Tonal": {
-      "$type": "color",
-      "$value": "{Color.Orange.800}"
-    },
     "Warning-_On_Tonal": {
       "$type": "color",
       "$value": "{Color.Orange.100}"
@@ -173,10 +165,6 @@
     "Success": {
       "$type": "color",
       "$value": "{Color.Green.500}"
-    },
-    "Success_Tonal": {
-      "$type": "color",
-      "$value": "{Color.Green.800}"
     },
     "Success-_On_Tonal": {
       "$type": "color",
