@@ -52,22 +52,27 @@ const navigationData: NavSection[] = [
   },
 ];
 
+
 interface NavItemComponentProps {
   item: NavItem;
   isActive: boolean;
+  currentPath?: string;
   level?: number;
 }
 
-function NavItemComponent({ item, isActive, level = 0 }: NavItemComponentProps) {
+function NavItemComponent({ item, isActive, currentPath, level = 0 }: NavItemComponentProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const hasChildren = item.children && item.children.length > 0;
 
   if (hasChildren) {
+    // Check if any child is active
+    const hasActiveChild = item.children!.some((child) => child.href === currentPath);
+    
     return (
       <div className="ds-sidebar__nav-group">
         <button
           className={`ds-sidebar__nav-item ds-sidebar__nav-item--expandable ${
-            isActive ? "active" : ""
+            isActive || hasActiveChild ? "active" : ""
           }`}
           onClick={() => setIsExpanded(!isExpanded)}
           aria-expanded={isExpanded}
@@ -81,7 +86,8 @@ function NavItemComponent({ item, isActive, level = 0 }: NavItemComponentProps) 
               <NavItemComponent
                 key={child.label}
                 item={child}
-                isActive={false}
+                isActive={child.href === currentPath}
+                currentPath={currentPath}
                 level={level + 1}
               />
             ))}
@@ -118,6 +124,7 @@ export function Sidebar({ currentPath = "/" }: SidebarProps) {
                   key={item.label}
                   item={item}
                   isActive={item.href === currentPath}
+                  currentPath={currentPath}
                 />
               ))}
             </div>

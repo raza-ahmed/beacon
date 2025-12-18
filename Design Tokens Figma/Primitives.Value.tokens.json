@@ -83,35 +83,35 @@
     "Chromatic": {
       "100": {
         "$type": "color",
-        "$value": "#f1f4fe"
+        "$value": "#F1F4FE"
       },
       "200": {
         "$type": "color",
-        "$value": "#e4e6ed"
+        "$value": "#C4C8D7"
       },
       "300": {
         "$type": "color",
-        "$value": "#c8cad3"
+        "$value": "#A0A5BB"
       },
       "400": {
         "$type": "color",
-        "$value": "#a9adb9"
+        "$value": "#858B9D"
       },
       "500": {
         "$type": "color",
-        "$value": "#7f8496"
+        "$value": "#585E71"
       },
       "600": {
         "$type": "color",
-        "$value": "#63687c"
+        "$value": "#494D5E"
       },
       "700": {
         "$type": "color",
-        "$value": "#4a5167"
+        "$value": "#383C4B"
       },
       "800": {
         "$type": "color",
-        "$value": "#2e3038"
+        "$value": "#2A2C34"
       }
     },
     "Green": {

@@ -1690,6 +1690,222 @@ body {
 }
 
 /* ============================================
+   THEME PREVIEWS
+   ============================================ */
+
+.ds-theme-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-300);
+  margin-top: var(--spacing-300);
+}
+
+.ds-theme-preview__card {
+  border-radius: var(--corner-radius-200);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-secondary);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-theme-preview__header {
+  padding: var(--spacing-300);
+  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ds-theme-preview__title {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-title-regular-text-size);
+  line-height: var(--fonts-title-regular-line-height);
+  font-weight: var(--font-weight-secondary-bold);
+  color: var(--fg-neutral);
+  margin: 0;
+}
+
+.ds-theme-preview__apply {
+  appearance: none;
+  border: var(--border-width-25) solid var(--border-primary);
+  background-color: var(--bg-brand-tonal);
+  color: var(--fg-primary-on-tonal);
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  padding: var(--spacing-100) var(--spacing-200);
+  border-radius: var(--corner-radius-200);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ds-theme-preview__apply:hover {
+  background-color: var(--bg-brand-tonal-on-hover);
+  border-color: var(--border-primary-on-hover);
+}
+
+.ds-theme-preview__content {
+  padding: var(--spacing-300);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+}
+
+.ds-theme-preview__surface {
+  border-radius: var(--corner-radius-200);
+  padding: var(--spacing-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.ds-theme-preview__brand {
+  padding: var(--spacing-200);
+  border-radius: var(--corner-radius-200);
+  font-family: var(--font-secondary);
+  font-size: var(--body-regular-text-size);
+  line-height: var(--body-regular-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  text-align: center;
+}
+
+.ds-theme-preview__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+
+.ds-theme-preview__text p {
+  margin: 0;
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+}
+
+.ds-theme-preview__tokens {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+  padding-top: var(--spacing-200);
+  border-top: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-theme-preview__token {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-200);
+}
+
+.ds-theme-preview__token-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral);
+  flex: 1;
+}
+
+.ds-theme-preview__token-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral-secondary);
+  white-space: nowrap;
+}
+
+/* ============================================
+   THEME COMPARISON TABLE
+   ============================================ */
+
+.ds-theme-comparison {
+  border-radius: var(--corner-radius-200);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-secondary);
+  overflow: hidden;
+  margin-top: var(--spacing-300);
+}
+
+.ds-theme-comparison__row {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 2fr 2fr 1.5fr;
+  gap: var(--spacing-200);
+  padding: var(--spacing-300);
+  border-top: var(--border-width-25) solid var(--border-strong-200);
+  align-items: center;
+}
+
+.ds-theme-comparison__row--head {
+  background-color: var(--bg-page-primary);
+  border-top: none;
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+}
+
+.ds-theme-comparison__row:not(.ds-theme-comparison__row--head):hover {
+  background-color: var(--bg-page-primary);
+}
+
+.ds-theme-comparison__cell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ds-theme-comparison__cell--actions {
+  flex-direction: row;
+  gap: var(--spacing-200);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ds-theme-comparison__unchanged {
+  color: var(--fg-neutral-secondary);
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .ds-theme-comparison__row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-200);
+  }
+
+  .ds-theme-comparison__row--head {
+    display: none;
+  }
+
+  .ds-theme-comparison__cell::before {
+    content: attr(data-label);
+    font-family: var(--font-secondary);
+    font-size: var(--body-small-text-size);
+    line-height: var(--body-small-line-height);
+    font-weight: var(--font-weight-secondary-medium);
+    color: var(--fg-neutral-secondary);
+    margin-right: var(--spacing-200);
+    min-width: 120px;
+  }
+}
+
+.ds-content__subsection {
+  margin-top: var(--spacing-400);
+}
+
+.ds-content__subsection-title {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-title-regular-text-size);
+  line-height: var(--fonts-title-regular-line-height);
+  font-weight: var(--font-weight-secondary-bold);
+  color: var(--fg-neutral);
+  margin: 0 0 var(--spacing-200) 0;
+}
+
+/* ============================================
    SPACING TABLE
    ============================================ */
 
