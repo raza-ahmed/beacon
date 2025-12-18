@@ -1934,6 +1934,10 @@ body {
   grid-template-columns: 2fr 2.5fr 1fr 1fr 1fr 1.5fr;
 }
 
+.ds-spacing-table__row--four-col {
+  grid-template-columns: 1.5fr 2fr 2fr 1fr;
+}
+
 .ds-spacing-table__row--head {
   background-color: var(--bg-page-primary);
   border-top: none;
