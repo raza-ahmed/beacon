@@ -540,6 +540,7 @@ body {
 }
 
 .ds-toc__item.active {
+  background-color: var(--bg-brand-tonal);
   color: var(--fg-primary-on-tonal);
   font-weight: var(--font-weight-secondary-medium);
 }
