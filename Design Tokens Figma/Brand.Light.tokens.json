@@ -160,7 +160,7 @@
     },
     "Warning-_On_Tonal": {
       "$type": "color",
-      "$value": "{Color.Orange.600}"
+      "$value": "{Color.Orange.500}"
     },
     "Success": {
       "$type": "color",

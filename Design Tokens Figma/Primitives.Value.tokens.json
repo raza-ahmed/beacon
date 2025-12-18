@@ -185,7 +185,7 @@
     "Orange": {
       "100": {
         "$type": "color",
-        "$value": "#fff7e9"
+        "$value": "#FFFBF5"
       },
       "200": {
         "$type": "color",
