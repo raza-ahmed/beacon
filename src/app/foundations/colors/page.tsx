@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant, Theme } from "@/tokens/types";
+import { CopyIcon } from "@/components/icons";
 
 type TokenKind = "bg" | "fg" | "border" | "static" | "util" | "shadow" | "palette";
 
@@ -1204,15 +1205,28 @@ function TokenTable({
               </div>
 
               <div className="ds-color-table__cell ds-color-table__cell--actions" role="cell">
-                <button type="button" className="ds-color-button" onClick={() => onCopyVar(t.cssVar)}>
-                  Copy var
+                <button
+                  type="button"
+                  className="ds-color-button"
+                  onClick={() => onCopyVar(t.cssVar)}
+                  aria-label="Copy variable name"
+                  title="Copy variable name"
+                >
+                  <span className="ds-color-button__label">var</span>
+                  <CopyIcon size="xs" />
                 </button>
                 <button
                   type="button"
                   className="ds-color-button ds-color-button--secondary"
-                  onClick={() => onCopySnippet(t)}
+                  onClick={async () => {
+                    const hex = colorToHex(valueToShow);
+                    await copyToClipboard(hex || valueToShow);
+                  }}
+                  aria-label="Copy raw hex value"
+                  title="Copy raw hex value"
                 >
-                  Copy snippet
+                  <span className="ds-color-button__label">raw</span>
+                  <CopyIcon size="xs" />
                 </button>
               </div>
             </div>
