@@ -982,7 +982,6 @@ function usePaletteFamilies(): { primitives: PaletteFamily[]; semantic: PaletteF
       {
         id: "sem-primary",
         title: "Primary",
-        description: "Hue-dependent semantic primary scale.",
         vars: [
           "--color-primary-100",
           "--color-primary-200",
@@ -1250,6 +1249,14 @@ function PaletteGrid({
       .filter((f) => f.vars.length > 0);
   }, [families, q]);
 
+  const findPrimaryVar = (vars: `--${string}`[]): `--${string}` | null => {
+    // Try to find -500 variant first, then fallback to middle value
+    const fiveHundred = vars.find((v) => v.includes("-500"));
+    if (fiveHundred) return fiveHundred;
+    const middleIndex = Math.floor(vars.length / 2);
+    return vars[middleIndex] || vars[0] || null;
+  };
+
   return (
     <div className="ds-palette">
       <div className="ds-palette__header">
@@ -1258,36 +1265,119 @@ function PaletteGrid({
       </div>
 
       <div className="ds-palette__families">
-        {filteredFamilies.map((family) => (
-          <div key={family.id} className="ds-palette-family">
-            <div className="ds-palette-family__header">
-              <div className="ds-palette-family__title">{family.title}</div>
-              {family.description ? <div className="ds-palette-family__desc">{family.description}</div> : null}
-            </div>
+        {filteredFamilies.map((family) => {
+          const primaryVar = findPrimaryVar(family.vars);
+          
+          return (
+            <PaletteFamilyCard
+              key={family.id}
+              family={family}
+              primaryVar={primaryVar}
+              computed={computed}
+              onCopyValue={onCopyValue}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
-            <div className="ds-palette-family__grid">
-              {family.vars.map((v) => {
-                const resolved = resolveCssVarValue(v, computed);
-                const display = resolved || computed[v] || "";
-                return (
-                  <button
-                    key={v}
-                    type="button"
-                    className="ds-swatch"
-                    onClick={() => onCopyValue(display || resolved || computed[v] || "", v)}
-                    title={`Copy value for ${v}`}
-                  >
-                    <span className="ds-swatch__chip" style={{ backgroundColor: cssVarValue(v) }} />
-                    <span className="ds-swatch__meta">
-                      <code className="ds-swatch__var">{v}</code>
-                      <span className="ds-swatch__value">{display || "(unavailable)"}</span>
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+function colorToHex(colorStr: string): string {
+  if (!colorStr) return "";
+  
+  // If already hex, return it
+  const hexMatch = colorStr.match(/#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})/);
+  if (hexMatch) return `#${hexMatch[1]}`;
+  
+  // Try to parse as rgba/rgb
+  const color = parseColor(colorStr);
+  if (color) {
+    const r = color.r.toString(16).padStart(2, "0");
+    const g = color.g.toString(16).padStart(2, "0");
+    const b = color.b.toString(16).padStart(2, "0");
+    return `#${r}${g}${b}`;
+  }
+  
+  // Fallback: try to get computed color from DOM
+  try {
+    const tempEl = document.createElement("div");
+    tempEl.style.color = colorStr;
+    document.body.appendChild(tempEl);
+    const computed = window.getComputedStyle(tempEl).color;
+    document.body.removeChild(tempEl);
+    const rgbMatch = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (rgbMatch) {
+      const r = Number.parseInt(rgbMatch[1]).toString(16).padStart(2, "0");
+      const g = Number.parseInt(rgbMatch[2]).toString(16).padStart(2, "0");
+      const b = Number.parseInt(rgbMatch[3]).toString(16).padStart(2, "0");
+      return `#${r}${g}${b}`;
+    }
+  } catch {
+    // Ignore errors
+  }
+  
+  return colorStr;
+}
+
+function PaletteFamilyCard({
+  family,
+  primaryVar,
+  computed,
+  onCopyValue,
+}: {
+  family: PaletteFamily;
+  primaryVar: `--${string}` | null;
+  computed: Record<string, string>;
+  onCopyValue: (value: string, cssVar: string) => void;
+}) {
+  const [previewVar, setPreviewVar] = useState<`--${string}` | null>(primaryVar);
+  const currentPreview = previewVar || primaryVar;
+  
+  if (!currentPreview) return null;
+  
+  const resolved = resolveCssVarValue(currentPreview, computed);
+  const display = resolved || computed[currentPreview] || "";
+  const hexValue = colorToHex(display);
+
+  return (
+    <div className="ds-palette-family">
+      <div className="ds-palette-family__header">
+        <div className="ds-palette-family__title">{family.title}</div>
+        {family.description ? <div className="ds-palette-family__desc">{family.description}</div> : null}
+      </div>
+
+      <div className="ds-palette-family__preview">
+        <span 
+          className="ds-palette-family__preview-chip" 
+          style={{ backgroundColor: cssVarValue(currentPreview) }}
+          onClick={() => onCopyValue(hexValue, currentPreview)}
+          title="Click to copy hex value"
+        />
+        <span className="ds-palette-family__preview-value">{hexValue || "(unavailable)"}</span>
+      </div>
+
+      <div className="ds-palette-family__swatches">
+        {family.vars.map((v) => {
+          const resolved = resolveCssVarValue(v, computed);
+          const display = resolved || computed[v] || "";
+          const hexValue = colorToHex(display);
+          const isActive = v === currentPreview;
+          
+          return (
+            <button
+              key={v}
+              type="button"
+              className={`ds-swatch-mini ${isActive ? "ds-swatch-mini--active" : ""}`}
+              onClick={() => onCopyValue(hexValue, v)}
+              onMouseEnter={() => setPreviewVar(v)}
+              onMouseLeave={() => setPreviewVar(primaryVar)}
+              title={`${v}: ${hexValue || display}`}
+            >
+              <span className="ds-swatch-mini__chip" style={{ backgroundColor: cssVarValue(v) }} />
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -1361,24 +1451,28 @@ function ContrastSection({
       const bgColor = parseColor(bgStr);
       const fgColor = parseColor(fgStr);
       const ratio = bgColor && fgColor ? contrastRatio(bgColor, fgColor) : null;
-      const passAA = ratio !== null ? ratio >= 4.5 : null;
-      return { ...p, bgStr, fgStr, ratio, passAA };
+      const passAASmall = ratio !== null ? ratio >= 4.5 : null;
+      const passAALarge = ratio !== null ? ratio >= 3.0 : null;
+      return { ...p, bgStr, fgStr, ratio, passAASmall, passAALarge };
     });
   }, [computed, refreshKey]);
 
   return (
     <div className="ds-contrast">
       <div className="ds-contrast__note">
-        Contrast is calculated using the WCAG relative luminance formula and evaluated against <strong>WCAG AA</strong> for small text (4.5:1).
+        Contrast is calculated using the WCAG relative luminance formula and evaluated against <strong>WCAG 2.1 Level AA</strong> standards. 
+        <strong> 4.5:1</strong> applies to normal text (body text, labels, paragraphs). 
+        <strong> 3:1</strong> applies to large text (≥18pt regular or ≥14pt bold).
       </div>
 
-      <div className="ds-contrast__grid" role="table" aria-label="Contrast ratios (WCAG AA)">
+      <div className="ds-contrast__grid" role="table" aria-label="Contrast ratios (WCAG 2.1 Level AA)">
         <div className="ds-contrast__row ds-contrast__row--head" role="row">
           <div className="ds-contrast__cell" role="columnheader">Pairing</div>
           <div className="ds-contrast__cell" role="columnheader">Background</div>
           <div className="ds-contrast__cell" role="columnheader">Foreground</div>
           <div className="ds-contrast__cell" role="columnheader">Ratio</div>
-          <div className="ds-contrast__cell" role="columnheader">AA (4.5:1)</div>
+          <div className="ds-contrast__cell" role="columnheader">AA Large (3:1)</div>
+          <div className="ds-contrast__cell" role="columnheader">AA Small (4.5:1)</div>
         </div>
 
         {rows.map((r) => (
@@ -1390,14 +1484,14 @@ function ContrastSection({
             <div className="ds-contrast__cell" role="cell">
               <button type="button" className="ds-contrast__token" onClick={() => onCopyVar(r.bg)}>
                 <span className="ds-contrast__chip" style={{ backgroundColor: cssVarValue(r.bg) }} />
-                <code>{r.bg}</code>
+                <code className="ds-contrast__code">{r.bg}</code>
               </button>
               <div className="ds-contrast__value">{r.bgStr || "(unavailable)"}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
               <button type="button" className="ds-contrast__token" onClick={() => onCopyVar(r.fg)}>
                 <span className="ds-contrast__chip" style={{ backgroundColor: cssVarValue(r.fg) }} />
-                <code>{r.fg}</code>
+                <code className="ds-contrast__code">{r.fg}</code>
               </button>
               <div className="ds-contrast__value">{r.fgStr || "(unavailable)"}</div>
             </div>
@@ -1405,9 +1499,18 @@ function ContrastSection({
               <div className="ds-contrast__ratio">{r.ratio !== null ? r.ratio.toFixed(2) : "—"}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
-              {r.passAA === null ? (
+              {r.passAALarge === null ? (
                 <span className="ds-contrast__status">—</span>
-              ) : r.passAA ? (
+              ) : r.passAALarge ? (
+                <span className="ds-contrast__status ds-contrast__status--pass">Pass</span>
+              ) : (
+                <span className="ds-contrast__status ds-contrast__status--fail">Fail</span>
+              )}
+            </div>
+            <div className="ds-contrast__cell" role="cell">
+              {r.passAASmall === null ? (
+                <span className="ds-contrast__status">—</span>
+              ) : r.passAASmall ? (
                 <span className="ds-contrast__status ds-contrast__status--pass">Pass</span>
               ) : (
                 <span className="ds-contrast__status ds-contrast__status--fail">Fail</span>
@@ -1457,11 +1560,11 @@ export default function ColorsPage() {
     return [
       { id: "overview", label: "Overview" },
       { id: "general-concepts", label: "General concepts" },
-      { id: "tokens", label: "Tokens" },
+      { id: "token-mapping", label: "Token mapping" },
       { id: "palette", label: "Palette" },
+      { id: "brand", label: "Brand" },
       { id: "contrast", label: "Contrast ratio" },
       { id: "usage-guidance", label: "Usage guidance" },
-      { id: "do-dont", label: "Do / Don’t" },
     ];
   }, []);
 
@@ -1518,14 +1621,8 @@ export default function ColorsPage() {
         <section id="general-concepts" className="ds-content__section">
           <h6 className="ds-content__section-title">General concepts</h6>
           <p className="ds-content__text">
-            Color themes and device color modes aren’t synonymous. Themes are tailored to the product; modes are system-wide. Use theme-aware tokens so the UI remains readable and intentional.
+            Color themes and device color modes aren't synonymous. Themes are tailored to the product; modes are system-wide. Use theme-aware tokens so the UI remains readable and intentional.
           </p>
-          <ul className="ds-content__bullet-list">
-            <li><strong>Color</strong>: a named color family (e.g. blue).</li>
-            <li><strong>Tint</strong>: a lighter value of a color.</li>
-            <li><strong>Shade</strong>: a darker value of a color.</li>
-            <li><strong>Tone</strong>: a less saturated value of a color (sometimes used loosely for tint/shade in practice).</li>
-          </ul>
           <p className="ds-content__text">
             In Beacon, context comes from two switches:
           </p>
@@ -1533,6 +1630,55 @@ export default function ColorsPage() {
             <li><code>data-theme</code> (light/dark) overrides brand role tokens.</li>
             <li><code>data-hue</code> (chromatic/sky/indigo) changes the semantic primary palette that brand roles reference.</li>
           </ul>
+        </section>
+
+        <section id="token-mapping" className="ds-content__section">
+          <h6 className="ds-content__section-title">Token mapping</h6>
+          <p className="ds-content__text">
+            Beacon uses a three-layer token system where each layer references the one below it. This creates a flexible, maintainable color system.
+          </p>
+          
+          <div className="ds-token-mapping">
+            <div className="ds-token-mapping__layer">
+              <div className="ds-token-mapping__header">
+                <h6 className="ds-token-mapping__title">Primitives</h6>
+                <code className="ds-token-mapping__example">--color-purple-500</code>
+              </div>
+              <p className="ds-token-mapping__desc">
+                Raw color values defined in hex. These are the foundation colors that never change.
+              </p>
+            </div>
+
+            <div className="ds-token-mapping__arrow">↓</div>
+
+            <div className="ds-token-mapping__layer">
+              <div className="ds-token-mapping__header">
+                <h6 className="ds-token-mapping__title">Semantic</h6>
+                <code className="ds-token-mapping__example">--color-primary-500</code>
+              </div>
+              <p className="ds-token-mapping__desc">
+                Context-aware colors that reference primitives. The primary color changes based on the selected hue (chromatic/sky/indigo).
+              </p>
+            </div>
+
+            <div className="ds-token-mapping__arrow">↓</div>
+
+            <div className="ds-token-mapping__layer">
+              <div className="ds-token-mapping__header">
+                <h6 className="ds-token-mapping__title">Brand</h6>
+                <code className="ds-token-mapping__example">--bg-brand</code>
+              </div>
+              <p className="ds-token-mapping__desc">
+                Product-facing role tokens that reference semantic tokens. These adapt to both theme (light/dark) and hue settings.
+              </p>
+            </div>
+          </div>
+
+          <div className="ds-token-mapping__example-box">
+            <p className="ds-content__text">
+              <strong>Example mapping:</strong> <code>--bg-brand</code> → <code>--color-primary-500</code> → <code>--color-purple-500</code> (when hue is "chromatic-prime")
+            </p>
+          </div>
         </section>
 
         <section className="ds-content__section" aria-label="Controls">
@@ -1592,29 +1738,6 @@ export default function ColorsPage() {
           </div>
         </section>
 
-        <section id="tokens" className="ds-content__section">
-          <h6 className="ds-content__section-title">Tokens</h6>
-          <p className="ds-content__text">
-            These are the product-facing color roles. Prefer these in components and avoid selecting raw palette values by appearance.
-          </p>
-
-          <div className="ds-color-section-stack">
-            {groups.map((group) => (
-              <TokenTable
-                key={group.id}
-                title={group.title}
-                description={group.description}
-                tokens={group.tokens}
-                refreshKey={refreshKey}
-                filter={filter}
-                onCopyVar={handleCopyVar}
-                onCopySnippet={handleCopyTokenSnippet}
-                computed={computed}
-              />
-            ))}
-          </div>
-        </section>
-
         <section id="palette" className="ds-content__section">
           <h6 className="ds-content__section-title">Palette</h6>
           <p className="ds-content__text">
@@ -1640,6 +1763,29 @@ export default function ColorsPage() {
           />
         </section>
 
+        <section id="brand" className="ds-content__section">
+          <h6 className="ds-content__section-title">Brand</h6>
+          <p className="ds-content__text">
+            These are the product-facing color roles. Prefer these in components and avoid selecting raw palette values by appearance.
+          </p>
+
+          <div className="ds-color-section-stack">
+            {groups.map((group) => (
+              <TokenTable
+                key={group.id}
+                title={group.title}
+                description={group.description}
+                tokens={group.tokens}
+                refreshKey={refreshKey}
+                filter={filter}
+                onCopyVar={handleCopyVar}
+                onCopySnippet={handleCopyTokenSnippet}
+                computed={computed}
+              />
+            ))}
+          </div>
+        </section>
+
         <section id="contrast" className="ds-content__section">
           <h6 className="ds-content__section-title">Contrast ratio</h6>
           <p className="ds-content__text">
@@ -1650,35 +1796,23 @@ export default function ColorsPage() {
 
         <section id="usage-guidance" className="ds-content__section">
           <h6 className="ds-content__section-title">Usage guidance</h6>
-          <ul className="ds-content__bullet-list">
-            <li>
-              “On” roles are meant to sit on top of their paired backgrounds (e.g. <code>--fg-on-action</code> on <code>--bg-brand</code>).
-            </li>
-            <li>Use state-specific roles (hover/pressed/focus/disabled) instead of manually darkening or lightening colors.</li>
-            <li>
-              For status containers (success/warning/critical tonal), use the matching “on tonal” foreground roles for readable text and icons.
-            </li>
-            <li>Don’t rely on color alone to communicate meaning—use labels, icons, and structure.</li>
-          </ul>
-        </section>
-
-        <section id="do-dont" className="ds-content__section">
-          <h6 className="ds-content__section-title">Do / Don’t</h6>
           <div className="ds-do-dont">
             <div className="ds-do-dont__col">
               <div className="ds-do-dont__title">Do</div>
               <ul className="ds-content__bullet-list">
                 <li>Use role tokens for implementation (<code>--bg-*</code>, <code>--fg-*</code>, <code>--border-*</code>).</li>
-                <li>Use paired “on” roles to preserve contrast.</li>
-                <li>Verify contrast for text sizes and contexts (especially secondary/tertiary text).</li>
+                <li>Use paired "on" roles to preserve contrast (e.g. <code>--fg-on-action</code> on <code>--bg-brand</code>).</li>
+                <li>Use state-specific roles (hover/pressed/focus/disabled) instead of manually adjusting colors.</li>
+                <li>Verify contrast for text sizes and contexts.</li>
               </ul>
             </div>
             <div className="ds-do-dont__col">
-              <div className="ds-do-dont__title">Don’t</div>
+              <div className="ds-do-dont__title">Don't</div>
               <ul className="ds-content__bullet-list">
-                <li>Don’t hardcode hex values in components.</li>
-                <li>Don’t pick palette tokens by appearance for UI roles.</li>
-                <li>Don’t invent new colors outside the Figma token source of truth.</li>
+                <li>Don't hardcode hex values in components.</li>
+                <li>Don't pick palette tokens by appearance for UI roles.</li>
+                <li>Don't rely on color alone to communicate meaning.</li>
+                <li>Don't invent new colors outside the Figma token source.</li>
               </ul>
             </div>
           </div>
