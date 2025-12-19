@@ -11,14 +11,16 @@ type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 type ButtonState = "default" | "hovered" | "focused" | "pressed" | "disabled" | "loading" | "success" | "critical" | "warning";
+type JustifyContent = "center" | "space-between";
 
 interface ButtonConfig {
   variant: ButtonVariant;
   size: ButtonSize;
   cornerRadius: CornerRadiusStep;
-  hasLeftIcon: boolean;
-  hasRightIcon: boolean;
+  hasStartIcon: boolean;
+  hasEndIcon: boolean;
   fillContainer: boolean;
+  justifyContent: JustifyContent;
   state: ButtonState;
 }
 
@@ -37,9 +39,10 @@ export default function ButtonPage() {
     variant: "filled",
     size: "md",
     cornerRadius: 2,
-    hasLeftIcon: false,
-    hasRightIcon: false,
+    hasStartIcon: false,
+    hasEndIcon: false,
     fillContainer: false,
+    justifyContent: "center",
     state: "default",
   });
 
@@ -93,9 +96,10 @@ export default function ButtonPage() {
                 variant={config.variant}
                 size={config.size}
                 cornerRadius={config.cornerRadius}
-                hasLeftIcon={config.hasLeftIcon}
-                hasRightIcon={config.hasRightIcon}
+                hasStartIcon={config.hasStartIcon}
+                hasEndIcon={config.hasEndIcon}
                 fillContainer={config.fillContainer}
+                justifyContent={config.justifyContent}
                 state={config.state}
                 theme={theme}
                 hue={hue}
@@ -106,8 +110,8 @@ export default function ButtonPage() {
               variant={config.variant}
               size={config.size}
               cornerRadius={config.cornerRadius}
-              hasLeftIcon={config.hasLeftIcon}
-              hasRightIcon={config.hasRightIcon}
+              hasStartIcon={config.hasStartIcon}
+              hasEndIcon={config.hasEndIcon}
               fillContainer={config.fillContainer}
               state={config.state}
               theme={theme}
@@ -115,9 +119,11 @@ export default function ButtonPage() {
               onVariantChange={(variant) => updateConfig({ variant })}
               onSizeChange={(size) => updateConfig({ size })}
               onCornerRadiusChange={(radius) => updateConfig({ cornerRadius: radius })}
-              onLeftIconChange={(has) => updateConfig({ hasLeftIcon: has })}
-              onRightIconChange={(has) => updateConfig({ hasRightIcon: has })}
+              onStartIconChange={(has) => updateConfig({ hasStartIcon: has })}
+              onEndIconChange={(has) => updateConfig({ hasEndIcon: has })}
               onFillContainerChange={(fill) => updateConfig({ fillContainer: fill })}
+              justifyContent={config.justifyContent}
+              onJustifyContentChange={(justify) => updateConfig({ justifyContent: justify })}
               onStateChange={(state) => updateConfig({ state })}
               onThemeChange={setTheme}
               onHueChange={setHue}
@@ -279,8 +285,8 @@ export default function ButtonPage() {
   variant?: "filled" | "tonal" | "outline" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   fillContainer?: boolean;
   disabled?: boolean;
   loading?: boolean;
@@ -336,26 +342,26 @@ export default function ButtonPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>leftIcon</code>
+                    <code>startIcon</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
                     <code>React.ReactNode</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">—</div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Icon to display on the left
+                    Icon to display at the start (grouped with text)
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>rightIcon</code>
+                    <code>endIcon</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
                     <code>React.ReactNode</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">—</div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Icon to display on the right
+                    Icon to display at the end (independent, aligns right when fill container is enabled)
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -422,7 +428,7 @@ export default function ButtonPage() {
               <pre className="ds-code-example__code">
                 <code>{`<button type="button" className="ds-button ds-button--filled ds-button--md">
   <SearchIcon size="xs" />
-  Search
+  <span>Search</span>
   <ChevronDownIcon size="xs" />
 </button>`}</code>
               </pre>
@@ -451,8 +457,7 @@ export default function ButtonPage() {
               <pre className="ds-code-example__code">
                 <code>{`<button 
   type="button" 
-  className="ds-button ds-button--filled ds-button--md ds-button--fill"
->
+  className="ds-button ds-button--filled ds-button--md ds-button--fill">
   Full Width Button
 </button>`}</code>
               </pre>
@@ -463,8 +468,7 @@ export default function ButtonPage() {
                 <code>{`<button 
   type="button" 
   className="ds-button ds-button--filled ds-button--md"
-  disabled
->
+  disabled>
   Disabled Button
 </button>`}</code>
               </pre>

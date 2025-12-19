@@ -68,6 +68,8 @@ export function PageLayout({
               <div className="ds-mobile-drawer__search" role="search">
                 <SearchIcon size="xs" />
                 <input
+                  id="mobile-drawer-search-input"
+                  name="mobile-drawer-search"
                   type="text"
                   className="ds-mobile-drawer__search-input"
                   placeholder="Search Components..."

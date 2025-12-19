@@ -1734,8 +1734,10 @@ export default function ColorsPage() {
             </div>
 
             <div className="ds-color-controls__group" aria-label="Filter">
-              <span className="ds-token-controls__label">Filter</span>
+              <label htmlFor="color-filter-input" className="ds-token-controls__label">Filter</label>
               <input
+                id="color-filter-input"
+                name="color-filter"
                 className="ds-color-controls__input"
                 type="text"
                 value={filter}

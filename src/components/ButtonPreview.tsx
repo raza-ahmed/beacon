@@ -8,14 +8,16 @@ type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 type ButtonState = "default" | "hovered" | "focused" | "pressed" | "disabled" | "loading" | "success" | "critical" | "warning";
+type JustifyContent = "center" | "space-between";
 
 interface ButtonPreviewProps {
   variant: ButtonVariant;
   size: ButtonSize;
   cornerRadius: CornerRadiusStep;
-  hasLeftIcon: boolean;
-  hasRightIcon: boolean;
+  hasStartIcon: boolean;
+  hasEndIcon: boolean;
   fillContainer: boolean;
+  justifyContent: JustifyContent;
   state: ButtonState;
   theme: Theme;
   hue: HueVariant;
@@ -81,9 +83,10 @@ export function ButtonPreview({
   variant,
   size,
   cornerRadius,
-  hasLeftIcon,
-  hasRightIcon,
+  hasStartIcon,
+  hasEndIcon,
   fillContainer,
+  justifyContent,
   state,
   theme,
   hue,
@@ -95,7 +98,7 @@ export function ButtonPreview({
     const baseStyles: React.CSSProperties = {
       display: "inline-flex",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: justifyContent,
       gap: "var(--spacing-100)",
       fontFamily: "var(--font-secondary)",
       fontSize: sizeConfig.fontSize,
@@ -123,7 +126,7 @@ export function ButtonPreview({
         variantStyles = {
           backgroundColor: "var(--bg-brand)",
           color: "var(--fg-on-action)",
-          borderColor: "var(--border-on-action)",
+          borderColor: "var(--border-primary)",
         };
         break;
       case "tonal":
@@ -230,10 +233,11 @@ export function ButtonPreview({
     }
 
     return { ...baseStyles, ...variantStyles, ...stateStyles };
-  }, [variant, sizeConfig, borderRadius, fillContainer, state]);
+  }, [variant, sizeConfig, borderRadius, fillContainer, justifyContent, state]);
 
   const isLoading = state === "loading";
-  const showIcons = !isLoading && (hasLeftIcon || hasRightIcon);
+  const showStartIcon = !isLoading && hasStartIcon;
+  const showEndIcon = !isLoading && hasEndIcon;
 
   return (
     <div className="ds-button-preview-container">
@@ -280,9 +284,11 @@ export function ButtonPreview({
             </>
           ) : (
             <>
-              {showIcons && hasLeftIcon && <SearchIcon size={sizeConfig.iconSize} />}
-              <span>Button</span>
-              {showIcons && hasRightIcon && <ChevronDownIcon size={sizeConfig.iconSize} />}
+              <div className="ds-button-preview-start">
+                {showStartIcon && <SearchIcon size={sizeConfig.iconSize} />}
+                <span>Button</span>
+              </div>
+              {showEndIcon && <ChevronDownIcon size={sizeConfig.iconSize} />}
             </>
           )}
         </button>

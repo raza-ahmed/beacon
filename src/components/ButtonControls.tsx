@@ -8,23 +8,26 @@ type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 type ButtonState = "default" | "hovered" | "focused" | "pressed" | "disabled" | "loading" | "success" | "critical" | "warning";
+type JustifyContent = "center" | "space-between";
 
 interface ButtonControlsProps {
   variant: ButtonVariant;
   size: ButtonSize;
   cornerRadius: CornerRadiusStep;
-  hasLeftIcon: boolean;
-  hasRightIcon: boolean;
+  hasStartIcon: boolean;
+  hasEndIcon: boolean;
   fillContainer: boolean;
+  justifyContent: JustifyContent;
   state: ButtonState;
   theme: Theme;
   hue: HueVariant;
   onVariantChange: (variant: ButtonVariant) => void;
   onSizeChange: (size: ButtonSize) => void;
   onCornerRadiusChange: (radius: CornerRadiusStep) => void;
-  onLeftIconChange: (has: boolean) => void;
-  onRightIconChange: (has: boolean) => void;
+  onStartIconChange: (has: boolean) => void;
+  onEndIconChange: (has: boolean) => void;
   onFillContainerChange: (fill: boolean) => void;
+  onJustifyContentChange: (justify: JustifyContent) => void;
   onStateChange: (state: ButtonState) => void;
   onThemeChange: (theme: Theme) => void;
   onHueChange: (hue: HueVariant) => void;
@@ -65,22 +68,29 @@ const STATE_OPTIONS: { value: ButtonState; label: string }[] = [
   { value: "warning", label: "Warning" },
 ];
 
+const JUSTIFY_OPTIONS: { value: JustifyContent; label: string }[] = [
+  { value: "center", label: "Center" },
+  { value: "space-between", label: "Space-between" },
+];
+
 export function ButtonControls({
   variant,
   size,
   cornerRadius,
-  hasLeftIcon,
-  hasRightIcon,
+  hasStartIcon,
+  hasEndIcon,
   fillContainer,
+  justifyContent,
   state,
   theme,
   hue,
   onVariantChange,
   onSizeChange,
   onCornerRadiusChange,
-  onLeftIconChange,
-  onRightIconChange,
+  onStartIconChange,
+  onEndIconChange,
   onFillContainerChange,
+  onJustifyContentChange,
   onStateChange,
   onThemeChange,
   onHueChange,
@@ -89,36 +99,37 @@ export function ButtonControls({
 
   return (
     <div className="ds-button-controls">
-      <div className="ds-button-control-group">
-        <label htmlFor="button-variant-select" className="ds-button-control-label">Variant</label>
-        <select
-          id="button-variant-select"
-          className="ds-button-control-select"
-          value={variant}
-          onChange={(e) => onVariantChange(e.target.value as ButtonVariant)}
-        >
-          {VARIANT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="ds-button-control-group">
-        <label htmlFor="button-state-select" className="ds-button-control-label">State</label>
-        <select
-          id="button-state-select"
-          className="ds-button-control-select"
-          value={state}
-          onChange={(e) => onStateChange(e.target.value as ButtonState)}
-        >
-          {STATE_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+      <div className="ds-button-control-group ds-button-control-group--row">
+        <div className="ds-button-control-field">
+          <label htmlFor="button-variant-select" className="ds-button-control-label">Variant</label>
+          <select
+            id="button-variant-select"
+            className="ds-button-control-select"
+            value={variant}
+            onChange={(e) => onVariantChange(e.target.value as ButtonVariant)}
+          >
+            {VARIANT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="ds-button-control-field">
+          <label htmlFor="button-state-select" className="ds-button-control-label">State</label>
+          <select
+            id="button-state-select"
+            className="ds-button-control-select"
+            value={state}
+            onChange={(e) => onStateChange(e.target.value as ButtonState)}
+          >
+            {STATE_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="ds-button-control-group">
@@ -243,8 +254,8 @@ export function ButtonControls({
               <label className="ds-icon-toggle">
                 <input
                   type="checkbox"
-                  checked={hasLeftIcon}
-                  onChange={(e) => onLeftIconChange(e.target.checked)}
+                  checked={hasStartIcon}
+                  onChange={(e) => onStartIconChange(e.target.checked)}
                   aria-label="Start icon"
                 />
                 <span>Start</span>
@@ -252,8 +263,8 @@ export function ButtonControls({
               <label className="ds-icon-toggle">
                 <input
                   type="checkbox"
-                  checked={hasRightIcon}
-                  onChange={(e) => onRightIconChange(e.target.checked)}
+                  checked={hasEndIcon}
+                  onChange={(e) => onEndIconChange(e.target.checked)}
                   aria-label="End icon"
                 />
                 <span>End</span>
@@ -261,8 +272,8 @@ export function ButtonControls({
             </div>
           </div>
           <div className="ds-icon-fill-section">
-            <label htmlFor="button-fill-container" className="ds-button-control-label">Fill Container</label>
-            <div className="ds-switch">
+            <span className="ds-button-control-label">Fill Container</span>
+            <label htmlFor="button-fill-container" className="ds-switch">
               <input
                 id="button-fill-container"
                 type="checkbox"
@@ -270,10 +281,30 @@ export function ButtonControls({
                 onChange={(e) => onFillContainerChange(e.target.checked)}
               />
               <span className="ds-switch__slider" />
-            </div>
+            </label>
           </div>
         </div>
       </div>
+
+      {fillContainer && (hasStartIcon || hasEndIcon) && (
+        <div className="ds-button-control-group">
+          <span className="ds-button-control-label">Justify</span>
+          <div className="ds-segmented-control" role="group" aria-label="Justify content">
+            {JUSTIFY_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                className={`ds-segmented-control__button ${justifyContent === opt.value ? "ds-segmented-control__button--active" : ""}`}
+                onClick={() => onJustifyContentChange(opt.value)}
+                aria-label={opt.label}
+                aria-pressed={justifyContent === opt.value}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

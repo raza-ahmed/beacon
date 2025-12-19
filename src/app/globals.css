@@ -727,30 +727,32 @@ body {
 
 .ds-token-controls__segmented {
   display: inline-flex;
-  gap: var(--spacing-100);
-  padding: var(--spacing-100);
+  gap: 0;
+  padding: 2px;
   border-radius: var(--corner-radius-200);
   background-color: var(--bg-page-primary);
   border: var(--border-width-25) solid var(--border-strong-200);
+  overflow: hidden;
 }
 
 .ds-token-segment {
+  flex: 1;
   appearance: none;
   border: none;
   background: transparent;
-  color: var(--fg-neutral-secondary);
+  color: var(--fg-neutral);
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
   padding: var(--spacing-100) var(--spacing-200);
-  border-radius: var(--corner-radius-200);
+  border-radius: var(--corner-radius-100);
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
 }
 
 .ds-token-segment:hover {
-  background-color: var(--bg-page-tertiary);
-  color: var(--fg-neutral);
+  background-color: var(--bg-page-secondary);
 }
 
 .ds-token-segment.active {
@@ -802,7 +804,7 @@ body {
 }
 
 .ds-color-controls__input::placeholder {
-  color: var(--fg-neutral-tertiary);
+  color: var(--fg-disabled);
 }
 
 .ds-color-section-stack {
@@ -2269,6 +2271,12 @@ body {
   font-family: var(--font-secondary);
 }
 
+.ds-button-preview-start {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-100);
+}
+
 .ds-button-loading-spinner {
   animation: ds-button-spin 1s linear infinite;
 }
@@ -2303,6 +2311,18 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
+}
+
+.ds-button-control-group--row {
+  flex-direction: row;
+  gap: var(--spacing-300);
+}
+
+.ds-button-control-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  flex: 1;
 }
 
 .ds-button-control-label {
@@ -2356,7 +2376,7 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  border-radius: var(--corner-radius-200);
+  border-radius: var(--corner-radius-100);
   border: var(--border-width-25) solid var(--border-strong-200);
   cursor: pointer;
   transition: transform 0.15s ease, border-color 0.15s ease;
@@ -2506,7 +2526,7 @@ body {
   height: 20px;
   border-radius: var(--corner-radius-full);
   background-color: var(--bg-brand);
-  border: var(--border-width-25) solid var(--border-on-action);
+  border: var(--border-width-25) solid var(--border-primary);
   cursor: pointer;
   margin-top: -8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -2626,6 +2646,41 @@ body {
   background-color: var(--fg-on-action);
 }
 
+.ds-segmented-control {
+  display: inline-flex;
+  gap: 0;
+  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-200);
+  padding: 2px;
+  overflow: hidden;
+}
+
+.ds-segmented-control__button {
+  flex: 1;
+  padding: var(--spacing-100) var(--spacing-200);
+  border: none;
+  background-color: transparent;
+  color: var(--fg-neutral);
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  font-weight: var(--font-weight-secondary-medium);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  border-radius: var(--corner-radius-100);
+  white-space: nowrap;
+}
+
+.ds-segmented-control__button:hover {
+  background-color: var(--bg-page-secondary);
+}
+
+.ds-segmented-control__button--active {
+  background-color: var(--bg-brand-tonal);
+  color: var(--fg-primary-on-tonal);
+  font-weight: var(--font-weight-secondary-medium);
+}
+
 /* ============================================
    BUTTON ANATOMY
    ============================================ */
@@ -2653,7 +2708,7 @@ body {
   background-color: var(--bg-brand);
   color: var(--fg-on-action);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-on-action);
+  border: var(--border-width-25) solid var(--border-primary);
   position: relative;
 }
 
@@ -2753,7 +2808,7 @@ body {
 
 .ds-button-preview-filled {
   appearance: none;
-  border: var(--border-width-25) solid var(--border-on-action);
+  border: var(--border-width-25) solid var(--border-primary);
   background-color: var(--bg-brand);
   color: var(--fg-on-action);
   font-family: var(--font-secondary);

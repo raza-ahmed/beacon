@@ -66,6 +66,8 @@ export function Header({ onMenuClick }: HeaderProps) {
         <div className="ds-header__search">
           <SearchIcon size="xs" />
           <input
+            id="header-search-input"
+            name="header-search"
             type="text"
             placeholder="Search Components..."
             className="ds-header__search-input"
