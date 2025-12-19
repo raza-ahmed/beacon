@@ -1,0 +1,26 @@
+# Avatar Images Directory
+
+Place avatar images in this directory. Supported formats: JPG, PNG, WebP
+
+Example structure:
+- avatar-default.jpg (default avatar image)
+- user1.jpg
+- user2.jpg
+- team-member.png
+
+Reference images in code using:
+```typescript
+import { getAvatarImage } from "@/utils/imagePaths";
+const imageUrl = getAvatarImage("default");
+```
+
+Or add new images to `src/utils/imagePaths.ts`:
+```typescript
+export const IMAGE_PATHS = {
+  avatars: {
+    default: "/images/avatars/avatar-default.jpg",
+    user1: "/images/avatars/user1.jpg", // Add new entries here
+  },
+};
+```
+

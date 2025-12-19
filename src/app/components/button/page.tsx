@@ -6,6 +6,7 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { ButtonPreview } from "@/components/ButtonPreview";
 import { ButtonControls } from "@/components/ButtonControls";
+import { CopyIcon, CheckIcon } from "@/components/icons";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -33,6 +34,95 @@ const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
   5: "var(--corner-radius-full)",
 };
 
+const SIZE_LABELS: Record<ButtonSize, string> = {
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
+  xl: "xl",
+};
+
+const VARIANT_LABELS: Record<ButtonVariant, string> = {
+  filled: "filled",
+  tonal: "tonal",
+  outline: "outline",
+  link: "link",
+};
+
+function generateButtonCode(config: ButtonConfig): string {
+  const props: string[] = [];
+  
+  if (config.variant !== "filled") {
+    props.push(`variant="${VARIANT_LABELS[config.variant]}"`);
+  }
+  
+  if (config.size !== "md") {
+    props.push(`size="${SIZE_LABELS[config.size]}"`);
+  }
+  
+  if (config.cornerRadius !== 2) {
+    props.push(`cornerRadius={${config.cornerRadius}}`);
+  }
+  
+  if (config.hasStartIcon) {
+    props.push(`startIcon={<SearchIcon />}`);
+  }
+  
+  if (config.hasEndIcon) {
+    props.push(`endIcon={<ChevronDownIcon />}`);
+  }
+  
+  if (config.fillContainer) {
+    props.push(`fillContainer`);
+  }
+  
+  if (config.justifyContent !== "center" && config.fillContainer) {
+    props.push(`justifyContent="${config.justifyContent}"`);
+  }
+  
+  if (config.state === "disabled") {
+    props.push(`disabled`);
+  }
+  
+  if (config.state === "loading") {
+    props.push(`loading`);
+  }
+  
+  if (props.length === 0) {
+    return `<Button>
+  Button
+</Button>`;
+  }
+  
+  // Format props with proper indentation (one per line)
+  const propsFormatted = props.map((prop) => `\n  ${prop}`).join("");
+  
+  return `<Button${propsFormatted}
+>
+  Button
+</Button>`;
+}
+
+async function copyToClipboard(text: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  // Fallback for older browsers
+  const el = document.createElement("textarea");
+  el.value = text;
+  el.setAttribute("readonly", "true");
+  el.style.position = "absolute";
+  el.style.left = "0";
+  el.style.top = "0";
+  el.style.transform = "translateX(-100%)";
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+}
+
 export default function ButtonPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
   const [config, setConfig] = useState<ButtonConfig>({
@@ -45,6 +135,7 @@ export default function ButtonPage() {
     justifyContent: "center",
     state: "default",
   });
+  const [copied, setCopied] = useState(false);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -60,6 +151,13 @@ export default function ButtonPage() {
 
   const updateConfig = (updates: Partial<ButtonConfig>) => {
     setConfig((prev) => ({ ...prev, ...updates }));
+  };
+
+  const handleCopyCode = async () => {
+    const code = generateButtonCode(config);
+    await copyToClipboard(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -91,21 +189,6 @@ export default function ButtonPage() {
             to see how buttons adapt to different contexts.
           </p>
           <div className="ds-button-playground">
-            <div className="ds-button-preview">
-              <ButtonPreview
-                variant={config.variant}
-                size={config.size}
-                cornerRadius={config.cornerRadius}
-                hasStartIcon={config.hasStartIcon}
-                hasEndIcon={config.hasEndIcon}
-                fillContainer={config.fillContainer}
-                justifyContent={config.justifyContent}
-                state={config.state}
-                theme={theme}
-                hue={hue}
-              />
-            </div>
-            <div className="ds-button-playground-divider" />
             <ButtonControls
               variant={config.variant}
               size={config.size}
@@ -128,6 +211,46 @@ export default function ButtonPage() {
               onThemeChange={setTheme}
               onHueChange={setHue}
             />
+            <div className="ds-button-playground-divider" />
+            <div className="ds-button-preview-section">
+              <div className="ds-button-preview">
+                <ButtonPreview
+                  variant={config.variant}
+                  size={config.size}
+                  cornerRadius={config.cornerRadius}
+                  hasStartIcon={config.hasStartIcon}
+                  hasEndIcon={config.hasEndIcon}
+                  fillContainer={config.fillContainer}
+                  justifyContent={config.justifyContent}
+                  state={config.state}
+                  theme={theme}
+                  hue={hue}
+                />
+              </div>
+              <div className="ds-button-preview-code">
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={handleCopyCode}
+                  aria-label="Copy code"
+                >
+                  {copied ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <pre className="ds-button-code-block">
+                  <code>{generateButtonCode(config)}</code>
+                </pre>
+              </div>
+            </div>
           </div>
         </section>
 
