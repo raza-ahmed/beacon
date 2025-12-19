@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
-import { SearchIcon, ChevronDownIcon } from "./icons";
+import { SearchIcon, ChevronDownIcon, LoaderIcon } from "./icons";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -79,6 +79,14 @@ const SIZE_CONFIG: Record<
   },
 };
 
+const LOADER_ICON_SIZE_MAP: Record<ButtonSize, number> = {
+  xs: 20,
+  sm: 24,
+  md: 24,
+  lg: 32,
+  xl: 40,
+};
+
 export function ButtonPreview({
   variant,
   size,
@@ -126,7 +134,7 @@ export function ButtonPreview({
         variantStyles = {
           backgroundColor: "var(--bg-brand)",
           color: "var(--fg-on-action)",
-          borderColor: "var(--border-primary)",
+          borderColor: "var(--bg-brand)",
         };
         break;
       case "tonal":
@@ -160,7 +168,7 @@ export function ButtonPreview({
     const stateStyles: React.CSSProperties = {};
     if (state === "disabled") {
       if (variant === "filled") {
-        stateStyles.backgroundColor = "var(--bg-brand-disabled)";
+        stateStyles.backgroundColor = "var(--bg-disabled)";
         stateStyles.color = "var(--fg-on-disabled)";
         stateStyles.borderColor = "var(--border-disabled)";
       } else if (variant === "tonal") {
@@ -176,6 +184,7 @@ export function ButtonPreview({
     } else if (state === "hovered") {
       if (variant === "filled") {
         stateStyles.backgroundColor = "var(--bg-brand-on-hover)";
+        stateStyles.borderColor = "var(--bg-brand-on-hover)";
       } else if (variant === "tonal") {
         stateStyles.backgroundColor = "var(--bg-brand-tonal-on-hover)";
       } else if (variant === "outline") {
@@ -186,12 +195,14 @@ export function ButtonPreview({
     } else if (state === "pressed") {
       if (variant === "filled") {
         stateStyles.backgroundColor = "var(--bg-brand-pressed)";
+        stateStyles.borderColor = "var(--bg-brand-pressed)";
       } else if (variant === "tonal") {
         stateStyles.backgroundColor = "var(--bg-brand-tonal-on-hover)";
       }
     } else if (state === "focused") {
       if (variant === "filled") {
         stateStyles.backgroundColor = "var(--bg-brand-on-focused)";
+        stateStyles.borderColor = "var(--bg-brand-on-focused)";
       } else if (variant === "outline") {
         stateStyles.borderColor = "var(--border-primary)";
       }
@@ -200,6 +211,7 @@ export function ButtonPreview({
     } else if (state === "success") {
       if (variant === "filled") {
         stateStyles.backgroundColor = "var(--bg-success)";
+        stateStyles.borderColor = "var(--border-success)";
       } else if (variant === "tonal") {
         stateStyles.backgroundColor = "var(--bg-success-tonal)";
         stateStyles.color = "var(--fg-success-on-tonal)";
@@ -211,6 +223,7 @@ export function ButtonPreview({
     } else if (state === "critical") {
       if (variant === "filled") {
         stateStyles.backgroundColor = "var(--bg-critical)";
+        stateStyles.borderColor = "var(--border-critical)";
       } else if (variant === "tonal") {
         stateStyles.backgroundColor = "var(--bg-critical-tonal)";
         stateStyles.color = "var(--fg-critical-on-tonal)";
@@ -222,6 +235,7 @@ export function ButtonPreview({
     } else if (state === "warning") {
       if (variant === "filled") {
         stateStyles.backgroundColor = "var(--bg-warning)";
+        stateStyles.borderColor = "var(--border-warning)";
       } else if (variant === "tonal") {
         stateStyles.backgroundColor = "var(--bg-warning-tonal)";
         stateStyles.color = "var(--fg-warning-on-tonal)";
@@ -249,39 +263,7 @@ export function ButtonPreview({
           disabled={state === "disabled"}
         >
           {isLoading ? (
-            <>
-              <svg
-                className="ds-button-loading-spinner"
-                width={sizeConfig.iconSize === "xs" ? "16" : "20"}
-                height={sizeConfig.iconSize === "xs" ? "16" : "20"}
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeDasharray="31.416"
-                  strokeDashoffset="31.416"
-                  opacity="0.3"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeDasharray="31.416"
-                  strokeDashoffset="23.562"
-                />
-              </svg>
-              <span>Loading...</span>
-            </>
+            <LoaderIcon size={LOADER_ICON_SIZE_MAP[size]} className="ds-button-loading-spinner" />
           ) : (
             <>
               <div className="ds-button-preview-start">

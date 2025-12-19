@@ -2247,7 +2247,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   padding: var(--spacing-500);
 }
 
@@ -2298,7 +2298,7 @@ body {
 .ds-button-controls {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-400);
+  gap: var(--spacing-450);
   padding: var(--spacing-400);
   background-color: var(--bg-page-primary);
   position: sticky;
@@ -2411,7 +2411,7 @@ body {
 .ds-theme-toggle {
   display: flex;
   gap: var(--spacing-50);
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-full);
   padding: 2px;
   border: var(--border-width-25) solid var(--border-strong-200);
