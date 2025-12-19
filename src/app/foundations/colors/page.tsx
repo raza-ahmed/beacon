@@ -1485,8 +1485,8 @@ function ContrastSection({
           <div className="ds-contrast__cell" role="columnheader">Background</div>
           <div className="ds-contrast__cell" role="columnheader">Foreground</div>
           <div className="ds-contrast__cell" role="columnheader">Ratio</div>
-          <div className="ds-contrast__cell" role="columnheader">AA Large (3:1)</div>
-          <div className="ds-contrast__cell" role="columnheader">AA Small (4.5:1)</div>
+          <div className="ds-contrast__cell" role="columnheader">AA (3:1)</div>
+          <div className="ds-contrast__cell" role="columnheader">AA (4.5:1)</div>
         </div>
 
         {rows.map((r) => (
@@ -1656,8 +1656,8 @@ export default function ColorsPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Primitives</h6>
-                <code className="ds-token-mapping__example">--color-purple-500</code>
               </div>
+              <code className="ds-token-mapping__example">--color-purple-500</code>
               <p className="ds-token-mapping__desc">
                 Raw color values defined in hex. These are the foundation colors that never change.
               </p>
@@ -1668,8 +1668,8 @@ export default function ColorsPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Semantic</h6>
-                <code className="ds-token-mapping__example">--color-primary-500</code>
               </div>
+              <code className="ds-token-mapping__example">--color-primary-500</code>
               <p className="ds-token-mapping__desc">
                 Context-aware colors that reference primitives. The primary color changes based on the selected hue (chromatic/sky/indigo).
               </p>
@@ -1680,8 +1680,8 @@ export default function ColorsPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Brand</h6>
-                <code className="ds-token-mapping__example">--bg-brand</code>
               </div>
+              <code className="ds-token-mapping__example">--bg-brand</code>
               <p className="ds-token-mapping__desc">
                 Product-facing role tokens that reference semantic tokens. These adapt to both theme (light/dark) and hue settings.
               </p>

@@ -53,8 +53,8 @@ export default function AccessibilityPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Normal Text</h6>
-                <code className="ds-token-mapping__example">4.5:1 minimum</code>
               </div>
+              <code className="ds-token-mapping__example">4.5:1 minimum</code>
               <p className="ds-token-mapping__desc">
                 Required for body text, labels, and paragraphs. This ensures text is readable for users with low vision or color blindness.
               </p>
@@ -63,8 +63,8 @@ export default function AccessibilityPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Large Text</h6>
-                <code className="ds-token-mapping__example">3:1 minimum</code>
               </div>
+              <code className="ds-token-mapping__example">3:1 minimum</code>
               <p className="ds-token-mapping__desc">
                 Required for large text (≥18pt regular or ≥14pt bold). Larger text is easier to read, so the contrast requirement is lower.
               </p>

@@ -264,8 +264,8 @@ export default function SpacingPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Primitives (Scale)</h6>
-                <code className="ds-token-mapping__example">--scale-100</code>
               </div>
+              <code className="ds-token-mapping__example">--scale-100</code>
               <p className="ds-token-mapping__desc">
                 Base dimension values that form the foundation of the spacing system. These are raw pixel values (0px, 1px, 2px, 4px, etc.) that should rarely be used directly in components.
               </p>
@@ -274,8 +274,8 @@ export default function SpacingPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Semantic (Spacing)</h6>
-                <code className="ds-token-mapping__example">--spacing-100</code>
               </div>
+              <code className="ds-token-mapping__example">--spacing-100</code>
               <p className="ds-token-mapping__desc">
                 Named spacing tokens that reference Scale values. These provide semantic meaning and are the primary tokens to use in component styling. Examples: spacing-100, spacing-200, spacing-500.
               </p>
@@ -284,8 +284,8 @@ export default function SpacingPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Responsive (Adaptive Sets)</h6>
-                <code className="ds-token-mapping__example">--adaptive-set-d96-t80-m32</code>
               </div>
+              <code className="ds-token-mapping__example">--adaptive-set-d96-t80-m32</code>
               <p className="ds-token-mapping__desc">
                 Breakpoint-aware spacing tokens that adapt to different screen sizes. These tokens automatically adjust their values based on device breakpoints (Desktop, Tablet, Mobile). Use these for layout spacing that needs to be responsive.
               </p>

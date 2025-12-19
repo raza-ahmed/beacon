@@ -248,8 +248,8 @@ export default function ResponsivenessPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Desktop</h6>
-                <code className="ds-token-mapping__example">Default (≥1025px)</code>
               </div>
+              <code className="ds-token-mapping__example">Default (≥1025px)</code>
               <p className="ds-token-mapping__desc">
                 Default breakpoint for desktop screens. All responsive tokens use desktop values unless overridden by media queries.
               </p>
@@ -258,8 +258,8 @@ export default function ResponsivenessPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Tablet</h6>
-                <code className="ds-token-mapping__example">@media (max-width: 1024px)</code>
               </div>
+              <code className="ds-token-mapping__example">@media (max-width: 1024px)</code>
               <p className="ds-token-mapping__desc">
                 Tablet breakpoint for screens up to 1024px wide. Typography and spacing tokens scale down appropriately.
               </p>
@@ -268,8 +268,8 @@ export default function ResponsivenessPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Mobile</h6>
-                <code className="ds-token-mapping__example">@media (max-width: 768px)</code>
               </div>
+              <code className="ds-token-mapping__example">@media (max-width: 768px)</code>
               <p className="ds-token-mapping__desc">
                 Mobile breakpoint for screens up to 768px wide. Most tokens reach their smallest values at this breakpoint.
               </p>

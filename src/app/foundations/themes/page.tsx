@@ -182,8 +182,8 @@ export default function ThemesPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Theme</h6>
-                <code className="ds-token-mapping__example">data-theme="light"</code>
               </div>
+              <code className="ds-token-mapping__example">data-theme="light"</code>
               <p className="ds-token-mapping__desc">
                 Controls the overall brightness and contrast of the interface. The Light theme uses lighter backgrounds and darker text, while the Dark theme uses darker backgrounds and lighter text. Brand tokens automatically adapt based on the selected theme.
               </p>
@@ -192,8 +192,8 @@ export default function ThemesPage() {
             <div className="ds-token-mapping__layer">
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Hue</h6>
-                <code className="ds-token-mapping__example">data-hue="chromatic-prime"</code>
               </div>
+              <code className="ds-token-mapping__example">data-hue="chromatic-prime"</code>
               <p className="ds-token-mapping__desc">
                 Controls the primary color palette used throughout the interface. The hue variant determines which semantic color tokens are used for brand colors, allowing you to customize the primary accent color while maintaining theme consistency.
               </p>

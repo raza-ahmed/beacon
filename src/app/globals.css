@@ -946,9 +946,9 @@ body {
 .ds-color-preview {
   position: relative;
   width: 100%;
-  max-width: calc(var(--scale-1000) + var(--scale-900));
+  max-width: calc(var(--scale-800) + var(--scale-700));
   aspect-ratio: 16 / 9;
-  border-radius: var(--corner-radius-300);
+  border-radius: var(--corner-radius-200);
   border: var(--border-width-25) solid var(--border-strong-200);
   overflow: hidden;
   display: flex;
@@ -962,7 +962,7 @@ body {
 
 .ds-color-preview__content {
   position: relative;
-  padding: var(--spacing-300);
+  padding: var(--spacing-200);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-50);
@@ -1242,8 +1242,8 @@ body {
 }
 
 .ds-token-mapping {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--spacing-300);
   margin-top: var(--spacing-400);
 }
@@ -1253,14 +1253,12 @@ body {
   border-radius: var(--corner-radius-200);
   background-color: var(--bg-page-secondary);
   border: var(--border-width-25) solid var(--border-strong-200);
+  display: flex;
+  flex-direction: column;
 }
 
 .ds-token-mapping__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: var(--spacing-200);
-  gap: var(--spacing-300);
 }
 
 .ds-token-mapping__title {
@@ -1269,7 +1267,7 @@ body {
   line-height: var(--fonts-title-small-line-height);
   font-weight: var(--font-weight-secondary-bold);
   color: var(--fg-neutral);
-  margin: 0;
+  margin: 0 0 var(--spacing-200) 0;
 }
 
 .ds-token-mapping__example {
@@ -1280,6 +1278,8 @@ body {
   background-color: var(--bg-brand-tonal);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
+  display: inline-block;
+  margin-bottom: var(--spacing-200);
 }
 
 .ds-token-mapping__desc {
@@ -1296,6 +1296,28 @@ body {
   color: var(--fg-neutral-tertiary);
   font-weight: var(--font-weight-secondary-bold);
   margin: calc(var(--spacing-200) * -1) 0;
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  .ds-token-mapping {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* 3 columns when there are 3 layers (detect 5th child which would be 3rd layer) */
+  .ds-token-mapping:has(> .ds-token-mapping__layer:nth-child(5)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Also handle case where 3rd layer is 7th child (if there are more arrows) */
+  .ds-token-mapping:has(> .ds-token-mapping__layer:nth-child(7)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Hide arrows on desktop since layers are side-by-side */
+  .ds-token-mapping__arrow {
+    display: none;
+  }
 }
 
 .ds-token-mapping__example-box {
@@ -1376,7 +1398,7 @@ body {
   border: var(--border-width-25) solid var(--border-strong-200);
   background-color: var(--bg-page-primary);
   cursor: pointer;
-  width: fit-content;
+  width: -webkit-fill-available;
   color: var(--fg-neutral);
 }
 
@@ -2092,7 +2114,7 @@ body {
   }
 
   .ds-contrast__row {
-    grid-template-columns: 1.3fr 1fr 1fr 0.6fr 0.6fr 0.6fr;
+    grid-template-columns: 1.3fr 1fr 1fr 0.4fr 0.32fr 0.32fr;
     align-items: start;
     gap: var(--spacing-300);
   }
