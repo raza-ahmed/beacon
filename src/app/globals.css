@@ -2268,18 +2268,19 @@ body {
   justify-content: center;
   padding: var(--spacing-500);
   border-bottom: var(--border-width-25) solid var(--border-strong-200);
-  flex: 0 0 50%;
+  flex: 1;
   min-height: 0;
 }
 
 .ds-button-preview-code {
-  flex: 0 0 50%;
+  flex: 0 0 auto;
   min-height: 0;
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-secondary);
   overflow: hidden;
+  margin-top: auto;
 }
 
 .ds-button-code-copy {
@@ -3011,18 +3012,19 @@ body {
   justify-content: center;
   padding: var(--spacing-500);
   border-bottom: var(--border-width-25) solid var(--border-strong-200);
-  flex: 0 0 50%;
+  flex: 1;
   min-height: 0;
 }
 
 .ds-avatar-preview-code {
-  flex: 0 0 50%;
+  flex: 0 0 auto;
   min-height: 0;
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-secondary);
   overflow: hidden;
+  margin-top: auto;
 }
 
 .ds-avatar-code-copy {

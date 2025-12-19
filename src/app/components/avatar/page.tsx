@@ -8,6 +8,8 @@ import { AvatarPreview } from "@/components/AvatarPreview";
 import { AvatarControls } from "@/components/AvatarControls";
 import { CopyIcon, CheckIcon, UserPersonIcon } from "@/components/icons";
 import { getAvatarImage } from "@/utils/imagePaths";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarType = "icon" | "text" | "image";
@@ -127,6 +129,27 @@ export default function AvatarPage() {
   });
   const [copied, setCopied] = useState(false);
 
+  // Clean theme object to remove conflicting background properties
+  const syntaxTheme = useMemo(() => {
+    const baseTheme = theme === "dark" ? vscDarkPlus : vs;
+    const cleanedTheme: typeof baseTheme = { ...baseTheme };
+    
+    // Remove background properties from all selectors to avoid conflicts
+    Object.keys(cleanedTheme).forEach((key) => {
+      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
+        const selector = cleanedTheme[key] as Record<string, string>;
+        if (selector.background) {
+          delete selector.background;
+        }
+        if (selector.backgroundColor) {
+          delete selector.backgroundColor;
+        }
+      }
+    });
+    
+    return cleanedTheme;
+  }, [theme]);
+
   const tocItems: TocItem[] = useMemo(() => {
     return [
       { id: "overview", label: "Overview" },
@@ -236,9 +259,26 @@ export default function AvatarPage() {
                     </>
                   )}
                 </button>
-                <pre className="ds-avatar-code-block">
-                  <code>{generateAvatarCode(config)}</code>
-                </pre>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--bg-page-tertiary)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: 0,
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {generateAvatarCode(config)}
+                </SyntaxHighlighter>
               </div>
             </div>
           </div>
