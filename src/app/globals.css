@@ -1963,7 +1963,7 @@ body {
 }
 
 .ds-spacing-table__row--four-col {
-  grid-template-columns: minmax(120px, 1.5fr) minmax(200px, 2.5fr) minmax(100px, auto) minmax(80px, auto);
+  grid-template-columns: minmax(120px, 1.4fr) minmax(200px, 1.6fr) minmax(160px, 1.2fr) minmax(120px, 1fr);
 }
 
 .ds-spacing-table__row--head {
@@ -3052,7 +3052,8 @@ body {
   overflow: hidden;
 }
 
-.ds-avatar-code-copy {
+.ds-avatar-code-copy,
+.ds-code-copy {
   position: absolute;
   top: var(--spacing-200);
   right: var(--spacing-200);
@@ -3073,7 +3074,8 @@ body {
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.ds-avatar-code-copy:hover {
+.ds-avatar-code-copy:hover,
+.ds-code-copy:hover {
   background-color: var(--static-primary-black);
   border-color: var(--border-primary);
   color: var(--fg-primary);

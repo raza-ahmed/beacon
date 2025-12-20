@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
-import { CopyIcon } from "@/components/icons";
+import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -180,6 +180,7 @@ export default function ResponsivenessPage() {
   const currentBreakpoint = useCurrentBreakpoint();
   const breakpointInfo = useBreakpointInfo();
   const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -220,6 +221,12 @@ export default function ResponsivenessPage() {
     await copyToClipboard(text);
     setCopiedText(text);
     window.setTimeout(() => setCopiedText(null), 1200);
+  };
+
+  const handleCopyCode = async (code: string, blockId: string) => {
+    await copyToClipboard(code);
+    setCopiedBlock(blockId);
+    setTimeout(() => setCopiedBlock(null), 2000);
   };
 
   if (!mounted) {
@@ -612,35 +619,63 @@ export default function ResponsivenessPage() {
             <p className="ds-content__text">
               In React, you can use these tokens with the <code>useCurrentBreakpoint</code> hook or check the computed value:
             </p>
-            <SyntaxHighlighter
-              language="tsx"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`function ResponsiveComponent() {
-  const breakpoint = useCurrentBreakpoint();
-  
-  return (
-    <>
-      {breakpoint === "desktop" && <DesktopOnlyContent />}
-      {breakpoint !== "mobile" && <DesktopTabletContent />}
-    </>
-  );
-}`}
-            </SyntaxHighlighter>
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`function ResponsiveComponent() {
+                const breakpoint = useCurrentBreakpoint();
+                return (
+                  <>
+                    {breakpoint === "desktop" && <DesktopOnlyContent />}
+                    {breakpoint !== "mobile" && <DesktopTabletContent />}
+                  </>
+                );
+              }`, "tsx-1")}
+                aria-label="Copy code"
+              >
+                {copiedBlock === "tsx-1" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`function ResponsiveComponent() {
+                const breakpoint = useCurrentBreakpoint();
+                
+                return (
+                  <>
+                    {breakpoint === "desktop" && <DesktopOnlyContent />}
+                    {breakpoint !== "mobile" && <DesktopTabletContent />}
+                  </>
+                );
+              }`}
+              </SyntaxHighlighter>
+            </div>
           </div>
         </section>
 
@@ -700,34 +735,62 @@ export default function ResponsivenessPage() {
             <p className="ds-content__text">
               Always use responsive tokens instead of hard-coding breakpoint-specific values. The tokens automatically adapt based on the current viewport size.
             </p>
-            <SyntaxHighlighter
-              language="css"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`/* Good */
-font-size: var(--heading-h1-text-size);
-padding: var(--adaptive-set-d96-t80-m32);
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`/* Good */
+                  font-size: var(--heading-h1-text-size);
+                  padding: var(--adaptive-set-d96-t80-m32);
 
-/* Bad */
-font-size: 64px; /* Only works on desktop */
-@media (max-width: 1024px) {
-  font-size: 60px;
-}`}
-            </SyntaxHighlighter>
+                  /* Bad */
+                  font-size: 64px; /* Only works on desktop */
+                  @media (max-width: 1024px) {
+                    font-size: 60px;
+                  }`, "css-1")}
+                aria-label="Copy code"
+              >
+                {copiedBlock === "css-1" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`/* Good */
+                font-size: var(--heading-h1-text-size);
+                padding: var(--adaptive-set-d96-t80-m32);
+
+                /* Bad */
+                font-size: 64px; /* Only works on desktop */
+                @media (max-width: 1024px) {
+                  font-size: 60px;
+                }`}
+              </SyntaxHighlighter>
+            </div>
           </div>
 
           <div className="ds-content__subsection">
@@ -753,34 +816,62 @@ font-size: 64px; /* Only works on desktop */
             <p className="ds-content__text">
               When you need custom responsive behavior beyond what tokens provide, use the standard breakpoints:
             </p>
-            <SyntaxHighlighter
-              language="css"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`/* Tablet and below */
-@media (max-width: 1024px) {
-  /* Your styles */
-}
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`/* Tablet and below */
+                  @media (max-width: 1024px) {
+                    /* Your styles */
+                  }
 
-/* Mobile only */
-@media (max-width: 768px) {
-  /* Your styles */
-}`}
-            </SyntaxHighlighter>
+                  /* Mobile only */
+                  @media (max-width: 768px) {
+                    /* Your styles */
+                  }`, "css-2")}
+                aria-label="Copy code"
+              >
+                {copiedBlock === "css-2" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`/* Tablet and below */
+                @media (max-width: 1024px) {
+                  /* Your styles */
+                }
+
+                /* Mobile only */
+                @media (max-width: 768px) {
+                  /* Your styles */
+                }`}
+              </SyntaxHighlighter>
+            </div>
           </div>
 
           <div className="ds-content__subsection">

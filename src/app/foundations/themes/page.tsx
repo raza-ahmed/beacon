@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import type { Theme, HueVariant } from "@/tokens/types";
+import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 const THEME_OPTIONS: { value: Theme; label: string }[] = [
@@ -120,13 +121,39 @@ function ThemePreview({
   );
 }
 
+async function copyToClipboard(text: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const el = document.createElement("textarea");
+  el.value = text;
+  el.setAttribute("readonly", "true");
+  el.style.position = "absolute";
+  el.style.left = "0";
+  el.style.top = "0";
+  el.style.transform = "translateX(-100%)";
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+}
+
 export default function ThemesPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleCopyCode = async (code: string, blockId: string) => {
+    await copyToClipboard(code);
+    setCopiedBlock(blockId);
+    setTimeout(() => setCopiedBlock(null), 2000);
+  };
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -272,25 +299,52 @@ export default function ThemesPage() {
             <p className="ds-content__text">
               Brand tokens are defined with theme-specific selectors:
             </p>
-            <SyntaxHighlighter
-              language="css"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`:root, [data-theme="light"] {
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`:root, [data-theme="light"] {
+                --bg-page-primary: var(--color-neutral-50);
+                --fg-neutral: var(--color-neutral-900);
+              }
+
+              [data-theme="dark"] {
+                --bg-page-primary: var(--color-neutral-800);
+                --fg-neutral: var(--color-neutral-50);
+              }`, "css-1")}
+                aria-label="Copy code"
+              >
+                {copiedBlock === "css-1" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`:root, [data-theme="light"] {
   --bg-page-primary: var(--color-neutral-50);
   --fg-neutral: var(--color-neutral-900);
 }
@@ -299,40 +353,71 @@ export default function ThemesPage() {
   --bg-page-primary: var(--color-neutral-800);
   --fg-neutral: var(--color-neutral-50);
 }`}
-            </SyntaxHighlighter>
+              </SyntaxHighlighter>
+            </div>
             <p className="ds-content__text">
               The <code>data-hue</code> attribute controls which semantic color tokens are used:
             </p>
-            <SyntaxHighlighter
-              language="css"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`[data-hue="chromatic-prime"] {
-  --color-primary-500: var(--color-purple-500);
-}
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`[data-hue="chromatic-prime"] {
+                    --color-primary-500: var(--color-purple-500);
+                  }
 
-[data-hue="hue-sky"] {
-  --color-primary-500: var(--color-sky-500);
-}
+                  [data-hue="hue-sky"] {
+                    --color-primary-500: var(--color-sky-500);
+                  }
 
-[data-hue="hue-indigo"] {
-  --color-primary-500: var(--color-indigo-500);
-}`}
-            </SyntaxHighlighter>
+                  [data-hue="hue-indigo"] {
+                    --color-primary-500: var(--color-indigo-500);
+                  }`, "css-2")}
+                  aria-label="Copy code"
+                >
+                {copiedBlock === "css-2" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`[data-hue="chromatic-prime"] {
+                  --color-primary-500: var(--color-purple-500);
+                }
+
+                [data-hue="hue-sky"] {
+                  --color-primary-500: var(--color-sky-500);
+                }
+
+                [data-hue="hue-indigo"] {
+                  --color-primary-500: var(--color-indigo-500);
+                }`}
+              </SyntaxHighlighter>
+            </div>
           </div>
 
           <div className="ds-content__subsection">
@@ -340,45 +425,84 @@ export default function ThemesPage() {
             <p className="ds-content__text">
               Use the <code>ThemeProvider</code> and <code>useTheme</code> hook in your components:
             </p>
-            <SyntaxHighlighter
-              language="tsx"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`import { ThemeProvider } from "@/providers/ThemeProvider";
-import { useTheme } from "@/providers/ThemeProvider";
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`import { ThemeProvider } from "@/providers/ThemeProvider";
+                import { useTheme } from "@/providers/ThemeProvider";
 
-function App() {
-  return (
-    <ThemeProvider>
-      <YourApp />
-    </ThemeProvider>
-  );
-}
+                function App() {
+                  return (
+                    <ThemeProvider>
+                      <YourApp />
+                    </ThemeProvider>
+                  );
+                }
 
-function YourComponent() {
-  const { theme, hue, setTheme, setHue, toggleTheme } = useTheme();
-  
-  return (
-    <button onClick={() => setTheme("dark")}>
-      Switch to Dark
-    </button>
-  );
-}`}
-            </SyntaxHighlighter>
+                function YourComponent() {
+                  const { theme, hue, setTheme, setHue, toggleTheme } = useTheme();
+                  
+                  return (
+                    <button onClick={() => setTheme("dark")}>
+                      Switch to Dark
+                    </button>
+                  );
+                }`, "tsx-1")}
+                aria-label="Copy code"
+              >
+                {copiedBlock === "tsx-1" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`import { ThemeProvider } from "@/providers/ThemeProvider";
+                import { useTheme } from "@/providers/ThemeProvider";
+
+                function App() {
+                  return (
+                    <ThemeProvider>
+                      <YourApp />
+                    </ThemeProvider>
+                  );
+                }
+
+                function YourComponent() {
+                  const { theme, hue, setTheme, setHue, toggleTheme } = useTheme();
+                  
+                  return (
+                    <button onClick={() => setTheme("dark")}>
+                      Switch to Dark
+                    </button>
+                  );
+                }`}
+              </SyntaxHighlighter>
+            </div>
           </div>
 
           <div className="ds-content__subsection">
@@ -400,32 +524,58 @@ function YourComponent() {
             <p className="ds-content__text">
               Never use hard-coded color values. Always reference theme tokens via CSS variables:
             </p>
-            <SyntaxHighlighter
-              language="css"
-              style={syntaxTheme}
-              customStyle={{
-                margin: 0,
-                padding: "var(--spacing-300)",
-                backgroundColor: "var(--static-primary-black)",
-                fontSize: "var(--body-small-text-size)",
-                borderRadius: "var(--corner-radius-200)",
-                border: "none",
-              }}
-              codeTagProps={{
-                style: {
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                },
-              }}
-              PreTag="div"
-            >
-              {`/* Good */
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-code-copy"
+                onClick={() => handleCopyCode(`/* Good */
+background-color: var(--bg-page-primary);
+color: var(--fg-neutral);
+
+/* Bad */
+background-color: #ffffff;
+color: #000000;`, "css-3")}
+                aria-label="Copy code"
+              >
+                {copiedBlock === "css-3" ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`/* Good */
 background-color: var(--bg-page-primary);
 color: var(--fg-neutral);
 
 /* Bad */
 background-color: #ffffff;
 color: #000000;`}
-            </SyntaxHighlighter>
+              </SyntaxHighlighter>
+            </div>
           </div>
 
           <div className="ds-content__subsection">
