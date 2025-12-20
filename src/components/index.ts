@@ -8,4 +8,6 @@ export { AvatarPreview } from "./AvatarPreview";
 export { AvatarControls } from "./AvatarControls";
 export { CardPreview } from "./CardPreview";
 export { CardControls } from "./CardControls";
+export { CheckboxPreview } from "./CheckboxPreview";
+export { CheckboxControls } from "./CheckboxControls";
 
