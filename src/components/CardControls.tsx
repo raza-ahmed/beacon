@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { type PatternType, PATTERN_CONFIGS } from "@/utils/patternPaths";
 
 type CardType = "product" | "experience" | "info" | "generic";
 type ProductCardSize = "full" | "half";
@@ -37,6 +38,7 @@ interface CardControlsProps {
   // Generic Card
   genericStatus?: GenericCardStatus;
   showBgPattern?: boolean;
+  patternType?: PatternType;
   showOverlay?: boolean;
   showShadow?: boolean;
   showBorder?: boolean;
@@ -68,6 +70,7 @@ interface CardControlsProps {
   // Generic Card callbacks
   onGenericStatusChange?: (status: GenericCardStatus) => void;
   onShowBgPatternChange?: (show: boolean) => void;
+  onPatternTypeChange?: (type: PatternType) => void;
   onShowOverlayChange?: (show: boolean) => void;
   onShowShadowChange?: (show: boolean) => void;
   onShowBorderChange?: (show: boolean) => void;
@@ -140,6 +143,7 @@ export function CardControls({
   // Generic Card
   genericStatus = "default",
   showBgPattern = true,
+  patternType = "cubes",
   showOverlay = true,
   showShadow = true,
   showBorder = true,
@@ -167,6 +171,7 @@ export function CardControls({
   onHasIconChange,
   onGenericStatusChange,
   onShowBgPatternChange,
+  onPatternTypeChange,
   onShowOverlayChange,
   onShowShadowChange,
   onShowBorderChange,
@@ -599,6 +604,28 @@ export function CardControls({
               </div>
             </div>
           </div>
+
+          {showBgPattern && (
+            <div className="ds-card-control-group">
+              <label htmlFor="generic-pattern-type-select" className="ds-card-control-label">
+                Pattern Type
+              </label>
+              <select
+                id="generic-pattern-type-select"
+                className="ds-card-control-select"
+                value={patternType}
+                onChange={(e) => onPatternTypeChange?.(e.target.value as PatternType)}
+              >
+                {Object.entries(PATTERN_CONFIGS)
+                  .filter(([key]) => key !== "default")
+                  .map(([key, config]) => (
+                    <option key={key} value={key}>
+                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
 
           <div className="ds-card-control-group">
             <div className="ds-icon-fill-row">

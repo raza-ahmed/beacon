@@ -2289,7 +2289,11 @@ body {
   overflow: hidden;
 }
 
-.ds-button-code-copy {
+/* Base copy button styles - shared across all code copy buttons */
+.ds-button-code-copy,
+.ds-avatar-code-copy,
+.ds-code-copy,
+.ds-card-code-copy {
   position: absolute;
   top: var(--spacing-200);
   right: var(--spacing-200);
@@ -2299,8 +2303,8 @@ body {
   gap: var(--spacing-100);
   padding: var(--spacing-100) var(--spacing-200);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-primary);
-  color: var(--fg-neutral);
+  background-color: var(--static-primary);
+  color: var(--static-white);
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
@@ -2310,14 +2314,43 @@ body {
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.ds-button-code-copy:hover {
-  background-color: var(--bg-page-tertiary);
+.ds-button-code-copy:hover,
+.ds-avatar-code-copy:hover,
+.ds-code-copy:hover,
+.ds-card-code-copy:hover {
   border-color: var(--border-primary);
-  color: var(--fg-primary);
   box-shadow: var(--shadow-medium);
 }
 
-.ds-button-code-block {
+/* Button-specific hover styles */
+.ds-button-code-copy:hover,
+.ds-card-code-copy:hover {
+  background-color: var(--bg-page-tertiary);
+  color: var(--fg-primary);
+}
+
+/* Avatar/Code-specific hover styles */
+.ds-avatar-code-copy:hover,
+.ds-code-copy:hover {
+  background-color: var(--static-primary-black);
+  color: var(--fg-primary);
+}
+
+/* Card-specific overrides */
+.ds-card-code-copy {
+  display: flex;
+  border-radius: var(--corner-radius-200);
+  box-shadow: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ds-card-code-copy:hover {
+  box-shadow: none;
+}
+
+/* Base code block styles - shared across all code blocks */
+.ds-button-code-block,
+.ds-avatar-code-block {
   flex: 1;
   margin: 0;
   padding: var(--spacing-300);
@@ -2333,19 +2366,25 @@ body {
   word-wrap: normal;
 }
 
-.ds-button-code-block code {
+.ds-button-code-block code,
+.ds-avatar-code-block code {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
   background-color: transparent;
 }
 
-.ds-button-playground-divider {
+/* Base playground divider - shared across all playgrounds */
+.ds-button-playground-divider,
+.ds-avatar-playground-divider,
+.ds-card-playground-divider {
   width: var(--border-width-25);
   background-color: var(--border-strong-200);
 }
 
-.ds-button-preview-container {
+/* Base preview container - shared between button and card */
+.ds-button-preview-container,
+.ds-card-preview-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -2353,12 +2392,20 @@ body {
   justify-content: center;
 }
 
-.ds-button-preview-canvas {
+/* Base preview canvas - shared between button and card */
+.ds-button-preview-canvas,
+.ds-card-preview-canvas {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 100%;
+}
+
+/* Card-specific canvas overrides */
+.ds-card-preview-canvas {
+  overflow: auto;
+  padding: var(--spacing-200);
 }
 
 .ds-button-preview-button {
@@ -2398,25 +2445,34 @@ body {
   align-self: stretch;
 }
 
-.ds-button-control-group {
+/* Base control group styles - shared across all control groups */
+.ds-button-control-group,
+.ds-avatar-control-group,
+.ds-card-control-group {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
 }
 
-.ds-button-control-group--row {
+.ds-button-control-group--row,
+.ds-avatar-control-group--row,
+.ds-card-control-group--row {
   flex-direction: row;
   gap: var(--spacing-300);
 }
 
-.ds-button-control-field {
+.ds-button-control-field,
+.ds-avatar-control-field,
+.ds-card-control-field {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
   flex: 1;
 }
 
-.ds-button-control-label {
+.ds-button-control-label,
+.ds-avatar-control-label,
+.ds-card-control-label {
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
@@ -2424,7 +2480,9 @@ body {
   color: var(--fg-neutral);
 }
 
-.ds-button-control-select {
+/* Base control select styles - shared between button and card */
+.ds-button-control-select,
+.ds-card-control-select {
   appearance: none;
   background-color: var(--bg-page-primary);
   border: var(--border-width-25) solid var(--border-strong-200);
@@ -2442,11 +2500,13 @@ body {
   transition: border-color 0.15s ease;
 }
 
-.ds-button-control-select:hover {
+.ds-button-control-select:hover,
+.ds-card-control-select:hover {
   border-color: var(--border-primary);
 }
 
-.ds-button-control-select:focus {
+.ds-button-control-select:focus,
+.ds-card-control-select:focus {
   outline: none;
   border-color: var(--border-primary);
 }
@@ -3052,63 +3112,9 @@ body {
   overflow: hidden;
 }
 
-.ds-avatar-code-copy,
-.ds-code-copy {
-  position: absolute;
-  top: var(--spacing-200);
-  right: var(--spacing-200);
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-100);
-  padding: var(--spacing-100) var(--spacing-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--static-primary);
-  color: var(--static-white);
-  font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
-  border-radius: var(--corner-radius-100);
-  cursor: pointer;
-  box-shadow: var(--shadow-subtle);
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
-}
+/* Avatar and Code copy buttons use base styles defined above */
 
-.ds-avatar-code-copy:hover,
-.ds-code-copy:hover {
-  background-color: var(--static-primary-black);
-  border-color: var(--border-primary);
-  color: var(--fg-primary);
-  box-shadow: var(--shadow-medium);
-}
-
-.ds-avatar-code-block {
-  flex: 1;
-  margin: 0;
-  padding: var(--spacing-300);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: 1.5;
-  color: var(--fg-neutral);
-  background-color: var(--bg-page-tertiary);
-  border: none;
-  white-space: pre;
-  overflow: auto;
-  overflow-wrap: normal;
-  word-wrap: normal;
-}
-
-.ds-avatar-code-block code {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  background-color: transparent;
-}
-
-.ds-avatar-playground-divider {
-  width: var(--border-width-25);
-  background-color: var(--border-strong-200);
-}
+/* Avatar code block and divider use base styles defined above */
 
 .ds-avatar-preview-container {
   width: 100%;
@@ -3134,31 +3140,7 @@ body {
   align-self: stretch;
 }
 
-.ds-avatar-control-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-200);
-}
-
-.ds-avatar-control-group--row {
-  flex-direction: row;
-  gap: var(--spacing-300);
-}
-
-.ds-avatar-control-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-200);
-  flex: 1;
-}
-
-.ds-avatar-control-label {
-  font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
-  font-weight: var(--font-weight-secondary-medium);
-  color: var(--fg-neutral);
-}
+/* Avatar control group, field, and label use base styles defined above */
 
 .ds-avatar-control-select {
   appearance: none;
@@ -3326,7 +3308,7 @@ body {
   border: var(--border-width-25) solid var(--border-strong-200);
   background-color: var(--bg-page-secondary);
   overflow: hidden;
-  min-height: 600px;
+  min-height: 448px;
 }
 
 @media (max-width: 1023px) {
@@ -3378,53 +3360,9 @@ body {
   overflow: hidden;
 }
 
-.ds-card-code-copy {
-  position: absolute;
-  top: var(--spacing-200);
-  right: var(--spacing-200);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-100);
-  padding: var(--spacing-100) var(--spacing-200);
-  background-color: var(--bg-page-secondary);
-  border: var(--border-width-25) solid var(--border-strong-200);
-  border-radius: var(--corner-radius-200);
-  font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
-  color: var(--fg-neutral);
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-}
+/* Card copy button and playground divider use base styles defined above */
 
-.ds-card-code-copy:hover {
-  background-color: var(--bg-page-tertiary);
-  border-color: var(--border-primary);
-}
-
-.ds-card-playground-divider {
-  width: var(--border-width-25);
-  background-color: var(--border-strong-200);
-}
-
-.ds-card-preview-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ds-card-preview-canvas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
-  overflow: auto;
-  padding: var(--spacing-200);
-}
+/* Card preview container and canvas use base styles with overrides defined above */
 
 .ds-card-controls {
   display: flex;
@@ -3435,58 +3373,9 @@ body {
   max-height: 100%;
 }
 
-.ds-card-control-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-200);
-}
+/* Card control group, field, and label use base styles defined above */
 
-.ds-card-control-group--row {
-  flex-direction: row;
-  gap: var(--spacing-300);
-}
-
-.ds-card-control-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-200);
-  flex: 1;
-}
-
-.ds-card-control-label {
-  font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
-  font-weight: var(--font-weight-secondary-medium);
-  color: var(--fg-neutral);
-}
-
-.ds-card-control-select {
-  appearance: none;
-  background-color: var(--bg-page-primary);
-  border: var(--border-width-25) solid var(--border-strong-200);
-  border-radius: var(--corner-radius-200);
-  padding: var(--spacing-200);
-  font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
-  color: var(--fg-neutral);
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23524e4f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right var(--spacing-200) center;
-  padding-right: calc(var(--spacing-500) + var(--spacing-200));
-  transition: border-color 0.15s ease;
-}
-
-.ds-card-control-select:hover {
-  border-color: var(--border-primary);
-}
-
-.ds-card-control-select:focus {
-  outline: none;
-  border-color: var(--border-primary);
-}
+/* Card control select uses base styles defined above */
 
 .ds-card-control-input {
   appearance: none;

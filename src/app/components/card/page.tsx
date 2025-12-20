@@ -8,6 +8,7 @@ import { CardControls } from "@/components/CardControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import type { PatternType } from "@/utils/patternPaths";
 
 type CardType = "product" | "experience" | "info" | "generic";
 type ProductCardSize = "full" | "half";
@@ -41,6 +42,7 @@ interface CardConfig {
   // Generic Card
   genericStatus: GenericCardStatus;
   showBgPattern: boolean;
+  patternType: PatternType;
   showOverlay: boolean;
   showShadow: boolean;
   showBorder: boolean;
@@ -165,7 +167,10 @@ function generateCardCode(config: CardConfig): string {
     props.push(`status="${config.genericStatus}"`);
   }
   
-  if (!config.showBgPattern) {
+  if (config.showBgPattern) {
+    // Always include patternType when background pattern is enabled
+    props.push(`patternType="${config.patternType}"`);
+  } else {
     props.push(`showBgPattern={false}`);
   }
   
@@ -241,6 +246,7 @@ export default function CardPage() {
     // Generic Card defaults
     genericStatus: "default",
     showBgPattern: true,
+    patternType: "cubes",
     showOverlay: true,
     showShadow: true,
     showBorder: true,
@@ -339,6 +345,7 @@ export default function CardPage() {
               hasIcon={config.hasIcon}
               genericStatus={config.genericStatus}
               showBgPattern={config.showBgPattern}
+              patternType={config.patternType}
               showOverlay={config.showOverlay}
               showShadow={config.showShadow}
               showBorder={config.showBorder}
@@ -365,6 +372,7 @@ export default function CardPage() {
               onHasIconChange={(has) => updateConfig({ hasIcon: has })}
               onGenericStatusChange={(status) => updateConfig({ genericStatus: status })}
               onShowBgPatternChange={(show) => updateConfig({ showBgPattern: show })}
+              onPatternTypeChange={(type) => updateConfig({ patternType: type })}
               onShowOverlayChange={(show) => updateConfig({ showOverlay: show })}
               onShowShadowChange={(show) => updateConfig({ showShadow: show })}
               onShowBorderChange={(show) => updateConfig({ showBorder: show })}
@@ -396,6 +404,7 @@ export default function CardPage() {
                       hasIcon={config.hasIcon}
                       genericStatus={config.genericStatus}
                       showBgPattern={config.showBgPattern}
+                      patternType={config.patternType}
                       showOverlay={config.showOverlay}
                       showShadow={config.showShadow}
                       showBorder={config.showBorder}

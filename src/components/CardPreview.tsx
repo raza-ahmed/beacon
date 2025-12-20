@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { RightArrowIcon, ArrowDownFallSlotIcon } from "./icons";
+import { getPatternConfig, type PatternType } from "@/utils/patternPaths";
 
 type CardType = "product" | "experience" | "info" | "generic";
 
@@ -44,6 +45,7 @@ interface CardPreviewProps {
   // Generic Card props
   genericStatus?: GenericCardStatus;
   showBgPattern?: boolean;
+  patternType?: PatternType;
   showOverlay?: boolean;
   showShadow?: boolean;
   showBorder?: boolean;
@@ -78,6 +80,7 @@ export function CardPreview({
   // Generic Card
   genericStatus = "default",
   showBgPattern = true,
+  patternType = "cubes",
   showOverlay = true,
   showShadow = true,
   showBorder = true,
@@ -801,27 +804,33 @@ export function CardPreview({
 
     return (
       <div style={cardStyles}>
-        {showBgPattern && (
-          <div
-            style={{
-              position: "absolute",
-              aspectRatio: "64/64",
-              inset: showBorder ? "-1px" : "0",
-              overflow: "hidden",
-              zIndex: 1,
-            }}
-          >
+        {showBgPattern && (() => {
+          const patternConfig = getPatternConfig(patternType);
+          if (!patternConfig.imageUrl) return null;
+          
+          return (
             <div
               style={{
                 position: "absolute",
-                inset: 0,
-                backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"34\" height=\"50\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Crect width=\"34\" height=\"50\" fill=\"%23d2d2d6\"/%3E%3C/svg%3E')",
-                backgroundRepeat: "repeat",
-                backgroundSize: "33.5px 50px",
+                aspectRatio: "64/64",
+                inset: showBorder ? "-1px" : "0",
+                overflow: "hidden",
+                zIndex: 1,
               }}
-            />
-          </div>
-        )}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  inset: patternConfig.inset || "0",
+                  backgroundImage: `url("${patternConfig.imageUrl}")`,
+                  backgroundRepeat: "repeat",
+                  backgroundSize: patternConfig.backgroundSize,
+                  backgroundPosition: patternConfig.backgroundPosition || "top left",
+                }}
+              />
+            </div>
+          );
+        })()}
         {showOverlay && (
           <div
             style={{
