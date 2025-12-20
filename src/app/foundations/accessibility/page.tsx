@@ -105,7 +105,7 @@ export default function AccessibilityPage() {
           <div className="ds-content__subsection">
             <h6 className="ds-content__subsection-title">Use Paired Tokens</h6>
             <p className="ds-content__text">
-              Always use paired foreground and background tokens (e.g., <code>--fg-on-action</code> with <code>--bg-brand</code>) to ensure proper contrast. Avoid mixing tokens that haven't been validated together.
+              Always use paired foreground and background tokens (e.g., <code>--fg-on-action</code> with <code>--bg-primary</code>) to ensure proper contrast. Avoid mixing tokens that haven't been validated together.
             </p>
           </div>
 

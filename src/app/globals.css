@@ -157,7 +157,7 @@ body {
 
 .ds-header__version-badge {
   padding: var(--spacing-100) var(--spacing-200);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   border-radius: var(--corner-radius-200);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
@@ -228,7 +228,7 @@ body {
 }
 
 .ds-header__hue-option.active {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
 }
 
@@ -470,7 +470,7 @@ body {
 }
 
 .ds-sidebar__nav-item.active {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-weight: var(--font-weight-secondary-medium);
 }
@@ -540,7 +540,7 @@ body {
 }
 
 .ds-toc__item.active {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-weight: var(--font-weight-secondary-medium);
 }
@@ -756,7 +756,7 @@ body {
 }
 
 .ds-token-segment.active {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-weight: var(--font-weight-secondary-medium);
 }
@@ -875,7 +875,7 @@ body {
 .ds-color-button {
   appearance: none;
   border: var(--border-width-25) solid var(--border-primary);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
@@ -897,7 +897,7 @@ body {
 }
 
 .ds-color-button:hover {
-  background-color: var(--bg-brand-tonal-on-hover);
+  background-color: var(--bg-primary-tonal-on-hover);
   border-color: var(--border-primary-on-hover);
 }
 
@@ -1277,7 +1277,7 @@ body {
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
   color: var(--fg-primary);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
   display: inline-block;
@@ -1326,7 +1326,7 @@ body {
   margin-top: var(--spacing-400);
   padding: var(--spacing-300);
   border-radius: var(--corner-radius-200);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   border: var(--border-width-25) solid var(--border-primary-tonal);
 }
 
@@ -1519,7 +1519,7 @@ body {
 .ds-token-button {
   appearance: none;
   border: var(--border-width-25) solid var(--border-primary);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
@@ -1541,7 +1541,7 @@ body {
 }
 
 .ds-token-button:hover {
-  background-color: var(--bg-brand-tonal-on-hover);
+  background-color: var(--bg-primary-tonal-on-hover);
   border-color: var(--border-primary-on-hover);
 }
 
@@ -1631,7 +1631,7 @@ body {
 
 .ds-spacing-bar__fill {
   height: 24px;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   border-radius: var(--corner-radius-100);
   flex-shrink: 0;
   min-width: 2px;
@@ -1665,7 +1665,7 @@ body {
 .ds-spacing-preview__inner {
   width: 100%;
   height: 60px;
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   border-radius: var(--corner-radius-100);
   flex-shrink: 0;
 }
@@ -1691,7 +1691,7 @@ body {
 .ds-responsive-preview__inner {
   width: 100%;
   height: 60px;
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   border-radius: var(--corner-radius-100);
   flex-shrink: 0;
 }
@@ -1755,7 +1755,7 @@ body {
 .ds-theme-preview__apply {
   appearance: none;
   border: var(--border-width-25) solid var(--border-primary);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
@@ -1767,7 +1767,7 @@ body {
 }
 
 .ds-theme-preview__apply:hover {
-  background-color: var(--bg-brand-tonal-on-hover);
+  background-color: var(--bg-primary-tonal-on-hover);
   border-color: var(--border-primary-on-hover);
 }
 
@@ -2219,7 +2219,7 @@ body {
 
 /* Selection */
 ::selection {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-neutral);
 }
 
@@ -2579,7 +2579,7 @@ body {
 }
 
 .ds-step-slider__step--active::after {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   border: 3px solid var(--border-primary);
   width: 12px;
   height: 12px;
@@ -2592,7 +2592,7 @@ body {
   left: 0;
   height: 100%;
   width: var(--active-width, 0%);
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   border-radius: var(--corner-radius-full);
   transition: width 0.15s ease;
   z-index: 0;
@@ -2616,7 +2616,7 @@ body {
   width: 20px;
   height: 20px;
   border-radius: var(--corner-radius-full);
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   border: var(--border-width-25) solid var(--border-primary);
   cursor: pointer;
   margin-top: -8px;
@@ -2627,7 +2627,7 @@ body {
   width: 20px;
   height: 20px;
   border-radius: var(--corner-radius-full);
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   border: var(--border-width-25) solid var(--border-on-action);
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -2686,7 +2686,7 @@ body {
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: var(--bg-brand);
+  accent-color: var(--bg-primary);
 }
 
 .ds-switch {
@@ -2728,7 +2728,7 @@ body {
 }
 
 .ds-switch input:checked + .ds-switch__slider {
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   border-color: var(--border-on-action);
 }
 
@@ -2767,7 +2767,7 @@ body {
 }
 
 .ds-segmented-control__button--active {
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-weight: var(--font-weight-secondary-medium);
 }
@@ -2796,7 +2796,7 @@ body {
   align-items: center;
   gap: var(--spacing-100);
   padding: var(--spacing-200) var(--spacing-400);
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   color: var(--fg-on-action);
   border-radius: var(--corner-radius-200);
   border: var(--border-width-25) solid var(--border-primary);
@@ -2857,18 +2857,29 @@ body {
   margin-bottom: var(--spacing-500);
 }
 
+.ds-anatomy-diagram__avatar .ds-anatomy-diagram__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
 .ds-anatomy-diagram__content {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   color: var(--fg-on-action);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
+  font-size: var(--body-regular-text-size);
   font-weight: var(--font-weight-secondary-medium);
+  line-height: 1;
 }
 
 /* ============================================
@@ -2921,7 +2932,7 @@ body {
 .ds-button-preview-filled {
   appearance: none;
   border: var(--border-width-25) solid var(--border-primary);
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   color: var(--fg-on-action);
   font-family: var(--font-secondary);
   font-size: var(--body-regular-text-size);
@@ -2935,7 +2946,7 @@ body {
 .ds-button-preview-tonal {
   appearance: none;
   border: var(--border-width-25) solid var(--border-primary-tonal);
-  background-color: var(--bg-brand-tonal);
+  background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
   font-size: var(--body-regular-text-size);
@@ -3051,8 +3062,8 @@ body {
   gap: var(--spacing-100);
   padding: var(--spacing-100) var(--spacing-200);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-primary);
-  color: var(--fg-neutral);
+  background-color: var(--static-primary);
+  color: var(--static-white);
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
@@ -3063,7 +3074,7 @@ body {
 }
 
 .ds-avatar-code-copy:hover {
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--static-primary-black);
   border-color: var(--border-primary);
   color: var(--fg-primary);
   box-shadow: var(--shadow-medium);
@@ -3248,7 +3259,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3260,7 +3271,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3274,7 +3285,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -3291,14 +3302,14 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
 }
 
 .ds-avatar-preview-square {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: var(--bg-brand);
+  background-color: var(--bg-primary);
 }
 
 /* ============================================

@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { CopyIcon } from "@/components/icons";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type Breakpoint = "desktop" | "tablet" | "mobile";
 
@@ -178,6 +180,28 @@ export default function ResponsivenessPage() {
   const currentBreakpoint = useCurrentBreakpoint();
   const breakpointInfo = useBreakpointInfo();
   const [copiedText, setCopiedText] = useState<string | null>(null);
+
+  // Clean theme object to remove conflicting background properties
+  // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
+  const syntaxTheme = useMemo(() => {
+    const baseTheme = vscDarkPlus;
+    const cleanedTheme: typeof baseTheme = { ...baseTheme };
+    
+    // Remove background properties from all selectors to avoid conflicts
+    Object.keys(cleanedTheme).forEach((key) => {
+      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
+        const selector = cleanedTheme[key] as Record<string, string>;
+        if (selector.background) {
+          delete selector.background;
+        }
+        if (selector.backgroundColor) {
+          delete selector.backgroundColor;
+        }
+      }
+    });
+    
+    return cleanedTheme;
+  }, []);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -588,8 +612,25 @@ export default function ResponsivenessPage() {
             <p className="ds-content__text">
               In React, you can use these tokens with the <code>useCurrentBreakpoint</code> hook or check the computed value:
             </p>
-            <div className="ds-codeblock">
-              <code>{`function ResponsiveComponent() {
+            <SyntaxHighlighter
+              language="tsx"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`function ResponsiveComponent() {
   const breakpoint = useCurrentBreakpoint();
   
   return (
@@ -598,8 +639,8 @@ export default function ResponsivenessPage() {
       {breakpoint !== "mobile" && <DesktopTabletContent />}
     </>
   );
-}`}</code>
-            </div>
+}`}
+            </SyntaxHighlighter>
           </div>
         </section>
 
@@ -659,8 +700,25 @@ export default function ResponsivenessPage() {
             <p className="ds-content__text">
               Always use responsive tokens instead of hard-coding breakpoint-specific values. The tokens automatically adapt based on the current viewport size.
             </p>
-            <div className="ds-codeblock">
-              <code>{`/* Good */
+            <SyntaxHighlighter
+              language="css"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`/* Good */
 font-size: var(--heading-h1-text-size);
 padding: var(--adaptive-set-d96-t80-m32);
 
@@ -668,8 +726,8 @@ padding: var(--adaptive-set-d96-t80-m32);
 font-size: 64px; /* Only works on desktop */
 @media (max-width: 1024px) {
   font-size: 60px;
-}`}</code>
-            </div>
+}`}
+            </SyntaxHighlighter>
           </div>
 
           <div className="ds-content__subsection">
@@ -695,8 +753,25 @@ font-size: 64px; /* Only works on desktop */
             <p className="ds-content__text">
               When you need custom responsive behavior beyond what tokens provide, use the standard breakpoints:
             </p>
-            <div className="ds-codeblock">
-              <code>{`/* Tablet and below */
+            <SyntaxHighlighter
+              language="css"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`/* Tablet and below */
 @media (max-width: 1024px) {
   /* Your styles */
 }
@@ -704,8 +779,8 @@ font-size: 64px; /* Only works on desktop */
 /* Mobile only */
 @media (max-width: 768px) {
   /* Your styles */
-}`}</code>
-            </div>
+}`}
+            </SyntaxHighlighter>
           </div>
 
           <div className="ds-content__subsection">

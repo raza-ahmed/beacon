@@ -8,7 +8,7 @@ import { ButtonPreview } from "@/components/ButtonPreview";
 import { ButtonControls } from "@/components/ButtonControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -140,8 +140,9 @@ export default function ButtonPage() {
   const [copied, setCopied] = useState(false);
 
   // Clean theme object to remove conflicting background properties
+  // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
   const syntaxTheme = useMemo(() => {
-    const baseTheme = theme === "dark" ? vscDarkPlus : vs;
+    const baseTheme = vscDarkPlus;
     const cleanedTheme: typeof baseTheme = { ...baseTheme };
     
     // Remove background properties from all selectors to avoid conflicts
@@ -158,7 +159,7 @@ export default function ButtonPage() {
     });
     
     return cleanedTheme;
-  }, [theme]);
+  }, []);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -275,7 +276,7 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-tertiary)",
+                    backgroundColor: "var(--static-primary-black)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
@@ -447,8 +448,25 @@ export default function ButtonPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ButtonProps</h6>
-              <pre className="ds-api-reference__code">
-                <code>{`interface ButtonProps {
+              <SyntaxHighlighter
+                language="typescript"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`interface ButtonProps {
   variant?: "filled" | "tonal" | "outline" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -461,8 +479,8 @@ export default function ButtonPage() {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   "aria-label"?: string;
-}`}</code>
-              </pre>
+}`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
@@ -584,61 +602,163 @@ export default function ButtonPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Button</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<button type="button" className="ds-button ds-button--filled ds-button--md">
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<button type="button" className="ds-button ds-button--filled ds-button--md">
   Button
-</button>`}</code>
-              </pre>
+</button>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Button with Icons</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<button type="button" className="ds-button ds-button--filled ds-button--md">
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<button type="button" className="ds-button ds-button--filled ds-button--md">
   <SearchIcon size="xs" />
   <span>Search</span>
   <ChevronDownIcon size="xs" />
-</button>`}</code>
-              </pre>
+</button>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">All Variants</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<button type="button" className="ds-button ds-button--filled">Filled</button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<button type="button" className="ds-button ds-button--filled">Filled</button>
 <button type="button" className="ds-button ds-button--tonal">Tonal</button>
 <button type="button" className="ds-button ds-button--outline">Outline</button>
-<button type="button" className="ds-button ds-button--link">Link</button>`}</code>
-              </pre>
+<button type="button" className="ds-button ds-button--link">Link</button>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Sizes</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<button type="button" className="ds-button ds-button--xs">Extra Small</button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<button type="button" className="ds-button ds-button--xs">Extra Small</button>
 <button type="button" className="ds-button ds-button--sm">Small</button>
 <button type="button" className="ds-button ds-button--md">Medium</button>
 <button type="button" className="ds-button ds-button--lg">Large</button>
-<button type="button" className="ds-button ds-button--xl">Extra Large</button>`}</code>
-              </pre>
+<button type="button" className="ds-button ds-button--xl">Extra Large</button>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Fill Container</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<button 
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<button 
   type="button" 
   className="ds-button ds-button--filled ds-button--md ds-button--fill">
   Full Width Button
-</button>`}</code>
-              </pre>
+</button>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Disabled State</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<button 
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<button 
   type="button" 
   className="ds-button ds-button--filled ds-button--md"
   disabled>
   Disabled Button
-</button>`}</code>
-              </pre>
+</button>`}
+              </SyntaxHighlighter>
             </div>
           </div>
         </section>

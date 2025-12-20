@@ -14,7 +14,7 @@ interface AvatarControlsProps {
   color: AvatarColor;
   variant: AvatarVariant;
   isRound: boolean;
-  hasInnerStroke: boolean;
+  hasStroke: boolean;
   theme: Theme;
   hue: HueVariant;
   initials: string;
@@ -23,7 +23,7 @@ interface AvatarControlsProps {
   onColorChange: (color: AvatarColor) => void;
   onVariantChange: (variant: AvatarVariant) => void;
   onIsRoundChange: (isRound: boolean) => void;
-  onHasInnerStrokeChange: (hasInnerStroke: boolean) => void;
+  onHasStrokeChange: (hasStroke: boolean) => void;
   onThemeChange: (theme: Theme) => void;
   onHueChange: (hue: HueVariant) => void;
   onInitialsChange: (initials: string) => void;
@@ -76,7 +76,7 @@ export function AvatarControls({
   color,
   variant,
   isRound,
-  hasInnerStroke,
+  hasStroke,
   theme,
   hue,
   initials,
@@ -85,7 +85,7 @@ export function AvatarControls({
   onColorChange,
   onVariantChange,
   onIsRoundChange,
-  onHasInnerStrokeChange,
+  onHasStrokeChange,
   onThemeChange,
   onHueChange,
   onInitialsChange,
@@ -266,13 +266,13 @@ export function AvatarControls({
             </label>
           </div>
           <div className="ds-icon-fill-section">
-            <span className="ds-avatar-control-label">Inner Stroke</span>
-            <label htmlFor="avatar-inner-stroke" className="ds-switch">
+            <span className="ds-avatar-control-label">Stroke</span>
+            <label htmlFor="avatar-stroke" className="ds-switch">
               <input
-                id="avatar-inner-stroke"
+                id="avatar-stroke"
                 type="checkbox"
-                checked={hasInnerStroke}
-                onChange={(e) => onHasInnerStrokeChange(e.target.checked)}
+                checked={hasStroke}
+                onChange={(e) => onHasStrokeChange(e.target.checked)}
               />
               <span className="ds-switch__slider" />
             </label>

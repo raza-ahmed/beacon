@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import type { Theme, HueVariant } from "@/tokens/types";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 const THEME_OPTIONS: { value: Theme; label: string }[] = [
   { value: "light", label: "Light" },
   { value: "dark", label: "Dark" },
@@ -65,7 +67,7 @@ function ThemePreview({
   const keyBrandTokens: `--${string}`[] = useMemo(
     () => [
       "--bg-page-primary",
-      "--bg-brand",
+      "--bg-primary",
       "--fg-neutral",
       "--fg-primary",
       "--border-primary",
@@ -91,7 +93,7 @@ function ThemePreview({
       </div>
       <div className="ds-theme-preview__content">
         <div className="ds-theme-preview__surface" style={{ backgroundColor: `var(--bg-page-primary)`, color: `var(--fg-neutral)` }}>
-          <div className="ds-theme-preview__brand" style={{ backgroundColor: `var(--bg-brand)`, color: `var(--fg-on-action)` }}>
+          <div className="ds-theme-preview__brand" style={{ backgroundColor: `var(--bg-primary)`, color: `var(--fg-on-action)` }}>
             Brand
           </div>
           <div className="ds-theme-preview__text">
@@ -105,8 +107,8 @@ function ThemePreview({
             <span className="ds-theme-preview__token-value">{computed["--bg-page-primary"] || "—"}</span>
           </div>
           <div className="ds-theme-preview__token">
-            <code className="ds-theme-preview__token-name">--bg-brand</code>
-            <span className="ds-theme-preview__token-value">{computed["--bg-brand"] || "—"}</span>
+            <code className="ds-theme-preview__token-name">--bg-primary</code>
+            <span className="ds-theme-preview__token-value">{computed["--bg-primary"] || "—"}</span>
           </div>
           <div className="ds-theme-preview__token">
             <code className="ds-theme-preview__token-name">--fg-neutral</code>
@@ -124,6 +126,28 @@ export default function ThemesPage() {
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Clean theme object to remove conflicting background properties
+  // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
+  const syntaxTheme = useMemo(() => {
+    const baseTheme = vscDarkPlus;
+    const cleanedTheme: typeof baseTheme = { ...baseTheme };
+    
+    // Remove background properties from all selectors to avoid conflicts
+    Object.keys(cleanedTheme).forEach((key) => {
+      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
+        const selector = cleanedTheme[key] as Record<string, string>;
+        if (selector.background) {
+          delete selector.background;
+        }
+        if (selector.backgroundColor) {
+          delete selector.backgroundColor;
+        }
+      }
+    });
+    
+    return cleanedTheme;
   }, []);
 
   const tocItems: TocItem[] = useMemo(() => {
@@ -248,8 +272,25 @@ export default function ThemesPage() {
             <p className="ds-content__text">
               Brand tokens are defined with theme-specific selectors:
             </p>
-            <div className="ds-codeblock">
-              <code>{`:root, [data-theme="light"] {
+            <SyntaxHighlighter
+              language="css"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`:root, [data-theme="light"] {
   --bg-page-primary: var(--color-neutral-50);
   --fg-neutral: var(--color-neutral-900);
 }
@@ -257,13 +298,30 @@ export default function ThemesPage() {
 [data-theme="dark"] {
   --bg-page-primary: var(--color-neutral-800);
   --fg-neutral: var(--color-neutral-50);
-}`}</code>
-            </div>
+}`}
+            </SyntaxHighlighter>
             <p className="ds-content__text">
               The <code>data-hue</code> attribute controls which semantic color tokens are used:
             </p>
-            <div className="ds-codeblock">
-              <code>{`[data-hue="chromatic-prime"] {
+            <SyntaxHighlighter
+              language="css"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`[data-hue="chromatic-prime"] {
   --color-primary-500: var(--color-purple-500);
 }
 
@@ -273,8 +331,8 @@ export default function ThemesPage() {
 
 [data-hue="hue-indigo"] {
   --color-primary-500: var(--color-indigo-500);
-}`}</code>
-            </div>
+}`}
+            </SyntaxHighlighter>
           </div>
 
           <div className="ds-content__subsection">
@@ -282,8 +340,25 @@ export default function ThemesPage() {
             <p className="ds-content__text">
               Use the <code>ThemeProvider</code> and <code>useTheme</code> hook in your components:
             </p>
-            <div className="ds-codeblock">
-              <code>{`import { ThemeProvider } from "@/providers/ThemeProvider";
+            <SyntaxHighlighter
+              language="tsx"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`import { ThemeProvider } from "@/providers/ThemeProvider";
 import { useTheme } from "@/providers/ThemeProvider";
 
 function App() {
@@ -302,8 +377,8 @@ function YourComponent() {
       Switch to Dark
     </button>
   );
-}`}</code>
-            </div>
+}`}
+            </SyntaxHighlighter>
           </div>
 
           <div className="ds-content__subsection">
@@ -325,15 +400,32 @@ function YourComponent() {
             <p className="ds-content__text">
               Never use hard-coded color values. Always reference theme tokens via CSS variables:
             </p>
-            <div className="ds-codeblock">
-              <code>{`/* Good */
+            <SyntaxHighlighter
+              language="css"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-300)",
+                backgroundColor: "var(--static-primary-black)",
+                fontSize: "var(--body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "none",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {`/* Good */
 background-color: var(--bg-page-primary);
 color: var(--fg-neutral);
 
 /* Bad */
 background-color: #ffffff;
-color: #000000;`}</code>
-            </div>
+color: #000000;`}
+            </SyntaxHighlighter>
           </div>
 
           <div className="ds-content__subsection">

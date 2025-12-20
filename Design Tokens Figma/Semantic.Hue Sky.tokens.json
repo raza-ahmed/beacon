@@ -32,6 +32,10 @@
       "800": {
         "$type": "color",
         "$value": "{Color.Blue.800}"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{Color.Blue.900}"
       }
     },
     "Neutral": {

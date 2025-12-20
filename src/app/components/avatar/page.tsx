@@ -9,7 +9,7 @@ import { AvatarControls } from "@/components/AvatarControls";
 import { CopyIcon, CheckIcon, UserPersonIcon } from "@/components/icons";
 import { getAvatarImage } from "@/utils/imagePaths";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarType = "icon" | "text" | "image";
@@ -22,7 +22,7 @@ interface AvatarConfig {
   color: AvatarColor;
   variant: AvatarVariant;
   isRound: boolean;
-  hasInnerStroke: boolean;
+  hasStroke: boolean;
   initials: string;
 }
 
@@ -75,8 +75,8 @@ function generateAvatarCode(config: AvatarConfig): string {
     props.push(`isRound`);
   }
 
-  if (config.hasInnerStroke) {
-    props.push(`hasInnerStroke`);
+  if (config.hasStroke) {
+    props.push(`hasStroke`);
   }
 
   if (config.type === "text" && config.initials !== "JD") {
@@ -124,14 +124,15 @@ export default function AvatarPage() {
     color: "primary",
     variant: "solid",
     isRound: false,
-    hasInnerStroke: false,
+    hasStroke: false,
     initials: "JD",
   });
   const [copied, setCopied] = useState(false);
 
   // Clean theme object to remove conflicting background properties
+  // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
   const syntaxTheme = useMemo(() => {
-    const baseTheme = theme === "dark" ? vscDarkPlus : vs;
+    const baseTheme = vscDarkPlus;
     const cleanedTheme: typeof baseTheme = { ...baseTheme };
     
     // Remove background properties from all selectors to avoid conflicts
@@ -148,7 +149,7 @@ export default function AvatarPage() {
     });
     
     return cleanedTheme;
-  }, [theme]);
+  }, []);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -210,7 +211,7 @@ export default function AvatarPage() {
               color={config.color}
               variant={config.variant}
               isRound={config.isRound}
-              hasInnerStroke={config.hasInnerStroke}
+              hasStroke={config.hasStroke}
               theme={theme}
               hue={hue}
               initials={config.initials}
@@ -219,7 +220,7 @@ export default function AvatarPage() {
               onColorChange={(color) => updateConfig({ color })}
               onVariantChange={(variant) => updateConfig({ variant })}
               onIsRoundChange={(isRound) => updateConfig({ isRound })}
-              onHasInnerStrokeChange={(hasInnerStroke) => updateConfig({ hasInnerStroke })}
+              onHasStrokeChange={(hasStroke) => updateConfig({ hasStroke })}
               onThemeChange={setTheme}
               onHueChange={setHue}
               onInitialsChange={(initials) => updateConfig({ initials })}
@@ -233,7 +234,7 @@ export default function AvatarPage() {
                   color={config.color}
                   variant={config.variant}
                   isRound={config.isRound}
-                  hasInnerStroke={config.hasInnerStroke}
+                  hasStroke={config.hasStroke}
                   theme={theme}
                   hue={hue}
                   initials={config.initials}
@@ -265,7 +266,7 @@ export default function AvatarPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-tertiary)",
+                    backgroundColor: "var(--static-primary-black)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
@@ -365,7 +366,7 @@ export default function AvatarPage() {
             <div className="ds-avatar-variant-card">
               <h6 className="ds-avatar-variant-card__title">Round & Stroke</h6>
               <p className="ds-avatar-variant-card__desc">
-                Default corner radius is 8px. Toggle to make fully round or add inner stroke border.
+                Default corner radius is 8px. Toggle to make fully round or add stroke border.
               </p>
               <div className="ds-avatar-variant-card__preview">
                 <div className="ds-avatar-preview-circle" />
@@ -433,19 +434,36 @@ export default function AvatarPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">AvatarProps</h6>
-              <pre className="ds-api-reference__code">
-                <code>{`interface AvatarProps {
+              <SyntaxHighlighter
+                language="typescript"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`interface AvatarProps {
   size?: "sm" | "md" | "lg" | "xl";
   type?: "icon" | "text" | "image";
   color?: "primary" | "neutral" | "success" | "critical" | "warning";
   variant?: "solid" | "faded";
   isRound?: boolean;
-  hasInnerStroke?: boolean;
+  hasStroke?: boolean;
   initials?: string;
   imageUrl?: string;
   alt?: string;
-}`}</code>
-              </pre>
+}`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
@@ -522,7 +540,7 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>hasInnerStroke</code>
+                    <code>hasStroke</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
                     <code>boolean</code>
@@ -531,7 +549,7 @@ export default function AvatarPage() {
                     <code>false</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Add inner stroke border to avatar
+                    Add stroke border to avatar
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -583,54 +601,156 @@ export default function AvatarPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Avatar</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<Avatar />`}</code>
-              </pre>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<Avatar />`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Text Avatar</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<Avatar 
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<Avatar 
   type="text"
   initials="JD"
-/>`}</code>
-              </pre>
+/>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Image Avatar</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<Avatar 
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<Avatar 
   type="image"
   imageUrl="/images/avatars/avatar-female.png"
   alt="User avatar"
-/>`}</code>
-              </pre>
+/>`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Sizes</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<Avatar size="sm" />
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<Avatar size="sm" />
 <Avatar size="md" />
 <Avatar size="lg" />
-<Avatar size="xl" />`}</code>
-              </pre>
+<Avatar size="xl" />`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Round & Inner Stroke</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<Avatar />
+              <h6 className="ds-code-example__title">Round & Stroke</h6>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<Avatar />
 <Avatar isRound />
-<Avatar hasInnerStroke />
-<Avatar isRound hasInnerStroke />`}</code>
-              </pre>
+<Avatar hasStroke />
+<Avatar isRound hasStroke />`}
+              </SyntaxHighlighter>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Colors & Variants</h6>
-              <pre className="ds-code-example__code">
-                <code>{`<Avatar color="primary" variant="solid" />
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-300)",
+                  backgroundColor: "var(--static-primary-black)",
+                  fontSize: "var(--body-small-text-size)",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "none",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<Avatar color="primary" variant="solid" />
 <Avatar color="success" variant="faded" />
-<Avatar color="neutral" variant="solid" />`}</code>
-              </pre>
+<Avatar color="neutral" variant="solid" />`}
+              </SyntaxHighlighter>
             </div>
           </div>
         </section>

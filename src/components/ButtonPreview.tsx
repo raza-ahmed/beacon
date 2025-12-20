@@ -132,14 +132,14 @@ export function ButtonPreview({
     switch (variant) {
       case "filled":
         variantStyles = {
-          backgroundColor: "var(--bg-brand)",
+          backgroundColor: "var(--bg-primary)",
           color: "var(--fg-on-action)",
-          borderColor: "var(--bg-brand)",
+          borderColor: "var(--bg-primary)",
         };
         break;
       case "tonal":
         variantStyles = {
-          backgroundColor: "var(--bg-brand-tonal)",
+          backgroundColor: "var(--bg-primary-tonal)",
           color: "var(--fg-primary-on-tonal)",
           borderColor: "var(--border-primary-tonal)",
         };
@@ -183,10 +183,10 @@ export function ButtonPreview({
       }
     } else if (state === "hovered") {
       if (variant === "filled") {
-        stateStyles.backgroundColor = "var(--bg-brand-on-hover)";
-        stateStyles.borderColor = "var(--bg-brand-on-hover)";
+        stateStyles.backgroundColor = "var(--bg-primary-on-hover)";
+        stateStyles.borderColor = "var(--bg-primary-on-hover)";
       } else if (variant === "tonal") {
-        stateStyles.backgroundColor = "var(--bg-brand-tonal-on-hover)";
+        stateStyles.backgroundColor = "var(--bg-primary-tonal-on-hover)";
       } else if (variant === "outline") {
         stateStyles.borderColor = "var(--border-primary-on-hover)";
       } else if (variant === "link") {
@@ -194,15 +194,15 @@ export function ButtonPreview({
       }
     } else if (state === "pressed") {
       if (variant === "filled") {
-        stateStyles.backgroundColor = "var(--bg-brand-pressed)";
-        stateStyles.borderColor = "var(--bg-brand-pressed)";
+        stateStyles.backgroundColor = "var(--bg-primary-pressed)";
+        stateStyles.borderColor = "var(--bg-primary-pressed)";
       } else if (variant === "tonal") {
-        stateStyles.backgroundColor = "var(--bg-brand-tonal-on-hover)";
+        stateStyles.backgroundColor = "var(--bg-primary-tonal-on-hover)";
       }
     } else if (state === "focused") {
       if (variant === "filled") {
-        stateStyles.backgroundColor = "var(--bg-brand-on-focused)";
-        stateStyles.borderColor = "var(--bg-brand-on-focused)";
+        stateStyles.backgroundColor = "var(--bg-primary-on-focused)";
+        stateStyles.borderColor = "var(--bg-primary-on-focused)";
       } else if (variant === "outline") {
         stateStyles.borderColor = "var(--border-primary)";
       }

@@ -246,59 +246,59 @@ function useBrandTokenGroups(): TokenGroup[] {
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand",
+        cssVar: "--bg-primary",
         label: "Brand",
         guidance: "Primary brand action background.",
-        preview: { backgroundVar: "--bg-brand", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-on-hover",
+        cssVar: "--bg-primary-on-hover",
         label: "Brand Hover",
         guidance: "Hover background for primary brand actions.",
-        preview: { backgroundVar: "--bg-brand-on-hover", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary-on-hover", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-pressed",
+        cssVar: "--bg-primary-pressed",
         label: "Brand Pressed",
         guidance: "Pressed background for primary brand actions.",
-        preview: { backgroundVar: "--bg-brand-pressed", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary-pressed", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-on-focused",
+        cssVar: "--bg-primary-on-focused",
         label: "Brand Focus",
         guidance: "Focus background for primary brand actions (when specified).",
-        preview: { backgroundVar: "--bg-brand-on-focused", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary-on-focused", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-disabled",
+        cssVar: "--bg-primary-disabled",
         label: "Brand Disabled",
         guidance: "Disabled background for brand actions.",
-        preview: { backgroundVar: "--bg-brand-disabled", foregroundVar: "--fg-on-disabled", borderVar: "--border-disabled" },
+        preview: { backgroundVar: "--bg-primary-disabled", foregroundVar: "--fg-on-disabled", borderVar: "--border-disabled" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-tonal",
+        cssVar: "--bg-primary-tonal",
         label: "Brand Tonal",
         guidance: "Tonal brand surface (subtle emphasis).",
-        preview: { backgroundVar: "--bg-brand-tonal", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
+        preview: { backgroundVar: "--bg-primary-tonal", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-tonal-on-hover",
+        cssVar: "--bg-primary-tonal-on-hover",
         label: "Brand Tonal Hover",
         guidance: "Hover state for tonal brand surfaces.",
-        preview: { backgroundVar: "--bg-brand-tonal-on-hover", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
+        preview: { backgroundVar: "--bg-primary-tonal-on-hover", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
       },
       {
         kind: "bg",
-        cssVar: "--bg-brand-dark",
+        cssVar: "--bg-primary-dark",
         label: "Brand Dark",
         guidance: "High-contrast brand surface role (when specified).",
-        preview: { backgroundVar: "--bg-brand-dark", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary-dark", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "bg",
@@ -441,14 +441,14 @@ function useBrandTokenGroups(): TokenGroup[] {
         cssVar: "--fg-primary-tonal",
         label: "Primary Tonal",
         guidance: "Foreground on tonal brand surfaces (paired with tonal roles).",
-        preview: { backgroundVar: "--bg-brand-tonal", foregroundVar: "--fg-primary-tonal", borderVar: "--border-primary-tonal" },
+        preview: { backgroundVar: "--bg-primary-tonal", foregroundVar: "--fg-primary-tonal", borderVar: "--border-primary-tonal" },
       },
       {
         kind: "fg",
         cssVar: "--fg-primary-on-tonal",
         label: "Primary On Tonal",
         guidance: "Readable text/icon color on tonal brand surfaces.",
-        preview: { backgroundVar: "--bg-brand-tonal", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
+        preview: { backgroundVar: "--bg-primary-tonal", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
       },
       {
         kind: "fg",
@@ -525,14 +525,14 @@ function useBrandTokenGroups(): TokenGroup[] {
         cssVar: "--fg-on-action",
         label: "On Action",
         guidance: "High-contrast foreground on strong action backgrounds.",
-        preview: { backgroundVar: "--bg-brand", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "fg",
         cssVar: "--fg-white",
         label: "White",
         guidance: "White foreground role (for high-contrast cases).",
-        preview: { backgroundVar: "--bg-brand", foregroundVar: "--fg-white", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary", foregroundVar: "--fg-white", borderVar: "--border-on-action" },
       },
       {
         kind: "fg",
@@ -626,7 +626,7 @@ function useBrandTokenGroups(): TokenGroup[] {
         cssVar: "--border-primary-tonal",
         label: "Primary Tonal",
         guidance: "Border on tonal brand surfaces.",
-        preview: { backgroundVar: "--bg-brand-tonal", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
+        preview: { backgroundVar: "--bg-primary-tonal", foregroundVar: "--fg-primary-on-tonal", borderVar: "--border-primary-tonal" },
       },
       {
         kind: "border",
@@ -675,14 +675,14 @@ function useBrandTokenGroups(): TokenGroup[] {
         cssVar: "--border-on-action",
         label: "On Action",
         guidance: "Border/outline on strong action backgrounds (for contrast).",
-        preview: { backgroundVar: "--bg-brand", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
+        preview: { backgroundVar: "--bg-primary", foregroundVar: "--fg-on-action", borderVar: "--border-on-action" },
       },
       {
         kind: "border",
         cssVar: "--border-white",
         label: "White",
         guidance: "White border role (for high-contrast cases).",
-        preview: { backgroundVar: "--bg-brand", foregroundVar: "--fg-on-action", borderVar: "--border-white" },
+        preview: { backgroundVar: "--bg-primary", foregroundVar: "--fg-on-action", borderVar: "--border-white" },
       },
       {
         kind: "border",
@@ -1411,7 +1411,7 @@ function ContrastSection({
       {
         id: "on-action",
         label: "On-action text",
-        bg: "--bg-brand",
+        bg: "--bg-primary",
         fg: "--fg-on-action",
         guidance: "Use for primary brand actions (buttons, strong emphasis).",
       },
@@ -1551,7 +1551,7 @@ export default function ColorsPage() {
     for (const fam of [...palette.primitives, ...palette.semantic]) for (const v of fam.vars) vars.add(v);
     // Ensure contrast pairings are included even if not shown above
     [
-      "--bg-brand",
+      "--bg-primary",
       "--fg-on-action",
       "--bg-page-primary",
       "--fg-neutral",
@@ -1681,7 +1681,7 @@ export default function ColorsPage() {
               <div className="ds-token-mapping__header">
                 <h6 className="ds-token-mapping__title">Brand</h6>
               </div>
-              <code className="ds-token-mapping__example">--bg-brand</code>
+              <code className="ds-token-mapping__example">--bg-primary</code>
               <p className="ds-token-mapping__desc">
                 Product-facing role tokens that reference semantic tokens. These adapt to both theme (light/dark) and hue settings.
               </p>
@@ -1690,7 +1690,7 @@ export default function ColorsPage() {
 
           <div className="ds-token-mapping__example-box">
             <p className="ds-content__text">
-              <strong>Example mapping:</strong> <code>--bg-brand</code> → <code>--color-primary-500</code> → <code>--color-purple-500</code> (when hue is "chromatic-prime")
+              <strong>Example mapping:</strong> <code>--bg-primary</code> → <code>--color-primary-500</code> → <code>--color-purple-500</code> (when hue is "chromatic-prime")
             </p>
           </div>
         </section>
@@ -1742,7 +1742,7 @@ export default function ColorsPage() {
                 type="text"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                placeholder="Search tokens (e.g. bg-brand, neutral, primary)…"
+                placeholder="Search tokens (e.g. bg-primary, neutral, primary)…"
               />
             </div>
 
@@ -1817,7 +1817,7 @@ export default function ColorsPage() {
               <div className="ds-do-dont__title">Do</div>
               <ul className="ds-content__bullet-list">
                 <li>Use role tokens for implementation (<code>--bg-*</code>, <code>--fg-*</code>, <code>--border-*</code>).</li>
-                <li>Use paired "on" roles to preserve contrast (e.g. <code>--fg-on-action</code> on <code>--bg-brand</code>).</li>
+                <li>Use paired "on" roles to preserve contrast (e.g. <code>--fg-on-action</code> on <code>--bg-primary</code>).</li>
                 <li>Use state-specific roles (hover/pressed/focus/disabled) instead of manually adjusting colors.</li>
                 <li>Verify contrast for text sizes and contexts.</li>
               </ul>

@@ -15,7 +15,7 @@ interface AvatarPreviewProps {
   color: AvatarColor;
   variant: AvatarVariant;
   isRound: boolean;
-  hasInnerStroke: boolean;
+  hasStroke: boolean;
   theme: Theme;
   hue: HueVariant;
   initials?: string;
@@ -50,7 +50,7 @@ export function AvatarPreview({
   color,
   variant,
   isRound,
-  hasInnerStroke,
+  hasStroke,
   theme,
   hue,
   initials = "JD",
@@ -60,9 +60,9 @@ export function AvatarPreview({
   const containerSize = CONTAINER_SIZE_CONFIG[size];
 
   const avatarStyles = useMemo(() => {
-    // Determine border color for inner stroke based on variant and color
+    // Determine border color for stroke based on variant and color
     let borderColor = "";
-    if (hasInnerStroke) {
+    if (hasStroke) {
       if (variant === "solid") {
         // Solid variants use tonal border colors (except warning which uses solid)
         switch (color) {
@@ -113,7 +113,7 @@ export function AvatarPreview({
       flexShrink: 0,
       overflow: "hidden",
       position: "relative",
-      border: hasInnerStroke ? `var(--border-width-50) solid ${borderColor}` : "none",
+      border: hasStroke ? `var(--border-width-50) solid ${borderColor}` : "none",
       boxSizing: "border-box",
     };
 
@@ -131,7 +131,7 @@ export function AvatarPreview({
     if (variant === "solid") {
       switch (color) {
         case "primary":
-          backgroundColor = "var(--bg-brand)";
+          backgroundColor = "var(--bg-primary)";
           break;
         case "neutral":
           backgroundColor = "var(--color-neutral-500)";
@@ -150,7 +150,7 @@ export function AvatarPreview({
       // faded variant
       switch (color) {
         case "primary":
-          backgroundColor = "var(--bg-brand-tonal)";
+          backgroundColor = "var(--bg-primary-tonal)";
           textColor = "var(--fg-primary-on-tonal)";
           break;
         case "neutral":
@@ -176,7 +176,7 @@ export function AvatarPreview({
     baseStyles.color = textColor;
 
     return baseStyles;
-  }, [containerSize, isRound, hasInnerStroke, color, variant]);
+  }, [containerSize, isRound, hasStroke, color, variant]);
 
   const handleImageError = () => {
     setImageError(true);

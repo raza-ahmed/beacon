@@ -20,35 +20,35 @@
       "$type": "color",
       "$value": "{Color.Neutral.700}"
     },
-    "Brand": {
+    "Primary": {
       "$type": "color",
       "$value": "{Color.Primary.500}"
     },
-    "Brand_Tonal": {
+    "Primary_Tonal": {
       "$type": "color",
       "$value": "{Color.Primary.800}"
     },
-    "Brand_Pressed": {
+    "Primary_Pressed": {
       "$type": "color",
       "$value": "{Color.Primary.700}"
     },
-    "Brand_Disabled": {
+    "Primary_Disabled": {
       "$type": "color",
       "$value": "{Color.Primary.700}"
     },
-    "Brand_Dark": {
+    "Primary_Dark": {
       "$type": "color",
       "$value": "{Color.Primary.100}"
     },
-    "Brand-On_Hover": {
+    "Primary-On_Hover": {
       "$type": "color",
       "$value": "{Color.Primary.400}"
     },
-    "Brand_Tonal-On_Hover": {
+    "Primary_Tonal-On_Hover": {
       "$type": "color",
       "$value": "{Color.Primary.700}"
     },
-    "Brand-On_Focused": {
+    "Primary-On_Focused": {
       "$type": "color",
       "$value": "{Color.Primary.400}"
     },
@@ -277,6 +277,10 @@
     "Primary": {
       "$type": "color",
       "$value": "{Color.Primary.500}"
+    },
+    "Primary_Black": {
+      "$type": "color",
+      "$value": "{Color.Primary.900}"
     },
     "White": {
       "$type": "color",
