@@ -43,7 +43,7 @@ const navigationData: NavSection[] = [
     items: [
       { label: "Avatar", href: "/components/avatar" },
       { label: "Button", href: "/components/button" },
-      { label: "Cards", href: "/components/cards" },
+      { label: "Card", href: "/components/card" },
       { label: "Checkbox", href: "/components/checkbox" },
       { label: "Input Fields", href: "/components/input-fields" },
       { label: "Menu", href: "/components/menu" },

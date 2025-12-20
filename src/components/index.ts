@@ -6,4 +6,6 @@ export { ButtonPreview } from "./ButtonPreview";
 export { ButtonControls } from "./ButtonControls";
 export { AvatarPreview } from "./AvatarPreview";
 export { AvatarControls } from "./AvatarControls";
+export { CardPreview } from "./CardPreview";
+export { CardControls } from "./CardControls";
 
