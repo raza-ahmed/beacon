@@ -60,6 +60,50 @@ export function AvatarPreview({
   const containerSize = CONTAINER_SIZE_CONFIG[size];
 
   const avatarStyles = useMemo(() => {
+    // Determine border color for inner stroke based on variant and color
+    let borderColor = "";
+    if (hasInnerStroke) {
+      if (variant === "solid") {
+        // Solid variants use tonal border colors (except warning which uses solid)
+        switch (color) {
+          case "primary":
+            borderColor = "var(--border-primary-tonal)";
+            break;
+          case "neutral":
+            borderColor = "var(--border-strong-100)";
+            break;
+          case "success":
+            borderColor = "var(--border-success-tonal)";
+            break;
+          case "critical":
+            borderColor = "var(--border-critical-tonal)";
+            break;
+          case "warning":
+            borderColor = "var(--border-warning)";
+            break;
+        }
+      } else {
+        // Faded variants use solid border colors
+        switch (color) {
+          case "primary":
+            borderColor = "var(--border-primary)";
+            break;
+          case "neutral":
+            borderColor = "var(--border-strong-100)";
+            break;
+          case "success":
+            borderColor = "var(--border-success)";
+            break;
+          case "critical":
+            borderColor = "var(--border-critical)";
+            break;
+          case "warning":
+            borderColor = "var(--border-warning)";
+            break;
+        }
+      }
+    }
+
     const baseStyles: React.CSSProperties = {
       width: containerSize.width,
       height: containerSize.height,
@@ -69,7 +113,7 @@ export function AvatarPreview({
       flexShrink: 0,
       overflow: "hidden",
       position: "relative",
-      border: hasInnerStroke ? "2px solid var(--bg-page-primary)" : "none",
+      border: hasInnerStroke ? `var(--border-width-50) solid ${borderColor}` : "none",
       boxSizing: "border-box",
     };
 

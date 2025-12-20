@@ -269,6 +269,10 @@ export default function AvatarPage() {
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
+                    flex: 1,
+                    width: "100%",
+                    height: "100%",
+                    overflow: "auto",
                   }}
                   codeTagProps={{
                     style: {

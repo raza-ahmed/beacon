@@ -2229,16 +2229,19 @@ body {
 
 .ds-button-playground {
   display: grid;
-  grid-template-columns: 380px auto 1fr;
+  grid-template-columns: 364px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
   overflow: hidden;
+  align-items: stretch;
 }
 
 @media (max-width: 768px) {
   .ds-button-playground {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 500px;
   }
 
   .ds-button-preview-section {
@@ -2246,11 +2249,12 @@ body {
   }
 
   .ds-button-preview {
-    min-height: 150px;
+    min-height: 200px;
+    border-top: 1px solid var(--border-strong-200);
   }
 
   .ds-button-preview-code {
-    max-height: 150px;
+    max-height: 200px;
   }
 }
 
@@ -2258,7 +2262,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-primary);
-  max-height: calc(100vh - var(--spacing-1000));
+  align-self: stretch;
   overflow: hidden;
 }
 
@@ -2268,19 +2272,21 @@ body {
   justify-content: center;
   padding: var(--spacing-500);
   border-bottom: var(--border-width-25) solid var(--border-strong-200);
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 50%;
+  height: 50%;
+  max-height: 50%;
+  overflow: hidden;
 }
 
 .ds-button-preview-code {
-  flex: 0 0 auto;
-  min-height: 0;
+  flex: 0 0 50%;
+  height: 50%;
+  max-height: 50%;
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-secondary);
   overflow: hidden;
-  margin-top: auto;
 }
 
 .ds-button-code-copy {
@@ -2341,6 +2347,10 @@ body {
 
 .ds-button-preview-container {
   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ds-button-preview-canvas {
@@ -2348,6 +2358,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
 }
 
 .ds-button-preview-button {
@@ -2384,10 +2395,7 @@ body {
   gap: var(--spacing-450);
   padding: var(--spacing-400);
   background-color: var(--bg-page-primary);
-  position: sticky;
-  top: var(--spacing-500);
-  max-height: calc(100vh - var(--spacing-1000));
-  overflow-y: auto;
+  align-self: stretch;
 }
 
 .ds-button-control-group {
@@ -2978,11 +2986,14 @@ body {
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
   overflow: hidden;
+  align-items: stretch;
 }
 
 @media (max-width: 768px) {
   .ds-avatar-playground {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 500px;
   }
 
   .ds-avatar-preview-section {
@@ -3002,7 +3013,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-primary);
-  max-height: calc(100vh - var(--spacing-1000));
+  align-self: stretch;
   overflow: hidden;
 }
 
@@ -3012,19 +3023,22 @@ body {
   justify-content: center;
   padding: var(--spacing-500);
   border-bottom: var(--border-width-25) solid var(--border-strong-200);
-  flex: 1;
+  flex: 0 0 50%;
+  height: 50%;
   min-height: 0;
+  max-height: 50%;
 }
 
 .ds-avatar-preview-code {
-  flex: 0 0 auto;
+  flex: 0 0 50%;
+  height: 50%;
   min-height: 0;
+  max-height: 50%;
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-secondary);
   overflow: hidden;
-  margin-top: auto;
 }
 
 .ds-avatar-code-copy {
@@ -3104,10 +3118,7 @@ body {
   gap: var(--spacing-450);
   padding: var(--spacing-400);
   background-color: var(--bg-page-primary);
-  position: sticky;
-  top: var(--spacing-500);
-  max-height: calc(100vh - var(--spacing-1000));
-  overflow-y: auto;
+  align-self: stretch;
 }
 
 .ds-avatar-control-group {
