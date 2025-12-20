@@ -10,4 +10,6 @@ export { CardPreview } from "./CardPreview";
 export { CardControls } from "./CardControls";
 export { CheckboxPreview } from "./CheckboxPreview";
 export { CheckboxControls } from "./CheckboxControls";
+export { InputPreview } from "./InputPreview";
+export { InputControls } from "./InputControls";
 
