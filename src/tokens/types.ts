@@ -206,14 +206,17 @@ export type BackgroundToken =
   | "Background.Success"
   | "Background.Success_Tonal"
   | "Background.Success_Dark"
+  | "Background.Success_Disabled"
   | "Background.Success-On_Hover"
   | "Background.Warning"
   | "Background.Warning_Tonal"
   | "Background.Warning_Dark"
+  | "Background.Warning_Disabled"
   | "Background.Warning-On_Hover"
   | "Background.Critical"
   | "Background.Critical_Tonal"
   | "Background.Critical_Dark"
+  | "Background.Critical_Disabled"
   | "Background.Critical-On_Hover"
   | "Background.Transparent";
 
