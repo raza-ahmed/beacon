@@ -1,5 +1,6 @@
 export { Header } from "./Header";
 export { Sidebar } from "./Sidebar";
+export { SearchResults } from "./SearchResults";
 export { TableOfContents, type TocItem } from "./TableOfContents";
 export { PageLayout } from "./PageLayout";
 export { ButtonPreview } from "./ButtonPreview";

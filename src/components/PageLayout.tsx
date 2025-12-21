@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { TableOfContents, type TocItem } from "./TableOfContents";
 import { CloseIcon, SearchIcon } from "./icons";
+import { navigationData } from "./Sidebar";
+import { flattenNavigationData, searchNavigation } from "@/utils/search";
+import { SearchResults } from "./SearchResults";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -19,6 +22,23 @@ export function PageLayout({
 }: PageLayoutProps) {
   const [isMobileNavVisible, setIsMobileNavVisible] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [mobileSearchQuery, setMobileSearchQuery] = useState("");
+  const [isMobileSearchFocused, setIsMobileSearchFocused] = useState(false);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
+
+  // Flatten navigation data once
+  const searchableItems = useMemo(
+    () => flattenNavigationData(navigationData),
+    []
+  );
+
+  // Search results for mobile
+  const mobileSearchResults = useMemo(
+    () => searchNavigation(mobileSearchQuery, searchableItems),
+    [mobileSearchQuery, searchableItems]
+  );
+
+  const showMobileSearchResults = isMobileSearchFocused && mobileSearchQuery.length >= 2;
 
   useEffect(() => {
     if (!isMobileNavVisible) return;
@@ -65,14 +85,32 @@ export function PageLayout({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="ds-mobile-drawer__header">
-              <div className="ds-mobile-drawer__search" role="search">
-                <SearchIcon size="xs" />
+              <div className="ds-mobile-drawer__search" ref={mobileSearchRef} role="search">
+                <SearchIcon size="xs" className="ds-mobile-drawer__search-icon" />
                 <input
                   id="mobile-drawer-search-input"
                   name="mobile-drawer-search"
                   type="text"
                   className="ds-mobile-drawer__search-input"
                   placeholder="Search Components..."
+                  value={mobileSearchQuery}
+                  onChange={(e) => setMobileSearchQuery(e.target.value)}
+                  onFocus={() => setIsMobileSearchFocused(true)}
+                  aria-label="Search components and pages"
+                  aria-autocomplete="list"
+                  aria-expanded={showMobileSearchResults}
+                />
+                <SearchResults
+                  items={mobileSearchResults}
+                  query={mobileSearchQuery}
+                  onSelect={(href) => {
+                    window.location.href = href;
+                    setMobileSearchQuery("");
+                    setIsMobileSearchFocused(false);
+                    closeMobileNav();
+                  }}
+                  onClose={() => setIsMobileSearchFocused(false)}
+                  isVisible={showMobileSearchResults}
                 />
               </div>
 
@@ -86,7 +124,7 @@ export function PageLayout({
               </button>
             </div>
 
-            <Sidebar currentPath={currentPath} />
+            {mobileSearchQuery.length < 2 && <Sidebar currentPath={currentPath} />}
           </aside>
         </div>
       )}

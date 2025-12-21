@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "./icons";
 
-interface NavItem {
+export interface NavItem {
   label: string;
   href?: string;
   children?: NavItem[];
 }
 
-interface NavSection {
+export interface NavSection {
   title: string;
   items: NavItem[];
 }
 
-const navigationData: NavSection[] = [
+export const navigationData: NavSection[] = [
   {
     title: "Get Started",
     items: [
