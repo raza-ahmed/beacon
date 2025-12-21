@@ -97,6 +97,7 @@ export default function ChipPage() {
     showIcon: false,
   });
   const [copied, setCopied] = useState(false);
+  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => {
     const baseTheme = vscDarkPlus;
@@ -420,25 +421,56 @@ export default function ChipPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ChipProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface ChipProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface ChipProps {
+  label?: string;
+  color?: "primary" | "neutral" | "success" | "critical" | "warning";
+  size?: "sm" | "md" | "lg";
+  showBorders?: boolean;
+  showIcon?: boolean;
+  onClick?: () => void;
+}`);
+                    setCopiedExample("api");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface ChipProps {
   label?: string;
   color?: "primary" | "neutral" | "success" | "critical" | "warning";
   size?: "sm" | "md" | "lg";
@@ -446,7 +478,8 @@ export default function ChipPage() {
   showIcon?: boolean;
   onClick?: () => void;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
@@ -544,156 +577,321 @@ export default function ChipPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Chip</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Chip />`}
-              </SyntaxHighlighter>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Chip />`);
+                    setCopiedExample("basic");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "basic" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Chip />`}
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip with Label</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Chip 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Chip 
+  label="Tag"
+/>`);
+                    setCopiedExample("label");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "label" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Chip 
   label="Tag"
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip with Icon</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Chip 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Chip 
+  label="Filter"
+  showIcon
+/>`);
+                    setCopiedExample("icon");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "icon" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Chip 
   label="Filter"
   showIcon
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip with Border</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Chip 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Chip 
+  label="Selected"
+  showBorders
+/>`);
+                    setCopiedExample("border");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "border" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Chip 
   label="Selected"
   showBorders
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Color Variants</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Chip label="Success" color="success" />
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Chip label="Success" color="success" />
+<Chip label="Warning" color="warning" />
+<Chip label="Error" color="critical" />
+<Chip label="Neutral" color="neutral" />`);
+                    setCopiedExample("colors");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "colors" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Chip label="Success" color="success" />
 <Chip label="Warning" color="warning" />
 <Chip label="Error" color="critical" />
 <Chip label="Neutral" color="neutral" />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip Group</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-chip-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
+  <Chip label="Tag 1" />
+  <Chip label="Tag 2" color="success" />
+  <Chip label="Tag 3" color="warning" />
+</div>`);
+                    setCopiedExample("group");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "group" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
   <Chip label="Tag 1" />
   <Chip label="Tag 2" color="success" />
   <Chip label="Tag 3" color="warning" />
 </div>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </section>

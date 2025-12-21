@@ -252,6 +252,7 @@ export default function CardPage() {
     showBorder: true,
   });
   const [copied, setCopied] = useState(false);
+  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => {
     const baseTheme = vscDarkPlus;
@@ -679,25 +680,58 @@ export default function CardPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ProductCardProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface ProductCardProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface ProductCardProps {
+  size?: "full" | "half";
+  status?: "default" | "highlighted";
+  hasImage?: boolean;
+  imageAspectRatio?: "16x9" | "4x3";
+  hasIdentifiers?: boolean;
+  hasButton?: boolean;
+  title?: string;
+  description?: string;
+}`);
+                    setCopiedExample("api-product");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api-product" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface ProductCardProps {
   size?: "full" | "half";
   status?: "default" | "highlighted";
   hasImage?: boolean;
@@ -707,29 +741,62 @@ export default function CardPage() {
   title?: string;
   description?: string;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ExperienceCardProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface ExperienceCardProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface ExperienceCardProps {
+  type?: "default" | "skills" | "contacts";
+  positionName?: string;
+  companyName?: string;
+  year?: string;
+  description?: string;
+  label?: string;
+  details?: string;
+}`);
+                    setCopiedExample("api-experience");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api-experience" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface ExperienceCardProps {
   type?: "default" | "skills" | "contacts";
   positionName?: string;
   companyName?: string;
@@ -738,56 +805,117 @@ export default function CardPage() {
   label?: string;
   details?: string;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">InfoCardProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface InfoCardProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface InfoCardProps {
+  hasIcon?: boolean;
+  cardName?: string;
+  cardDescription?: string;
+}`);
+                    setCopiedExample("api-info");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api-info" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface InfoCardProps {
   hasIcon?: boolean;
   cardName?: string;
   cardDescription?: string;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">GenericCardProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface GenericCardProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface GenericCardProps {
+  status?: "default" | "highlighted" | "selected";
+  showBgPattern?: boolean;
+  showOverlay?: boolean;
+  showShadow?: boolean;
+  showBorder?: boolean;
+  children?: React.ReactNode;
+}`);
+                    setCopiedExample("api-generic");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api-generic" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface GenericCardProps {
   status?: "default" | "highlighted" | "selected";
   showBgPattern?: boolean;
   showOverlay?: boolean;
@@ -795,7 +923,8 @@ export default function CardPage() {
   showBorder?: boolean;
   children?: React.ReactNode;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </section>
@@ -806,114 +935,233 @@ export default function CardPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Product Card</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<ProductCard
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<ProductCard
+  title="Product Title"
+  description="Product description"
+/>`);
+                    setCopiedExample("product");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "product" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<ProductCard
   title="Product Title"
   description="Product description"
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Experience Card Default</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<ExperienceCard
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<ExperienceCard
+  type="default"
+  positionName="Senior Designer"
+  companyName="Design Studio"
+  year="2023-2025"
+  description="Led design initiatives"
+/>`);
+                    setCopiedExample("experience");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "experience" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<ExperienceCard
   type="default"
   positionName="Senior Designer"
   companyName="Design Studio"
   year="2023-2025"
   description="Led design initiatives"
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Info Card</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InfoCard
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InfoCard
+  cardName="Information"
+  cardDescription="This is an informational card"
+  hasIcon
+/>`);
+                    setCopiedExample("info");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "info" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<InfoCard
   cardName="Information"
   cardDescription="This is an informational card"
   hasIcon
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Generic Card</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Card
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-card-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Card
+  status="highlighted"
+  showShadow
+  showBorder
+>
+  <div>Custom content</div>
+</Card>`);
+                    setCopiedExample("generic");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "generic" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Card
   status="highlighted"
   showShadow
   showBorder
 >
   <div>Custom content</div>
 </Card>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </section>

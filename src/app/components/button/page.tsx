@@ -138,6 +138,7 @@ export default function ButtonPage() {
     state: "default",
   });
   const [copied, setCopied] = useState(false);
+  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -448,25 +449,62 @@ export default function ButtonPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ButtonProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface ButtonProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface ButtonProps {
+  variant?: "filled" | "tonal" | "outline" | "link";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  fillContainer?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  "aria-label"?: string;
+}`);
+                    setCopiedExample("api");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface ButtonProps {
   variant?: "filled" | "tonal" | "outline" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -480,7 +518,8 @@ export default function ButtonPage() {
   type?: "button" | "submit" | "reset";
   "aria-label"?: string;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
@@ -602,163 +641,335 @@ export default function ButtonPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Button</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<button type="button" className="ds-button ds-button--filled ds-button--md">
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<button type="button" className="ds-button ds-button--filled ds-button--md">
+  Button
+</button>`);
+                    setCopiedExample("basic");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "basic" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<button type="button" className="ds-button ds-button--filled ds-button--md">
   Button
 </button>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Button with Icons</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<button type="button" className="ds-button ds-button--filled ds-button--md">
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<button type="button" className="ds-button ds-button--filled ds-button--md">
+  <SearchIcon size="xs" />
+  <span>Search</span>
+  <ChevronDownIcon size="xs" />
+</button>`);
+                    setCopiedExample("icons");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "icons" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<button type="button" className="ds-button ds-button--filled ds-button--md">
   <SearchIcon size="xs" />
   <span>Search</span>
   <ChevronDownIcon size="xs" />
 </button>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">All Variants</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<button type="button" className="ds-button ds-button--filled">Filled</button>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<button type="button" className="ds-button ds-button--filled">Filled</button>
+<button type="button" className="ds-button ds-button--tonal">Tonal</button>
+<button type="button" className="ds-button ds-button--outline">Outline</button>
+<button type="button" className="ds-button ds-button--link">Link</button>`);
+                    setCopiedExample("variants");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "variants" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<button type="button" className="ds-button ds-button--filled">Filled</button>
 <button type="button" className="ds-button ds-button--tonal">Tonal</button>
 <button type="button" className="ds-button ds-button--outline">Outline</button>
 <button type="button" className="ds-button ds-button--link">Link</button>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Sizes</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<button type="button" className="ds-button ds-button--xs">Extra Small</button>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<button type="button" className="ds-button ds-button--xs">Extra Small</button>
+<button type="button" className="ds-button ds-button--sm">Small</button>
+<button type="button" className="ds-button ds-button--md">Medium</button>
+<button type="button" className="ds-button ds-button--lg">Large</button>
+<button type="button" className="ds-button ds-button--xl">Extra Large</button>`);
+                    setCopiedExample("sizes");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "sizes" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<button type="button" className="ds-button ds-button--xs">Extra Small</button>
 <button type="button" className="ds-button ds-button--sm">Small</button>
 <button type="button" className="ds-button ds-button--md">Medium</button>
 <button type="button" className="ds-button ds-button--lg">Large</button>
 <button type="button" className="ds-button ds-button--xl">Extra Large</button>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Fill Container</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<button 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<button 
+  type="button" 
+  className="ds-button ds-button--filled ds-button--md ds-button--fill">
+  Full Width Button
+</button>`);
+                    setCopiedExample("fill");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "fill" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<button 
   type="button" 
   className="ds-button ds-button--filled ds-button--md ds-button--fill">
   Full Width Button
 </button>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Disabled State</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<button 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-button-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<button 
+  type="button" 
+  className="ds-button ds-button--filled ds-button--md"
+  disabled>
+  Disabled Button
+</button>`);
+                    setCopiedExample("disabled");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "disabled" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<button 
   type="button" 
   className="ds-button ds-button--filled ds-button--md"
   disabled>
   Disabled Button
 </button>`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </section>

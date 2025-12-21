@@ -128,6 +128,7 @@ export default function AvatarPage() {
     initials: "JD",
   });
   const [copied, setCopied] = useState(false);
+  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -434,25 +435,59 @@ export default function AvatarPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">AvatarProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface AvatarProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface AvatarProps {
+  size?: "sm" | "md" | "lg" | "xl";
+  type?: "icon" | "text" | "image";
+  color?: "primary" | "neutral" | "success" | "critical" | "warning";
+  variant?: "solid" | "faded";
+  isRound?: boolean;
+  hasStroke?: boolean;
+  initials?: string;
+  imageUrl?: string;
+  alt?: string;
+}`);
+                    setCopiedExample("api");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface AvatarProps {
   size?: "sm" | "md" | "lg" | "xl";
   type?: "icon" | "text" | "image";
   color?: "primary" | "neutral" | "success" | "critical" | "warning";
@@ -463,7 +498,8 @@ export default function AvatarPage() {
   imageUrl?: string;
   alt?: string;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
@@ -601,156 +637,321 @@ export default function AvatarPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Avatar</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Avatar />`}
-              </SyntaxHighlighter>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Avatar />`);
+                    setCopiedExample("basic");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "basic" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Avatar />`}
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Text Avatar</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Avatar 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Avatar 
+  type="text"
+  initials="JD"
+/>`);
+                    setCopiedExample("text");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "text" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Avatar 
   type="text"
   initials="JD"
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Image Avatar</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Avatar 
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Avatar 
+  type="image"
+  imageUrl="/images/avatars/avatar-female.png"
+  alt="User avatar"
+/>`);
+                    setCopiedExample("image");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "image" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Avatar 
   type="image"
   imageUrl="/images/avatars/avatar-female.png"
   alt="User avatar"
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Sizes</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Avatar size="sm" />
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Avatar size="sm" />
+<Avatar size="md" />
+<Avatar size="lg" />
+<Avatar size="xl" />`);
+                    setCopiedExample("sizes");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "sizes" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Avatar size="sm" />
 <Avatar size="md" />
 <Avatar size="lg" />
 <Avatar size="xl" />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Round & Stroke</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Avatar />
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Avatar />
+<Avatar isRound />
+<Avatar hasStroke />
+<Avatar isRound hasStroke />`);
+                    setCopiedExample("round");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "round" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Avatar />
 <Avatar isRound />
 <Avatar hasStroke />
 <Avatar isRound hasStroke />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Colors & Variants</h6>
-              <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<Avatar color="primary" variant="solid" />
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-avatar-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Avatar color="primary" variant="solid" />
+<Avatar color="success" variant="faded" />
+<Avatar color="neutral" variant="solid" />`);
+                    setCopiedExample("colors");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "colors" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Avatar color="primary" variant="solid" />
 <Avatar color="success" variant="faded" />
 <Avatar color="neutral" variant="solid" />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </section>

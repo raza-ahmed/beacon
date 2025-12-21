@@ -148,6 +148,7 @@ export default function InputPage() {
     disabled: false,
   });
   const [copied, setCopied] = useState(false);
+  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => {
     const baseTheme = vscDarkPlus;
@@ -537,25 +538,65 @@ export default function InputPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">InputFieldProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface InputFieldProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface InputFieldProps {
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  size?: "sm" | "md" | "lg";
+  status?: "default" | "active";
+  showLabel?: boolean;
+  showStartIcon?: boolean;
+  showEndIcon?: boolean;
+  showPlaceholderIcon?: boolean;
+  showError?: boolean;
+  showNumberPrefix?: boolean;
+  rounded?: boolean;
+  iconOnly?: boolean;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
+}`);
+                    setCopiedExample("api");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface InputFieldProps {
   label?: string;
   placeholder?: string;
   value?: string;
@@ -572,7 +613,8 @@ export default function InputPage() {
   disabled?: boolean;
   onChange?: (value: string) => void;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
@@ -796,7 +838,31 @@ export default function InputPage() {
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Input Field</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField />`);
+                    setCopiedExample("basic");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "basic" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -815,11 +881,39 @@ export default function InputPage() {
                 PreTag="div"
               >
                 {`<InputField />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Label</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  label="Email"
+  placeholder="Enter your email"
+/>`);
+                    setCopiedExample("label");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "label" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -841,11 +935,40 @@ export default function InputPage() {
   label="Email"
   placeholder="Enter your email"
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Icons</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  placeholder="Search"
+  showPlaceholderIcon
+  showEndIcon
+/>`);
+                    setCopiedExample("icons");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "icons" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -868,11 +991,40 @@ export default function InputPage() {
   showPlaceholderIcon
   showEndIcon
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Error</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  label="Email"
+  placeholder="Enter your email"
+  showError
+/>`);
+                    setCopiedExample("error");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "error" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -895,11 +1047,40 @@ export default function InputPage() {
   placeholder="Enter your email"
   showError
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Number Prefix</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  label="Phone"
+  placeholder="123456789"
+  showNumberPrefix
+/>`);
+                    setCopiedExample("prefix");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "prefix" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -922,11 +1103,39 @@ export default function InputPage() {
   placeholder="123456789"
   showNumberPrefix
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Rounded Input</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  placeholder="Search"
+  rounded
+/>`);
+                    setCopiedExample("rounded");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "rounded" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -948,11 +1157,39 @@ export default function InputPage() {
   placeholder="Search"
   rounded
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Icon Only Input</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  iconOnly
+  showPlaceholderIcon
+/>`);
+                    setCopiedExample("iconOnly");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "iconOnly" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -974,11 +1211,40 @@ export default function InputPage() {
   iconOnly
   showPlaceholderIcon
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Disabled Input</h6>
-              <SyntaxHighlighter
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-input-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<InputField 
+  label="Email"
+  placeholder="Enter your email"
+  disabled
+/>`);
+                    setCopiedExample("disabled");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "disabled" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
                 customStyle={{
@@ -1001,7 +1267,8 @@ export default function InputPage() {
   placeholder="Enter your email"
   disabled
 />`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </section>
