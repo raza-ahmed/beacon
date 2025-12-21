@@ -64,6 +64,10 @@
       "$type": "color",
       "$value": "{Color.Green.800}"
     },
+    "Success_Disabled": {
+      "$type": "color",
+      "$value": "{Color.Green.300}"
+    },
     "Success-On_Hover": {
       "$type": "color",
       "$value": "{Color.Green.600}"
@@ -80,6 +84,10 @@
       "$type": "color",
       "$value": "{Color.Warning.800}"
     },
+    "Warning_Disabled": {
+      "$type": "color",
+      "$value": "{Color.Warning.300}"
+    },
     "Warning-On_Hover": {
       "$type": "color",
       "$value": "{Color.Warning.600}"
@@ -95,6 +103,10 @@
     "Critical_Dark": {
       "$type": "color",
       "$value": "{Color.Critical.800}"
+    },
+    "Critical_Disabled": {
+      "$type": "color",
+      "$value": "{Color.Critical.300}"
     },
     "Critical-On_Hover": {
       "$type": "color",

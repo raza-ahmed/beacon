@@ -45,9 +45,11 @@ const navigationData: NavSection[] = [
       { label: "Button", href: "/components/button" },
       { label: "Card", href: "/components/card" },
       { label: "Checkbox", href: "/components/checkbox" },
+      { label: "Chip", href: "/components/chip" },
       { label: "Input", href: "/components/input" },
       { label: "Menu", href: "/components/menu" },
-      { label: "Table", href: "/components/table" },
+      { label: "Radio Button", href: "/components/radio-button" },
+      { label: "Switch", href: "/components/switch" },
     ],
   },
 ];

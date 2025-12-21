@@ -12,4 +12,6 @@ export { CheckboxPreview } from "./CheckboxPreview";
 export { CheckboxControls } from "./CheckboxControls";
 export { InputPreview } from "./InputPreview";
 export { InputControls } from "./InputControls";
+export { ChipPreview } from "./ChipPreview";
+export { ChipControls } from "./ChipControls";
 
