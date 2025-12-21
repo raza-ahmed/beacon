@@ -16,4 +16,6 @@ export { ChipPreview } from "./ChipPreview";
 export { ChipControls } from "./ChipControls";
 export { SwitchPreview } from "./SwitchPreview";
 export { SwitchControls } from "./SwitchControls";
+export { RadioButtonPreview } from "./RadioButtonPreview";
+export { RadioButtonControls } from "./RadioButtonControls";
 

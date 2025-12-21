@@ -2264,7 +2264,8 @@ body {
 .ds-checkbox-preview-section,
 .ds-input-preview-section,
 .ds-chip-preview-section,
-.ds-switch-preview-section {
+.ds-switch-preview-section,
+.ds-radio-button-preview-section {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-primary);
@@ -2278,7 +2279,8 @@ body {
 .ds-checkbox-preview,
 .ds-input-preview,
 .ds-chip-preview,
-.ds-switch-preview {
+.ds-switch-preview,
+.ds-radio-button-preview {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2296,7 +2298,8 @@ body {
 .ds-checkbox-preview-code,
 .ds-input-preview-code,
 .ds-chip-preview-code,
-.ds-switch-preview-code {
+.ds-switch-preview-code,
+.ds-radio-button-preview-code {
   flex: 0 0 50%;
   height: 50%;
   max-height: 50%;
@@ -2315,7 +2318,8 @@ body {
 .ds-checkbox-code-copy,
 .ds-input-code-copy,
 .ds-chip-code-copy,
-.ds-switch-code-copy {
+.ds-switch-code-copy,
+.ds-radio-button-code-copy {
   position: absolute;
   top: var(--spacing-200);
   right: var(--spacing-200);
@@ -2343,7 +2347,8 @@ body {
 .ds-checkbox-code-copy:hover,
 .ds-input-code-copy:hover,
 .ds-chip-code-copy:hover,
-.ds-switch-code-copy:hover {
+.ds-switch-code-copy:hover,
+.ds-radio-button-code-copy:hover {
   border-color: var(--border-primary);
   box-shadow: var(--shadow-medium);
 }
@@ -2354,7 +2359,8 @@ body {
 .ds-checkbox-code-copy:hover,
 .ds-input-code-copy:hover,
 .ds-chip-code-copy:hover,
-.ds-switch-code-copy:hover {
+.ds-switch-code-copy:hover,
+.ds-radio-button-code-copy:hover {
   background-color: var(--bg-primary-on-hover);
 }
 
@@ -2410,7 +2416,8 @@ body {
 .ds-checkbox-playground-divider,
 .ds-input-playground-divider,
 .ds-chip-playground-divider,
-.ds-switch-playground-divider {
+.ds-switch-playground-divider,
+.ds-radio-button-playground-divider {
   width: var(--border-width-25);
   background-color: var(--border-strong-200);
 }
@@ -2485,7 +2492,8 @@ body {
 .ds-checkbox-control-group,
 .ds-input-control-group,
 .ds-chip-control-group,
-.ds-switch-control-group {
+.ds-switch-control-group,
+.ds-radio-button-control-group {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -2497,7 +2505,8 @@ body {
 .ds-checkbox-control-group--row,
 .ds-input-control-group--row,
 .ds-switch-control-group--row,
-.ds-chip-control-group--row {
+.ds-chip-control-group--row,
+.ds-radio-button-control-group--row {
   flex-direction: row;
   gap: var(--spacing-300);
 }
@@ -2507,7 +2516,8 @@ body {
 .ds-card-control-field,
 .ds-checkbox-control-field,
 .ds-input-control-field,
-.ds-chip-control-field {
+.ds-chip-control-field,
+.ds-radio-button-control-field {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -2520,7 +2530,8 @@ body {
 .ds-checkbox-control-label,
 .ds-input-control-label,
 .ds-chip-control-label,
-.ds-switch-control-label {
+.ds-switch-control-label,
+.ds-radio-button-control-label {
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
@@ -2528,13 +2539,14 @@ body {
   color: var(--fg-neutral);
 }
 
-/* Base control select styles - shared between button, card, checkbox, input, chip, and switch */
+/* Base control select styles - shared between button, card, checkbox, input, chip, switch, and radio-button */
 .ds-button-control-select,
 .ds-card-control-select,
 .ds-checkbox-control-select,
 .ds-input-control-select,
 .ds-chip-control-select,
-.ds-switch-control-select {
+.ds-switch-control-select,
+.ds-radio-button-control-select {
   appearance: none;
   background-color: var(--bg-page-primary);
   border: var(--border-width-25) solid var(--border-strong-200);
@@ -2555,7 +2567,8 @@ body {
 .ds-button-control-select:hover,
 .ds-card-control-select:hover,
 .ds-checkbox-control-select:hover,
-.ds-chip-control-select:hover {
+.ds-chip-control-select:hover,
+.ds-radio-button-control-select:hover {
   border-color: var(--border-primary);
 }
 
@@ -2563,7 +2576,8 @@ body {
 .ds-card-control-select:focus,
 .ds-checkbox-control-select:focus,
 .ds-input-control-select:focus,
-.ds-chip-control-select:focus {
+.ds-chip-control-select:focus,
+.ds-radio-button-control-select:focus {
   outline: none;
   border-color: var(--border-primary);
 }
@@ -4559,6 +4573,207 @@ body {
 }
 
 .ds-switch-variant-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-300);
+  background-color: var(--bg-page-primary);
+  border-radius: var(--corner-radius-200);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  min-height: 80px;
+}
+
+/* ============================================
+   RADIO BUTTON PLAYGROUND
+   ============================================ */
+
+.ds-radio-button-playground {
+  display: grid;
+  grid-template-columns: 380px auto 1fr;
+  margin-top: var(--spacing-400);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-secondary);
+  overflow: hidden;
+  min-height: 448px;
+}
+
+@media (max-width: 768px) {
+  .ds-radio-button-playground {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .ds-radio-button-preview-section {
+    order: 2;
+  }
+
+  .ds-radio-button-preview {
+    min-height: 200px;
+    border-top: 1px solid var(--border-strong-200);
+  }
+
+  .ds-radio-button-preview-code {
+    max-height: 200px;
+  }
+}
+
+/* Radio button preview section, preview, and preview-code use base styles defined above */
+
+/* Radio button code copy button uses base styles defined above */
+
+.ds-radio-button-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  padding: var(--spacing-400);
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* Radio button control group, field, and label use base styles defined above */
+
+.ds-radio-button-control-input {
+  appearance: none;
+  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-200);
+  padding: var(--spacing-200);
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral);
+  transition: border-color 0.15s ease;
+}
+
+.ds-radio-button-control-input:focus {
+  outline: none;
+  border-color: var(--border-primary);
+}
+
+.ds-radio-button-control-input::placeholder {
+  color: var(--fg-neutral-tertiary);
+}
+
+/* ============================================
+   RADIO BUTTON ANATOMY
+   ============================================ */
+
+.ds-radio-button-anatomy-diagram {
+  margin-top: var(--spacing-400);
+  padding: var(--spacing-500);
+  background-color: var(--bg-page-secondary);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-radio-button-anatomy-diagram__radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-200);
+  margin-bottom: var(--spacing-500);
+}
+
+.ds-radio-button-anatomy-diagram__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--corner-radius-full);
+  border: var(--border-width-150) solid var(--border-primary);
+  position: relative;
+}
+
+.ds-radio-button-anatomy-diagram__content {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--corner-radius-full);
+  background-color: var(--fg-on-action);
+  flex-shrink: 0;
+}
+
+.ds-radio-button-anatomy-diagram__label-text {
+  font-family: var(--font-secondary);
+  font-size: var(--body-regular-text-size);
+  line-height: var(--body-regular-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral-secondary);
+  margin: 0;
+}
+
+.ds-radio-button-anatomy-diagram__labels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-300);
+}
+
+.ds-radio-button-anatomy-diagram__label-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+
+.ds-radio-button-anatomy-diagram__label-name {
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+}
+
+.ds-radio-button-anatomy-diagram__label-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: var(--body-extra-small-text-size);
+  line-height: var(--body-extra-small-line-height);
+  color: var(--fg-neutral-secondary);
+  background-color: var(--bg-page-primary);
+  padding: var(--spacing-50) var(--spacing-100);
+  border-radius: var(--corner-radius-100);
+  border: var(--border-width-25) solid var(--border-strong-200);
+}
+
+/* ============================================
+   RADIO BUTTON VARIANTS
+   ============================================ */
+
+.ds-radio-button-variants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+}
+
+.ds-radio-button-variant-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  background-color: var(--bg-page-secondary);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-radio-button-variant-card__title {
+  font-family: var(--font-secondary);
+  font-size: var(--body-regular-text-size);
+  line-height: var(--body-regular-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+  margin: 0;
+}
+
+.ds-radio-button-variant-card__desc {
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral-secondary);
+  margin: 0;
+}
+
+.ds-radio-button-variant-card__preview {
   display: flex;
   align-items: center;
   justify-content: center;
