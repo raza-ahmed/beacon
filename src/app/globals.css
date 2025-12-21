@@ -2355,8 +2355,7 @@ body {
 .ds-input-code-copy:hover,
 .ds-chip-code-copy:hover,
 .ds-switch-code-copy:hover {
-  background-color: var(--bg-page-tertiary);
-  color: var(--fg-primary);
+  background-color: var(--bg-primary-on-hover);
 }
 
 /* Avatar/Code-specific hover styles */

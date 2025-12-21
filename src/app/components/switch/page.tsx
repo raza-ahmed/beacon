@@ -376,31 +376,61 @@ export default function SwitchPage() {
           <div className="ds-api-reference">
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">SwitchProps</h6>
-              <SyntaxHighlighter
-                language="typescript"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
-                  fontSize: "var(--body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`interface SwitchProps {
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-switch-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface SwitchProps {
+  checked?: boolean;
+  status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
+  showIcons?: boolean;
+  onChange?: (checked: boolean) => void;
+}`);
+                    setCopiedExample("api");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--static-primary-black)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "none",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface SwitchProps {
   checked?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   showIcons?: boolean;
   onChange?: (checked: boolean) => void;
 }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
+              </div>
             </div>
             <div className="ds-api-reference__props">
               <h6 className="ds-api-reference__props-title">Props</h6>
