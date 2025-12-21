@@ -4,7 +4,10 @@ import { PageLayout, type TocItem } from "@/components";
 
 const tocItems: TocItem[] = [
   { id: "about", label: "About Design System" },
-  { id: "links", label: "Important Links" },
+  { id: "overview", label: "What's Included" },
+  { id: "features", label: "Key Features" },
+  { id: "quick-start", label: "Quick Start" },
+  { id: "principles", label: "Design Principles" },
   { id: "versioning", label: "Versioning & Releases" },
 ];
 
@@ -23,42 +26,147 @@ export default function IntroductionPage() {
           <h6 className="ds-content__section-title">About Design System</h6>
           <p className="ds-content__text">
             Beacon Design System creates a seamless, user-friendly, and visually
-            coherent digital environment. This system will serve as the
-            foundation upon which all our digital products are built, ensuring
-            consistency, efficiency, and accessibility across all user
-            interfaces.
+            coherent digital environment. This system serves as the foundation
+            upon which all our digital products are built, ensuring consistency,
+            efficiency, and accessibility across all user interfaces. With 9
+            production-ready components and comprehensive design tokens, Beacon
+            provides everything needed to build cohesive, accessible applications.
           </p>
           <div className="ds-content__image-placeholder">
-            <div className="ds-content__gradient-image" />
+            <img
+              src="/images/Beacon-design-system.png"
+              alt="Beacon Design System"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "var(--corner-radius-400)",
+              }}
+            />
           </div>
         </section>
 
-        <section id="links" className="ds-content__section">
-          <h6 className="ds-content__section-title">Important Links</h6>
-          <ul className="ds-content__link-list">
+        <section id="overview" className="ds-content__section">
+          <h6 className="ds-content__section-title">What's Included</h6>
+          <p className="ds-content__text">
+            Beacon Design System provides a complete set of components and
+            foundations to accelerate development while maintaining design
+            consistency.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "var(--spacing-400)", marginTop: "var(--spacing-400)" }}>
+            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+              <h6 style={{ fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-title-small-text-size)", fontWeight: "var(--font-weight-secondary-bold)", color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0 }}>
+                Components
+              </h6>
+              <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
+                <li>Avatar</li>
+                <li>Button</li>
+                <li>Card</li>
+                <li>Checkbox</li>
+                <li>Chip</li>
+                <li>Input</li>
+                <li>Menu</li>
+                <li>Radio Button</li>
+                <li>Switch</li>
+              </ul>
+            </div>
+            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+              <h6 style={{ fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-title-small-text-size)", fontWeight: "var(--font-weight-secondary-bold)", color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0 }}>
+                Foundations
+              </h6>
+              <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
+                <li>Design Tokens (Colors, Spacing, Themes)</li>
+                <li>Typography</li>
+                <li>Responsiveness</li>
+                <li>Accessibility</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" className="ds-content__section">
+          <h6 className="ds-content__section-title">Key Features</h6>
+          <p className="ds-content__text">
+            Beacon Design System is built with modern development practices and
+            accessibility in mind.
+          </p>
+          <ul className="ds-content__bullet-list">
             <li>
-              <a href="#" className="ds-content__link">
-                Figma Design Library
-              </a>
-              <span className="ds-content__link-desc">
-                Access the complete design files and components
-              </span>
+              <strong>Token-driven design:</strong> All styles use design tokens,
+              ensuring consistency and easy theme customization.
             </li>
             <li>
-              <a href="#" className="ds-content__link">
-                GitHub Repository
-              </a>
-              <span className="ds-content__link-desc">
-                Source code and implementation details
-              </span>
+              <strong>Theme support:</strong> Built-in light and dark mode support
+              with multiple hue variants for flexible theming.
             </li>
             <li>
-              <a href="#" className="ds-content__link">
-                Changelog
-              </a>
-              <span className="ds-content__link-desc">
-                Track updates and version history
-              </span>
+              <strong>Responsive variants:</strong> Components adapt seamlessly
+              across desktop, tablet, and mobile breakpoints.
+            </li>
+            <li>
+              <strong>Accessibility built-in:</strong> WCAG-compliant components
+              with proper ARIA attributes and keyboard navigation.
+            </li>
+            <li>
+              <strong>Figma-aligned:</strong> 1:1 mapping with design files ensures
+              pixel-perfect implementation.
+            </li>
+            <li>
+              <strong>TypeScript support:</strong> Fully typed components and
+              tokens for better developer experience and type safety.
+            </li>
+          </ul>
+        </section>
+
+        <section id="quick-start" className="ds-content__section">
+          <h6 className="ds-content__section-title">Quick Start</h6>
+          <p className="ds-content__text">
+            Get started with Beacon Design System in minutes. Each component
+            includes interactive playgrounds where you can explore variants,
+            customize properties, and copy ready-to-use code examples.
+          </p>
+          <ul className="ds-content__bullet-list">
+            <li>
+              Explore <a href="/foundations/colors" className="ds-content__link">design tokens</a> to
+              understand the color system, spacing scale, and theme variables.
+            </li>
+            <li>
+              Browse <a href="/components/button" className="ds-content__link">component documentation</a> to
+              see all available props, variants, and usage examples.
+            </li>
+            <li>
+              Use interactive playgrounds to customize components and generate
+              code snippets.
+            </li>
+            <li>
+              Review the <a href="/how-to-use" className="ds-content__link">How to Use</a> guide for
+              detailed implementation instructions.
+            </li>
+          </ul>
+        </section>
+
+        <section id="principles" className="ds-content__section">
+          <h6 className="ds-content__section-title">Design Principles</h6>
+          <p className="ds-content__text">
+            Beacon Design System is guided by core principles that ensure quality,
+            consistency, and usability across all implementations.
+          </p>
+          <ul className="ds-content__bullet-list">
+            <li>
+              <strong>Consistency:</strong> Unified design language across all
+              components and patterns.
+            </li>
+            <li>
+              <strong>Accessibility:</strong> Inclusive design that works for
+              everyone, meeting WCAG 2.1 AA standards.
+            </li>
+            <li>
+              <strong>Scalability:</strong> Token-based architecture that scales
+              with your product's needs.
+            </li>
+            <li>
+              <strong>Developer-friendly:</strong> TypeScript support, clear
+              documentation, and copy-paste code examples.
             </li>
           </ul>
         </section>
@@ -73,7 +181,7 @@ export default function IntroductionPage() {
           </p>
           <div className="ds-content__version-info">
             <span className="ds-content__version-label">Current Version:</span>
-            <span className="ds-content__version-value">V 2.3</span>
+            <span className="ds-content__version-value">V 2.8</span>
           </div>
         </section>
       </article>

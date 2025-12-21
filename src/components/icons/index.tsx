@@ -164,6 +164,41 @@ export function ChevronUpIcon({ size = "xs", className }: IconProps) {
   );
 }
 
+export function ChevronRightIcon({ size = "xs", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      style={style}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M8.38079 5.38085C8.7225 5.03915 9.27737 5.03915 9.61907 5.38085L15.6191 11.3809C15.9608 11.7226 15.9608 12.2774 15.6191 12.6191L9.61907 18.6191C9.27737 18.9608 8.7225 18.9608 8.38079 18.6191C8.03908 18.2774 8.03908 17.7226 8.38079 17.3809L13.7617 12L8.38079 6.61914C8.03908 6.27743 8.03908 5.72256 8.38079 5.38085Z" fill="currentColor"/>
+      </svg>
+  );
+}
+
+
+export function ChevronLeftIcon({ size = "xs", className }: IconProps) {
+  const { width, height, style } = getSvgSizeProps(size);
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      style={style}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M14.3808 5.38085C14.7225 5.03915 15.2774 5.03915 15.6191 5.38085C15.9608 5.72256 15.9608 6.27743 15.6191 6.61914L10.2382 12L15.6191 17.3809C15.9608 17.7226 15.9608 18.2774 15.6191 18.6191C15.2774 18.9608 14.7225 18.9608 14.3808 18.6191L8.38079 12.6191C8.03908 12.2774 8.03908 11.7226 8.38079 11.3809L14.3808 5.38085Z" fill="currentColor"/>
+      </svg>
+  );
+}
+
 export function SunIcon({ size = "rg", className }: IconProps) {
   const { width, height, style } = getSvgSizeProps(size);
   return (

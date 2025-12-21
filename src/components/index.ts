@@ -18,4 +18,6 @@ export { SwitchPreview } from "./SwitchPreview";
 export { SwitchControls } from "./SwitchControls";
 export { RadioButtonPreview } from "./RadioButtonPreview";
 export { RadioButtonControls } from "./RadioButtonControls";
+export { MenuPreview } from "./MenuPreview";
+export { MenuControls } from "./MenuControls";
 
