@@ -14,4 +14,6 @@ export { InputPreview } from "./InputPreview";
 export { InputControls } from "./InputControls";
 export { ChipPreview } from "./ChipPreview";
 export { ChipControls } from "./ChipControls";
+export { SwitchPreview } from "./SwitchPreview";
+export { SwitchControls } from "./SwitchControls";
 

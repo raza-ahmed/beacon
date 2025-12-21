@@ -2263,7 +2263,8 @@ body {
 .ds-card-preview-section,
 .ds-checkbox-preview-section,
 .ds-input-preview-section,
-.ds-chip-preview-section {
+.ds-chip-preview-section,
+.ds-switch-preview-section {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-primary);
@@ -2276,7 +2277,8 @@ body {
 .ds-card-preview,
 .ds-checkbox-preview,
 .ds-input-preview,
-.ds-chip-preview {
+.ds-chip-preview,
+.ds-switch-preview {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2293,7 +2295,8 @@ body {
 .ds-card-preview-code,
 .ds-checkbox-preview-code,
 .ds-input-preview-code,
-.ds-chip-preview-code {
+.ds-chip-preview-code,
+.ds-switch-preview-code {
   flex: 0 0 50%;
   height: 50%;
   max-height: 50%;
@@ -2311,7 +2314,8 @@ body {
 .ds-card-code-copy,
 .ds-checkbox-code-copy,
 .ds-input-code-copy,
-.ds-chip-code-copy {
+.ds-chip-code-copy,
+.ds-switch-code-copy {
   position: absolute;
   top: var(--spacing-200);
   right: var(--spacing-200);
@@ -2338,7 +2342,8 @@ body {
 .ds-card-code-copy:hover,
 .ds-checkbox-code-copy:hover,
 .ds-input-code-copy:hover,
-.ds-chip-code-copy:hover {
+.ds-chip-code-copy:hover,
+.ds-switch-code-copy:hover {
   border-color: var(--border-primary);
   box-shadow: var(--shadow-medium);
 }
@@ -2348,7 +2353,8 @@ body {
 .ds-card-code-copy:hover,
 .ds-checkbox-code-copy:hover,
 .ds-input-code-copy:hover,
-.ds-chip-code-copy:hover {
+.ds-chip-code-copy:hover,
+.ds-switch-code-copy:hover {
   background-color: var(--bg-page-tertiary);
   color: var(--fg-primary);
 }
@@ -2404,7 +2410,8 @@ body {
 .ds-card-playground-divider,
 .ds-checkbox-playground-divider,
 .ds-input-playground-divider,
-.ds-chip-playground-divider {
+.ds-chip-playground-divider,
+.ds-switch-playground-divider {
   width: var(--border-width-25);
   background-color: var(--border-strong-200);
 }
@@ -2478,7 +2485,8 @@ body {
 .ds-card-control-group,
 .ds-checkbox-control-group,
 .ds-input-control-group,
-.ds-chip-control-group {
+.ds-chip-control-group,
+.ds-switch-control-group {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -2489,6 +2497,7 @@ body {
 .ds-card-control-group--row,
 .ds-checkbox-control-group--row,
 .ds-input-control-group--row,
+.ds-switch-control-group--row,
 .ds-chip-control-group--row {
   flex-direction: row;
   gap: var(--spacing-300);
@@ -2511,7 +2520,8 @@ body {
 .ds-card-control-label,
 .ds-checkbox-control-label,
 .ds-input-control-label,
-.ds-chip-control-label {
+.ds-chip-control-label,
+.ds-switch-control-label {
   font-family: var(--font-secondary);
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
@@ -2519,12 +2529,13 @@ body {
   color: var(--fg-neutral);
 }
 
-/* Base control select styles - shared between button, card, checkbox, input, and chip */
+/* Base control select styles - shared between button, card, checkbox, input, chip, and switch */
 .ds-button-control-select,
 .ds-card-control-select,
 .ds-checkbox-control-select,
 .ds-input-control-select,
-.ds-chip-control-select {
+.ds-chip-control-select,
+.ds-switch-control-select {
   appearance: none;
   background-color: var(--bg-page-primary);
   border: var(--border-width-25) solid var(--border-strong-200);
@@ -4382,6 +4393,173 @@ body {
 }
 
 .ds-chip-variant-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-300);
+  background-color: var(--bg-page-primary);
+  border-radius: var(--corner-radius-200);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  min-height: 80px;
+}
+
+/* ============================================
+   SWITCH COMPONENT
+   ============================================ */
+
+.ds-switch-playground {
+  display: grid;
+  grid-template-columns: 380px auto 1fr;
+  margin-top: var(--spacing-400);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-secondary);
+  overflow: hidden;
+  min-height: 448px;
+}
+
+@media (max-width: 1023px) {
+  .ds-switch-playground {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .ds-switch-preview-section {
+    order: 2;
+  }
+
+  .ds-switch-preview {
+    min-height: 200px;
+    border-top: 1px solid var(--border-strong-200);
+  }
+
+  .ds-switch-preview-code {
+    max-height: 200px;
+  }
+}
+
+/* Switch preview section, preview, and preview-code use base styles defined above */
+
+/* Switch code copy button uses base styles defined above */
+
+.ds-switch-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  padding: var(--spacing-400);
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* Switch control group, field, and label use base styles defined above */
+
+/* Switch control select uses base styles defined above */
+
+.ds-switch-anatomy-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+  padding: var(--spacing-500);
+  background-color: var(--bg-page-secondary);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-switch-anatomy-diagram__switch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-300);
+}
+
+.ds-switch-anatomy-diagram__container {
+  display: flex;
+  align-items: center;
+  width: 52px;
+  padding: var(--spacing-100);
+  background-color: var(--bg-primary);
+  border-radius: var(--corner-radius-full);
+  border: var(--border-width-25) solid var(--border-strong-100);
+  justify-content: flex-end;
+}
+
+.ds-switch-anatomy-diagram__handle {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--corner-radius-full);
+  background-color: var(--static-white);
+  box-shadow: var(--shadow-subtle);
+  flex-shrink: 0;
+}
+
+.ds-switch-anatomy-diagram__labels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-300);
+}
+
+.ds-switch-anatomy-diagram__label-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+
+.ds-switch-anatomy-diagram__label-name {
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+}
+
+.ds-switch-anatomy-diagram__label-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: var(--body-extra-small-text-size);
+  line-height: var(--body-extra-small-line-height);
+  color: var(--fg-neutral-secondary);
+  background-color: var(--bg-page-primary);
+  padding: var(--spacing-50) var(--spacing-100);
+  border-radius: var(--corner-radius-100);
+  border: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-switch-variants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+}
+
+.ds-switch-variant-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  background-color: var(--bg-page-secondary);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-switch-variant-card__title {
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+  margin: 0;
+}
+
+.ds-switch-variant-card__desc {
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral-secondary);
+  margin: 0;
+}
+
+.ds-switch-variant-card__preview {
   display: flex;
   align-items: center;
   justify-content: center;
