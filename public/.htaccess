@@ -61,11 +61,31 @@ Options -Indexes
   ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 
-# Security headers
+# Security and cache headers
 <IfModule mod_headers.c>
+  # Security headers
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-XSS-Protection "1; mode=block"
+  
+  # Disable caching for HTML files - force browsers to always fetch fresh content
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+    Header unset ETag
+    Header set Last-Modified "0"
+  </FilesMatch>
+  
+  # Cache static assets with versioning (Next.js handles cache busting via filenames)
+  <FilesMatch "\.(js|css|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  
+  # Cache images for 1 year
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg|ico|webp)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
 </IfModule>
 
 # Custom error pages (optional)

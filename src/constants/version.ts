@@ -6,7 +6,7 @@
  * 
  * Format: Major.Minor (e.g., "2.8")
  */
-export const DESIGN_SYSTEM_VERSION = "2.8";
+export const DESIGN_SYSTEM_VERSION = "3.01";
 
 /**
  * Get formatted version string with optional prefix
