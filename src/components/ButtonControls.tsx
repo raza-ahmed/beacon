@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Checkbox } from "./Checkbox";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -251,25 +252,23 @@ export function ButtonControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-button-control-label">Icon</span>
-            <div className="ds-icon-toggles" role="group" aria-label="Icon position">
-              <label className="ds-icon-toggle">
-                <input
-                  type="checkbox"
-                  checked={hasStartIcon}
-                  onChange={(e) => onStartIconChange(e.target.checked)}
-                  aria-label="Start icon"
-                />
-                <span>Start</span>
-              </label>
-              <label className="ds-icon-toggle">
-                <input
-                  type="checkbox"
-                  checked={hasEndIcon}
-                  onChange={(e) => onEndIconChange(e.target.checked)}
-                  aria-label="End icon"
-                />
-                <span>End</span>
-              </label>
+            <div style={{ display: "flex", flexDirection: "row", gap: "var(--spacing-200)" }} role="group" aria-label="Icon position">
+              <Checkbox
+                id="button-start-icon"
+                checked={hasStartIcon}
+                onChange={onStartIconChange}
+                ariaLabel="Start icon"
+                label="Start"
+                showLabel={true}
+              />
+              <Checkbox
+                id="button-end-icon"
+                checked={hasEndIcon}
+                onChange={onEndIconChange}
+                ariaLabel="End icon"
+                label="End"
+                showLabel={true}
+              />
             </div>
           </div>
           <div className="ds-icon-fill-section">

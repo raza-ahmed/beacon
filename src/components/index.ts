@@ -10,6 +10,7 @@ export { AvatarControls } from "./AvatarControls";
 export { CardPreview } from "./CardPreview";
 export { CardControls } from "./CardControls";
 export { CheckboxPreview } from "./CheckboxPreview";
+export { Checkbox } from "./Checkbox";
 export { CheckboxControls } from "./CheckboxControls";
 export { InputPreview } from "./InputPreview";
 export { InputControls } from "./InputControls";
