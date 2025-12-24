@@ -1,7 +1,7 @@
 "use client";
 
 import type { Theme, HueVariant } from "@/tokens/types";
-import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
@@ -185,26 +185,13 @@ export function AvatarControls({
             ))}
           </div>
           <div className="ds-theme-toggle">
-            <button
-              type="button"
-              className={`ds-theme-toggle-button ${
-                theme === "light" ? "ds-theme-toggle-button--active" : ""
-              }`}
-              onClick={() => onThemeChange("light")}
-              aria-label="Light theme"
-            >
-              <SunIcon size="sm" />
-            </button>
-            <button
-              type="button"
-              className={`ds-theme-toggle-button ${
-                theme === "dark" ? "ds-theme-toggle-button--active" : ""
-              }`}
-              onClick={() => onThemeChange("dark")}
-              aria-label="Dark theme"
-            >
-              <MoonIcon size="sm" />
-            </button>
+            <Switch
+              id="avatar-theme-toggle"
+              checked={theme === "dark"}
+              onChange={(checked) => onThemeChange(checked ? "dark" : "light")}
+              showIcons={true}
+              ariaLabel="Theme toggle"
+            />
           </div>
         </div>
       </div>

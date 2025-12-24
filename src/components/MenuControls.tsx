@@ -1,7 +1,7 @@
 "use client";
 
 import type { Theme, HueVariant } from "@/tokens/types";
-import { CheckIcon, SunIcon, MoonIcon, DeleteBinIcon } from "./icons";
+import { CheckIcon, DeleteBinIcon } from "./icons";
 import { Switch } from "./Switch";
 
 type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
@@ -107,26 +107,13 @@ export function MenuControls({
             ))}
           </div>
           <div className="ds-theme-toggle">
-            <button
-              type="button"
-              className={`ds-theme-toggle-button ${
-                theme === "light" ? "ds-theme-toggle-button--active" : ""
-              }`}
-              onClick={() => onThemeChange?.("light")}
-              aria-label="Light theme"
-            >
-              <SunIcon size="sm" />
-            </button>
-            <button
-              type="button"
-              className={`ds-theme-toggle-button ${
-                theme === "dark" ? "ds-theme-toggle-button--active" : ""
-              }`}
-              onClick={() => onThemeChange?.("dark")}
-              aria-label="Dark theme"
-            >
-              <MoonIcon size="sm" />
-            </button>
+            <Switch
+              id="menu-theme-toggle"
+              checked={theme === "dark"}
+              onChange={(checked) => onThemeChange?.(checked ? "dark" : "light")}
+              showIcons={true}
+              ariaLabel="Theme toggle"
+            />
           </div>
         </div>
       </div>

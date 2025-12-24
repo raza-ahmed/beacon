@@ -12,6 +12,7 @@ interface SwitchProps {
   disabled?: boolean;
   id?: string;
   ariaLabel?: string;
+  showIcons?: boolean;
 }
 
 export function Switch({
@@ -20,6 +21,7 @@ export function Switch({
   disabled = false,
   id,
   ariaLabel,
+  showIcons = false,
 }: SwitchProps) {
   const themeContext = useThemeSafe();
   const theme = themeContext?.theme;
@@ -112,7 +114,7 @@ export function Switch({
       <SwitchPreview
         checked={checked}
         status={currentStatus}
-        showIcons={false}
+        showIcons={showIcons}
         theme={theme}
         hue={hue}
       />

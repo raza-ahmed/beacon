@@ -196,6 +196,7 @@ export function SwitchPreview({
       height: `${ICON_CONTAINER_SIZE}px`,
       borderRadius: "var(--corner-radius-full)",
       flexShrink: 0,
+      border: "none",
     };
 
     if (checked) {
@@ -214,7 +215,6 @@ export function SwitchPreview({
         return {
           ...baseStyles,
           backgroundColor: "var(--bg-page-tertiary)",
-          border: "var(--border-width-25) solid var(--border-strong-200)",
         };
       }
       return {
@@ -233,6 +233,7 @@ export function SwitchPreview({
       height: `${ICON_CONTAINER_SIZE}px`,
       borderRadius: "var(--corner-radius-full)",
       flexShrink: 0,
+      border: "none",
     };
 
     if (checked) {
@@ -246,7 +247,6 @@ export function SwitchPreview({
         return {
           ...baseStyles,
           backgroundColor: "var(--bg-page-tertiary)",
-          border: "var(--border-width-25) solid var(--border-strong-200)",
         };
       }
       return {

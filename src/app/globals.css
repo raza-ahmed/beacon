@@ -2738,10 +2738,7 @@ body {
 .ds-theme-toggle {
   display: flex;
   gap: var(--spacing-50);
-  background-color: var(--bg-page-secondary);
-  border-radius: var(--corner-radius-full);
-  padding: 2px;
-  border: var(--border-width-25) solid var(--border-strong-200);
+  align-items: center;
 }
 
 .ds-theme-toggle-button {
