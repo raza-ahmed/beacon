@@ -43,6 +43,29 @@ export default function RootLayout({
       className={`${dmSans.variable} ${ibmPlexSerif.variable}`}
     >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('design-system-theme') || 'dark';
+                  var hue = localStorage.getItem('design-system-hue') || 'hue-sky';
+                  var root = document.documentElement;
+                  root.setAttribute('data-theme', theme);
+                  root.setAttribute('data-hue', hue);
+                  var metaThemeColor = document.querySelector('meta[name="theme-color"]');
+                  if (metaThemeColor) {
+                    metaThemeColor.setAttribute('content', theme === 'dark' ? '#151414' : '#f7fafc');
+                  }
+                } catch (e) {
+                  // Fallback to dark theme if localStorage access fails
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  document.documentElement.setAttribute('data-hue', 'hue-sky');
+                }
+              })();
+            `,
+          }}
+        />
         <meta name="theme-color" content="#f7fafc" />
       </head>
       <body>
