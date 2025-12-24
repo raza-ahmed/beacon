@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
+import { useTheme } from "@/providers/ThemeProvider";
 import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
 type Breakpoint = "desktop" | "tablet" | "mobile";
 
@@ -176,33 +177,14 @@ const RESPONSIVE_VALUES: Record<string, { desktop: string; tablet: string; mobil
 };
 
 export default function ResponsivenessPage() {
+  const { theme } = useTheme();
   const { computed, mounted } = useComputedResponsiveTokens();
   const currentBreakpoint = useCurrentBreakpoint();
   const breakpointInfo = useBreakpointInfo();
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
-  // Clean theme object to remove conflicting background properties
-  // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
-  const syntaxTheme = useMemo(() => {
-    const baseTheme = vscDarkPlus;
-    const cleanedTheme: typeof baseTheme = { ...baseTheme };
-    
-    // Remove background properties from all selectors to avoid conflicts
-    Object.keys(cleanedTheme).forEach((key) => {
-      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
-        const selector = cleanedTheme[key] as Record<string, string>;
-        if (selector.background) {
-          delete selector.background;
-        }
-        if (selector.backgroundColor) {
-          delete selector.backgroundColor;
-        }
-      }
-    });
-    
-    return cleanedTheme;
-  }, []);
+  const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -652,10 +634,10 @@ export default function ResponsivenessPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {
@@ -768,10 +750,10 @@ export default function ResponsivenessPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {
@@ -849,10 +831,10 @@ export default function ResponsivenessPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {

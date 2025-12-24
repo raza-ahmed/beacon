@@ -8,7 +8,7 @@ import { ButtonPreview } from "@/components/ButtonPreview";
 import { ButtonControls } from "@/components/ButtonControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -142,25 +142,7 @@ export default function ButtonPage() {
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
-  const syntaxTheme = useMemo(() => {
-    const baseTheme = vscDarkPlus;
-    const cleanedTheme: typeof baseTheme = { ...baseTheme };
-    
-    // Remove background properties from all selectors to avoid conflicts
-    Object.keys(cleanedTheme).forEach((key) => {
-      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
-        const selector = cleanedTheme[key] as Record<string, string>;
-        if (selector.background) {
-          delete selector.background;
-        }
-        if (selector.backgroundColor) {
-          delete selector.backgroundColor;
-        }
-      }
-    });
-    
-    return cleanedTheme;
-  }, []);
+  const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -277,7 +259,7 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
@@ -492,10 +474,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -673,10 +655,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -727,10 +709,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -782,10 +764,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -837,10 +819,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -893,10 +875,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -950,10 +932,10 @@ export default function ButtonPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {

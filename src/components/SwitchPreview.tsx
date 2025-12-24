@@ -10,6 +10,8 @@ interface SwitchPreviewProps {
   checked?: boolean;
   status?: SwitchStatus;
   showIcons?: boolean;
+  label?: string;
+  showLabel?: boolean;
   theme?: Theme;
   hue?: HueVariant;
 }
@@ -23,6 +25,8 @@ export function SwitchPreview({
   checked = false,
   status = "default",
   showIcons = false,
+  label = "Switch",
+  showLabel = false,
   theme,
   hue,
 }: SwitchPreviewProps) {
@@ -277,27 +281,62 @@ export function SwitchPreview({
     return "var(--fg-warning)";
   }, [checked, status]);
 
-  if (showIcons) {
-    return (
-      <div style={trackStyles}>
-        <div style={nightContainerStyles}>
-          <div style={{ color: nightIconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <MoonIcon size={ICON_SIZE} />
-          </div>
-        </div>
-        <div style={dayContainerStyles}>
-          <div style={{ color: dayIconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <SunIcon size={ICON_SIZE} />
-          </div>
+  const labelStyles = useMemo(() => {
+    const baseStyles: React.CSSProperties = {
+      fontFamily: "var(--font-secondary)",
+      fontSize: "var(--body-small-text-size)",
+      lineHeight: "var(--body-small-line-height)",
+      fontWeight: "var(--font-weight-secondary-medium)",
+      margin: 0,
+    };
+
+    if (disabled) {
+      return {
+        ...baseStyles,
+        color: "var(--fg-disabled)",
+      };
+    }
+
+    return {
+      ...baseStyles,
+      color: "var(--fg-neutral-secondary)",
+    };
+  }, [disabled]);
+
+  const switchElement = showIcons ? (
+    <div style={trackStyles}>
+      <div style={nightContainerStyles}>
+        <div style={{ color: nightIconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <MoonIcon size={ICON_SIZE} />
         </div>
       </div>
-    );
-  }
-
-  return (
+      <div style={dayContainerStyles}>
+        <div style={{ color: dayIconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <SunIcon size={ICON_SIZE} />
+        </div>
+      </div>
+    </div>
+  ) : (
     <div style={trackStyles}>
       <div style={handleStyles} />
     </div>
   );
+
+  if (showLabel && label) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "var(--spacing-200)",
+        }}
+      >
+        {switchElement}
+        <p style={labelStyles}>{label}</p>
+      </div>
+    );
+  }
+
+  return switchElement;
 }
 

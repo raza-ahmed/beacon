@@ -7,7 +7,7 @@ import { CardPreview } from "@/components/CardPreview";
 import { CardControls } from "@/components/CardControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import type { PatternType } from "@/utils/patternPaths";
 
 type CardType = "product" | "experience" | "info" | "generic";
@@ -254,24 +254,7 @@ export default function CardPage() {
   const [copied, setCopied] = useState(false);
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
-  const syntaxTheme = useMemo(() => {
-    const baseTheme = vscDarkPlus;
-    const cleanedTheme: typeof baseTheme = { ...baseTheme };
-    
-    Object.keys(cleanedTheme).forEach((key) => {
-      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
-        const selector = cleanedTheme[key] as Record<string, string>;
-        if (selector.background) {
-          delete selector.background;
-        }
-        if (selector.backgroundColor) {
-          delete selector.backgroundColor;
-        }
-      }
-    });
-    
-    return cleanedTheme;
-  }, []);
+  const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -436,7 +419,7 @@ export default function CardPage() {
                       customStyle={{
                         margin: 0,
                         padding: "var(--spacing-300)",
-                        backgroundColor: "var(--static-primary-black)",
+                        backgroundColor: "var(--bg-page-secondary)",
                         fontSize: "var(--body-small-text-size)",
                         borderRadius: 0,
                         border: "none",
@@ -508,10 +491,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -719,10 +702,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -784,10 +767,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -844,10 +827,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -903,10 +886,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -968,10 +951,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -1025,10 +1008,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -1083,10 +1066,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -1141,10 +1124,10 @@ export default function CardPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {

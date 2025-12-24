@@ -2605,6 +2605,45 @@ body {
   color: var(--fg-neutral);
 }
 
+/* Base control input styles - shared between checkbox, chip, switch, and radio-button */
+.ds-checkbox-control-input,
+.ds-chip-control-input,
+.ds-switch-control-input,
+.ds-radio-button-control-input {
+  appearance: none;
+  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-200);
+  padding: var(--spacing-200);
+  font-family: var(--font-secondary);
+  font-size: var(--body-small-text-size);
+  line-height: var(--body-small-line-height);
+  color: var(--fg-neutral);
+  transition: border-color 0.15s ease;
+}
+
+.ds-checkbox-control-input:hover,
+.ds-chip-control-input:hover,
+.ds-switch-control-input:hover,
+.ds-radio-button-control-input:hover {
+  border-color: var(--border-primary);
+}
+
+.ds-checkbox-control-input:focus,
+.ds-chip-control-input:focus,
+.ds-switch-control-input:focus,
+.ds-radio-button-control-input:focus {
+  outline: none;
+  border-color: var(--border-primary);
+}
+
+.ds-checkbox-control-input::placeholder,
+.ds-chip-control-input::placeholder,
+.ds-switch-control-input::placeholder,
+.ds-radio-button-control-input::placeholder {
+  color: var(--fg-neutral-tertiary);
+}
+
 /* Base control select styles - shared between button, card, checkbox, input, chip, switch, radio-button, and menu */
 .ds-button-control-select,
 .ds-card-control-select,
@@ -3446,7 +3485,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }
@@ -3881,7 +3920,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }
@@ -4077,7 +4116,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }
@@ -4301,7 +4340,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }
@@ -4495,7 +4534,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }
@@ -4662,7 +4701,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }
@@ -4851,7 +4890,7 @@ body {
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
 }

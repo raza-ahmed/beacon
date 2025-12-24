@@ -8,7 +8,7 @@ import { SwitchPreview } from "@/components/SwitchPreview";
 import { SwitchControls } from "@/components/SwitchControls";
 import { CopyIcon, CheckIcon, SunIcon, MoonIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
 type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -16,6 +16,8 @@ interface SwitchConfig {
   checked: boolean;
   status: SwitchStatus;
   showIcons: boolean;
+  label: string;
+  showLabel: boolean;
 }
 
 const STATUS_LABELS: Record<SwitchStatus, string> = {
@@ -39,6 +41,11 @@ function generateSwitchCode(config: SwitchConfig): string {
 
   if (config.showIcons) {
     props.push(`showIcons`);
+  }
+
+  if (config.showLabel && config.label) {
+    props.push(`label="${config.label}"`);
+    props.push(`showLabel`);
   }
 
   if (props.length === 0) {
@@ -76,28 +83,13 @@ export default function SwitchPage() {
     checked: false,
     status: "default",
     showIcons: false,
+    label: "Switch",
+    showLabel: false,
   });
   const [copied, setCopied] = useState(false);
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
-  const syntaxTheme = useMemo(() => {
-    const baseTheme = vscDarkPlus;
-    const cleanedTheme: typeof baseTheme = { ...baseTheme };
-
-    Object.keys(cleanedTheme).forEach((key) => {
-      if (cleanedTheme[key] && typeof cleanedTheme[key] === "object") {
-        const selector = cleanedTheme[key] as Record<string, string>;
-        if (selector.background) {
-          delete selector.background;
-        }
-        if (selector.backgroundColor) {
-          delete selector.backgroundColor;
-        }
-      }
-    });
-
-    return cleanedTheme;
-  }, []);
+  const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -152,11 +144,15 @@ export default function SwitchPage() {
               checked={config.checked}
               status={config.status}
               showIcons={config.showIcons}
+              label={config.label}
+              showLabel={config.showLabel}
               theme={theme}
               hue={hue}
               onCheckedChange={(checked) => updateConfig({ checked })}
               onStatusChange={(status) => updateConfig({ status })}
               onShowIconsChange={(showIcons) => updateConfig({ showIcons })}
+              onLabelChange={(label) => updateConfig({ label })}
+              onShowLabelChange={(showLabel) => updateConfig({ showLabel })}
               onThemeChange={setTheme}
               onHueChange={setHue}
             />
@@ -167,6 +163,8 @@ export default function SwitchPage() {
                   checked={config.checked}
                   status={config.status}
                   showIcons={config.showIcons}
+                  label={config.label}
+                  showLabel={config.showLabel}
                   theme={theme}
                   hue={hue}
                 />
@@ -196,7 +194,7 @@ export default function SwitchPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
@@ -240,7 +238,7 @@ export default function SwitchPage() {
             <div className="ds-switch-anatomy-diagram__labels">
               <div className="ds-switch-anatomy-diagram__label-item">
                 <span className="ds-switch-anatomy-diagram__label-name">Track</span>
-                <code className="ds-switch-anatomy-diagram__label-code">52px width, rounded-full, 4px padding</code>
+                <code className="ds-switch-anatomy-diagram__label-code">52px width, rounded-full, 2px padding</code>
               </div>
               <div className="ds-switch-anatomy-diagram__label-item">
                 <span className="ds-switch-anatomy-diagram__label-name">Handle</span>
@@ -418,10 +416,10 @@ export default function SwitchPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -537,10 +535,10 @@ export default function SwitchPage() {
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
-                    backgroundColor: "var(--static-primary-black)",
+                    backgroundColor: "var(--bg-page-secondary)",
                     fontSize: "var(--body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "none",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
                   codeTagProps={{
                     style: {
@@ -587,10 +585,10 @@ export default function SwitchPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {
@@ -640,10 +638,10 @@ export default function SwitchPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {
@@ -693,10 +691,10 @@ export default function SwitchPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {
@@ -746,10 +744,10 @@ export default function SwitchPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {
@@ -806,10 +804,10 @@ export default function SwitchPage() {
                 customStyle={{
                   margin: 0,
                   padding: "var(--spacing-300)",
-                  backgroundColor: "var(--static-primary-black)",
+                  backgroundColor: "var(--bg-page-secondary)",
                   fontSize: "var(--body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
-                  border: "none",
+                  border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
                 codeTagProps={{
                   style: {

@@ -10,11 +10,15 @@ interface SwitchControlsProps {
   checked?: boolean;
   status?: SwitchStatus;
   showIcons?: boolean;
+  label?: string;
+  showLabel?: boolean;
   theme?: Theme;
   hue?: HueVariant;
   onCheckedChange?: (checked: boolean) => void;
   onStatusChange?: (status: SwitchStatus) => void;
   onShowIconsChange?: (show: boolean) => void;
+  onLabelChange?: (label: string) => void;
+  onShowLabelChange?: (show: boolean) => void;
   onThemeChange?: (theme: Theme) => void;
   onHueChange?: (hue: HueVariant) => void;
 }
@@ -37,11 +41,15 @@ export function SwitchControls({
   checked = false,
   status = "default",
   showIcons = false,
+  label = "Switch",
+  showLabel = false,
   theme,
   hue,
   onCheckedChange,
   onStatusChange,
   onShowIconsChange,
+  onLabelChange,
+  onShowLabelChange,
   onThemeChange,
   onHueChange,
 }: SwitchControlsProps) {
@@ -130,6 +138,34 @@ export function SwitchControls({
           />
         </div>
       </div>
+
+      <div className="ds-switch-control-group ds-switch-control-group--row">
+        <div className="ds-icon-fill-section">
+          <span className="ds-switch-control-label">Label</span>
+          <Switch
+            id="switch-show-label"
+            checked={showLabel}
+            onChange={onShowLabelChange}
+            ariaLabel="Label"
+          />
+        </div>
+      </div>
+
+      {showLabel && (
+        <div className="ds-switch-control-group">
+          <label htmlFor="switch-label-input" className="ds-switch-control-label">
+            Label Text
+          </label>
+          <input
+            id="switch-label-input"
+            type="text"
+            className="ds-switch-control-input"
+            value={label}
+            onChange={(e) => onLabelChange?.(e.target.value)}
+            placeholder="Enter label text"
+          />
+        </div>
+      )}
     </div>
   );
 }
