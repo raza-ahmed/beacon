@@ -2159,32 +2159,29 @@ body {
    RESPONSIVE ADJUSTMENTS
    ============================================ */
 
+@media (max-width: 1200px) {
+  .ds-sidebar {
+    display: none;
+  }
+  
+  .ds-header__menu-button {
+    display: flex;
+  }
+}
+
 @media (max-width: 1024px) {
   .ds-toc {
     display: none;
   }
-  
-  .ds-sidebar {
-    width: 200px;
-    padding-left: 0;
-  }
 }
 
 @media (max-width: 768px) {
-  .ds-sidebar {
-    display: none;
-  }
-  
   .ds-header__search {
     display: none;
   }
 
   .ds-header__version-badge {
     display: none;
-  }
-
-  .ds-header__menu-button {
-    display: flex;
   }
 
   .ds-header__logo-text {
@@ -2196,7 +2193,7 @@ body {
   }
   
   .ds-layout__main {
-    padding: var(--spacing-400);
+    padding: var(--spacing-400) 0;
   }
   
   .ds-content {
@@ -5170,6 +5167,30 @@ body {
   box-sizing: border-box;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+@media (max-width: 768px) {
+  .ds-menu-variant-card {
+    overflow-x: visible;
+  }
+  
+  .ds-menu-variant-card__preview {
+    margin-left: calc(-1 * var(--spacing-400));
+    margin-right: calc(-1 * var(--spacing-400));
+    width: calc(100% + 2 * var(--spacing-400));
+    max-width: none;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding-left: var(--spacing-400);
+    padding-right: var(--spacing-400);
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .ds-menu-variant-card__preview > * {
+    flex-shrink: 0;
+  }
 }
 
 .ds-radio-button-variant-card__preview {
