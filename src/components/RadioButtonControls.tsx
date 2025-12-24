@@ -37,7 +37,7 @@ const HUE_OPTIONS: { value: HueVariant; label: string; color: string }[] = [
 export function RadioButtonControls({
   selected = false,
   status = "default",
-  label = "Select Me",
+  label = "Radio Button",
   showLabel = true,
   theme,
   hue,

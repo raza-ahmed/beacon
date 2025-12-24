@@ -1294,7 +1294,7 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: var(--body-small-text-size);
   line-height: var(--body-small-line-height);
-  color: var(--fg-primary);
+  color: var(--fg-primary-on-tonal);
   background-color: var(--bg-primary-tonal);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
@@ -4726,7 +4726,6 @@ body {
   width: 8px;
   height: 8px;
   border-radius: var(--corner-radius-full);
-  background-color: var(--fg-on-action);
   flex-shrink: 0;
 }
 

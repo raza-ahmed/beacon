@@ -19,7 +19,7 @@ const RADIO_SIZE = 20;
 export function RadioButtonPreview({
   selected = false,
   status = "default",
-  label = "Select Me",
+  label = "Radio Button",
   showLabel = true,
   theme,
   hue,
@@ -108,21 +108,6 @@ export function RadioButtonPreview({
     }
   }, [selected, status, disabled]);
 
-  const innerCircleStyles = useMemo(() => {
-    if (!selected) return null;
-
-    // Inner white circle for selected state
-    // Size: 20px outer - 6px border on each side = 8px inner circle
-    const innerSize = RADIO_SIZE - 12; // 6px border on each side (6px * 2 = 12px)
-
-    return {
-      width: `${innerSize}px`,
-      height: `${innerSize}px`,
-      borderRadius: "var(--corner-radius-full)",
-      backgroundColor: "var(--fg-on-action)",
-      flexShrink: 0,
-    };
-  }, [selected]);
 
   const labelStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
@@ -185,7 +170,6 @@ export function RadioButtonPreview({
     >
       <div style={radioStyles}>
         {focusRingStyles && <div style={focusRingStyles} />}
-        {innerCircleStyles && <div style={innerCircleStyles} />}
       </div>
       {showLabel && label && <p style={labelStyles}>{label}</p>}
     </div>

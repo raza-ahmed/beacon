@@ -4,62 +4,34 @@ import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, MinusDashIcon } from "./icons";
 
-type CheckboxSize = "sm" | "md" | "lg";
+type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
 interface CheckboxPreviewProps {
   checked?: boolean;
-  indeterminate?: boolean;
-  disabled?: boolean;
+  status?: CheckboxStatus;
   label?: string;
-  size?: CheckboxSize;
+  showLabel?: boolean;
   theme?: Theme;
   hue?: HueVariant;
 }
 
-const SIZE_CONFIG: Record<
-  CheckboxSize,
-  {
-    boxSize: string;
-    iconSize: number;
-    fontSize: string;
-    lineHeight: string;
-  }
-> = {
-  sm: {
-    boxSize: "16px",
-    iconSize: 12, // 16px box - 4px padding (2px each side) = 12px
-    fontSize: "var(--body-small-text-size)",
-    lineHeight: "var(--body-small-line-height)",
-  },
-  md: {
-    boxSize: "20px",
-    iconSize: 16, // 20px box - 4px padding (2px each side) = 16px
-    fontSize: "var(--body-small-text-size)",
-    lineHeight: "var(--body-small-line-height)",
-  },
-  lg: {
-    boxSize: "24px",
-    iconSize: 20, // 24px box - 4px padding (2px each side) = 20px
-    fontSize: "var(--body-regular-text-size)",
-    lineHeight: "var(--body-regular-line-height)",
-  },
-};
+const CHECKBOX_SIZE = 20;
+const ICON_SIZE = 16; // 20px box - 4px padding (2px each side) = 16px
 
 export function CheckboxPreview({
   checked = false,
-  indeterminate = false,
-  disabled = false,
-  label = "Select Me",
-  size = "md",
+  status = "default",
+  label = "Checkbox",
+  showLabel = true,
   theme,
   hue,
 }: CheckboxPreviewProps) {
-  const sizeConfig = SIZE_CONFIG[size];
+  const disabled = status === "disabled";
 
   const checkboxStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
-      width: sizeConfig.boxSize,
-      height: sizeConfig.boxSize,
+      width: `${CHECKBOX_SIZE}px`,
+      height: `${CHECKBOX_SIZE}px`,
       borderRadius: "var(--corner-radius-100)",
       display: "flex",
       alignItems: "center",
@@ -68,28 +40,36 @@ export function CheckboxPreview({
       transition: "background-color 0.15s ease, border-color 0.15s ease",
       boxSizing: "border-box",
       overflow: "hidden",
+      position: "relative",
     };
 
-    if (disabled) {
-      if (checked || indeterminate) {
-        // Disabled checked/indeterminate
+    if (checked) {
+      // Checked state
+      if (disabled) {
         return {
           ...baseStyles,
           backgroundColor: "var(--bg-disabled)",
           border: "none",
-        };
-      } else {
-        // Disabled unchecked
-        return {
-          ...baseStyles,
-          backgroundColor: "var(--bg-page-primary)",
-          border: "var(--border-width-50) solid var(--border-neutral-tertiary)",
+          padding: "var(--spacing-50)",
         };
       }
-    }
-
-    if (checked || indeterminate) {
-      // Checked or indeterminate
+      if (status === "hovered") {
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-primary-on-hover)",
+          border: "none",
+          padding: "var(--spacing-50)",
+        };
+      }
+      if (status === "focused" || status === "pressed") {
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-primary-pressed)",
+          border: "none",
+          padding: "var(--spacing-50)",
+        };
+      }
+      // Default checked
       return {
         ...baseStyles,
         backgroundColor: "var(--bg-primary)",
@@ -97,14 +77,29 @@ export function CheckboxPreview({
         padding: "var(--spacing-50)",
       };
     } else {
-      // Unchecked
+      // Unchecked state
+      if (disabled) {
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-page-primary)",
+          border: "var(--border-width-50) solid var(--border-neutral-tertiary)",
+        };
+      }
+      if (status === "hovered" || status === "focused" || status === "pressed") {
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-page-primary)",
+          border: "var(--border-width-50) solid var(--border-neutral-primary)",
+        };
+      }
+      // Default unchecked
       return {
         ...baseStyles,
         backgroundColor: "var(--bg-page-primary)",
         border: "var(--border-width-50) solid var(--border-neutral-secondary)",
       };
     }
-  }, [checked, indeterminate, disabled, sizeConfig.boxSize]);
+  }, [checked, status, disabled]);
 
   const iconColor = useMemo(() => {
     if (disabled) {
@@ -116,8 +111,8 @@ export function CheckboxPreview({
   const labelStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
       fontFamily: "var(--font-secondary)",
-      fontSize: sizeConfig.fontSize,
-      lineHeight: sizeConfig.lineHeight,
+      fontSize: "var(--body-small-text-size)",
+      lineHeight: "var(--body-small-line-height)",
       fontWeight: "var(--font-weight-secondary-medium)",
       margin: 0,
     };
@@ -129,7 +124,7 @@ export function CheckboxPreview({
       };
     }
 
-    if (checked || indeterminate) {
+    if (checked) {
       return {
         ...baseStyles,
         color: "var(--fg-neutral-secondary)",
@@ -140,7 +135,34 @@ export function CheckboxPreview({
       ...baseStyles,
       color: "var(--fg-neutral-tertiary)",
     };
-  }, [disabled, checked, indeterminate, sizeConfig]);
+  }, [disabled, checked]);
+
+  const focusRingStyles = useMemo(() => {
+    if (status !== "focused") return null;
+
+    // Focus ring should be positioned outside the checkbox
+    // The checkbox is 20px × 20px
+    // The focus ring should be 4px outside the checkbox edge, centered on the container
+    // Using explicit width/height and centering: 20px + 8px (4px on each side) = 28px
+    // Border radius matches the checkbox's rounded rectangle shape
+    return {
+      position: "absolute" as const,
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "28px",
+      height: "28px",
+      marginTop: "0",
+      marginLeft: "0",
+      borderRadius: "var(--corner-radius-200)",
+      borderWidth: "var(--border-width-25)",
+      borderStyle: "solid",
+      borderColor: checked
+        ? "var(--border-primary)"
+        : "var(--border-neutral-primary)",
+      pointerEvents: "none" as const,
+    };
+  }, [status, checked]);
 
   return (
     <div
@@ -148,49 +170,33 @@ export function CheckboxPreview({
         display: "flex",
         alignItems: "center",
         gap: "var(--spacing-200)",
+        position: "relative",
       }}
     >
-      <div style={checkboxStyles}>
-        {checked && !indeterminate && (
-          <div
-            style={{
-              color: iconColor,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: `${sizeConfig.iconSize}px`,
-              height: `${sizeConfig.iconSize}px`,
-              maxWidth: `${sizeConfig.iconSize}px`,
-              maxHeight: `${sizeConfig.iconSize}px`,
-              flexShrink: 0,
-              overflow: "hidden",
-            }}
-          >
-            <CheckIcon size={sizeConfig.iconSize} />
-          </div>
-        )}
-        {indeterminate && (
-          <div
-            style={{
-              color: iconColor,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: `${sizeConfig.iconSize}px`,
-              height: `${sizeConfig.iconSize}px`,
-              maxWidth: `${sizeConfig.iconSize}px`,
-              maxHeight: `${sizeConfig.iconSize}px`,
-              flexShrink: 0,
-              overflow: "hidden",
-            }}
-          >
-            <MinusDashIcon size={sizeConfig.iconSize} />
-          </div>
-        )}
+      <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {focusRingStyles && <div style={focusRingStyles} />}
+        <div style={checkboxStyles}>
+          {checked && (
+            <div
+              style={{
+                color: iconColor,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: `${ICON_SIZE}px`,
+                height: `${ICON_SIZE}px`,
+                maxWidth: `${ICON_SIZE}px`,
+                maxHeight: `${ICON_SIZE}px`,
+                flexShrink: 0,
+                overflow: "hidden",
+              }}
+            >
+              <CheckIcon size={ICON_SIZE} />
+            </div>
+          )}
+        </div>
       </div>
-      {label && (
-        <p style={labelStyles}>{label}</p>
-      )}
+      {showLabel && label && <p style={labelStyles}>{label}</p>}
     </div>
   );
 }

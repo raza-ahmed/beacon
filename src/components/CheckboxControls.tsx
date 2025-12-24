@@ -3,29 +3,29 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
 
-type CheckboxSize = "sm" | "md" | "lg";
+type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
 interface CheckboxControlsProps {
   checked?: boolean;
-  indeterminate?: boolean;
-  disabled?: boolean;
+  status?: CheckboxStatus;
   label?: string;
-  size?: CheckboxSize;
+  showLabel?: boolean;
   theme?: Theme;
   hue?: HueVariant;
   onCheckedChange?: (checked: boolean) => void;
-  onIndeterminateChange?: (indeterminate: boolean) => void;
-  onDisabledChange?: (disabled: boolean) => void;
+  onStatusChange?: (status: CheckboxStatus) => void;
   onLabelChange?: (label: string) => void;
-  onSizeChange?: (size: CheckboxSize) => void;
+  onShowLabelChange?: (show: boolean) => void;
   onThemeChange?: (theme: Theme) => void;
   onHueChange?: (hue: HueVariant) => void;
 }
 
-const SIZE_OPTIONS: { value: CheckboxSize; label: string }[] = [
-  { value: "sm", label: "Small" },
-  { value: "md", label: "Medium" },
-  { value: "lg", label: "Large" },
+const STATUS_OPTIONS: { value: CheckboxStatus; label: string }[] = [
+  { value: "default", label: "Default" },
+  { value: "hovered", label: "Hovered" },
+  { value: "focused", label: "Focused" },
+  { value: "pressed", label: "Pressed" },
+  { value: "disabled", label: "Disabled" },
 ];
 
 const HUE_OPTIONS: { value: HueVariant; label: string; color: string }[] = [
@@ -36,22 +36,21 @@ const HUE_OPTIONS: { value: HueVariant; label: string; color: string }[] = [
 
 export function CheckboxControls({
   checked = false,
-  indeterminate = false,
-  disabled = false,
-  label = "Select Me",
-  size = "md",
+  status = "default",
+  label = "Checkbox",
+  showLabel = true,
   theme,
   hue,
   onCheckedChange,
-  onIndeterminateChange,
-  onDisabledChange,
+  onStatusChange,
   onLabelChange,
-  onSizeChange,
+  onShowLabelChange,
   onThemeChange,
   onHueChange,
 }: CheckboxControlsProps) {
   return (
     <div className="ds-checkbox-controls">
+      {/* Color section at the top */}
       <div className="ds-checkbox-control-group">
         <span className="ds-checkbox-control-label">Color</span>
         <div className="ds-color-control-row" role="group" aria-label="Color selection">
@@ -97,17 +96,18 @@ export function CheckboxControls({
         </div>
       </div>
 
+      {/* Status dropdown */}
       <div className="ds-checkbox-control-group">
-        <label htmlFor="checkbox-size-select" className="ds-checkbox-control-label">
-          Size
+        <label htmlFor="checkbox-status-select" className="ds-checkbox-control-label">
+          Status
         </label>
         <select
-          id="checkbox-size-select"
+          id="checkbox-status-select"
           className="ds-checkbox-control-select"
-          value={size}
-          onChange={(e) => onSizeChange?.(e.target.value as CheckboxSize)}
+          value={status}
+          onChange={(e) => onStatusChange?.(e.target.value as CheckboxStatus)}
         >
-          {SIZE_OPTIONS.map((opt) => (
+          {STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
@@ -115,76 +115,50 @@ export function CheckboxControls({
         </select>
       </div>
 
-      <div className="ds-checkbox-control-group">
-        <div className="ds-icon-fill-row">
-          <div className="ds-icon-fill-section">
-            <span className="ds-checkbox-control-label">Checked</span>
-            <label htmlFor="checkbox-checked" className="ds-switch">
-              <input
-                id="checkbox-checked"
-                type="checkbox"
-                checked={checked}
-                onChange={(e) => {
-                  onCheckedChange?.(e.target.checked);
-                  if (e.target.checked && indeterminate) {
-                    onIndeterminateChange?.(false);
-                  }
-                }}
-              />
-              <span className="ds-switch__slider" />
-            </label>
-          </div>
-          <div className="ds-icon-fill-section">
-            <span className="ds-checkbox-control-label">Indeterminate</span>
-            <label htmlFor="checkbox-indeterminate" className="ds-switch">
-              <input
-                id="checkbox-indeterminate"
-                type="checkbox"
-                checked={indeterminate}
-                onChange={(e) => {
-                  onIndeterminateChange?.(e.target.checked);
-                  if (e.target.checked && checked) {
-                    onCheckedChange?.(false);
-                  }
-                }}
-              />
-              <span className="ds-switch__slider" />
-            </label>
-          </div>
+      {/* Checked and Label toggles side by side */}
+      <div className="ds-checkbox-control-group ds-checkbox-control-group--row">
+        <div className="ds-icon-fill-section">
+          <span className="ds-checkbox-control-label">Checked</span>
+          <label htmlFor="checkbox-checked" className="ds-switch">
+            <input
+              id="checkbox-checked"
+              type="checkbox"
+              checked={checked}
+              onChange={(e) => onCheckedChange?.(e.target.checked)}
+            />
+            <span className="ds-switch__slider" />
+          </label>
+        </div>
+        <div className="ds-icon-fill-section">
+          <span className="ds-checkbox-control-label">Label</span>
+          <label htmlFor="checkbox-show-label" className="ds-switch">
+            <input
+              id="checkbox-show-label"
+              type="checkbox"
+              checked={showLabel}
+              onChange={(e) => onShowLabelChange?.(e.target.checked)}
+            />
+            <span className="ds-switch__slider" />
+          </label>
         </div>
       </div>
 
-      <div className="ds-checkbox-control-group">
-        <div className="ds-icon-fill-row">
-          <div className="ds-icon-fill-section">
-            <span className="ds-checkbox-control-label">Disabled</span>
-            <label htmlFor="checkbox-disabled" className="ds-switch">
-              <input
-                id="checkbox-disabled"
-                type="checkbox"
-                checked={disabled}
-                onChange={(e) => onDisabledChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
-          </div>
+      {/* Label input field - only shown when label toggle is enabled */}
+      {showLabel && (
+        <div className="ds-checkbox-control-group">
+          <label htmlFor="checkbox-label-input" className="ds-checkbox-control-label">
+            Label Text
+          </label>
+          <input
+            id="checkbox-label-input"
+            type="text"
+            className="ds-checkbox-control-input"
+            value={label}
+            onChange={(e) => onLabelChange?.(e.target.value)}
+            placeholder="Enter label text"
+          />
         </div>
-      </div>
-
-      <div className="ds-checkbox-control-group">
-        <label htmlFor="checkbox-label-input" className="ds-checkbox-control-label">
-          Label
-        </label>
-        <input
-          id="checkbox-label-input"
-          type="text"
-          className="ds-checkbox-control-input"
-          value={label}
-          onChange={(e) => onLabelChange?.(e.target.value)}
-          placeholder="Enter label text"
-        />
-      </div>
+      )}
     </div>
   );
 }
-

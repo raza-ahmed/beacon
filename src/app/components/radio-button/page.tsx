@@ -34,7 +34,7 @@ function generateRadioButtonCode(config: RadioButtonConfig): string {
     props.push(`showLabel={false}`);
   }
 
-  if (config.showLabel && config.label !== "Select Me") {
+  if (config.showLabel && config.label !== "Radio Button") {
     props.push(`label="${config.label}"`);
   }
 
@@ -72,7 +72,7 @@ export default function RadioButtonPage() {
   const [config, setConfig] = useState<RadioButtonConfig>({
     selected: false,
     status: "default",
-    label: "Select Me",
+    label: "Radio Button",
     showLabel: true,
   });
   const [copied, setCopied] = useState(false);
@@ -228,18 +228,14 @@ export default function RadioButtonPage() {
           <div className="ds-radio-button-anatomy-diagram">
             <div className="ds-radio-button-anatomy-diagram__radio">
               <div className="ds-radio-button-anatomy-diagram__container">
-                <div className="ds-radio-button-anatomy-diagram__content" style={{ backgroundColor: "var(--fg-on-action)" }} />
+                <div className="ds-radio-button-anatomy-diagram__content" />
               </div>
-              <p className="ds-radio-button-anatomy-diagram__label-text">Select Me</p>
+              <p className="ds-radio-button-anatomy-diagram__label-text">Radio Button</p>
             </div>
             <div className="ds-radio-button-anatomy-diagram__labels">
               <div className="ds-radio-button-anatomy-diagram__label-item">
                 <span className="ds-radio-button-anatomy-diagram__label-name">Radio Button Circle</span>
                 <code className="ds-radio-button-anatomy-diagram__label-code">20px × 20px, border-radius: 100%</code>
-              </div>
-              <div className="ds-radio-button-anatomy-diagram__label-item">
-                <span className="ds-radio-button-anatomy-diagram__label-name">Inner Circle</span>
-                <code className="ds-radio-button-anatomy-diagram__label-code">8px × 8px (when selected), white fill</code>
               </div>
               <div className="ds-radio-button-anatomy-diagram__label-item">
                 <span className="ds-radio-button-anatomy-diagram__label-name">Label</span>
@@ -258,91 +254,91 @@ export default function RadioButtonPage() {
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Unselected - Default</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Default state when no selection has been made. Shows a thin border with transparent background.
+              Default when unselected. Thin border with transparent background.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={false} status="default" label="Select Me" />
+                <RadioButtonPreview selected={false} status="default" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Unselected - Hovered</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Hover state provides visual feedback when the user hovers over the radio button.
+              Hover shows visual feedback on pointer over the radio button.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={false} status="hovered" label="Select Me" />
+                <RadioButtonPreview selected={false} status="hovered" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Unselected - Focused</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Focus state indicates keyboard navigation. Shows a focus ring around the radio button.
+              Focus indicates keyboard navigation with a visible focus ring.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={false} status="focused" label="Select Me" />
+                <RadioButtonPreview selected={false} status="focused" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Unselected - Pressed</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Pressed state provides feedback when the user clicks or presses the radio button.
+              Pressed gives feedback when the radio button is clicked or pressed.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={false} status="pressed" label="Select Me" />
+                <RadioButtonPreview selected={false} status="pressed" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Unselected - Disabled</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Disabled state prevents interaction. Shows reduced opacity and disabled colors.
+              Disabled blocks interaction with reduced opacity and colors.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={false} status="disabled" label="Select Me" />
+                <RadioButtonPreview selected={false} status="disabled" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Selected - Default</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Selected state with thick border (6px) in primary color and white inner circle.
+              Selected uses thick border in primary with white inner circle.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={true} status="default" label="Select Me" />
+                <RadioButtonPreview selected={true} status="default" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Selected - Hovered</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Hover state for selected radio button. Uses darker primary color for the border.
+              Selected hover uses a darker primary border.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={true} status="hovered" label="Select Me" />
+                <RadioButtonPreview selected={true} status="hovered" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Selected - Focused</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Focus state for selected radio button. Shows focus ring with primary color.
+              Selected focus shows a primary-colored focus ring.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={true} status="focused" label="Select Me" />
+                <RadioButtonPreview selected={true} status="focused" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Selected - Pressed</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Pressed state for selected radio button. Uses darker primary color for the border.
+              Selected pressed uses a darker primary border.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={true} status="pressed" label="Select Me" />
+                <RadioButtonPreview selected={true} status="pressed" label="Radio Button" />
               </div>
             </div>
             <div className="ds-radio-button-variant-card">
               <h6 className="ds-radio-button-variant-card__title">Selected - Disabled</h6>
               <p className="ds-radio-button-variant-card__desc">
-                Disabled state for selected radio button. Shows reduced opacity and disabled primary color.
+              Selected disabled shows reduced opacity and disabled primary.
               </p>
               <div className="ds-radio-button-variant-card__preview">
-                <RadioButtonPreview selected={true} status="disabled" label="Select Me" />
+                <RadioButtonPreview selected={true} status="disabled" label="Radio Button" />
               </div>
             </div>
           </div>
@@ -491,7 +487,7 @@ export default function RadioButtonPage() {
                     <code>string</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>"Select Me"</code>
+                    <code>"Radio Button"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Text label displayed next to the radio button.

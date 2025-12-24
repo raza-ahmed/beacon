@@ -47,7 +47,7 @@ export default function AccessibilityPage() {
             </li>
           </ul>
           <p className="ds-content__text">
-            All brand color tokens are designed to meet these contrast requirements when used with their paired foreground tokens. The <a href="/foundations/colors#contrast">Colors page</a> includes a contrast ratio checker that validates pairings in the current theme context.
+            All brand color tokens are designed to meet these contrast requirements when used with their paired foreground tokens. The <a href="/foundations/colors#contrast" className="ds-content__link">Colors page</a> includes a contrast ratio checker that validates pairings in the current theme context.
           </p>
           <div className="ds-token-mapping">
             <div className="ds-token-mapping__layer">
@@ -112,7 +112,7 @@ export default function AccessibilityPage() {
           <div className="ds-content__subsection">
             <h6 className="ds-content__subsection-title">Test Contrast</h6>
             <p className="ds-content__text">
-              Use the contrast ratio checker on the <a href="/foundations/colors#contrast">Colors page</a> to verify text-background pairings, especially when creating custom combinations or using tokens in new contexts.
+              Use the contrast ratio checker on the <a href="/foundations/colors#contrast" className="ds-content__link">Colors page</a> to verify text-background pairings, especially when creating custom combinations or using tokens in new contexts.
             </p>
           </div>
 

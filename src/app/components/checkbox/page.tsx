@@ -10,21 +10,14 @@ import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-type CheckboxSize = "sm" | "md" | "lg";
+type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
 interface CheckboxConfig {
   checked: boolean;
-  indeterminate: boolean;
-  disabled: boolean;
+  status: CheckboxStatus;
   label: string;
-  size: CheckboxSize;
+  showLabel: boolean;
 }
-
-const SIZE_LABELS: Record<CheckboxSize, string> = {
-  sm: "sm",
-  md: "md",
-  lg: "lg",
-};
 
 function generateCheckboxCode(config: CheckboxConfig): string {
   const props: string[] = [];
@@ -33,20 +26,16 @@ function generateCheckboxCode(config: CheckboxConfig): string {
     props.push(`checked`);
   }
 
-  if (config.indeterminate) {
-    props.push(`indeterminate`);
+  if (config.status !== "default") {
+    props.push(`status="${config.status}"`);
   }
 
-  if (config.disabled) {
-    props.push(`disabled`);
+  if (!config.showLabel) {
+    props.push(`showLabel={false}`);
   }
 
-  if (config.label !== "Select Me") {
+  if (config.showLabel && config.label !== "Checkbox") {
     props.push(`label="${config.label}"`);
-  }
-
-  if (config.size !== "md") {
-    props.push(`size="${SIZE_LABELS[config.size]}"`);
   }
 
   if (props.length === 0) {
@@ -82,10 +71,9 @@ export default function CheckboxPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
   const [config, setConfig] = useState<CheckboxConfig>({
     checked: false,
-    indeterminate: false,
-    disabled: false,
-    label: "Select Me",
-    size: "md",
+    status: "default",
+    label: "Checkbox",
+    showLabel: true,
   });
   const [copied, setCopied] = useState(false);
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
@@ -163,17 +151,15 @@ export default function CheckboxPage() {
           <div className="ds-checkbox-playground">
             <CheckboxControls
               checked={config.checked}
-              indeterminate={config.indeterminate}
-              disabled={config.disabled}
+              status={config.status}
               label={config.label}
-              size={config.size}
+              showLabel={config.showLabel}
               theme={theme}
               hue={hue}
               onCheckedChange={(checked) => updateConfig({ checked })}
-              onIndeterminateChange={(indeterminate) => updateConfig({ indeterminate })}
-              onDisabledChange={(disabled) => updateConfig({ disabled })}
+              onStatusChange={(status) => updateConfig({ status })}
               onLabelChange={(label) => updateConfig({ label })}
-              onSizeChange={(size) => updateConfig({ size })}
+              onShowLabelChange={(showLabel) => updateConfig({ showLabel })}
               onThemeChange={setTheme}
               onHueChange={setHue}
             />
@@ -182,10 +168,9 @@ export default function CheckboxPage() {
               <div className="ds-checkbox-preview">
                 <CheckboxPreview
                   checked={config.checked}
-                  indeterminate={config.indeterminate}
-                  disabled={config.disabled}
+                  status={config.status}
                   label={config.label}
-                  size={config.size}
+                  showLabel={config.showLabel}
                   theme={theme}
                   hue={hue}
                 />
@@ -250,16 +235,16 @@ export default function CheckboxPage() {
                   <CheckIcon size={16} />
                 </div>
               </div>
-              <p className="ds-checkbox-anatomy-diagram__label-text">Select Me</p>
+              <p className="ds-checkbox-anatomy-diagram__label-text">Checkbox</p>
             </div>
             <div className="ds-checkbox-anatomy-diagram__labels">
               <div className="ds-checkbox-anatomy-diagram__label-item">
                 <span className="ds-checkbox-anatomy-diagram__label-name">Checkbox Box</span>
-                <code className="ds-checkbox-anatomy-diagram__label-code">20px × 20px (md), border-radius: 4px</code>
+                <code className="ds-checkbox-anatomy-diagram__label-code">20px × 20px, border-radius: 4px</code>
               </div>
               <div className="ds-checkbox-anatomy-diagram__label-item">
                 <span className="ds-checkbox-anatomy-diagram__label-name">Icon</span>
-                <code className="ds-checkbox-anatomy-diagram__label-code">CheckIcon (checked) or MinusDashIcon (indeterminate)</code>
+                <code className="ds-checkbox-anatomy-diagram__label-code">CheckIcon (when checked)</code>
               </div>
               <div className="ds-checkbox-anatomy-diagram__label-item">
                 <span className="ds-checkbox-anatomy-diagram__label-name">Label</span>
@@ -272,70 +257,97 @@ export default function CheckboxPage() {
         <section id="variants" className="ds-content__section">
           <h6 className="ds-content__section-title">Variants & States</h6>
           <p className="ds-content__text">
-            Checkboxes come in different sizes and states to fit various use cases.
+            Checkboxes come in different states to fit various use cases. Each state provides clear visual feedback for user interaction.
           </p>
           <div className="ds-checkbox-variants-grid">
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Unchecked</h6>
+              <h6 className="ds-checkbox-variant-card__title">Unchecked - Default</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Default state when no selection has been made. Shows a border with transparent background.
+              Default when unselected. Transparent background with border.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview checked={false} label="Select Me" size="md" />
+                <CheckboxPreview checked={false} status="default" label="Checkbox" />
               </div>
             </div>
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Checked</h6>
+              <h6 className="ds-checkbox-variant-card__title">Unchecked - Hovered</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Selected state with primary background color and white checkmark icon.
+              Hover shows visual feedback on pointer over the checkbox.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview checked={true} label="Select Me" size="md" />
+                <CheckboxPreview checked={false} status="hovered" label="Checkbox" />
               </div>
             </div>
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Indeterminate</h6>
+              <h6 className="ds-checkbox-variant-card__title">Unchecked - Focused</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Partially selected state, useful for parent checkboxes in hierarchical lists.
+              Focus indicates keyboard navigation with a visible focus ring.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview indeterminate={true} label="Select Me" size="md" />
+                <CheckboxPreview checked={false} status="focused" label="Checkbox" />
               </div>
             </div>
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Disabled</h6>
+              <h6 className="ds-checkbox-variant-card__title">Unchecked - Pressed</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Disabled state prevents interaction. Can be disabled in checked, unchecked, or indeterminate states.
+              Pressed gives feedback when the checkbox is clicked or pressed.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview checked={true} disabled={true} label="Select Me" size="md" />
+                <CheckboxPreview checked={false} status="pressed" label="Checkbox" />
               </div>
             </div>
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Small</h6>
+              <h6 className="ds-checkbox-variant-card__title">Unchecked - Disabled</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Compact size (16px) for dense interfaces or when space is limited.
+              Disabled blocks interaction with reduced opacity and colors.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview checked={true} label="Select Me" size="sm" />
+                <CheckboxPreview checked={false} status="disabled" label="Checkbox" />
               </div>
             </div>
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Medium</h6>
+              <h6 className="ds-checkbox-variant-card__title">Checked - Default</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Default size (20px) suitable for most use cases.
+              Selected uses primary background with a white checkmark.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview checked={true} label="Select Me" size="md" />
+                <CheckboxPreview checked={true} status="default" label="Checkbox" />
               </div>
             </div>
             <div className="ds-checkbox-variant-card">
-              <h6 className="ds-checkbox-variant-card__title">Large</h6>
+              <h6 className="ds-checkbox-variant-card__title">Checked - Hovered</h6>
               <p className="ds-checkbox-variant-card__desc">
-                Larger size (24px) for improved visibility and accessibility.
+              Checked hover uses a darker primary background.
               </p>
               <div className="ds-checkbox-variant-card__preview">
-                <CheckboxPreview checked={true} label="Select Me" size="lg" />
+                <CheckboxPreview checked={true} status="hovered" label="Checkbox" />
+              </div>
+            </div>
+            <div className="ds-checkbox-variant-card">
+              <h6 className="ds-checkbox-variant-card__title">Checked - Focused</h6>
+              <p className="ds-checkbox-variant-card__desc">
+              Checked focus shows a primary-colored focus ring.
+              </p>
+              <div className="ds-checkbox-variant-card__preview">
+                <CheckboxPreview checked={true} status="focused" label="Checkbox" />
+              </div>
+            </div>
+            <div className="ds-checkbox-variant-card">
+              <h6 className="ds-checkbox-variant-card__title">Checked - Pressed</h6>
+              <p className="ds-checkbox-variant-card__desc">
+              Checked pressed uses a darker primary background.
+              </p>
+              <div className="ds-checkbox-variant-card__preview">
+                <CheckboxPreview checked={true} status="pressed" label="Checkbox" />
+              </div>
+            </div>
+            <div className="ds-checkbox-variant-card">
+              <h6 className="ds-checkbox-variant-card__title">Checked - Disabled</h6>
+              <p className="ds-checkbox-variant-card__desc">
+              Checked disabled shows reduced opacity and disabled primary.
+              </p>
+              <div className="ds-checkbox-variant-card__preview">
+                <CheckboxPreview checked={true} status="disabled" label="Checkbox" />
               </div>
             </div>
           </div>
@@ -350,9 +362,9 @@ export default function CheckboxPage() {
                 <li>Use checkboxes for multiple selections from a list.</li>
                 <li>Use checkboxes to toggle a single option on or off.</li>
                 <li>Provide clear, descriptive labels for each checkbox.</li>
-                <li>Use indeterminate state for parent checkboxes in hierarchical lists.</li>
                 <li>Group related checkboxes together visually.</li>
                 <li>Ensure sufficient spacing between checkboxes and labels.</li>
+                <li>Provide clear visual feedback for all interactive states (hover, focus, checked).</li>
               </ul>
             </div>
             <div className="ds-do-dont__col">
@@ -376,9 +388,9 @@ export default function CheckboxPage() {
             </li>
             <li>Ensure sufficient color contrast between checkbox states and backgrounds.</li>
             <li>Provide keyboard navigation support (Space to toggle, Tab to navigate).</li>
-            <li>Use the indeterminate state appropriately for parent checkboxes in hierarchical lists.</li>
             <li>Ensure checkboxes are large enough to be easily clickable (minimum 20px).</li>
             <li>Provide clear visual feedback for all interactive states (hover, focus, checked).</li>
+            <li>Use semantic HTML (`&lt;input type="checkbox"&gt;` or proper ARIA roles).</li>
           </ul>
         </section>
 
@@ -395,10 +407,8 @@ export default function CheckboxPage() {
                   onClick={async () => {
                     await copyToClipboard(`interface CheckboxProps {
   checked?: boolean;
-  indeterminate?: boolean;
-  disabled?: boolean;
+  status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
-  size?: "sm" | "md" | "lg";
   onChange?: (checked: boolean) => void;
 }`);
                     setCopiedExample("api");
@@ -439,10 +449,8 @@ export default function CheckboxPage() {
                 >
                   {`interface CheckboxProps {
   checked?: boolean;
-  indeterminate?: boolean;
-  disabled?: boolean;
+  status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
-  size?: "sm" | "md" | "lg";
   onChange?: (checked: boolean) => void;
 }`}
                 </SyntaxHighlighter>
@@ -467,30 +475,16 @@ export default function CheckboxPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>indeterminate</code>
+                    <code>status</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>boolean</code>
+                    <code>"default" | "hovered" | "focused" | "pressed" | "disabled"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>false</code>
+                    <code>"default"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Whether the checkbox is in indeterminate state. Displays minus icon. Takes precedence over checked.
-                  </div>
-                </div>
-                <div className="ds-api-reference__props-row">
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>disabled</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>boolean</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>false</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Whether the checkbox is disabled. Prevents interaction and applies disabled styling.
+                    Interactive state of the checkbox. Controls visual styling for different interaction states.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -501,24 +495,10 @@ export default function CheckboxPage() {
                     <code>string</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>"Select Me"</code>
+                    <code>"Checkbox"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Text label displayed next to the checkbox.
-                  </div>
-                </div>
-                <div className="ds-api-reference__props-row">
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>size</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>"sm" | "md" | "lg"</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>"md"</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Checkbox size: sm (16px), md (20px), lg (24px).
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -705,7 +685,7 @@ export default function CheckboxPage() {
                   onClick={async () => {
                     await copyToClipboard(`<Checkbox 
   checked
-  disabled
+  status="disabled"
   label="Cannot change"
 />`);
                     setCopiedExample("disabled");
@@ -746,30 +726,31 @@ export default function CheckboxPage() {
                 >
                   {`<Checkbox 
   checked
-  disabled
+  status="disabled"
   label="Cannot change"
 />`}
                 </SyntaxHighlighter>
               </div>
             </div>
             <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Indeterminate Checkbox</h6>
+              <h6 className="ds-code-example__title">Checkbox with States</h6>
               <div style={{ position: "relative" }}>
                 <button
                   type="button"
                   className="ds-checkbox-code-copy"
                   onClick={async () => {
-                    await copyToClipboard(`<Checkbox 
-  indeterminate
-  label="Select all"
-/>`);
-                    setCopiedExample("indeterminate");
+                    await copyToClipboard(`<Checkbox label="Default" status="default" />
+<Checkbox label="Hovered" status="hovered" />
+<Checkbox label="Focused" status="focused" />
+<Checkbox label="Pressed" status="pressed" />
+<Checkbox label="Disabled" status="disabled" />`);
+                    setCopiedExample("states");
                     setTimeout(() => setCopiedExample(null), 2000);
                   }}
                   aria-label="Copy code"
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
                 >
-                  {copiedExample === "indeterminate" ? (
+                  {copiedExample === "states" ? (
                     <>
                       <CheckIcon size="xs" />
                       <span>Copied!</span>
@@ -799,10 +780,11 @@ export default function CheckboxPage() {
                   }}
                   PreTag="div"
                 >
-                  {`<Checkbox 
-  indeterminate
-  label="Select all"
-/>`}
+                  {`<Checkbox label="Default" status="default" />
+<Checkbox label="Hovered" status="hovered" />
+<Checkbox label="Focused" status="focused" />
+<Checkbox label="Pressed" status="pressed" />
+<Checkbox label="Disabled" status="disabled" />`}
                 </SyntaxHighlighter>
               </div>
             </div>

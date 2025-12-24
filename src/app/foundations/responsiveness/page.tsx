@@ -266,7 +266,7 @@ export default function ResponsivenessPage() {
               <strong>Typography tokens</strong> scale down for smaller screens to maintain readability
             </li>
             <li>
-              <strong>Adaptive sets</strong> (documented in the <a href="/foundations/spacing">Spacing page</a>) provide breakpoint-aware spacing values
+              <strong>Adaptive sets</strong> (documented in the <a href="/foundations/spacing" className="ds-content__link">Spacing page</a>) provide breakpoint-aware spacing values
             </li>
             <li>
               <strong>Layout tokens</strong> like menu width adapt to device constraints
@@ -501,7 +501,7 @@ export default function ResponsivenessPage() {
         <section id="adaptive-sets" className="ds-content__section">
           <h6 className="ds-content__section-title">Adaptive Sets</h6>
           <p className="ds-content__text">
-            Adaptive sets are breakpoint-aware spacing tokens that automatically adjust their values based on screen size. These tokens are fully documented in the <a href="/foundations/spacing">Spacing page</a>.
+            Adaptive sets are breakpoint-aware spacing tokens that automatically adjust their values based on screen size. These tokens are fully documented in the <a href="/foundations/spacing" className="ds-content__link">Spacing page</a>.
           </p>
           <p className="ds-content__text">
             Adaptive sets follow the naming pattern <code>--adaptive-set-d{"{desktop}"}-t{"{tablet}"}-m{"{mobile}"}</code>, where the values represent pixel values for each breakpoint.
@@ -542,7 +542,7 @@ export default function ResponsivenessPage() {
             ))}
           </div>
           <p className="ds-content__text" style={{ marginTop: "var(--spacing-400)" }}>
-            For detailed information and usage examples, see the <a href="/foundations/spacing#responsive">Responsive section</a> of the Spacing page.
+            For detailed information and usage examples, see the <a href="/foundations/spacing#responsive" className="ds-content__link">Responsive section</a> of the Spacing page.
           </p>
         </section>
 
