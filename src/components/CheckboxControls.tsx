@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -119,27 +120,21 @@ export function CheckboxControls({
       <div className="ds-checkbox-control-group ds-checkbox-control-group--row">
         <div className="ds-icon-fill-section">
           <span className="ds-checkbox-control-label">Checked</span>
-          <label htmlFor="checkbox-checked" className="ds-switch">
-            <input
-              id="checkbox-checked"
-              type="checkbox"
-              checked={checked}
-              onChange={(e) => onCheckedChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="checkbox-checked"
+            checked={checked}
+            onChange={onCheckedChange}
+            ariaLabel="Checked"
+          />
         </div>
         <div className="ds-icon-fill-section">
           <span className="ds-checkbox-control-label">Label</span>
-          <label htmlFor="checkbox-show-label" className="ds-switch">
-            <input
-              id="checkbox-show-label"
-              type="checkbox"
-              checked={showLabel}
-              onChange={(e) => onShowLabelChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="checkbox-show-label"
+            checked={showLabel}
+            onChange={onShowLabelChange}
+            ariaLabel="Label"
+          />
         </div>
       </div>
 

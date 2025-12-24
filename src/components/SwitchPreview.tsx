@@ -32,7 +32,7 @@ export function SwitchPreview({
     const baseStyles: React.CSSProperties = {
       display: "flex",
       alignItems: "center",
-      padding: "var(--spacing-100)",
+      padding: "var(--spacing-50)",
       borderRadius: "var(--corner-radius-full)",
       borderWidth: "var(--border-width-25)",
       borderStyle: "solid",

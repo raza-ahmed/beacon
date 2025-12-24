@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type RadioButtonStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -119,27 +120,21 @@ export function RadioButtonControls({
       <div className="ds-radio-button-control-group ds-radio-button-control-group--row">
         <div className="ds-icon-fill-section">
           <span className="ds-radio-button-control-label">Selected</span>
-          <label htmlFor="radio-selected" className="ds-switch">
-            <input
-              id="radio-selected"
-              type="checkbox"
-              checked={selected}
-              onChange={(e) => onSelectedChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="radio-selected"
+            checked={selected}
+            onChange={onSelectedChange}
+            ariaLabel="Selected"
+          />
         </div>
         <div className="ds-icon-fill-section">
           <span className="ds-radio-button-control-label">Label</span>
-          <label htmlFor="radio-show-label" className="ds-switch">
-            <input
-              id="radio-show-label"
-              type="checkbox"
-              checked={showLabel}
-              onChange={(e) => onShowLabelChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="radio-show-label"
+            checked={showLabel}
+            onChange={onShowLabelChange}
+            ariaLabel="Label"
+          />
         </div>
       </div>
 

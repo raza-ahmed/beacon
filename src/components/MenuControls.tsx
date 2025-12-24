@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon, DeleteBinIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
 
@@ -153,27 +154,21 @@ export function MenuControls({
       <div className="ds-menu-control-group ds-menu-control-group--row">
         <div className="ds-icon-fill-section">
           <span className="ds-menu-control-label">Show Button</span>
-          <label htmlFor="menu-show-button" className="ds-switch">
-            <input
-              id="menu-show-button"
-              type="checkbox"
-              checked={showButton}
-              onChange={(e) => onShowButtonChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="menu-show-button"
+            checked={showButton}
+            onChange={onShowButtonChange}
+            ariaLabel="Show Button"
+          />
         </div>
         <div className="ds-icon-fill-section">
           <span className="ds-menu-control-label">Show Chevrons</span>
-          <label htmlFor="menu-show-chevrons" className="ds-switch">
-            <input
-              id="menu-show-chevrons"
-              type="checkbox"
-              checked={showChevrons}
-              onChange={(e) => onShowChevronsChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="menu-show-chevrons"
+            checked={showChevrons}
+            onChange={onShowChevronsChange}
+            ariaLabel="Show Chevrons"
+          />
         </div>
       </div>
 

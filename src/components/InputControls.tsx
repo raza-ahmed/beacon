@@ -1,5 +1,7 @@
 "use client";
 
+import { Switch } from "./Switch";
+
 type InputSize = "sm" | "md" | "lg";
 type InputStatus = "default" | "active";
 
@@ -132,27 +134,21 @@ export function InputControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Show Label</span>
-            <label htmlFor="input-show-label" className="ds-switch">
-              <input
-                id="input-show-label"
-                type="checkbox"
-                checked={showLabel}
-                onChange={(e) => onShowLabelChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-show-label"
+              checked={showLabel}
+              onChange={onShowLabelChange}
+              ariaLabel="Show Label"
+            />
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Start Icon</span>
-            <label htmlFor="input-show-start-icon" className="ds-switch">
-              <input
-                id="input-show-start-icon"
-                type="checkbox"
-                checked={showStartIcon}
-                onChange={(e) => onShowStartIconChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-show-start-icon"
+              checked={showStartIcon}
+              onChange={onShowStartIconChange}
+              ariaLabel="Start Icon"
+            />
           </div>
         </div>
       </div>
@@ -161,27 +157,21 @@ export function InputControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">End Icon</span>
-            <label htmlFor="input-show-end-icon" className="ds-switch">
-              <input
-                id="input-show-end-icon"
-                type="checkbox"
-                checked={showEndIcon}
-                onChange={(e) => onShowEndIconChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-show-end-icon"
+              checked={showEndIcon}
+              onChange={onShowEndIconChange}
+              ariaLabel="End Icon"
+            />
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Placeholder Icon</span>
-            <label htmlFor="input-show-placeholder-icon" className="ds-switch">
-              <input
-                id="input-show-placeholder-icon"
-                type="checkbox"
-                checked={showPlaceholderIcon}
-                onChange={(e) => onShowPlaceholderIconChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-show-placeholder-icon"
+              checked={showPlaceholderIcon}
+              onChange={onShowPlaceholderIconChange}
+              ariaLabel="Placeholder Icon"
+            />
           </div>
         </div>
       </div>
@@ -190,15 +180,12 @@ export function InputControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Error</span>
-            <label htmlFor="input-show-error" className="ds-switch">
-              <input
-                id="input-show-error"
-                type="checkbox"
-                checked={showError}
-                onChange={(e) => onShowErrorChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-show-error"
+              checked={showError}
+              onChange={onShowErrorChange}
+              ariaLabel="Error"
+            />
           </div>
         </div>
       </div>
@@ -207,27 +194,21 @@ export function InputControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Number Prefix</span>
-            <label htmlFor="input-show-number-prefix" className="ds-switch">
-              <input
-                id="input-show-number-prefix"
-                type="checkbox"
-                checked={showNumberPrefix}
-                onChange={(e) => onShowNumberPrefixChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-show-number-prefix"
+              checked={showNumberPrefix}
+              onChange={onShowNumberPrefixChange}
+              ariaLabel="Number Prefix"
+            />
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Rounded</span>
-            <label htmlFor="input-rounded" className="ds-switch">
-              <input
-                id="input-rounded"
-                type="checkbox"
-                checked={rounded}
-                onChange={(e) => onRoundedChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-rounded"
+              checked={rounded}
+              onChange={onRoundedChange}
+              ariaLabel="Rounded"
+            />
           </div>
         </div>
       </div>
@@ -236,27 +217,21 @@ export function InputControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Icon Only</span>
-            <label htmlFor="input-icon-only" className="ds-switch">
-              <input
-                id="input-icon-only"
-                type="checkbox"
-                checked={iconOnly}
-                onChange={(e) => onIconOnlyChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-icon-only"
+              checked={iconOnly}
+              onChange={onIconOnlyChange}
+              ariaLabel="Icon Only"
+            />
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Disabled</span>
-            <label htmlFor="input-disabled" className="ds-switch">
-              <input
-                id="input-disabled"
-                type="checkbox"
-                checked={disabled}
-                onChange={(e) => onDisabledChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="input-disabled"
+              checked={disabled}
+              onChange={onDisabledChange}
+              ariaLabel="Disabled"
+            />
           </div>
         </div>
       </div>

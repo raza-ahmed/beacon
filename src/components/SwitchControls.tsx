@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -112,27 +113,21 @@ export function SwitchControls({
       <div className="ds-switch-control-group ds-switch-control-group--row">
         <div className="ds-icon-fill-section">
           <span className="ds-switch-control-label">Checked</span>
-          <label htmlFor="switch-checked" className="ds-switch">
-            <input
-              id="switch-checked"
-              type="checkbox"
-              checked={checked}
-              onChange={(e) => onCheckedChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="switch-checked"
+            checked={checked}
+            onChange={onCheckedChange}
+            ariaLabel="Checked"
+          />
         </div>
         <div className="ds-icon-fill-section">
           <span className="ds-switch-control-label">Show Icons</span>
-          <label htmlFor="switch-show-icons" className="ds-switch">
-            <input
-              id="switch-show-icons"
-              type="checkbox"
-              checked={showIcons}
-              onChange={(e) => onShowIconsChange?.(e.target.checked)}
-            />
-            <span className="ds-switch__slider" />
-          </label>
+          <Switch
+            id="switch-show-icons"
+            checked={showIcons}
+            onChange={onShowIconsChange}
+            ariaLabel="Show Icons"
+          />
         </div>
       </div>
     </div>

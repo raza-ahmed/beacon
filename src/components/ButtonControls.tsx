@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -273,15 +274,12 @@ export function ButtonControls({
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-button-control-label">Fill Container</span>
-            <label htmlFor="button-fill-container" className="ds-switch">
-              <input
-                id="button-fill-container"
-                type="checkbox"
-                checked={fillContainer}
-                onChange={(e) => onFillContainerChange(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="button-fill-container"
+              checked={fillContainer}
+              onChange={onFillContainerChange}
+              ariaLabel="Fill Container"
+            />
           </div>
         </div>
       </div>

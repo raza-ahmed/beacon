@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type ChipSize = "sm" | "md" | "lg";
 type ChipColor = "primary" | "neutral" | "success" | "critical" | "warning";
@@ -147,27 +148,21 @@ export function ChipControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-chip-control-label">Show Borders</span>
-            <label htmlFor="chip-show-borders" className="ds-switch">
-              <input
-                id="chip-show-borders"
-                type="checkbox"
-                checked={showBorders}
-                onChange={(e) => onShowBordersChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="chip-show-borders"
+              checked={showBorders}
+              onChange={onShowBordersChange}
+              ariaLabel="Show Borders"
+            />
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-chip-control-label">Show Icon</span>
-            <label htmlFor="chip-show-icon" className="ds-switch">
-              <input
-                id="chip-show-icon"
-                type="checkbox"
-                checked={showIcon}
-                onChange={(e) => onShowIconChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="chip-show-icon"
+              checked={showIcon}
+              onChange={onShowIconChange}
+              ariaLabel="Show Icon"
+            />
           </div>
         </div>
       </div>

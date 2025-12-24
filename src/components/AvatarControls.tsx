@@ -2,6 +2,7 @@
 
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
+import { Switch } from "./Switch";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarType = "icon" | "text" | "image";
@@ -255,27 +256,21 @@ export function AvatarControls({
         <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-avatar-control-label">Round</span>
-            <label htmlFor="avatar-round" className="ds-switch">
-              <input
-                id="avatar-round"
-                type="checkbox"
-                checked={isRound}
-                onChange={(e) => onIsRoundChange(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="avatar-round"
+              checked={isRound}
+              onChange={onIsRoundChange}
+              ariaLabel="Round"
+            />
           </div>
           <div className="ds-icon-fill-section">
             <span className="ds-avatar-control-label">Stroke</span>
-            <label htmlFor="avatar-stroke" className="ds-switch">
-              <input
-                id="avatar-stroke"
-                type="checkbox"
-                checked={hasStroke}
-                onChange={(e) => onHasStrokeChange(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="avatar-stroke"
+              checked={hasStroke}
+              onChange={onHasStrokeChange}
+              ariaLabel="Stroke"
+            />
           </div>
         </div>
       </div>

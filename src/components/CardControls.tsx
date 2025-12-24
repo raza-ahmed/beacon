@@ -3,6 +3,7 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, SunIcon, MoonIcon } from "./icons";
 import { type PatternType, PATTERN_CONFIGS } from "@/utils/patternPaths";
+import { Switch } from "./Switch";
 
 type CardType = "product" | "experience" | "info" | "generic";
 type ProductCardSize = "full" | "half";
@@ -285,15 +286,12 @@ export function CardControls({
             <div className="ds-icon-fill-row">
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Image</span>
-                <label htmlFor="product-has-image" className="ds-switch">
-                  <input
-                    id="product-has-image"
-                    type="checkbox"
-                    checked={hasImage}
-                    onChange={(e) => onHasImageChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="product-has-image"
+                  checked={hasImage}
+                  onChange={onHasImageChange}
+                  ariaLabel="Image"
+                />
               </div>
               {hasImage && (
                 <div className="ds-icon-fill-section">
@@ -323,27 +321,21 @@ export function CardControls({
             <div className="ds-icon-fill-row">
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Identifiers</span>
-                <label htmlFor="product-has-identifiers" className="ds-switch">
-                  <input
-                    id="product-has-identifiers"
-                    type="checkbox"
-                    checked={hasIdentifiers}
-                    onChange={(e) => onHasIdentifiersChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="product-has-identifiers"
+                  checked={hasIdentifiers}
+                  onChange={onHasIdentifiersChange}
+                  ariaLabel="Identifiers"
+                />
               </div>
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Button</span>
-                <label htmlFor="product-has-button" className="ds-switch">
-                  <input
-                    id="product-has-button"
-                    type="checkbox"
-                    checked={hasButton}
-                    onChange={(e) => onHasButtonChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="product-has-button"
+                  checked={hasButton}
+                  onChange={onHasButtonChange}
+                  ariaLabel="Button"
+                />
               </div>
             </div>
           </div>
@@ -514,15 +506,12 @@ export function CardControls({
         <>
           <div className="ds-card-control-group">
             <span className="ds-card-control-label">Icon</span>
-            <label htmlFor="info-has-icon" className="ds-switch">
-              <input
-                id="info-has-icon"
-                type="checkbox"
-                checked={hasIcon}
-                onChange={(e) => onHasIconChange?.(e.target.checked)}
-              />
-              <span className="ds-switch__slider" />
-            </label>
+            <Switch
+              id="info-has-icon"
+              checked={hasIcon}
+              onChange={onHasIconChange}
+              ariaLabel="Has Icon"
+            />
           </div>
 
           <div className="ds-card-control-group">
@@ -580,27 +569,21 @@ export function CardControls({
             <div className="ds-icon-fill-row">
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Background Pattern</span>
-                <label htmlFor="generic-bg-pattern" className="ds-switch">
-                  <input
-                    id="generic-bg-pattern"
-                    type="checkbox"
-                    checked={showBgPattern}
-                    onChange={(e) => onShowBgPatternChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="generic-bg-pattern"
+                  checked={showBgPattern}
+                  onChange={onShowBgPatternChange}
+                  ariaLabel="Background Pattern"
+                />
               </div>
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Overlay</span>
-                <label htmlFor="generic-overlay" className="ds-switch">
-                  <input
-                    id="generic-overlay"
-                    type="checkbox"
-                    checked={showOverlay}
-                    onChange={(e) => onShowOverlayChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="generic-overlay"
+                  checked={showOverlay}
+                  onChange={onShowOverlayChange}
+                  ariaLabel="Overlay"
+                />
               </div>
             </div>
           </div>
@@ -631,27 +614,21 @@ export function CardControls({
             <div className="ds-icon-fill-row">
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Shadow</span>
-                <label htmlFor="generic-shadow" className="ds-switch">
-                  <input
-                    id="generic-shadow"
-                    type="checkbox"
-                    checked={showShadow}
-                    onChange={(e) => onShowShadowChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="generic-shadow"
+                  checked={showShadow}
+                  onChange={onShowShadowChange}
+                  ariaLabel="Shadow"
+                />
               </div>
               <div className="ds-icon-fill-section">
                 <span className="ds-card-control-label">Border</span>
-                <label htmlFor="generic-border" className="ds-switch">
-                  <input
-                    id="generic-border"
-                    type="checkbox"
-                    checked={showBorder}
-                    onChange={(e) => onShowBorderChange?.(e.target.checked)}
-                  />
-                  <span className="ds-switch__slider" />
-                </label>
+                <Switch
+                  id="generic-border"
+                  checked={showBorder}
+                  onChange={onShowBorderChange}
+                  ariaLabel="Border"
+                />
               </div>
             </div>
           </div>
