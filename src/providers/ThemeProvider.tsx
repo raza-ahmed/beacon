@@ -31,14 +31,14 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({
   children,
-  defaultTheme = "light",
-  defaultHue = "hue-sky",
+  defaultTheme = "dark",
+  defaultHue = "hue-indigo",
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
   const [hue, setHueState] = useState<HueVariant>(defaultHue);
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme from storage or system preference
+  // Initialize theme from storage or use default
   useEffect(() => {
     setMounted(true);
 
@@ -49,15 +49,17 @@ export function ThemeProvider({
     if (storedTheme) {
       setThemeState(storedTheme);
     } else {
-      // Fall back to system preference
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setThemeState(prefersDark ? "dark" : "light");
+      // Use default theme (dark) for first-time users
+      setThemeState(defaultTheme);
     }
 
     if (storedHue) {
       setHueState(storedHue);
+    } else {
+      // Use default hue (hue-indigo) for first-time users
+      setHueState(defaultHue);
     }
-  }, []);
+  }, [defaultTheme, defaultHue]);
 
   // Apply theme to document
   useEffect(() => {
@@ -77,22 +79,8 @@ export function ThemeProvider({
     }
   }, [theme, hue, mounted]);
 
-  // Listen for system preference changes
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Only update if user hasn't set a preference
-      if (!localStorage.getItem(THEME_STORAGE_KEY)) {
-        setThemeState(e.matches ? "dark" : "light");
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
+  // Note: System preference detection removed to use dark theme as default
+  // Users can still manually change theme, which will be saved to localStorage
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);

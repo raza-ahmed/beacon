@@ -225,6 +225,7 @@ export function MenuPreview({
       cursor: "pointer",
       backgroundColor: "transparent",
       border: "none",
+      color: "var(--fg-neutral)",
     };
   }, []);
 
