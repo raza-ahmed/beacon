@@ -1,6 +1,7 @@
 "use client";
 
 import { PageLayout, type TocItem } from "@/components";
+import { getVersionString } from "@/constants/version";
 
 const tocItems: TocItem[] = [
   { id: "about", label: "About Design System" },
@@ -181,7 +182,7 @@ export default function IntroductionPage() {
           </p>
           <div className="ds-content__version-info">
             <span className="ds-content__version-label">Current Version:</span>
-            <span className="ds-content__version-value">V 2.8</span>
+            <span className="ds-content__version-value">{getVersionString("V")}</span>
           </div>
         </section>
       </article>

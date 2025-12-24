@@ -15,6 +15,7 @@ import {
 import { SearchResults } from "./SearchResults";
 import { navigationData } from "./Sidebar";
 import { flattenNavigationData, searchNavigation } from "@/utils/search";
+import { getVersionString } from "@/constants/version";
 
 const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "hue-sky", label: "Hue Sky" },
@@ -138,7 +139,7 @@ export function Header({ onMenuClick }: HeaderProps) {
       </div>
 
       <div className="ds-header__end">
-        <div className="ds-header__version-badge">Version: 2.8</div>
+        <div className="ds-header__version-badge">{getVersionString("Version:")}</div>
 
         <div className="ds-header__hue-select" ref={dropdownRef}>
           <button
