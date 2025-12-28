@@ -1,5 +1,5 @@
 {
-  "name": "@beacon/design-system",
+  "name": "beacon-design-system",
   "version": "3.1.0",
   "description": "Beacon Design System - Components and tokens",
   "main": "./dist/index.js",

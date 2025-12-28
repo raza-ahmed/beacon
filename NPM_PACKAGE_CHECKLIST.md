@@ -2,13 +2,13 @@
 
 ## Project Summary
 
-**Beacon Design System** is a comprehensive design system with 9 production-ready components and design tokens. The system is now available as an npm package (`@beacon/design-system`) for use across multiple projects (dashboard, website, etc.).
+**Beacon Design System** is a comprehensive design system with 9 production-ready components and design tokens. The system is now available as an npm package (`beacon-design-system`) for use across multiple projects (dashboard, website, etc.).
 
 ### Current Structure
 - **Documentation Site**: Next.js app at root (`src/app/`, `src/components/`)
 - **NPM Package**: Located in `packages/beacon-core/`
 - **Version**: 3.1.0 (aligned with design system version 3.01)
-- **Package Name**: `@beacon/design-system`
+- **Package Name**: `beacon-design-system`
 
 ### Included Components
 - Avatar
@@ -34,7 +34,7 @@
 ### 1. Install the Package
 
 ```bash
-npm install @beacon/design-system
+npm install beacon-design-system
 ```
 
 ### 2. Import Tokens CSS
@@ -42,25 +42,25 @@ npm install @beacon/design-system
 In your main CSS file or `_app.tsx` / `layout.tsx`:
 
 ```tsx
-import '@beacon/design-system/tokens';
+import 'beacon-design-system/tokens';
 ```
 
 Or import specific token files:
 
 ```tsx
-import '@beacon/design-system/tokens/primitives';
-import '@beacon/design-system/tokens/semantic';
-import '@beacon/design-system/tokens/brand-light';
-import '@beacon/design-system/tokens/brand-dark';
-import '@beacon/design-system/tokens/responsive';
-import '@beacon/design-system/tokens/effects';
-import '@beacon/design-system/tokens/typography';
+import 'beacon-design-system/tokens/primitives';
+import 'beacon-design-system/tokens/semantic';
+import 'beacon-design-system/tokens/brand-light';
+import 'beacon-design-system/tokens/brand-dark';
+import 'beacon-design-system/tokens/responsive';
+import 'beacon-design-system/tokens/effects';
+import 'beacon-design-system/tokens/typography';
 ```
 
 ### 3. Wrap Your App with ThemeProvider
 
 ```tsx
-import { ThemeProvider } from '@beacon/design-system';
+import { ThemeProvider } from 'beacon-design-system';
 
 function App() {
   return (
@@ -74,7 +74,7 @@ function App() {
 ### 4. Use Components
 
 ```tsx
-import { Button, Card, Checkbox, Switch } from '@beacon/design-system';
+import { Button, Card, Checkbox, Switch } from 'beacon-design-system';
 
 function MyComponent() {
   return (
@@ -100,7 +100,7 @@ function MyComponent() {
 ### 5. Access Theme Context (Optional)
 
 ```tsx
-import { useTheme } from '@beacon/design-system';
+import { useTheme } from 'beacon-design-system';
 
 function MyComponent() {
   const { theme, hue, setTheme, setHue, toggleTheme } = useTheme();
@@ -136,7 +136,7 @@ function MyComponent() {
    cd packages/beacon-core
    npm link
    cd ../../your-project
-   npm link @beacon/design-system
+   npm link beacon-design-system
    ```
 
 4. **Publish to NPM**
@@ -152,7 +152,7 @@ function MyComponent() {
 5. **Update Consuming Projects**
    ```bash
    cd your-project
-   npm update @beacon/design-system
+   npm update beacon-design-system
    ```
 
 6. **Test in Consuming Projects**
@@ -182,7 +182,7 @@ function MyComponent() {
 ### Troubleshooting
 
 **Issue**: Components not rendering correctly
-- **Solution**: Ensure tokens CSS is imported: `import '@beacon/design-system/tokens'`
+- **Solution**: Ensure tokens CSS is imported: `import 'beacon-design-system/tokens'`
 
 **Issue**: Theme not working
 - **Solution**: Wrap app with `ThemeProvider` component
@@ -231,9 +231,9 @@ The `package.json` `files` field controls what gets published:
 - `npm run build:tokens` - Generate tokens (from package directory)
 
 ### Import Paths
-- Components: `@beacon/design-system`
-- Tokens CSS: `@beacon/design-system/tokens`
-- Types: `@beacon/design-system` (TypeScript types)
+- Components: `beacon-design-system`
+- Tokens CSS: `beacon-design-system/tokens`
+- Types: `beacon-design-system` (TypeScript types)
 
 ### Current Version
 - Package: 3.1.0
