@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "npm run build:tokens && next build",
     "build:tokens": "npx tsx scripts/build-tokens.ts",
+    "build:package": "cd packages/beacon-core && npm run build",
+    "publish:package": "cd packages/beacon-core && npm publish",
     "start": "next start",
     "lint": "next lint"
   },

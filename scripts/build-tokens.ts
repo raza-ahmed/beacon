@@ -9,10 +9,30 @@
 import * as fs from "fs";
 import * as path from "path";
 
-// Paths
-const TOKENS_DIR = path.join(process.cwd(), "Design Tokens Figma");
-const OUTPUT_DIR = path.join(process.cwd(), "src/tokens/generated");
-const TYPES_OUTPUT = path.join(process.cwd(), "src/tokens/types.ts");
+// Paths - support custom output directory via environment variable or CLI arg
+// Find project root by looking for Design Tokens Figma directory
+function findProjectRoot(): string {
+  let currentDir = process.cwd();
+  while (currentDir !== path.dirname(currentDir)) {
+    const tokensDir = path.join(currentDir, "Design Tokens Figma");
+    if (require("fs").existsSync(tokensDir)) {
+      return currentDir;
+    }
+    currentDir = path.dirname(currentDir);
+  }
+  return process.cwd(); // Fallback to current directory
+}
+
+const PROJECT_ROOT = findProjectRoot();
+const TOKENS_DIR = path.join(PROJECT_ROOT, "Design Tokens Figma");
+const OUTPUT_DIR_ARG = process.argv.find(arg => arg.startsWith("--output-dir="));
+const OUTPUT_DIR = OUTPUT_DIR_ARG 
+  ? path.resolve(process.cwd(), OUTPUT_DIR_ARG.split("=")[1])
+  : path.join(PROJECT_ROOT, "src/tokens/generated");
+const TYPES_OUTPUT_ARG = process.argv.find(arg => arg.startsWith("--types-output="));
+const TYPES_OUTPUT = TYPES_OUTPUT_ARG
+  ? path.resolve(process.cwd(), TYPES_OUTPUT_ARG.split("=")[1])
+  : path.join(PROJECT_ROOT, "src/tokens/types.ts");
 
 // Token types from DTCG spec
 type TokenValue = string | number | boolean | TokenValue[] | { [key: string]: TokenValue };
