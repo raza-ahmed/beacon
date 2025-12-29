@@ -63,7 +63,7 @@ export function Menu({
       return {
         ...baseStyles,
         width: "240px",
-        height: "600px",
+        height: "100%",
         borderLeft: "none",
         borderTop: "none",
         borderBottom: "none",
