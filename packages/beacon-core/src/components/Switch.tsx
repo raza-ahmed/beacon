@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { SunIcon, MoonIcon } from "../icons";
 
@@ -10,6 +10,7 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   showIcons?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const TRACK_WIDTH = "52px";
@@ -17,29 +18,26 @@ const HANDLE_SIZE = 24;
 const ICON_CONTAINER_SIZE = 32;
 const ICON_SIZE = 20;
 
-export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  (
-    {
-      checked = false,
-      onChange,
-      disabled = false,
-      id,
-      "aria-label": ariaLabel,
-      showIcons = false,
-      className,
-      style,
-      onClick,
-      onKeyDown,
-      onMouseEnter,
-      onMouseLeave,
-      onFocus,
-      onBlur,
-      onMouseDown,
-      onMouseUp,
-      ...rest
-    },
-    ref
-  ) => {
+export function Switch({
+  checked = false,
+  onChange,
+  disabled = false,
+  id,
+  "aria-label": ariaLabel,
+  showIcons = false,
+  className,
+  style,
+  onClick,
+  onKeyDown,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
+  onMouseDown,
+  onMouseUp,
+  ref,
+  ...rest
+}: SwitchProps) {
     useThemeSafe(); // Ensure theme context is available
     const [status, setStatus] = useState<SwitchStatus>("default");
 
@@ -433,7 +431,4 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         {switchElement}
       </button>
     );
-  }
-);
-
-Switch.displayName = "Switch";
+}

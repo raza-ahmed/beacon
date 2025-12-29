@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useMemo } from "react";
+import { useMemo } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "../icons";
 
@@ -20,6 +20,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   numberPrefix?: string;
   rounded?: boolean;
   iconOnly?: boolean;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 const SIZE_CONFIG: Record<
@@ -75,30 +76,27 @@ const SIZE_CONFIG: Record<
   },
 };
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      label,
-      size = "md",
-      status = "default",
-      showLabel = true,
-      startIcon,
-      endIcon,
-      placeholderIcon,
-      showError = false,
-      errorMessage = "Error message!",
-      numberPrefix,
-      rounded = false,
-      iconOnly = false,
-      disabled = false,
-      className,
-      style,
-      value,
-      placeholder,
-      ...rest
-    },
-    ref
-  ) => {
+export function Input({
+  label,
+  size = "md",
+  status = "default",
+  showLabel = true,
+  startIcon,
+  endIcon,
+  placeholderIcon,
+  showError = false,
+  errorMessage = "Error message!",
+  numberPrefix,
+  rounded = false,
+  iconOnly = false,
+  disabled = false,
+  className,
+  style,
+  value,
+  placeholder,
+  ref,
+  ...rest
+}: InputProps) {
     useThemeSafe(); // Ensure theme context is available
     const sizeConfig = SIZE_CONFIG[size];
     const hasValue = value != null && String(value).length > 0;
@@ -265,7 +263,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
       </div>
     );
-  }
-);
-
-Input.displayName = "Input";
+}

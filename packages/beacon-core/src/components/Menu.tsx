@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useMemo } from "react";
+import { useMemo } from "react";
 import { UserPersonIcon, ChevronRightIcon, CloseIcon, MenuIcon, DownloadIcon } from "../icons";
 import { Switch } from "./Switch";
 import { useThemeSafe } from "../providers/ThemeProvider";
@@ -21,6 +21,7 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   headerSubtitle?: string;
   showChevrons?: boolean;
   avatarImageUrl?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 const DEFAULT_MENU_ITEMS: MenuItem[] = [
@@ -31,26 +32,23 @@ const DEFAULT_MENU_ITEMS: MenuItem[] = [
   { id: "5", label: "Menu Item #5" },
 ];
 
-export const Menu = forwardRef<HTMLDivElement, MenuProps>(
-  (
-    {
-      variant = "desktop",
-      showMenu = true,
-      showButton = true,
-      menuItems = DEFAULT_MENU_ITEMS,
-      headerTitle = "Title",
-      headerSubtitle = "Subtitle",
-      showChevrons = true,
-      avatarImageUrl,
-      className,
-      style,
-      ...rest
-    },
-    ref
-  ) => {
-    const themeContext = useThemeSafe();
-    const theme = themeContext?.theme ?? "dark";
-    const containerStyles = useMemo(() => {
+export function Menu({
+  variant = "desktop",
+  showMenu = true,
+  showButton = true,
+  menuItems = DEFAULT_MENU_ITEMS,
+  headerTitle = "Title",
+  headerSubtitle = "Subtitle",
+  showChevrons = true,
+  avatarImageUrl,
+  className,
+  style,
+  ref,
+  ...rest
+}: MenuProps) {
+  const themeContext = useThemeSafe();
+  const theme = themeContext?.theme ?? "dark";
+  const containerStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
       display: "flex",
       flexDirection: "column",
@@ -446,9 +444,6 @@ export const Menu = forwardRef<HTMLDivElement, MenuProps>(
         </>
       )}
     </div>
-  );
-  }
-);
-
-Menu.displayName = "Menu";
+    );
+}
 

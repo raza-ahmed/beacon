@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { LoaderIcon } from "../icons";
 
@@ -20,6 +20,7 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   loading?: boolean;
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
@@ -88,33 +89,30 @@ const LOADER_ICON_SIZE_MAP: Record<ButtonSize, number> = {
 
 type ButtonState = "default" | "hovered" | "focused" | "pressed";
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant = "filled",
-      size = "md",
-      cornerRadius = 2,
-      startIcon,
-      endIcon,
-      fillContainer = false,
-      justifyContent = "center",
-      loading = false,
-      disabled = false,
-      type = "button",
-      children,
-      className,
-      style,
-      onClick,
-      onMouseEnter,
-      onMouseLeave,
-      onFocus,
-      onBlur,
-      onMouseDown,
-      onMouseUp,
-      ...rest
-    },
-    ref
-  ) => {
+export function Button({
+  variant = "filled",
+  size = "md",
+  cornerRadius = 2,
+  startIcon,
+  endIcon,
+  fillContainer = false,
+  justifyContent = "center",
+  loading = false,
+  disabled = false,
+  type = "button",
+  children,
+  className,
+  style,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
+  onMouseDown,
+  onMouseUp,
+  ref,
+  ...rest
+}: ButtonProps) {
     const themeContext = useThemeSafe();
     const sizeConfig = SIZE_CONFIG[size];
     const borderRadius = CORNER_RADIUS_MAP[cornerRadius];
@@ -325,7 +323,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     );
-  }
-);
-
-Button.displayName = "Button";
+}

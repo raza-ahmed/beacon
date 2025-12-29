@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useMemo } from "react";
+import { useMemo } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { ListDetailsIcon } from "../icons";
 
@@ -13,6 +13,7 @@ export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: ChipSize;
   showBorders?: boolean;
   icon?: React.ReactNode;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 const SIZE_CONFIG: Record<
@@ -83,21 +84,18 @@ const COLOR_CONFIG: Record<
   },
 };
 
-export const Chip = forwardRef<HTMLDivElement, ChipProps>(
-  (
-    {
-      label = "Identifier",
-      color = "primary",
-      size = "md",
-      showBorders = false,
-      icon,
-      className,
-      style,
-      children,
-      ...rest
-    },
-    ref
-  ) => {
+export function Chip({
+  label = "Identifier",
+  color = "primary",
+  size = "md",
+  showBorders = false,
+  icon,
+  className,
+  style,
+  children,
+  ref,
+  ...rest
+}: ChipProps) {
     useThemeSafe(); // Ensure theme context is available
     const sizeConfig = SIZE_CONFIG[size];
     const colorConfig = COLOR_CONFIG[color];
@@ -156,7 +154,4 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>(
         {children || <span>{label}</span>}
       </div>
     );
-  }
-);
-
-Chip.displayName = "Chip";
+}

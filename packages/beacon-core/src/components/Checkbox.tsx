@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { CheckIcon } from "../icons";
 
@@ -11,35 +11,33 @@ export interface CheckboxProps extends Omit<React.ButtonHTMLAttributes<HTMLButto
   onChange?: (checked: boolean) => void;
   label?: string;
   showLabel?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const CHECKBOX_SIZE = 20;
 const ICON_SIZE = 16; // 20px box - 4px padding (2px each side) = 16px
 
-export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
-  (
-    {
-      checked = false,
-      onChange,
-      disabled = false,
-      id,
-      "aria-label": ariaLabel,
-      label,
-      showLabel = false,
-      className,
-      style,
-      onClick,
-      onKeyDown,
-      onMouseEnter,
-      onMouseLeave,
-      onFocus,
-      onBlur,
-      onMouseDown,
-      onMouseUp,
-      ...rest
-    },
-    ref
-  ) => {
+export function Checkbox({
+  checked = false,
+  onChange,
+  disabled = false,
+  id,
+  "aria-label": ariaLabel,
+  label,
+  showLabel = false,
+  className,
+  style,
+  onClick,
+  onKeyDown,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
+  onMouseDown,
+  onMouseUp,
+  ref,
+  ...rest
+}: CheckboxProps) {
     useThemeSafe(); // Ensure theme context is available
     const [status, setStatus] = useState<CheckboxStatus>("default");
 
@@ -328,7 +326,4 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
         </div>
       </button>
     );
-  }
-);
-
-Checkbox.displayName = "Checkbox";
+}

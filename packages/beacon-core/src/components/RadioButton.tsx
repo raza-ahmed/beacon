@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 
 type RadioButtonStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
@@ -10,32 +10,30 @@ export interface RadioButtonProps extends Omit<React.InputHTMLAttributes<HTMLInp
   onChange?: (selected: boolean) => void;
   label?: string;
   showLabel?: boolean;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 const RADIO_SIZE = 20;
 
-export const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
-  (
-    {
-      selected = false,
-      onChange,
-      disabled = false,
-      id,
-      label = "Radio Button",
-      showLabel = true,
-      className,
-      style,
-      onClick,
-      onFocus,
-      onBlur,
-      onMouseEnter,
-      onMouseLeave,
-      onMouseDown,
-      onMouseUp,
-      ...rest
-    },
-    ref
-  ) => {
+export function RadioButton({
+  selected = false,
+  onChange,
+  disabled = false,
+  id,
+  label = "Radio Button",
+  showLabel = true,
+  className,
+  style,
+  onClick,
+  onFocus,
+  onBlur,
+  onMouseEnter,
+  onMouseLeave,
+  onMouseDown,
+  onMouseUp,
+  ref,
+  ...rest
+}: RadioButtonProps) {
     useThemeSafe(); // Ensure theme context is available
     const [status, setStatus] = useState<RadioButtonStatus>("default");
 
@@ -286,7 +284,4 @@ export const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
         )}
       </div>
     );
-  }
-);
-
-RadioButton.displayName = "RadioButton";
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon } from "../icons";
 
@@ -18,6 +18,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   hasStroke?: boolean;
   initials?: string;
   imageUrl?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 // Avatar container sizes
@@ -42,26 +43,23 @@ const TEXT_SIZE_CONFIG: Record<Exclude<AvatarSize, "xl">, { fontSize: string }> 
   lg: { fontSize: "var(--heading-h5-text-size)" },
 };
 
-export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
-  (
-    {
-      size = "md",
-      type = "icon",
-      color = "primary",
-      variant = "solid",
-      isRound = false,
-      hasStroke = false,
-      initials = "JD",
-      imageUrl,
-      className,
-      style,
-      ...rest
-    },
-    ref
-  ) => {
-    useThemeSafe(); // Ensure theme context is available
-    const [imageError, setImageError] = useState(false);
-    const containerSize = CONTAINER_SIZE_CONFIG[size];
+export function Avatar({
+  size = "md",
+  type = "icon",
+  color = "primary",
+  variant = "solid",
+  isRound = false,
+  hasStroke = false,
+  initials = "JD",
+  imageUrl,
+  className,
+  style,
+  ref,
+  ...rest
+}: AvatarProps) {
+  useThemeSafe(); // Ensure theme context is available
+  const [imageError, setImageError] = useState(false);
+  const containerSize = CONTAINER_SIZE_CONFIG[size];
 
     const avatarStyles = useMemo(() => {
       // Determine border color for stroke based on variant and color
@@ -243,7 +241,4 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         {renderContent()}
       </div>
     );
-  }
-);
-
-Avatar.displayName = "Avatar";
+}
