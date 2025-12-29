@@ -4,12 +4,13 @@ import { useState, useCallback, useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { SunIcon, MoonIcon } from "../icons";
 
-type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
+export type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
 export interface SwitchProps extends Omit<ComponentPropsWithRef<"button">, "onChange" | "type"> {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   showIcons?: boolean;
+  status?: SwitchStatus;
 }
 
 const TRACK_WIDTH = "52px";
@@ -24,6 +25,7 @@ export function Switch({
   id,
   "aria-label": ariaLabel,
   showIcons = false,
+  status: statusProp,
   className,
   style,
   onClick,
@@ -38,7 +40,8 @@ export function Switch({
   ...rest
 }: SwitchProps) {
     useThemeSafe(); // Ensure theme context is available
-    const [status, setStatus] = useState<SwitchStatus>("default");
+    const [internalStatus, setInternalStatus] = useState<SwitchStatus>("default");
+    const status = statusProp ?? internalStatus;
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,62 +72,62 @@ export function Switch({
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("hovered");
+        if (!disabled && !statusProp) {
+          setInternalStatus("hovered");
         }
         onMouseEnter?.(e);
       },
-      [disabled, onMouseEnter]
+      [disabled, statusProp, onMouseEnter]
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onMouseLeave?.(e);
       },
-      [disabled, onMouseLeave]
+      [disabled, statusProp, onMouseLeave]
     );
 
     const handleFocus = useCallback(
       (e: React.FocusEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("focused");
+        if (!disabled && !statusProp) {
+          setInternalStatus("focused");
         }
         onFocus?.(e);
       },
-      [disabled, onFocus]
+      [disabled, statusProp, onFocus]
     );
 
     const handleBlur = useCallback(
       (e: React.FocusEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onBlur?.(e);
       },
-      [disabled, onBlur]
+      [disabled, statusProp, onBlur]
     );
 
     const handleMouseDown = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("pressed");
+        if (!disabled && !statusProp) {
+          setInternalStatus("pressed");
         }
         onMouseDown?.(e);
       },
-      [disabled, onMouseDown]
+      [disabled, statusProp, onMouseDown]
     );
 
     const handleMouseUp = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("hovered");
+        if (!disabled && !statusProp) {
+          setInternalStatus("hovered");
         }
         onMouseUp?.(e);
       },
-      [disabled, onMouseUp]
+      [disabled, statusProp, onMouseUp]
     );
 
     const currentStatus: SwitchStatus = disabled ? "disabled" : status;

@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
+import { SearchIcon, ChevronDownIcon } from "beacon-icons";
 import { Switch } from "./Switch";
 import { Checkbox } from "./Checkbox";
 
@@ -16,21 +17,25 @@ interface ButtonControlsProps {
   variant: ButtonVariant;
   size: ButtonSize;
   cornerRadius: CornerRadiusStep;
-  hasStartIcon: boolean;
-  hasEndIcon: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   fillContainer: boolean;
   justifyContent: JustifyContent;
   state: ButtonState;
+  loading?: boolean;
+  disabled?: boolean;
   theme: Theme;
   hue: HueVariant;
   onVariantChange: (variant: ButtonVariant) => void;
   onSizeChange: (size: ButtonSize) => void;
   onCornerRadiusChange: (radius: CornerRadiusStep) => void;
-  onStartIconChange: (has: boolean) => void;
-  onEndIconChange: (has: boolean) => void;
+  onStartIconChange: (icon: React.ReactNode | null) => void;
+  onEndIconChange: (icon: React.ReactNode | null) => void;
   onFillContainerChange: (fill: boolean) => void;
   onJustifyContentChange: (justify: JustifyContent) => void;
   onStateChange: (state: ButtonState) => void;
+  onLoadingChange?: (loading: boolean) => void;
+  onDisabledChange?: (disabled: boolean) => void;
   onThemeChange: (theme: Theme) => void;
   onHueChange: (hue: HueVariant) => void;
 }
@@ -79,11 +84,13 @@ export function ButtonControls({
   variant,
   size,
   cornerRadius,
-  hasStartIcon,
-  hasEndIcon,
+  startIcon,
+  endIcon,
   fillContainer,
   justifyContent,
   state,
+  loading,
+  disabled,
   theme,
   hue,
   onVariantChange,
@@ -94,6 +101,8 @@ export function ButtonControls({
   onFillContainerChange,
   onJustifyContentChange,
   onStateChange,
+  onLoadingChange,
+  onDisabledChange,
   onThemeChange,
   onHueChange,
 }: ButtonControlsProps) {
@@ -246,16 +255,16 @@ export function ButtonControls({
             <div style={{ display: "flex", flexDirection: "row", gap: "var(--spacing-200)" }} role="group" aria-label="Icon position">
               <Checkbox
                 id="button-start-icon"
-                checked={hasStartIcon}
-                onChange={onStartIconChange}
+                checked={!!startIcon}
+                onChange={(checked) => onStartIconChange(checked ? <SearchIcon size="xs" /> : null)}
                 ariaLabel="Start icon"
                 label="Start"
                 showLabel={true}
               />
               <Checkbox
                 id="button-end-icon"
-                checked={hasEndIcon}
-                onChange={onEndIconChange}
+                checked={!!endIcon}
+                onChange={(checked) => onEndIconChange(checked ? <ChevronDownIcon size="xs" /> : null)}
                 ariaLabel="End icon"
                 label="End"
                 showLabel={true}
@@ -274,7 +283,7 @@ export function ButtonControls({
         </div>
       </div>
 
-      {fillContainer && (hasStartIcon || hasEndIcon) && (
+      {fillContainer && (startIcon || endIcon) && (
         <div className="ds-button-control-group">
           <span className="ds-button-control-label">Justify</span>
           <div className="ds-segmented-control" role="group" aria-label="Justify content">

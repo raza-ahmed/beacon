@@ -4,13 +4,14 @@ import { useState, useCallback, useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { CheckIcon } from "../icons";
 
-type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
+export type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
 export interface CheckboxProps extends Omit<ComponentPropsWithRef<"button">, "onChange" | "type"> {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   label?: string;
   showLabel?: boolean;
+  status?: CheckboxStatus;
 }
 
 const CHECKBOX_SIZE = 20;
@@ -24,6 +25,7 @@ export function Checkbox({
   "aria-label": ariaLabel,
   label,
   showLabel = false,
+  status: statusProp,
   className,
   style,
   onClick,
@@ -38,7 +40,8 @@ export function Checkbox({
   ...rest
 }: CheckboxProps) {
     useThemeSafe(); // Ensure theme context is available
-    const [status, setStatus] = useState<CheckboxStatus>("default");
+    const [internalStatus, setInternalStatus] = useState<CheckboxStatus>("default");
+    const status = statusProp ?? internalStatus;
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,62 +72,62 @@ export function Checkbox({
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("hovered");
+        if (!disabled && !statusProp) {
+          setInternalStatus("hovered");
         }
         onMouseEnter?.(e);
       },
-      [disabled, onMouseEnter]
+      [disabled, statusProp, onMouseEnter]
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onMouseLeave?.(e);
       },
-      [disabled, onMouseLeave]
+      [disabled, statusProp, onMouseLeave]
     );
 
     const handleFocus = useCallback(
       (e: React.FocusEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("focused");
+        if (!disabled && !statusProp) {
+          setInternalStatus("focused");
         }
         onFocus?.(e);
       },
-      [disabled, onFocus]
+      [disabled, statusProp, onFocus]
     );
 
     const handleBlur = useCallback(
       (e: React.FocusEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onBlur?.(e);
       },
-      [disabled, onBlur]
+      [disabled, statusProp, onBlur]
     );
 
     const handleMouseDown = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("pressed");
+        if (!disabled && !statusProp) {
+          setInternalStatus("pressed");
         }
         onMouseDown?.(e);
       },
-      [disabled, onMouseDown]
+      [disabled, statusProp, onMouseDown]
     );
 
     const handleMouseUp = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onMouseUp?.(e);
       },
-      [disabled, onMouseUp]
+      [disabled, statusProp, onMouseUp]
     );
 
     const currentStatus: CheckboxStatus = disabled ? "disabled" : status;

@@ -25,6 +25,7 @@ interface MenuConfig {
   headerTitle: string;
   headerSubtitle: string;
   showChevrons: boolean;
+  avatarImageUrl: string;
 }
 
 const DEFAULT_MENU_ITEMS: MenuItem[] = [
@@ -69,6 +70,10 @@ function generateMenuCode(config: MenuConfig): string {
 
   if (config.headerSubtitle !== "Subtitle") {
     props.push(`headerSubtitle="${config.headerSubtitle}"`);
+  }
+
+  if (config.avatarImageUrl) {
+    props.push(`avatarImageUrl="${config.avatarImageUrl}"`);
   }
 
   if (config.menuItems.length > 0 && JSON.stringify(config.menuItems) !== JSON.stringify(DEFAULT_MENU_ITEMS)) {
@@ -117,6 +122,7 @@ export default function MenuPage() {
     headerTitle: "Title",
     headerSubtitle: "Subtitle",
     showChevrons: true,
+    avatarImageUrl: "",
   });
   const [copied, setCopied] = useState(false);
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
@@ -180,6 +186,7 @@ export default function MenuPage() {
               headerTitle={config.headerTitle}
               headerSubtitle={config.headerSubtitle}
               showChevrons={config.showChevrons}
+              avatarImageUrl={config.avatarImageUrl}
               theme={theme}
               hue={hue}
               onVariantChange={(variant) => updateConfig({ variant })}
@@ -189,6 +196,7 @@ export default function MenuPage() {
               onHeaderTitleChange={(headerTitle) => updateConfig({ headerTitle })}
               onHeaderSubtitleChange={(headerSubtitle) => updateConfig({ headerSubtitle })}
               onShowChevronsChange={(showChevrons) => updateConfig({ showChevrons })}
+              onAvatarImageUrlChange={(avatarImageUrl) => updateConfig({ avatarImageUrl })}
               onThemeChange={setTheme}
               onHueChange={setHue}
             />
@@ -203,6 +211,7 @@ export default function MenuPage() {
                   headerTitle={config.headerTitle}
                   headerSubtitle={config.headerSubtitle}
                   showChevrons={config.showChevrons}
+                  avatarImageUrl={config.avatarImageUrl}
                   theme={theme}
                   hue={hue}
                 />
@@ -427,6 +436,7 @@ interface MenuProps {
   headerTitle?: string;
   headerSubtitle?: string;
   showChevrons?: boolean;
+  avatarImageUrl?: string;
 }`);
                     setCopiedExample("api");
                     setTimeout(() => setCopiedExample(null), 2000);
@@ -477,6 +487,7 @@ interface MenuProps {
   headerTitle?: string;
   headerSubtitle?: string;
   showChevrons?: boolean;
+  avatarImageUrl?: string;
 }`}
                 </SyntaxHighlighter>
               </div>
@@ -580,6 +591,20 @@ interface MenuProps {
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Whether to show chevron arrows on menu items. Useful for indicating sub-menus or navigation.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>avatarImageUrl</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>string</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Optional URL for the avatar image. If not provided, a default icon is displayed.
                   </div>
                 </div>
               </div>
@@ -905,6 +930,62 @@ interface MenuProps {
     { id: "2", label: "Settings" },
     { id: "3", label: "Profile" }
   ]}
+/>`}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Menu with Custom Avatar Image</h6>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-menu-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`<Menu 
+  avatarImageUrl="/images/avatars/user.jpg"
+  headerTitle="John Doe"
+  headerSubtitle="Administrator"
+/>`);
+                    setCopiedExample("custom-avatar");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "custom-avatar" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--bg-page-secondary)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`<Menu 
+  avatarImageUrl="/images/avatars/user.jpg"
+  headerTitle="John Doe"
+  headerSubtitle="Administrator"
 />`}
                 </SyntaxHighlighter>
               </div>

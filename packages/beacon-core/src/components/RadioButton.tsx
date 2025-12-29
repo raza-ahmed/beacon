@@ -3,13 +3,14 @@
 import { useMemo, useState, useCallback, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 
-type RadioButtonStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
+export type RadioButtonStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
 export interface RadioButtonProps extends Omit<ComponentPropsWithRef<"input">, "type" | "onChange"> {
   selected?: boolean;
   onChange?: (selected: boolean) => void;
   label?: string;
   showLabel?: boolean;
+  status?: RadioButtonStatus;
 }
 
 const RADIO_SIZE = 20;
@@ -21,6 +22,7 @@ export function RadioButton({
   id,
   label = "Radio Button",
   showLabel = true,
+  status: statusProp,
   className,
   style,
   onClick,
@@ -34,7 +36,8 @@ export function RadioButton({
   ...rest
 }: RadioButtonProps) {
     useThemeSafe(); // Ensure theme context is available
-    const [status, setStatus] = useState<RadioButtonStatus>("default");
+    const [internalStatus, setInternalStatus] = useState<RadioButtonStatus>("default");
+    const status = statusProp ?? internalStatus;
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLInputElement>) => {
@@ -48,62 +51,62 @@ export function RadioButton({
 
     const handleFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          setStatus("focused");
+        if (!disabled && !statusProp) {
+          setInternalStatus("focused");
         }
         onFocus?.(e);
       },
-      [disabled, onFocus]
+      [disabled, statusProp, onFocus]
     );
 
     const handleBlur = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onBlur?.(e);
       },
-      [disabled, onBlur]
+      [disabled, statusProp, onBlur]
     );
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          setStatus("hovered");
+        if (!disabled && !statusProp) {
+          setInternalStatus("hovered");
         }
         onMouseEnter?.(e);
       },
-      [disabled, onMouseEnter]
+      [disabled, statusProp, onMouseEnter]
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onMouseLeave?.(e);
       },
-      [disabled, onMouseLeave]
+      [disabled, statusProp, onMouseLeave]
     );
 
     const handleMouseDown = useCallback(
       (e: React.MouseEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          setStatus("pressed");
+        if (!disabled && !statusProp) {
+          setInternalStatus("pressed");
         }
         onMouseDown?.(e);
       },
-      [disabled, onMouseDown]
+      [disabled, statusProp, onMouseDown]
     );
 
     const handleMouseUp = useCallback(
       (e: React.MouseEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          setStatus("default");
+        if (!disabled && !statusProp) {
+          setInternalStatus("default");
         }
         onMouseUp?.(e);
       },
-      [disabled, onMouseUp]
+      [disabled, statusProp, onMouseUp]
     );
 
     const currentStatus: RadioButtonStatus = disabled ? "disabled" : status;

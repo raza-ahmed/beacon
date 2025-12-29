@@ -3,7 +3,8 @@
 import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { UserPersonIcon, ChevronRightIcon, CloseIcon, MenuIcon, DownloadIcon } from "./icons";
-import { SwitchPreview } from "./SwitchPreview";
+import { Switch } from "./Switch";
+import { useThemeSafe } from "@/providers/ThemeProvider";
 
 type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
 
@@ -20,6 +21,7 @@ interface MenuPreviewProps {
   headerTitle?: string;
   headerSubtitle?: string;
   showChevrons?: boolean;
+  avatarImageUrl?: string;
   theme?: Theme;
   hue?: HueVariant;
 }
@@ -40,9 +42,13 @@ export function MenuPreview({
   headerTitle = "Title",
   headerSubtitle = "Subtitle",
   showChevrons = true,
-  theme,
-  hue,
+  avatarImageUrl,
+  theme: themeProp,
+  hue: hueProp,
 }: MenuPreviewProps) {
+  const themeContext = useThemeSafe();
+  const theme = themeProp ?? themeContext?.theme ?? "light";
+  const hue = hueProp ?? themeContext?.hue ?? "chromatic-prime";
   const containerStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
       display: "flex",
@@ -257,16 +263,20 @@ export function MenuPreview({
           {/* Header Section */}
           <div style={headerStyles}>
             <div style={avatarStyles}>
-              <img
-                src="/images/avatars/avatar-female.png"
-                alt="User avatar"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                }}
-              />
+              {avatarImageUrl ? (
+                <img
+                  src={avatarImageUrl}
+                  alt="User avatar"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                  }}
+                />
+              ) : (
+                <UserPersonIcon size={24} />
+              )}
             </div>
             {showHeaderContent && (
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-none)", flex: 1 }}>
@@ -304,16 +314,20 @@ export function MenuPreview({
           {/* Header Section */}
           <div style={headerStyles}>
             <div style={avatarStyles}>
-              <img
-                src="/images/avatars/avatar-female.png"
-                alt="User avatar"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                }}
-              />
+              {avatarImageUrl ? (
+                <img
+                  src={avatarImageUrl}
+                  alt="User avatar"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                  }}
+                />
+              ) : (
+                <UserPersonIcon size={24} />
+              )}
             </div>
             {showHeaderContent && (
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-none)", flex: 1 }}>
@@ -355,11 +369,9 @@ export function MenuPreview({
                 <span>Button</span>
               </div>
             )}
-            <SwitchPreview
+            <Switch
               checked={theme === "dark"}
               showIcons={true}
-              theme={theme}
-              hue={hue}
             />
             <button style={iconButtonStyles}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px" }}>
@@ -425,11 +437,9 @@ export function MenuPreview({
             </div>
           )}
           <div style={footerStyles}>
-            <SwitchPreview
+            <Switch
               checked={theme === "dark"}
               showIcons={true}
-              theme={theme}
-              hue={hue}
             />
           </div>
         </>

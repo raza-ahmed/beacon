@@ -19,6 +19,7 @@ interface MenuControlsProps {
   headerTitle?: string;
   headerSubtitle?: string;
   showChevrons?: boolean;
+  avatarImageUrl?: string;
   theme?: Theme;
   hue?: HueVariant;
   onVariantChange?: (variant: MenuVariant) => void;
@@ -28,6 +29,7 @@ interface MenuControlsProps {
   onHeaderTitleChange?: (title: string) => void;
   onHeaderSubtitleChange?: (subtitle: string) => void;
   onShowChevronsChange?: (show: boolean) => void;
+  onAvatarImageUrlChange?: (url: string) => void;
   onThemeChange?: (theme: Theme) => void;
   onHueChange?: (hue: HueVariant) => void;
 }
@@ -55,6 +57,7 @@ export function MenuControls({
   headerTitle = "Title",
   headerSubtitle = "Subtitle",
   showChevrons = true,
+  avatarImageUrl = "",
   theme,
   hue,
   onVariantChange,
@@ -64,6 +67,7 @@ export function MenuControls({
   onHeaderTitleChange,
   onHeaderSubtitleChange,
   onShowChevronsChange,
+  onAvatarImageUrlChange,
   onThemeChange,
   onHueChange,
 }: MenuControlsProps) {
@@ -135,6 +139,21 @@ export function MenuControls({
             </option>
           ))}
         </select>
+      </div>
+
+      {/* Avatar Image URL input */}
+      <div className="ds-menu-control-group">
+        <label htmlFor="menu-avatar-image-url" className="ds-menu-control-label">
+          Avatar Image URL
+        </label>
+        <input
+          id="menu-avatar-image-url"
+          type="text"
+          className="ds-menu-control-input"
+          value={avatarImageUrl}
+          onChange={(e) => onAvatarImageUrlChange?.(e.target.value)}
+          placeholder="Optional avatar image URL"
+        />
       </div>
 
       {/* Show Button and Show Chevrons toggles */}

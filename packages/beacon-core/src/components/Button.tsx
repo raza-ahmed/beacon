@@ -8,6 +8,7 @@ export type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 export type JustifyContent = "center" | "space-between";
+export type ButtonState = "default" | "hovered" | "focused" | "pressed";
 
 export interface ButtonProps extends Omit<ComponentPropsWithRef<"button">, "type"> {
   variant?: ButtonVariant;
@@ -18,6 +19,7 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<"button">, "type
   fillContainer?: boolean;
   justifyContent?: JustifyContent;
   loading?: boolean;
+  state?: ButtonState;
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
 }
@@ -86,8 +88,6 @@ const LOADER_ICON_SIZE_MAP: Record<ButtonSize, number> = {
   xl: 40,
 };
 
-type ButtonState = "default" | "hovered" | "focused" | "pressed";
-
 export function Button({
   variant = "filled",
   size = "md",
@@ -98,6 +98,7 @@ export function Button({
   justifyContent = "center",
   loading = false,
   disabled = false,
+  state: stateProp,
   type = "button",
   children,
   className,
@@ -116,66 +117,67 @@ export function Button({
     const sizeConfig = SIZE_CONFIG[size];
     const borderRadius = CORNER_RADIUS_MAP[cornerRadius];
 
-    const [state, setState] = useState<ButtonState>("default");
+    const [internalState, setInternalState] = useState<ButtonState>("default");
+    const state = stateProp ?? internalState;
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled && !loading) {
-          setState("hovered");
+        if (!disabled && !loading && !stateProp) {
+          setInternalState("hovered");
         }
         onMouseEnter?.(e);
       },
-      [disabled, loading, onMouseEnter]
+      [disabled, loading, stateProp, onMouseEnter]
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled && !loading) {
-          setState("default");
+        if (!disabled && !loading && !stateProp) {
+          setInternalState("default");
         }
         onMouseLeave?.(e);
       },
-      [disabled, loading, onMouseLeave]
+      [disabled, loading, stateProp, onMouseLeave]
     );
 
     const handleFocus = useCallback(
       (e: React.FocusEvent<HTMLButtonElement>) => {
-        if (!disabled && !loading) {
-          setState("focused");
+        if (!disabled && !loading && !stateProp) {
+          setInternalState("focused");
         }
         onFocus?.(e);
       },
-      [disabled, loading, onFocus]
+      [disabled, loading, stateProp, onFocus]
     );
 
     const handleBlur = useCallback(
       (e: React.FocusEvent<HTMLButtonElement>) => {
-        if (!disabled && !loading) {
-          setState("default");
+        if (!disabled && !loading && !stateProp) {
+          setInternalState("default");
         }
         onBlur?.(e);
       },
-      [disabled, loading, onBlur]
+      [disabled, loading, stateProp, onBlur]
     );
 
     const handleMouseDown = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled && !loading) {
-          setState("pressed");
+        if (!disabled && !loading && !stateProp) {
+          setInternalState("pressed");
         }
         onMouseDown?.(e);
       },
-      [disabled, loading, onMouseDown]
+      [disabled, loading, stateProp, onMouseDown]
     );
 
     const handleMouseUp = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!disabled && !loading) {
-          setState("hovered");
+        if (!disabled && !loading && !stateProp) {
+          setInternalState("hovered");
         }
         onMouseUp?.(e);
       },
-      [disabled, loading, onMouseUp]
+      [disabled, loading, stateProp, onMouseUp]
     );
 
     const isDisabled = disabled || loading;

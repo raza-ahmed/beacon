@@ -7,6 +7,7 @@ import type { HueVariant } from "@/tokens/types";
 import { ButtonPreview } from "@/components/ButtonPreview";
 import { ButtonControls } from "@/components/ButtonControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
+import { SearchIcon, ChevronDownIcon } from "beacon-icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -20,11 +21,13 @@ interface ButtonConfig {
   variant: ButtonVariant;
   size: ButtonSize;
   cornerRadius: CornerRadiusStep;
-  hasStartIcon: boolean;
-  hasEndIcon: boolean;
+  startIcon: React.ReactNode | null;
+  endIcon: React.ReactNode | null;
   fillContainer: boolean;
   justifyContent: JustifyContent;
   state: ButtonState;
+  loading: boolean;
+  disabled: boolean;
 }
 
 const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
@@ -66,11 +69,11 @@ function generateButtonCode(config: ButtonConfig): string {
     props.push(`cornerRadius={${config.cornerRadius}}`);
   }
   
-  if (config.hasStartIcon) {
+  if (config.startIcon) {
     props.push(`startIcon={<SearchIcon />}`);
   }
   
-  if (config.hasEndIcon) {
+  if (config.endIcon) {
     props.push(`endIcon={<ChevronDownIcon />}`);
   }
   
@@ -82,12 +85,16 @@ function generateButtonCode(config: ButtonConfig): string {
     props.push(`justifyContent="${config.justifyContent}"`);
   }
   
-  if (config.state === "disabled") {
+  if (config.disabled) {
     props.push(`disabled`);
   }
   
-  if (config.state === "loading") {
+  if (config.loading) {
     props.push(`loading`);
+  }
+  
+  if (config.state !== "default" && config.state !== "disabled" && config.state !== "loading") {
+    props.push(`state="${config.state}"`);
   }
   
   if (props.length === 0) {
@@ -131,11 +138,13 @@ export default function ButtonPage() {
     variant: "filled",
     size: "md",
     cornerRadius: 2,
-    hasStartIcon: false,
-    hasEndIcon: false,
+    startIcon: null,
+    endIcon: null,
     fillContainer: false,
     justifyContent: "center",
     state: "default",
+    loading: false,
+    disabled: false,
   });
   const [copied, setCopied] = useState(false);
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
@@ -200,21 +209,25 @@ export default function ButtonPage() {
               variant={config.variant}
               size={config.size}
               cornerRadius={config.cornerRadius}
-              hasStartIcon={config.hasStartIcon}
-              hasEndIcon={config.hasEndIcon}
+              startIcon={config.startIcon}
+              endIcon={config.endIcon}
               fillContainer={config.fillContainer}
+              justifyContent={config.justifyContent}
               state={config.state}
+              loading={config.loading}
+              disabled={config.disabled}
               theme={theme}
               hue={hue}
               onVariantChange={(variant) => updateConfig({ variant })}
               onSizeChange={(size) => updateConfig({ size })}
               onCornerRadiusChange={(radius) => updateConfig({ cornerRadius: radius })}
-              onStartIconChange={(has) => updateConfig({ hasStartIcon: has })}
-              onEndIconChange={(has) => updateConfig({ hasEndIcon: has })}
+              onStartIconChange={(icon) => updateConfig({ startIcon: icon })}
+              onEndIconChange={(icon) => updateConfig({ endIcon: icon })}
               onFillContainerChange={(fill) => updateConfig({ fillContainer: fill })}
-              justifyContent={config.justifyContent}
               onJustifyContentChange={(justify) => updateConfig({ justifyContent: justify })}
               onStateChange={(state) => updateConfig({ state })}
+              onLoadingChange={(loading) => updateConfig({ loading })}
+              onDisabledChange={(disabled) => updateConfig({ disabled })}
               onThemeChange={setTheme}
               onHueChange={setHue}
             />
@@ -225,11 +238,13 @@ export default function ButtonPage() {
                   variant={config.variant}
                   size={config.size}
                   cornerRadius={config.cornerRadius}
-                  hasStartIcon={config.hasStartIcon}
-                  hasEndIcon={config.hasEndIcon}
+                  startIcon={config.startIcon}
+                  endIcon={config.endIcon}
                   fillContainer={config.fillContainer}
                   justifyContent={config.justifyContent}
                   state={config.state}
+                  loading={config.loading}
+                  disabled={config.disabled}
                   theme={theme}
                   hue={hue}
                 />
