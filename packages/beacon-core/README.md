@@ -5,7 +5,7 @@ A comprehensive React design system with 9 production-ready components and desig
 ## Installation
 
 ```bash
-npm install beacon-design-system
+npm install beacon-ui
 ```
 
 ## Quick Start
@@ -15,25 +15,25 @@ npm install beacon-design-system
 Import the design tokens in your main CSS file or at the root of your application:
 
 ```tsx
-import 'beacon-design-system/tokens';
+import 'beacon-ui/tokens';
 ```
 
 Or import specific token files:
 
 ```tsx
-import 'beacon-design-system/tokens/primitives';
-import 'beacon-design-system/tokens/semantic';
-import 'beacon-design-system/tokens/brand-light';
-import 'beacon-design-system/tokens/brand-dark';
-import 'beacon-design-system/tokens/responsive';
-import 'beacon-design-system/tokens/effects';
-import 'beacon-design-system/tokens/typography';
+import 'beacon-ui/tokens/primitives';
+import 'beacon-ui/tokens/semantic';
+import 'beacon-ui/tokens/brand-light';
+import 'beacon-ui/tokens/brand-dark';
+import 'beacon-ui/tokens/responsive';
+import 'beacon-ui/tokens/effects';
+import 'beacon-ui/tokens/typography';
 ```
 
 ### 2. Wrap Your App with ThemeProvider
 
 ```tsx
-import { ThemeProvider } from 'beacon-design-system';
+import { ThemeProvider } from 'beacon-ui';
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
 ### 3. Use Components
 
 ```tsx
-import { Button, Card, Checkbox, Switch, Input, Avatar, Chip, Menu, RadioButton } from 'beacon-design-system';
+import { Button, Card, Checkbox, Switch, Input, Avatar, Chip, Menu, RadioButton } from 'beacon-ui';
 
 function MyComponent() {
   return (
@@ -110,7 +110,7 @@ Beacon supports multiple themes and hue variants:
 ### Using Theme Context
 
 ```tsx
-import { useTheme } from 'beacon-design-system';
+import { useTheme } from 'beacon-ui';
 
 function ThemeToggle() {
   const { theme, hue, setTheme, setHue, toggleTheme } = useTheme();
@@ -137,7 +137,7 @@ import type {
   BackgroundToken,
   ForegroundToken,
   BorderToken
-} from 'beacon-design-system';
+} from 'beacon-ui';
 ```
 
 ## Accessibility
@@ -163,7 +163,7 @@ https://beacon.uxraza.com/
 
 ## Version
 
-Current version: **3.1.3**
+Current version: **3.1.4**
 
 ## License
 

@@ -5,27 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.3] - 2025-12-29
-
-### Changed
-- Updated repository URL to https://github.com/raza-ahmed/beacon
-
-## [3.1.1] - 2025-12-29
+## [3.1.4] - 2025-12-29
 
 ### Added
+- Initial npm package release as `beacon-ui`
 - README.md with installation and usage instructions
 - CHANGELOG.md for version tracking
 - Comprehensive documentation for all components
 - TypeScript type exports for design tokens
-
-### Changed
-- Package name updated to `beacon-design-system` (unscoped)
-- Added `publishConfig` to ensure public npm publishing
-
-## [3.1.0] - 2025-12-29
-
-### Added
-- Initial npm package release
 - 9 production-ready components:
   - Avatar
   - Button
@@ -60,7 +47,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
-- **3.1.3** - Repository URL update
-- **3.1.1** - Documentation and package improvements
-- **3.1.0** - Initial npm package release
-
+- **3.1.4** - Initial release of `beacon-ui` package
