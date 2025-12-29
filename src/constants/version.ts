@@ -2,11 +2,14 @@
  * Design System Version
  * 
  * Centralized version number for the Beacon Design System.
- * Update this value when releasing a new version.
  * 
- * Format: Major.Minor (e.g., "2.8")
+ * ⚠️ AUTO-SYNCED: This file is automatically synced from packages/beacon-ui/package.json
+ * Do not edit manually. Run `npm run sync:version` to sync, or it runs automatically
+ * before builds and publishes.
+ * 
+ * Format: Major.Minor.Patch (e.g., "3.1.6")
  */
-export const DESIGN_SYSTEM_VERSION = "3.1.5";
+export const DESIGN_SYSTEM_VERSION = "3.1.6";
 
 /**
  * Get formatted version string with optional prefix

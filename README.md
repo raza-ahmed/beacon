@@ -50,13 +50,13 @@ function App() {
 
 **beacon-ui** (Components & Tokens)
 - **Package Name**: `beacon-ui`
-- **Version**: 3.1.4
+- **Version**: 3.1.6
 - **NPM**: https://www.npmjs.com/package/beacon-ui
 - **Documentation**: https://beacon.uxraza.com/
 
 **beacon-icons** (Icon Components)
 - **Package Name**: `beacon-icons`
-- **Version**: 3.1.4
+- **Version**: 3.1.6
 - **NPM**: https://www.npmjs.com/package/beacon-icons
 
 ### Included Components
@@ -82,7 +82,7 @@ function App() {
 - ✅ Responsive design
 - ✅ React 18 & 19 compatible
 
-For detailed usage instructions, see the [package README](./packages/beacon-core/README.md).
+For detailed usage instructions, see the [package README](./packages/beacon-ui/README.md).
 
 ---
 
@@ -142,7 +142,7 @@ Tokens are exported from Figma and stored in the `Design Tokens Figma/` director
 npm run build:tokens
 
 # Build tokens for npm package
-cd packages/beacon-core
+cd packages/beacon-ui
 npm run build:tokens
 ```
 
@@ -179,7 +179,7 @@ Tokens follow a hierarchical structure:
 beacon/
 ├── Design Tokens Figma/     # Figma-exported token files
 ├── packages/
-│   ├── beacon-core/        # NPM package (beacon-ui)
+│   ├── beacon-ui/          # NPM package (beacon-ui)
 │   │   ├── src/            # Source code
 │   │   ├── dist/            # Compiled output
 │   │   ├── tokens/          # Generated CSS tokens
@@ -245,7 +245,7 @@ The package build process:
 1. Compiles TypeScript to JavaScript
 2. Generates type definitions (.d.ts files)
 3. Builds design tokens
-4. Outputs to `packages/beacon-core/dist/` and `packages/beacon-core/tokens/`
+4. Outputs to `packages/beacon-ui/dist/` and `packages/beacon-ui/tokens/`
 
 ---
 
@@ -256,7 +256,7 @@ The design system follows semantic versioning:
 - **MINOR**: New features (backward compatible)
 - **PATCH**: Bug fixes (backward compatible)
 
-Current version: **3.1.4**
+Current version: **3.1.6**
 
 ---
 
