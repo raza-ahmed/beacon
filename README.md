@@ -2,14 +2,20 @@
 
 A comprehensive design system with 9 production-ready React components, design tokens, and complete documentation. Built with TypeScript and token-driven architecture for consistency and scalability.
 
-## 📦 NPM Package
+## 📦 NPM Packages
 
-The design system is available as an npm package for use across multiple projects.
+The design system is available as npm packages for use across multiple projects.
 
-### Installation
+### Main Package: beacon-ui
 
 ```bash
 npm install beacon-ui
+```
+
+### Icons Package: beacon-icons
+
+```bash
+npm install beacon-icons
 ```
 
 ### Quick Start
@@ -35,10 +41,16 @@ import { Button, Card, Checkbox, Switch } from 'beacon-ui';
 
 ### Package Information
 
+**beacon-ui** (Components & Tokens)
 - **Package Name**: `beacon-ui`
 - **Version**: 3.1.4
 - **NPM**: https://www.npmjs.com/package/beacon-ui
 - **Documentation**: https://beacon.uxraza.com/
+
+**beacon-icons** (Icon Components)
+- **Package Name**: `beacon-icons`
+- **Version**: 3.1.4
+- **NPM**: https://www.npmjs.com/package/beacon-icons
 
 ### Included Components
 
@@ -160,10 +172,14 @@ Tokens follow a hierarchical structure:
 beacon/
 ├── Design Tokens Figma/     # Figma-exported token files
 ├── packages/
-│   └── beacon-core/        # NPM package
-│       ├── src/            # Source code
+│   ├── beacon-core/        # NPM package (beacon-ui)
+│   │   ├── src/            # Source code
+│   │   ├── dist/            # Compiled output
+│   │   ├── tokens/          # Generated CSS tokens
+│   │   └── package.json
+│   └── beacon-icons/       # NPM package (beacon-icons)
+│       ├── src/            # Icon components
 │       ├── dist/            # Compiled output
-│       ├── tokens/          # Generated CSS tokens
 │       └── package.json
 ├── scripts/
 │   └── build-tokens.ts     # Token build script
@@ -202,14 +218,20 @@ npm run build:tokens
 npm run dev
 ```
 
-### Building the NPM Package
+### Building the NPM Packages
 
 ```bash
-# Build the package
+# Build components package
 npm run build:package
 
-# Publish the package
+# Build icons package
+npm run build:icons
+
+# Publish components package
 npm run publish:package
+
+# Publish icons package
+npm run publish:icons
 ```
 
 The package build process:
