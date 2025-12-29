@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
-import type { Theme, HueVariant } from "../tokens/types";
+import { forwardRef, useMemo } from "react";
 import { UserPersonIcon, ChevronRightIcon, CloseIcon, MenuIcon, DownloadIcon } from "../icons";
 import { Switch } from "./Switch";
 import { useThemeSafe } from "../providers/ThemeProvider";
@@ -13,7 +12,7 @@ interface MenuItem {
   label: string;
 }
 
-interface MenuProps {
+export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: MenuVariant;
   showMenu?: boolean;
   showButton?: boolean;
@@ -22,8 +21,6 @@ interface MenuProps {
   headerSubtitle?: string;
   showChevrons?: boolean;
   avatarImageUrl?: string;
-  theme?: Theme;
-  hue?: HueVariant;
 }
 
 const DEFAULT_MENU_ITEMS: MenuItem[] = [
@@ -34,22 +31,26 @@ const DEFAULT_MENU_ITEMS: MenuItem[] = [
   { id: "5", label: "Menu Item #5" },
 ];
 
-export function Menu({
-  variant = "desktop",
-  showMenu = true,
-  showButton = true,
-  menuItems = DEFAULT_MENU_ITEMS,
-  headerTitle = "Title",
-  headerSubtitle = "Subtitle",
-  showChevrons = true,
-  avatarImageUrl,
-  theme: themeProp,
-  hue: hueProp,
-}: MenuProps) {
-  const themeContext = useThemeSafe();
-  const theme = themeProp ?? themeContext?.theme ?? "light";
-  const hue = hueProp ?? themeContext?.hue ?? "chromatic-prime";
-  const containerStyles = useMemo(() => {
+export const Menu = forwardRef<HTMLDivElement, MenuProps>(
+  (
+    {
+      variant = "desktop",
+      showMenu = true,
+      showButton = true,
+      menuItems = DEFAULT_MENU_ITEMS,
+      headerTitle = "Title",
+      headerSubtitle = "Subtitle",
+      showChevrons = true,
+      avatarImageUrl,
+      className,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
+    const themeContext = useThemeSafe();
+    const theme = themeContext?.theme ?? "dark";
+    const containerStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
       display: "flex",
       flexDirection: "column",
@@ -237,7 +238,7 @@ export function Menu({
 
   if (variant === "close-menu") {
     return (
-      <div style={containerStyles}>
+      <div ref={ref} className={className} style={{ ...containerStyles, ...style }} {...rest}>
         <button style={iconButtonStyles}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px" }}>
             <CloseIcon size={32} />
@@ -256,7 +257,7 @@ export function Menu({
   const showHeaderContent = isDesktop || isTabletOpen || isTabletClosed;
 
   return (
-    <div style={containerStyles}>
+    <div ref={ref} className={className} style={{ ...containerStyles, ...style }} {...rest}>
       {/* Desktop: Header and Footer are separate */}
       {isDesktop ? (
         <>
@@ -446,5 +447,8 @@ export function Menu({
       )}
     </div>
   );
-}
+  }
+);
+
+Menu.displayName = "Menu";
 

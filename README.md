@@ -25,18 +25,25 @@ npm install beacon-icons
 import 'beacon-ui/tokens';
 
 // 2. Wrap your app with ThemeProvider
-import { ThemeProvider } from 'beacon-ui';
+import { ThemeProvider, Button, Checkbox, Switch } from 'beacon-ui';
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" defaultHue="hue-sky">
-      {/* Your app */}
+      <Button onClick={() => console.log('Clicked!')}>
+        Click Me
+      </Button>
+      <Checkbox 
+        checked={true} 
+        onChange={(checked) => console.log(checked)} 
+      />
+      <Switch 
+        checked={false} 
+        onChange={(checked) => console.log(checked)} 
+      />
     </ThemeProvider>
   );
 }
-
-// 3. Use components
-import { Button, Card, Checkbox, Switch } from 'beacon-ui';
 ```
 
 ### Package Information

@@ -1,26 +1,24 @@
 "use client";
 
-import { useMemo } from "react";
-import type { Theme, HueVariant } from "../tokens/types";
+import { forwardRef, useMemo } from "react";
+import { useThemeSafe } from "../providers/ThemeProvider";
 import { RightArrowIcon, ArrowDownFallSlotIcon } from "../icons";
 import { getPatternConfig, type PatternType } from "../utils/patternPaths";
 
-type CardType = "product" | "experience" | "info" | "generic";
+export type CardType = "product" | "experience" | "info" | "generic";
 
 // ProductCard props
-type ProductCardSize = "full" | "half";
-type ProductCardStatus = "default" | "highlighted";
+export type ProductCardSize = "full" | "half";
+export type ProductCardStatus = "default" | "highlighted";
 
 // ExperienceCard props
-type ExperienceCardType = "default" | "skills" | "contacts";
+export type ExperienceCardType = "default" | "skills" | "contacts";
 
 // Generic Card props
-type GenericCardStatus = "default" | "highlighted" | "selected";
+export type GenericCardStatus = "default" | "highlighted" | "selected";
 
-interface CardProps {
+export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "slot"> {
   cardType: CardType;
-  theme: Theme;
-  hue: HueVariant;
   // ProductCard props
   size?: ProductCardSize;
   status?: ProductCardStatus;
@@ -52,40 +50,46 @@ interface CardProps {
   slot?: React.ReactNode;
 }
 
-export function Card({
-  cardType,
-  theme,
-  hue,
-  // ProductCard
-  size = "full",
-  status = "default",
-  hasImage = true,
-  imageAspectRatio = "16x9",
-  hasIdentifiers = true,
-  hasButton = true,
-  title = "Product Title",
-  description = "Add your products Details that description here. This paragraph is restricted only two lines even if content is large.",
-  // ExperienceCard
-  experienceType = "default",
-  positionName = "Position Name",
-  companyName = "Company Name",
-  year = "2025-26",
-  experienceDescription = "Long Description",
-  label = "Label",
-  details = "Details",
-  // InfoCard
-  cardName = "Card Name",
-  cardDescription = "Card Description",
-  hasIcon = true,
-  // Generic Card
-  genericStatus = "default",
-  showBgPattern = true,
-  patternType = "cubes",
-  showOverlay = true,
-  showShadow = true,
-  showBorder = true,
-  slot,
-}: CardProps) {
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  (
+    {
+      cardType,
+      // ProductCard
+      size = "full",
+      status = "default",
+      hasImage = true,
+      imageAspectRatio = "16x9",
+      hasIdentifiers = true,
+      hasButton = true,
+      title = "Product Title",
+      description = "Add your products Details that description here. This paragraph is restricted only two lines even if content is large.",
+      // ExperienceCard
+      experienceType = "default",
+      positionName = "Position Name",
+      companyName = "Company Name",
+      year = "2025-26",
+      experienceDescription = "Long Description",
+      label = "Label",
+      details = "Details",
+      // InfoCard
+      cardName = "Card Name",
+      cardDescription = "Card Description",
+      hasIcon = true,
+      // Generic Card
+      genericStatus = "default",
+      showBgPattern = true,
+      patternType = "cubes",
+      showOverlay = true,
+      showShadow = true,
+      showBorder = true,
+      slot,
+      className,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
+    useThemeSafe(); // Ensure theme context is available
   const renderProductCard = () => {
     const isFull = size === "full";
     const isHighlighted = status === "highlighted";
@@ -882,10 +886,13 @@ export function Card({
     }
   };
 
-  return (
-    <div className="ds-card-preview-container">
-      <div className="ds-card-preview-canvas">{renderCard()}</div>
-    </div>
-  );
-}
+    return (
+      <div ref={ref} className={className} style={style} {...rest}>
+        {renderCard()}
+      </div>
+    );
+  }
+);
+
+Card.displayName = "Card";
 

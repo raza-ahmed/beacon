@@ -1,20 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
-import type { Theme, HueVariant } from "../tokens/types";
+import { forwardRef, useMemo } from "react";
+import { useThemeSafe } from "../providers/ThemeProvider";
 import { ListDetailsIcon } from "../icons";
 
-type ChipSize = "sm" | "md" | "lg";
-type ChipColor = "primary" | "neutral" | "success" | "critical" | "warning";
+export type ChipSize = "sm" | "md" | "lg";
+export type ChipColor = "primary" | "neutral" | "success" | "critical" | "warning";
 
-interface ChipProps {
+export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
   color?: ChipColor;
   size?: ChipSize;
   showBorders?: boolean;
-  showIcon?: boolean;
-  theme?: Theme;
-  hue?: HueVariant;
+  icon?: React.ReactNode;
 }
 
 const SIZE_CONFIG: Record<
@@ -85,71 +83,80 @@ const COLOR_CONFIG: Record<
   },
 };
 
-export function Chip({
-  label = "Identifier",
-  color = "primary",
-  size = "md",
-  showBorders = false,
-  showIcon = false,
-  theme,
-  hue,
-}: ChipProps) {
-  const sizeConfig = SIZE_CONFIG[size];
-  const colorConfig = COLOR_CONFIG[color];
+export const Chip = forwardRef<HTMLDivElement, ChipProps>(
+  (
+    {
+      label = "Identifier",
+      color = "primary",
+      size = "md",
+      showBorders = false,
+      icon,
+      className,
+      style,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
+    useThemeSafe(); // Ensure theme context is available
+    const sizeConfig = SIZE_CONFIG[size];
+    const colorConfig = COLOR_CONFIG[color];
 
-  const chipStyles = useMemo(() => {
-    const baseStyles: React.CSSProperties = {
-      display: "flex",
-      gap: "var(--spacing-200)",
-      alignItems: "center",
-      backgroundColor: colorConfig.bg,
-      color: colorConfig.fg,
-      borderRadius: "var(--corner-radius-full)",
-      paddingLeft: sizeConfig.paddingX,
-      paddingRight: sizeConfig.paddingX,
-      paddingTop: sizeConfig.paddingY,
-      paddingBottom: sizeConfig.paddingY,
-      fontFamily: "var(--font-secondary)",
-      fontSize: sizeConfig.fontSize,
-      lineHeight: sizeConfig.lineHeight,
-      fontWeight: "var(--font-weight-secondary-medium)",
-    };
-
-    if (showBorders) {
-      return {
-        ...baseStyles,
-        border: "var(--border-width-25) solid",
-        borderColor: colorConfig.border,
+    const chipStyles = useMemo(() => {
+      const baseStyles: React.CSSProperties = {
+        display: "flex",
+        gap: "var(--spacing-200)",
+        alignItems: "center",
+        backgroundColor: colorConfig.bg,
+        color: colorConfig.fg,
+        borderRadius: "var(--corner-radius-full)",
+        paddingLeft: sizeConfig.paddingX,
+        paddingRight: sizeConfig.paddingX,
+        paddingTop: sizeConfig.paddingY,
+        paddingBottom: sizeConfig.paddingY,
+        fontFamily: "var(--font-secondary)",
+        fontSize: sizeConfig.fontSize,
+        lineHeight: sizeConfig.lineHeight,
+        fontWeight: "var(--font-weight-secondary-medium)",
       };
-    }
 
-    return baseStyles;
-  }, [colorConfig, sizeConfig, showBorders]);
+      if (showBorders) {
+        return {
+          ...baseStyles,
+          border: "var(--border-width-25) solid",
+          borderColor: colorConfig.border,
+        };
+      }
 
-  const iconWrapperStyles = useMemo(() => {
-    return {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      width: `${sizeConfig.iconSize}px`,
-      height: `${sizeConfig.iconSize}px`,
-      maxWidth: `${sizeConfig.iconSize}px`,
-      maxHeight: `${sizeConfig.iconSize}px`,
-      flexShrink: 0,
-      overflow: "hidden",
-      color: colorConfig.fg,
-    };
-  }, [sizeConfig.iconSize, colorConfig.fg]);
+      return { ...baseStyles, ...style };
+    }, [colorConfig, sizeConfig, showBorders, style]);
 
-  return (
-    <div style={chipStyles}>
-      {showIcon && (
-        <div style={iconWrapperStyles}>
-          <ListDetailsIcon size={sizeConfig.iconSize} />
-        </div>
-      )}
-      <span>{label}</span>
-    </div>
-  );
-}
+    const iconWrapperStyles = useMemo(() => {
+      return {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: `${sizeConfig.iconSize}px`,
+        height: `${sizeConfig.iconSize}px`,
+        maxWidth: `${sizeConfig.iconSize}px`,
+        maxHeight: `${sizeConfig.iconSize}px`,
+        flexShrink: 0,
+        overflow: "hidden",
+        color: colorConfig.fg,
+      };
+    }, [sizeConfig.iconSize, colorConfig.fg]);
 
+    return (
+      <div ref={ref} className={className} style={chipStyles} {...rest}>
+        {icon && (
+          <div style={iconWrapperStyles}>
+            {icon}
+          </div>
+        )}
+        {children || <span>{label}</span>}
+      </div>
+    );
+  }
+);
+
+Chip.displayName = "Chip";
