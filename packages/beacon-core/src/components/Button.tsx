@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { LoaderIcon } from "../icons";
 
@@ -9,7 +9,7 @@ export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 export type JustifyContent = "center" | "space-between";
 
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
+export interface ButtonProps extends Omit<ComponentPropsWithRef<"button">, "type"> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   cornerRadius?: CornerRadiusStep;
@@ -20,7 +20,6 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   loading?: boolean;
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
-  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {

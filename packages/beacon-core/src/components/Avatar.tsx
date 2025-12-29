@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon } from "../icons";
 
@@ -9,7 +9,7 @@ export type AvatarType = "icon" | "text" | "image";
 export type AvatarColor = "primary" | "neutral" | "success" | "critical" | "warning";
 export type AvatarVariant = "solid" | "faded";
 
-export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AvatarProps extends ComponentPropsWithRef<"div"> {
   size?: AvatarSize;
   type?: AvatarType;
   color?: AvatarColor;
@@ -18,7 +18,6 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   hasStroke?: boolean;
   initials?: string;
   imageUrl?: string;
-  ref?: React.Ref<HTMLDivElement>;
 }
 
 // Avatar container sizes

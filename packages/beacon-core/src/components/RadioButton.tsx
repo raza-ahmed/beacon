@@ -1,16 +1,15 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 
 type RadioButtonStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
-export interface RadioButtonProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "onChange"> {
+export interface RadioButtonProps extends Omit<ComponentPropsWithRef<"input">, "type" | "onChange"> {
   selected?: boolean;
   onChange?: (selected: boolean) => void;
   label?: string;
   showLabel?: boolean;
-  ref?: React.Ref<HTMLInputElement>;
 }
 
 const RADIO_SIZE = 20;

@@ -1,17 +1,16 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { CheckIcon } from "../icons";
 
 type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
-export interface CheckboxProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange" | "type"> {
+export interface CheckboxProps extends Omit<ComponentPropsWithRef<"button">, "onChange" | "type"> {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   label?: string;
   showLabel?: boolean;
-  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const CHECKBOX_SIZE = 20;

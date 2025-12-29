@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "../icons";
 
 export type InputSize = "sm" | "md" | "lg";
 export type InputStatus = "default" | "active";
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<ComponentPropsWithRef<"input">, "size"> {
   label?: string;
   size?: InputSize;
   status?: InputStatus;
@@ -20,7 +20,6 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   numberPrefix?: string;
   rounded?: boolean;
   iconOnly?: boolean;
-  ref?: React.Ref<HTMLInputElement>;
 }
 
 const SIZE_CONFIG: Record<

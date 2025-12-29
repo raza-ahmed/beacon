@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { SunIcon, MoonIcon } from "../icons";
 
 type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
-export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange" | "type"> {
+export interface SwitchProps extends Omit<ComponentPropsWithRef<"button">, "onChange" | "type"> {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   showIcons?: boolean;
-  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const TRACK_WIDTH = "52px";

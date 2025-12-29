@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, ComponentPropsWithRef } from "react";
 import { UserPersonIcon, ChevronRightIcon, CloseIcon, MenuIcon, DownloadIcon } from "../icons";
 import { Switch } from "./Switch";
 import { useThemeSafe } from "../providers/ThemeProvider";
@@ -12,7 +12,7 @@ interface MenuItem {
   label: string;
 }
 
-export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MenuProps extends ComponentPropsWithRef<"div"> {
   variant?: MenuVariant;
   showMenu?: boolean;
   showButton?: boolean;
@@ -21,7 +21,6 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   headerSubtitle?: string;
   showChevrons?: boolean;
   avatarImageUrl?: string;
-  ref?: React.Ref<HTMLDivElement>;
 }
 
 const DEFAULT_MENU_ITEMS: MenuItem[] = [

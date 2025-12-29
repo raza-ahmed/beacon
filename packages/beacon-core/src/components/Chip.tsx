@@ -1,19 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { ListDetailsIcon } from "../icons";
 
 export type ChipSize = "sm" | "md" | "lg";
 export type ChipColor = "primary" | "neutral" | "success" | "critical" | "warning";
 
-export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ChipProps extends ComponentPropsWithRef<"div"> {
   label?: string;
   color?: ChipColor;
   size?: ChipSize;
   showBorders?: boolean;
   icon?: React.ReactNode;
-  ref?: React.Ref<HTMLDivElement>;
 }
 
 const SIZE_CONFIG: Record<

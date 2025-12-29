@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { RightArrowIcon, ArrowDownFallSlotIcon } from "../icons";
 import { getPatternConfig, type PatternType } from "../utils/patternPaths";
@@ -17,9 +17,8 @@ export type ExperienceCardType = "default" | "skills" | "contacts";
 // Generic Card props
 export type GenericCardStatus = "default" | "highlighted" | "selected";
 
-export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "slot"> {
+export interface CardProps extends Omit<ComponentPropsWithRef<"div">, "slot"> {
   cardType: CardType;
-  ref?: React.Ref<HTMLDivElement>;
   // ProductCard props
   size?: ProductCardSize;
   status?: ProductCardStatus;
