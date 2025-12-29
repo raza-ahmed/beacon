@@ -1,8 +1,8 @@
 "use client";
 
-import { forwardRef, useState, useCallback } from "react";
-import { CheckboxPreview } from "./CheckboxPreview";
+import { forwardRef, useState, useCallback, useMemo } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
+import { CheckIcon } from "../icons";
 
 type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -12,6 +12,9 @@ export interface CheckboxProps extends Omit<React.ButtonHTMLAttributes<HTMLButto
   label?: string;
   showLabel?: boolean;
 }
+
+const CHECKBOX_SIZE = 20;
+const ICON_SIZE = 16; // 20px box - 4px padding (2px each side) = 16px
 
 export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
   (
@@ -37,10 +40,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     },
     ref
   ) => {
-    const themeContext = useThemeSafe();
-    const theme = themeContext?.theme;
-    const hue = themeContext?.hue;
-
+    useThemeSafe(); // Ensure theme context is available
     const [status, setStatus] = useState<CheckboxStatus>("default");
 
     const handleClick = useCallback(
@@ -131,6 +131,138 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     );
 
     const currentStatus: CheckboxStatus = disabled ? "disabled" : status;
+    const isDisabled = disabled;
+
+    const checkboxStyles = useMemo(() => {
+      const baseStyles: React.CSSProperties = {
+        width: `${CHECKBOX_SIZE}px`,
+        height: `${CHECKBOX_SIZE}px`,
+        borderRadius: "var(--corner-radius-100)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        transition: "background-color 0.15s ease, border-color 0.15s ease",
+        boxSizing: "border-box",
+        overflow: "hidden",
+        position: "relative",
+      };
+
+      if (checked) {
+        // Checked state
+        if (isDisabled) {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-disabled)",
+            border: "none",
+            padding: "var(--spacing-50)",
+          };
+        }
+        if (currentStatus === "hovered") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-primary-on-hover)",
+            border: "none",
+            padding: "var(--spacing-50)",
+          };
+        }
+        if (currentStatus === "focused" || currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-primary-pressed)",
+            border: "none",
+            padding: "var(--spacing-50)",
+          };
+        }
+        // Default checked
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-primary)",
+          border: "none",
+          padding: "var(--spacing-50)",
+        };
+      } else {
+        // Unchecked state
+        if (isDisabled) {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-page-primary)",
+            border: "var(--border-width-50) solid var(--border-neutral-tertiary)",
+          };
+        }
+        if (currentStatus === "hovered" || currentStatus === "focused" || currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-page-primary)",
+            border: "var(--border-width-50) solid var(--border-neutral-primary)",
+          };
+        }
+        // Default unchecked
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-page-primary)",
+          border: "var(--border-width-50) solid var(--border-neutral-secondary)",
+        };
+      }
+    }, [checked, currentStatus, isDisabled]);
+
+    const iconColor = useMemo(() => {
+      if (isDisabled) {
+        return "var(--fg-on-disabled)";
+      }
+      return "var(--static-white)";
+    }, [isDisabled]);
+
+    const labelStyles = useMemo(() => {
+      const baseStyles: React.CSSProperties = {
+        fontFamily: "var(--font-secondary)",
+        fontSize: "var(--body-small-text-size)",
+        lineHeight: "var(--body-small-line-height)",
+        fontWeight: "var(--font-weight-secondary-medium)",
+        margin: 0,
+      };
+
+      if (isDisabled) {
+        return {
+          ...baseStyles,
+          color: "var(--fg-on-disabled)",
+        };
+      }
+
+      if (checked) {
+        return {
+          ...baseStyles,
+          color: "var(--fg-neutral-secondary)",
+        };
+      }
+
+      return {
+        ...baseStyles,
+        color: "var(--fg-neutral-tertiary)",
+      };
+    }, [isDisabled, checked]);
+
+    const focusRingStyles = useMemo(() => {
+      if (currentStatus !== "focused") return null;
+
+      return {
+        position: "absolute" as const,
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "28px",
+        height: "28px",
+        marginTop: "0",
+        marginLeft: "0",
+        borderRadius: "var(--corner-radius-200)",
+        borderWidth: "var(--border-width-25)",
+        borderStyle: "solid",
+        borderColor: checked
+          ? "var(--border-primary)"
+          : "var(--border-neutral-primary)",
+        pointerEvents: "none" as const,
+      };
+    }, [currentStatus, checked]);
 
     return (
       <button
@@ -161,18 +293,42 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
         onMouseUp={handleMouseUp}
         {...rest}
       >
-        <CheckboxPreview
-          checked={checked}
-          status={currentStatus}
-          label={label}
-          showLabel={showLabel}
-          theme={theme}
-          hue={hue}
-        />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--spacing-200)",
+            position: "relative",
+          }}
+        >
+          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {focusRingStyles && <div style={focusRingStyles} />}
+            <div style={checkboxStyles}>
+              {checked && (
+                <div
+                  style={{
+                    color: iconColor,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: `${ICON_SIZE}px`,
+                    height: `${ICON_SIZE}px`,
+                    maxWidth: `${ICON_SIZE}px`,
+                    maxHeight: `${ICON_SIZE}px`,
+                    flexShrink: 0,
+                    overflow: "hidden",
+                  }}
+                >
+                  <CheckIcon size={ICON_SIZE} />
+                </div>
+              )}
+            </div>
+          </div>
+          {showLabel && label && <p style={labelStyles}>{label}</p>}
+        </div>
       </button>
     );
   }
 );
 
 Checkbox.displayName = "Checkbox";
-

@@ -1,8 +1,8 @@
 "use client";
 
-import { forwardRef, useState, useCallback } from "react";
-import { SwitchPreview } from "./SwitchPreview";
+import { forwardRef, useState, useCallback, useMemo } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
+import { SunIcon, MoonIcon } from "../icons";
 
 type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -11,6 +11,11 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   onChange?: (checked: boolean) => void;
   showIcons?: boolean;
 }
+
+const TRACK_WIDTH = "52px";
+const HANDLE_SIZE = 24;
+const ICON_CONTAINER_SIZE = 32;
+const ICON_SIZE = 20;
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   (
@@ -35,10 +40,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     },
     ref
   ) => {
-    const themeContext = useThemeSafe();
-    const theme = themeContext?.theme;
-    const hue = themeContext?.hue;
-
+    useThemeSafe(); // Ensure theme context is available
     const [status, setStatus] = useState<SwitchStatus>("default");
 
     const handleClick = useCallback(
@@ -129,6 +131,275 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     );
 
     const currentStatus: SwitchStatus = disabled ? "disabled" : status;
+    const isDisabled = disabled;
+
+    const trackStyles = useMemo(() => {
+      const baseStyles: React.CSSProperties = {
+        display: "flex",
+        alignItems: "center",
+        padding: "var(--spacing-50)",
+        borderRadius: "var(--corner-radius-full)",
+        borderWidth: "var(--border-width-25)",
+        borderStyle: "solid",
+        position: "relative",
+        transition: "background-color 0.15s ease, border-color 0.15s ease",
+      };
+
+      if (showIcons) {
+        // With icons variant
+        if (currentStatus === "disabled") {
+          return {
+            ...baseStyles,
+            width: "auto",
+            backgroundColor: "var(--bg-page-primary)",
+            borderColor: "var(--border-strong-100)",
+            justifyContent: "flex-end",
+          };
+        }
+        if (currentStatus === "hovered") {
+          return {
+            ...baseStyles,
+            width: "auto",
+            backgroundColor: "var(--bg-page-secondary)",
+            borderColor: "var(--border-strong-200)",
+            justifyContent: "flex-end",
+          };
+        }
+        if (currentStatus === "focused" || currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            width: "auto",
+            backgroundColor: "var(--bg-page-secondary)",
+            borderColor: "var(--border-neutral-primary)",
+            justifyContent: "flex-end",
+          };
+        }
+        return {
+          ...baseStyles,
+          width: "auto",
+          backgroundColor: "var(--bg-page-primary)",
+          borderColor: "var(--border-strong-200)",
+          justifyContent: "flex-end",
+        };
+      }
+
+      // Default variant (no icons)
+      if (currentStatus === "disabled") {
+        if (checked) {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-primary-disabled)",
+            borderColor: "var(--border-strong-100)",
+            justifyContent: "flex-end",
+          };
+        } else {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-disabled)",
+            borderColor: "var(--border-strong-100)",
+            justifyContent: "flex-start",
+          };
+        }
+      }
+
+      if (checked) {
+        if (currentStatus === "hovered") {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-primary-on-hover)",
+            borderColor: "var(--border-strong-100)",
+            justifyContent: "flex-end",
+          };
+        }
+        if (currentStatus === "focused") {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-primary-on-focused)",
+            borderColor: "var(--border-primary)",
+            justifyContent: "flex-end",
+          };
+        }
+        if (currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-primary-pressed)",
+            borderColor: "var(--border-primary)",
+            justifyContent: "flex-end",
+          };
+        }
+        return {
+          ...baseStyles,
+          width: TRACK_WIDTH,
+          backgroundColor: "var(--bg-primary)",
+          borderColor: "var(--border-strong-100)",
+          justifyContent: "flex-end",
+        };
+      } else {
+        if (currentStatus === "hovered") {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-page-secondary)",
+            borderColor: "var(--border-strong-100)",
+            justifyContent: "flex-start",
+          };
+        }
+        if (currentStatus === "focused") {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-page-secondary)",
+            borderColor: "var(--border-neutral-secondary)",
+            justifyContent: "flex-start",
+          };
+        }
+        if (currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            width: TRACK_WIDTH,
+            backgroundColor: "var(--bg-page-secondary)",
+            borderColor: "var(--border-strong)",
+            justifyContent: "flex-start",
+          };
+        }
+        return {
+          ...baseStyles,
+          width: TRACK_WIDTH,
+          backgroundColor: "var(--bg-page-primary)",
+          borderColor: "var(--border-strong-100)",
+          justifyContent: "flex-start",
+        };
+      }
+    }, [checked, currentStatus, showIcons]);
+
+    const handleStyles = useMemo(() => {
+      return {
+        width: `${HANDLE_SIZE}px`,
+        height: `${HANDLE_SIZE}px`,
+        borderRadius: "var(--corner-radius-full)",
+        backgroundColor: checked ? "var(--fg-on-action)" : "var(--fg-disabled)",
+        flexShrink: 0,
+        boxShadow: "var(--shadow-subtle)",
+      };
+    }, [checked]);
+
+    const nightContainerStyles = useMemo(() => {
+      const baseStyles: React.CSSProperties = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: `${ICON_CONTAINER_SIZE}px`,
+        height: `${ICON_CONTAINER_SIZE}px`,
+        borderRadius: "var(--corner-radius-full)",
+        flexShrink: 0,
+        border: "none",
+      };
+
+      if (checked) {
+        return {
+          ...baseStyles,
+          backgroundColor: "transparent",
+        };
+      } else {
+        if (currentStatus === "disabled") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-page-secondary)",
+          };
+        }
+        if (currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-page-tertiary)",
+          };
+        }
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-page-tertiary)",
+        };
+      }
+    }, [checked, currentStatus]);
+
+    const dayContainerStyles = useMemo(() => {
+      const baseStyles: React.CSSProperties = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: `${ICON_CONTAINER_SIZE}px`,
+        height: `${ICON_CONTAINER_SIZE}px`,
+        borderRadius: "var(--corner-radius-full)",
+        flexShrink: 0,
+        border: "none",
+      };
+
+      if (checked) {
+        if (currentStatus === "disabled") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-page-secondary)",
+          };
+        }
+        if (currentStatus === "pressed") {
+          return {
+            ...baseStyles,
+            backgroundColor: "var(--bg-page-tertiary)",
+          };
+        }
+        return {
+          ...baseStyles,
+          backgroundColor: "var(--bg-page-tertiary)",
+        };
+      } else {
+        return {
+          ...baseStyles,
+          backgroundColor: "transparent",
+        };
+      }
+    }, [checked, currentStatus]);
+
+    const nightIconColor = useMemo(() => {
+      if (currentStatus === "disabled") {
+        return "var(--fg-disabled)";
+      }
+      if (checked) {
+        return "var(--fg-primary)";
+      }
+      return "var(--fg-neutral)";
+    }, [checked, currentStatus]);
+
+    const dayIconColor = useMemo(() => {
+      if (currentStatus === "disabled") {
+        return "var(--fg-disabled)";
+      }
+      if (checked) {
+        return "var(--fg-neutral)";
+      }
+      return "var(--fg-warning)";
+    }, [checked, currentStatus]);
+
+    const switchElement = showIcons ? (
+      <div style={trackStyles}>
+        <div style={nightContainerStyles}>
+          <div style={{ color: nightIconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <MoonIcon size={ICON_SIZE} />
+          </div>
+        </div>
+        <div style={dayContainerStyles}>
+          <div style={{ color: dayIconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <SunIcon size={ICON_SIZE} />
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div style={trackStyles}>
+        <div style={handleStyles} />
+      </div>
+    );
 
     return (
       <button
@@ -159,17 +430,10 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         onMouseUp={handleMouseUp}
         {...rest}
       >
-        <SwitchPreview
-          checked={checked}
-          status={currentStatus}
-          showIcons={showIcons}
-          theme={theme}
-          hue={hue}
-        />
+        {switchElement}
       </button>
     );
   }
 );
 
 Switch.displayName = "Switch";
-
