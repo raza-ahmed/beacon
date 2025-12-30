@@ -15,6 +15,9 @@ type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" |
 interface MenuItem {
   id: string;
   label: string;
+  icon?: React.ReactNode;
+  selected?: boolean;
+  onClick?: (item: MenuItem) => void;
 }
 
 interface MenuConfig {
@@ -26,6 +29,7 @@ interface MenuConfig {
   headerSubtitle: string;
   showChevrons: boolean;
   avatarImageUrl: string;
+  selectedItemId?: string;
 }
 
 const DEFAULT_MENU_ITEMS: MenuItem[] = [
@@ -76,9 +80,22 @@ function generateMenuCode(config: MenuConfig): string {
     props.push(`avatarImageUrl="${config.avatarImageUrl}"`);
   }
 
+  if (config.selectedItemId) {
+    props.push(`selectedItemId="${config.selectedItemId}"`);
+  }
+
   if (config.menuItems.length > 0 && JSON.stringify(config.menuItems) !== JSON.stringify(DEFAULT_MENU_ITEMS)) {
     const itemsStr = config.menuItems
-      .map((item) => `    { id: "${item.id}", label: "${item.label}" }`)
+      .map((item) => {
+        const itemProps: string[] = [`id: "${item.id}"`, `label: "${item.label}"`];
+        if (item.icon) {
+          itemProps.push(`icon: <YourIcon size={20} />`);
+        }
+        if (item.selected) {
+          itemProps.push(`selected: true`);
+        }
+        return `    { ${itemProps.join(", ")} }`;
+      })
       .join(",\n");
     props.push(`menuItems={[\n${itemsStr}\n  ]}`);
   }
@@ -123,6 +140,7 @@ export default function MenuPage() {
     headerSubtitle: "Subtitle",
     showChevrons: true,
     avatarImageUrl: "",
+    selectedItemId: undefined,
   });
   const [copied, setCopied] = useState(false);
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
@@ -166,6 +184,9 @@ export default function MenuPage() {
           <h6 className="ds-content__section-title">Overview</h6>
           <p className="ds-content__text">
             The Menu component is a flexible sidebar navigation that displays menu items, user information, and optional actions. It supports multiple responsive variants to adapt to different screen sizes and use cases.
+          </p>
+          <p className="ds-content__text">
+            Menu items support interactive states (hover, selected, onClick), custom icons, and click handlers. Items automatically highlight on hover and can be marked as selected for active navigation states.
           </p>
           <p className="ds-content__text">
             All menu styles are built using design tokens, ensuring consistency across themes and hues. Use the interactive playground below to explore all available combinations.
@@ -212,6 +233,7 @@ export default function MenuPage() {
                   headerSubtitle={config.headerSubtitle}
                   showChevrons={config.showChevrons}
                   avatarImageUrl={config.avatarImageUrl}
+                  selectedItemId={config.selectedItemId}
                   theme={theme}
                   hue={hue}
                 />
@@ -424,19 +446,24 @@ export default function MenuPage() {
                   className="ds-menu-code-copy"
                   onClick={async () => {
                     await copyToClipboard(`interface MenuItem {
-  id: string;
-  label: string;
+    id: string;
+    label: string;
+    icon?: React.ReactNode;
+    selected?: boolean;
+    onClick?: (item: MenuItem) => void;
 }
 
 interface MenuProps {
-  variant?: "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
-  showMenu?: boolean;
-  showButton?: boolean;
-  menuItems?: MenuItem[];
-  headerTitle?: string;
-  headerSubtitle?: string;
-  showChevrons?: boolean;
-  avatarImageUrl?: string;
+    variant?: "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
+    showMenu?: boolean;
+    showButton?: boolean;
+    menuItems?: MenuItem[];
+    headerTitle?: string;
+    headerSubtitle?: string;
+    showChevrons?: boolean;
+    avatarImageUrl?: string;
+    selectedItemId?: string;
+    onItemClick?: (item: MenuItem) => void;
 }`);
                     setCopiedExample("api");
                     setTimeout(() => setCopiedExample(null), 2000);
@@ -477,6 +504,9 @@ interface MenuProps {
                   {`interface MenuItem {
   id: string;
   label: string;
+  icon?: React.ReactNode;
+  selected?: boolean;
+  onClick?: (item: MenuItem) => void;
 }
 
 interface MenuProps {
@@ -488,6 +518,8 @@ interface MenuProps {
   headerSubtitle?: string;
   showChevrons?: boolean;
   avatarImageUrl?: string;
+  selectedItemId?: string;
+  onItemClick?: (item: MenuItem) => void;
 }`}
                 </SyntaxHighlighter>
               </div>
@@ -548,7 +580,7 @@ interface MenuProps {
                     <code>[]</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Array of menu items to display. Each item has an id and label.
+                    Array of menu items to display. Each item has an id, label, and optional icon, selected state, and onClick handler.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -605,6 +637,154 @@ interface MenuProps {
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Optional URL for the avatar image. If not provided, a default icon is displayed.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>selectedItemId</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>string</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    ID of the currently selected menu item. The selected item will be highlighted with primary tonal background.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>onItemClick</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>(item: MenuItem) =&gt; void</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Callback function called when a menu item is clicked. Receives the clicked MenuItem as parameter.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="ds-api-reference__type" style={{ marginTop: "var(--spacing-500)" }}>
+              <h6 className="ds-api-reference__type-title">MenuItem</h6>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-menu-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`interface MenuItem {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  selected?: boolean;
+  onClick?: (item: MenuItem) => void;
+}`);
+                    setCopiedExample("menuitem");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "menuitem" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--bg-page-secondary)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`interface MenuItem {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  selected?: boolean;
+  onClick?: (item: MenuItem) => void;
+}`}
+                </SyntaxHighlighter>
+              </div>
+              <div className="ds-api-reference__props" style={{ marginTop: "var(--spacing-400)" }}>
+                <h6 className="ds-api-reference__props-title">MenuItem Properties</h6>
+                <div className="ds-api-reference__props-table">
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>id</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>string</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Unique identifier for the menu item. Used for selection and click handling.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>label</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>string</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Display text for the menu item.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>icon</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>React.ReactNode</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Optional custom icon component. If not provided, defaults to UserPersonIcon. Can be any React node (e.g., icon from beacon-icons).
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>selected</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>boolean</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Whether this menu item is selected. Overrides selectedItemId prop if both are provided.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>onClick</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>(item: MenuItem) =&gt; void</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Optional per-item click handler. Called when this specific item is clicked, in addition to the global onItemClick handler.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -930,6 +1110,106 @@ interface MenuProps {
     { id: "2", label: "Settings" },
     { id: "3", label: "Profile" }
   ]}
+/>`}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Menu with Icons and Selection</h6>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-menu-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`import { Menu, MenuItem } from 'beacon-ui';
+import { SearchIcon, SettingsGearIcon, UserPersonIcon } from 'beacon-icons';
+
+const menuItems: MenuItem[] = [
+  { 
+    id: "1", 
+    label: "Search", 
+    icon: <SearchIcon size={20} />
+  },
+  { 
+    id: "2", 
+    label: "Settings", 
+    icon: <SettingsGearIcon size={20} />,
+    selected: true
+  },
+  { 
+    id: "3", 
+    label: "Profile", 
+    icon: <UserPersonIcon size={20} />
+  }
+];
+
+<Menu 
+  menuItems={menuItems}
+  selectedItemId="2"
+  onItemClick={(item) => console.log('Clicked:', item)}
+/>`);
+                    setCopiedExample("icons-selection");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "icons-selection" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--bg-page-secondary)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`import { Menu, MenuItem } from 'beacon-ui';
+import { SearchIcon, SettingsGearIcon, UserPersonIcon } from 'beacon-icons';
+
+const menuItems: MenuItem[] = [
+  { 
+    id: "1", 
+    label: "Search", 
+    icon: <SearchIcon size={20} />
+  },
+  { 
+    id: "2", 
+    label: "Settings", 
+    icon: <SettingsGearIcon size={20} />,
+    selected: true
+  },
+  { 
+    id: "3", 
+    label: "Profile", 
+    icon: <UserPersonIcon size={20} />
+  }
+];
+
+<Menu 
+  menuItems={menuItems}
+  selectedItemId="2"
+  onItemClick={(item) => console.log('Clicked:', item)}
 />`}
                 </SyntaxHighlighter>
               </div>

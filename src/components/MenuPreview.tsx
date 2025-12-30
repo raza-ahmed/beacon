@@ -1,16 +1,20 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, ReactNode } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { UserPersonIcon, ChevronRightIcon, CloseIcon, MenuIcon, DownloadIcon } from "./icons";
 import { Switch } from "./Switch";
 import { useThemeSafe } from "@/providers/ThemeProvider";
+import { MenuItem, type MenuItemState } from "beacon-ui";
 
 type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
 
 interface MenuItem {
   id: string;
   label: string;
+  icon?: ReactNode;
+  selected?: boolean;
+  onClick?: (item: MenuItem) => void;
 }
 
 interface MenuPreviewProps {
@@ -22,6 +26,7 @@ interface MenuPreviewProps {
   headerSubtitle?: string;
   showChevrons?: boolean;
   avatarImageUrl?: string;
+  selectedItemId?: string;
   theme?: Theme;
   hue?: HueVariant;
 }
@@ -43,12 +48,14 @@ export function MenuPreview({
   headerSubtitle = "Subtitle",
   showChevrons = true,
   avatarImageUrl,
+  selectedItemId,
   theme: themeProp,
   hue: hueProp,
 }: MenuPreviewProps) {
   const themeContext = useThemeSafe();
   const theme = themeProp ?? themeContext?.theme ?? "light";
   const hue = hueProp ?? themeContext?.hue ?? "chromatic-prime";
+  const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
   const containerStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
       display: "flex",
@@ -154,17 +161,6 @@ export function MenuPreview({
     };
   }, []);
 
-  const menuItemStyles = useMemo(() => {
-    return {
-      display: "flex",
-      gap: "var(--spacing-200)",
-      alignItems: "center",
-      padding: "var(--spacing-200) var(--spacing-200)",
-      borderRadius: "var(--corner-radius-200)",
-      backgroundColor: "var(--bg-page-primary)",
-      width: "100%",
-    };
-  }, []);
 
   const buttonStyles = useMemo(() => {
     return {
@@ -263,20 +259,32 @@ export function MenuPreview({
           {/* Header Section */}
           <div style={headerStyles}>
             <div style={avatarStyles}>
-              {avatarImageUrl ? (
-                <img
-                  src={avatarImageUrl}
-                  alt="User avatar"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                  }}
-                />
-              ) : (
-                <UserPersonIcon size={24} />
-              )}
+              <img
+                src={avatarImageUrl || "/images/avatars/avatar-female.png"}
+                alt="User avatar"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+                onError={(e) => {
+                  // Fallback to icon if image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = "none";
+                  const iconContainer = target.parentElement;
+                  if (iconContainer && !iconContainer.querySelector("svg")) {
+                    const iconWrapper = document.createElement("div");
+                    iconWrapper.style.display = "flex";
+                    iconWrapper.style.alignItems = "center";
+                    iconWrapper.style.justifyContent = "center";
+                    iconWrapper.style.width = "100%";
+                    iconWrapper.style.height = "100%";
+                    iconWrapper.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="var(--fg-neutral)"/></svg>`;
+                    iconContainer.appendChild(iconWrapper);
+                  }
+                }}
+              />
             </div>
             {showHeaderContent && (
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-none)", flex: 1 }}>
@@ -314,20 +322,32 @@ export function MenuPreview({
           {/* Header Section */}
           <div style={headerStyles}>
             <div style={avatarStyles}>
-              {avatarImageUrl ? (
-                <img
-                  src={avatarImageUrl}
-                  alt="User avatar"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                  }}
-                />
-              ) : (
-                <UserPersonIcon size={24} />
-              )}
+              <img
+                src={avatarImageUrl || "/images/avatars/avatar-female.png"}
+                alt="User avatar"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+                onError={(e) => {
+                  // Fallback to icon if image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = "none";
+                  const iconContainer = target.parentElement;
+                  if (iconContainer && !iconContainer.querySelector("svg")) {
+                    const iconWrapper = document.createElement("div");
+                    iconWrapper.style.display = "flex";
+                    iconWrapper.style.alignItems = "center";
+                    iconWrapper.style.justifyContent = "center";
+                    iconWrapper.style.width = "100%";
+                    iconWrapper.style.height = "100%";
+                    iconWrapper.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="var(--fg-neutral)"/></svg>`;
+                    iconContainer.appendChild(iconWrapper);
+                  }
+                }}
+              />
             </div>
             {showHeaderContent && (
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-none)", flex: 1 }}>
@@ -395,31 +415,36 @@ export function MenuPreview({
             flex: isDesktop ? 1 : undefined,
           }}
         >
-          {menuItems.map((item) => (
-            <div key={item.id} style={menuItemStyles}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "20px", height: "20px", flexShrink: 0, color: "var(--fg-neutral)" }}>
-                <UserPersonIcon size={20} />
-              </div>
-              <p
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--body-small-text-size)",
-                  lineHeight: "var(--body-small-line-height)",
-                  fontWeight: "var(--font-weight-secondary-medium)",
-                  color: "var(--fg-neutral-secondary)",
-                  margin: 0,
-                  flex: 1,
-                }}
-              >
-                {item.label}
-              </p>
-              {showChevrons && (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "16px", height: "16px", flexShrink: 0, color: "var(--fg-neutral)" }}>
-                  <ChevronRightIcon size={16} />
-                </div>
-              )}
-            </div>
-          ))}
+          {menuItems.map((item) => {
+            const isSelected = selectedItemId === item.id || item.selected === true;
+            const isHovered = hoveredItemId === item.id;
+
+            const handleMouseEnter = () => {
+              setHoveredItemId(item.id);
+            };
+
+            const handleMouseLeave = () => {
+              setHoveredItemId(null);
+            };
+
+            // Determine state for MenuItem component
+            const itemState: MenuItemState = isSelected ? "Active" : isHovered ? "Hovered" : "Default";
+
+            return (
+              <MenuItem
+                key={item.id}
+                menuTitle={item.label}
+                iconStart={true}
+                iconStart1={item.icon || null}
+                iconEnd={showChevrons}
+                iconEnd1={null}
+                state={itemState}
+                onClick={() => item.onClick?.(item)}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            );
+          })}
         </div>
       )}
 

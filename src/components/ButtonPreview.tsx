@@ -39,10 +39,20 @@ export function ButtonPreview({
   const isDisabled = disabled || state === "disabled";
   const isLoading = loading || state === "loading";
   
-  // Only pass state prop if it's one of the supported states (not loading/disabled which are handled by props)
+  // Determine color prop based on state - preserve variant colors even when loading
+  const buttonColor: "primary" | "success" | "critical" | "warning" = 
+    state === "success" ? "success" :
+    state === "critical" ? "critical" :
+    state === "warning" ? "warning" :
+    "primary";
+  
+  // Only pass state prop if it's one of the supported states
+  // When loading, set to "default" to prevent state changes, but color prop preserves variant colors
   const stateProp: BeaconButtonState | undefined = 
-    state === "disabled" || state === "loading" || state === "success" || state === "critical" || state === "warning"
+    state === "disabled" || state === "success" || state === "critical" || state === "warning"
       ? undefined 
+      : state === "loading"
+      ? "default" // Set to default when loading - variant colors are preserved via color prop
       : (state === "default" || state === "hovered" || state === "focused" || state === "pressed" ? state as BeaconButtonState : undefined);
 
   return (
@@ -57,6 +67,7 @@ export function ButtonPreview({
           fillContainer={fillContainer}
           justifyContent={justifyContent}
           state={stateProp}
+          color={buttonColor}
           loading={isLoading}
           disabled={isDisabled}
         >

@@ -9,6 +9,7 @@ export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 export type JustifyContent = "center" | "space-between";
 export type ButtonState = "default" | "hovered" | "focused" | "pressed";
+export type ButtonColor = "primary" | "success" | "critical" | "warning";
 
 export interface ButtonProps extends Omit<ComponentPropsWithRef<"button">, "type"> {
   variant?: ButtonVariant;
@@ -20,6 +21,7 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<"button">, "type
   justifyContent?: JustifyContent;
   loading?: boolean;
   state?: ButtonState;
+  color?: ButtonColor;
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
 }
@@ -99,6 +101,7 @@ export function Button({
   loading = false,
   disabled = false,
   state: stateProp,
+  color = "primary",
   type = "button",
   children,
   className,
@@ -180,7 +183,8 @@ export function Button({
       [disabled, loading, stateProp, onMouseUp]
     );
 
-    const isDisabled = disabled || loading;
+    const isDisabled = disabled;
+    const isLoading = loading;
     const currentState: ButtonState = isDisabled ? "default" : state;
 
     const buttonStyles = useMemo(() => {
@@ -197,7 +201,7 @@ export function Button({
         borderStyle: "solid",
         borderColor: "transparent",
         borderRadius,
-        cursor: isDisabled ? "not-allowed" : "pointer",
+        cursor: (isDisabled || isLoading) ? "not-allowed" : "pointer",
         transition: "background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease",
         minHeight: sizeConfig.height,
         paddingLeft: sizeConfig.paddingX,
@@ -208,34 +212,50 @@ export function Button({
         opacity: isDisabled ? 0.6 : 1,
       };
 
+      // Get color token prefixes based on color prop
+      const colorPrefix = color === "primary" ? "primary" : color;
+      const bgToken = `--bg-${colorPrefix}`;
+      const bgTonalToken = `--bg-${colorPrefix}-tonal`;
+      const bgHoverToken = `--bg-${colorPrefix}-on-hover`;
+      const bgPressedToken = color === "primary" ? `--bg-${colorPrefix}-pressed` : `--bg-${colorPrefix}-on-hover`;
+      const bgFocusedToken = color === "primary" ? `--bg-${colorPrefix}-on-focused` : `--bg-${colorPrefix}-on-hover`;
+      const bgTonalHoverToken = color === "primary" ? `--bg-${colorPrefix}-tonal-on-hover` : `--bg-${colorPrefix}-tonal`;
+      const fgToken = `--fg-${colorPrefix}`;
+      const fgTonalToken = `--fg-${colorPrefix}-on-tonal`;
+      const fgHoverToken = color === "primary" ? `--fg-${colorPrefix}-on-hover` : `--fg-${colorPrefix}`;
+      const borderToken = `--border-${colorPrefix}`;
+      const borderTonalToken = `--border-${colorPrefix}-tonal`;
+      const borderHoverToken = color === "primary" ? `--border-${colorPrefix}-on-hover` : `--border-${colorPrefix}`;
+      // For non-primary colors, use the base border token for hover since there's no specific hover border token
+
       // Get base variant styles
       let variantStyles: React.CSSProperties = {};
       switch (variant) {
         case "filled":
           variantStyles = {
-            backgroundColor: "var(--bg-primary)",
+            backgroundColor: `var(${bgToken})`,
             color: "var(--fg-on-action)",
-            borderColor: "var(--bg-primary)",
+            borderColor: `var(${bgToken})`,
           };
           break;
         case "tonal":
           variantStyles = {
-            backgroundColor: "var(--bg-primary-tonal)",
-            color: "var(--fg-primary-on-tonal)",
-            borderColor: "var(--border-primary-tonal)",
+            backgroundColor: `var(${bgTonalToken})`,
+            color: `var(${fgTonalToken})`,
+            borderColor: `var(${borderTonalToken})`,
           };
           break;
         case "outline":
           variantStyles = {
             backgroundColor: "transparent",
-            color: "var(--fg-primary)",
-            borderColor: "var(--border-primary)",
+            color: `var(${fgToken})`,
+            borderColor: `var(${borderToken})`,
           };
           break;
         case "link":
           variantStyles = {
             backgroundColor: "transparent",
-            color: "var(--fg-primary)",
+            color: `var(${fgToken})`,
             borderWidth: 0,
             borderStyle: "none",
             borderColor: "transparent",
@@ -246,6 +266,7 @@ export function Button({
       }
 
       // Apply state-specific overrides
+      // When loading, preserve variant colors and don't apply state-specific styles
       const stateStyles: React.CSSProperties = {};
       if (isDisabled) {
         if (variant === "filled") {
@@ -262,40 +283,51 @@ export function Button({
         } else if (variant === "link") {
           stateStyles.color = "var(--fg-disabled)";
         }
-      } else if (currentState === "hovered") {
+      } else if (!isLoading && currentState === "hovered") {
         if (variant === "filled") {
-          stateStyles.backgroundColor = "var(--bg-primary-on-hover)";
-          stateStyles.borderColor = "var(--bg-primary-on-hover)";
+          stateStyles.backgroundColor = `var(${bgHoverToken})`;
+          stateStyles.borderColor = `var(${bgHoverToken})`;
         } else if (variant === "tonal") {
-          stateStyles.backgroundColor = "var(--bg-primary-tonal-on-hover)";
+          stateStyles.backgroundColor = `var(${bgTonalHoverToken})`;
         } else if (variant === "outline") {
-          stateStyles.borderColor = "var(--border-primary-on-hover)";
+          stateStyles.borderColor = `var(${borderHoverToken})`;
         } else if (variant === "link") {
-          stateStyles.color = "var(--fg-primary-on-hover)";
+          stateStyles.color = `var(${fgHoverToken})`;
         }
-      } else if (currentState === "pressed") {
+      } else if (!isLoading && currentState === "pressed") {
         if (variant === "filled") {
-          stateStyles.backgroundColor = "var(--bg-primary-pressed)";
-          stateStyles.borderColor = "var(--bg-primary-pressed)";
+          stateStyles.backgroundColor = `var(${bgPressedToken})`;
+          stateStyles.borderColor = `var(${bgPressedToken})`;
         } else if (variant === "tonal") {
-          stateStyles.backgroundColor = "var(--bg-primary-tonal-on-hover)";
+          stateStyles.backgroundColor = `var(${bgTonalHoverToken})`;
         }
-      } else if (currentState === "focused") {
+      } else if (!isLoading && currentState === "focused") {
         if (variant === "filled") {
-          stateStyles.backgroundColor = "var(--bg-primary-on-focused)";
-          stateStyles.borderColor = "var(--bg-primary-on-focused)";
+          stateStyles.backgroundColor = `var(${bgFocusedToken})`;
+          stateStyles.borderColor = `var(${bgFocusedToken})`;
         } else if (variant === "outline") {
-          stateStyles.borderColor = "var(--border-primary)";
+          stateStyles.borderColor = `var(${borderToken})`;
         }
-        stateStyles.outline = "2px solid var(--border-primary)";
+        stateStyles.outline = `2px solid var(${borderToken})`;
         stateStyles.outlineOffset = "2px";
       }
 
       return { ...baseStyles, ...variantStyles, ...stateStyles, ...style };
-    }, [variant, sizeConfig, borderRadius, fillContainer, justifyContent, currentState, isDisabled, style]);
+    }, [variant, sizeConfig, borderRadius, fillContainer, justifyContent, currentState, isDisabled, isLoading, color, style]);
 
     const showStartIcon = !loading && startIcon;
     const showEndIcon = !loading && endIcon;
+
+    const handleClick = useCallback(
+      (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (isDisabled || isLoading) {
+          e.preventDefault();
+          return;
+        }
+        onClick?.(e);
+      },
+      [isDisabled, isLoading, onClick]
+    );
 
     return (
       <button
@@ -304,7 +336,7 @@ export function Button({
         className={className}
         style={buttonStyles}
         disabled={isDisabled}
-        onClick={onClick}
+        onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onFocus={handleFocus}

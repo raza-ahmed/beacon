@@ -6,11 +6,12 @@ export { Switch } from "./components/Switch";
 export { Input } from "./components/Input";
 export { Avatar } from "./components/Avatar";
 export { Chip } from "./components/Chip";
-export { Menu } from "./components/Menu";
+export { Menu, type MenuItem as MenuItemData } from "./components/Menu";
+export { MenuItem, type MenuItemProps, type MenuItemState } from "./components/MenuItem";
 export { RadioButton } from "./components/RadioButton";
 
 // Component Props Types
-export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState } from "./components/Button";
+export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState, ButtonColor } from "./components/Button";
 export type { CardProps, CardType, ProductCardSize, ProductCardStatus, ExperienceCardType, GenericCardStatus } from "./components/Card";
 export type { CheckboxProps, CheckboxStatus } from "./components/Checkbox";
 export type { SwitchProps, SwitchStatus } from "./components/Switch";
