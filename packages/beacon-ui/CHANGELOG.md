@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.9] - 2025-12-29
+
+### Added
+- Menu component now supports render props for full customization:
+  - `renderSwitch` - Customize or replace the Switch component with your own implementation
+  - `renderToggleButton` - Customize or replace the toggle button (menu/close icon) with your own component
+  - `renderButton` - Customize or replace the menu action button with your own component
+- Menu component callback props for handling interactions:
+  - `onSwitchChange` - Callback when Switch value changes
+  - `onToggleButtonClick` - Callback when toggle button is clicked
+  - `onButtonClick` - Callback when menu action button is clicked
+- Exported render prop types: `SwitchRenderProps`, `ToggleButtonRenderProps`, `MenuButtonRenderProps`
+
+### Changed
+- Menu component now uses internal state management for Switch, allowing better control and customization
+- Render props are optional - if not provided, Menu uses default components (backward compatible)
+
 ## [3.1.8] - 2025-12-29
 
 ### Fixed

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, ComponentPropsWithRef, useState, ReactNode } from "react";
+import { useMemo, ComponentPropsWithRef, useState, useCallback, useEffect, ReactNode } from "react";
 import { UserPersonIcon, ChevronRightIcon, CloseIcon, MenuIcon, DownloadIcon } from "../icons";
 import { Switch } from "./Switch";
 import { useThemeSafe } from "../providers/ThemeProvider";
@@ -16,6 +16,20 @@ export interface MenuItem {
   onClick?: (item: MenuItem) => void;
 }
 
+export interface SwitchRenderProps {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}
+
+export interface ToggleButtonRenderProps {
+  isOpen: boolean;
+  onClick: () => void;
+}
+
+export interface MenuButtonRenderProps {
+  onClick: () => void;
+}
+
 export interface MenuProps extends ComponentPropsWithRef<"div"> {
   variant?: MenuVariant;
   showMenu?: boolean;
@@ -27,6 +41,12 @@ export interface MenuProps extends ComponentPropsWithRef<"div"> {
   avatarImageUrl?: string;
   selectedItemId?: string;
   onItemClick?: (item: MenuItem) => void;
+  renderSwitch?: (props: SwitchRenderProps) => ReactNode;
+  renderToggleButton?: (props: ToggleButtonRenderProps) => ReactNode;
+  renderButton?: (props: MenuButtonRenderProps) => ReactNode;
+  onSwitchChange?: (checked: boolean) => void;
+  onToggleButtonClick?: () => void;
+  onButtonClick?: () => void;
 }
 
 const DEFAULT_MENU_ITEMS: MenuItem[] = [
@@ -48,6 +68,12 @@ export function Menu({
   avatarImageUrl,
   selectedItemId,
   onItemClick,
+  renderSwitch,
+  renderToggleButton,
+  renderButton,
+  onSwitchChange,
+  onToggleButtonClick,
+  onButtonClick,
   className,
   style,
   ref,
@@ -56,6 +82,31 @@ export function Menu({
   const themeContext = useThemeSafe();
   const theme = themeContext?.theme ?? "dark";
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
+  const [switchChecked, setSwitchChecked] = useState<boolean>(theme === "dark");
+  
+  // Update switch checked state when theme changes
+  useEffect(() => {
+    setSwitchChecked(theme === "dark");
+  }, [theme]);
+
+  const handleSwitchChange = useCallback((checked: boolean) => {
+    setSwitchChecked(checked);
+    if (onSwitchChange) {
+      onSwitchChange(checked);
+    }
+  }, [onSwitchChange]);
+
+  const handleToggleButtonClick = useCallback(() => {
+    if (onToggleButtonClick) {
+      onToggleButtonClick();
+    }
+  }, [onToggleButtonClick]);
+
+  const handleButtonClick = useCallback(() => {
+    if (onButtonClick) {
+      onButtonClick();
+    }
+  }, [onButtonClick]);
   const containerStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
       display: "flex",
@@ -233,11 +284,15 @@ export function Menu({
   if (variant === "close-menu") {
     return (
       <div ref={ref} className={className} style={{ ...containerStyles, ...style }} {...rest}>
-        <button style={iconButtonStyles}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px" }}>
-            <CloseIcon size={32} />
-          </div>
-        </button>
+        {renderToggleButton ? (
+          renderToggleButton({ isOpen: true, onClick: handleToggleButtonClick })
+        ) : (
+          <button style={iconButtonStyles} onClick={handleToggleButtonClick}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px" }}>
+              <CloseIcon size={32} />
+            </div>
+          </button>
+        )}
       </div>
     );
   }
@@ -381,23 +436,39 @@ export function Menu({
           {/* Footer with Button, Switch, and Icons */}
           <div style={footerStyles}>
             {showButton && (
-              <div style={buttonStyles}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "16px", height: "16px" }}>
-                  <DownloadIcon size={16} />
+              renderButton ? (
+                renderButton({ onClick: handleButtonClick })
+              ) : (
+                <div style={buttonStyles} onClick={handleButtonClick}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "16px", height: "16px" }}>
+                    <DownloadIcon size={16} />
+                  </div>
+                  <span>Button</span>
                 </div>
-                <span>Button</span>
-              </div>
+              )
             )}
-            <Switch
-              checked={theme === "dark"}
-              showIcons={true}
-            />
-            <button style={iconButtonStyles}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px" }}>
-                {(isTabletOpen || isMobileOpen) && <CloseIcon size={32} />}
-                {(isTabletClosed || isMobileClosed) && <MenuIcon size={32} />}
-              </div>
-            </button>
+            {renderSwitch ? (
+              renderSwitch({ checked: switchChecked, onChange: handleSwitchChange })
+            ) : (
+              <Switch
+                checked={switchChecked}
+                onChange={handleSwitchChange}
+                showIcons={true}
+              />
+            )}
+            {renderToggleButton ? (
+              renderToggleButton({ 
+                isOpen: isTabletOpen || isMobileOpen, 
+                onClick: handleToggleButtonClick 
+              })
+            ) : (
+              <button style={iconButtonStyles} onClick={handleToggleButtonClick}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px" }}>
+                  {(isTabletOpen || isMobileOpen) && <CloseIcon size={32} />}
+                  {(isTabletClosed || isMobileClosed) && <MenuIcon size={32} />}
+                </div>
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -461,19 +532,28 @@ export function Menu({
         <>
           {showButton && (
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-400)", padding: "var(--spacing-400)", width: "100%" }}>
-              <div style={buttonStyles}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "16px", height: "16px" }}>
-                  <DownloadIcon size={16} />
+              {renderButton ? (
+                renderButton({ onClick: handleButtonClick })
+              ) : (
+                <div style={buttonStyles} onClick={handleButtonClick}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "16px", height: "16px" }}>
+                    <DownloadIcon size={16} />
+                  </div>
+                  <span>Button</span>
                 </div>
-                <span>Button</span>
-              </div>
+              )}
             </div>
           )}
           <div style={footerStyles}>
-            <Switch
-              checked={theme === "dark"}
-              showIcons={true}
-            />
+            {renderSwitch ? (
+              renderSwitch({ checked: switchChecked, onChange: handleSwitchChange })
+            ) : (
+              <Switch
+                checked={switchChecked}
+                onChange={handleSwitchChange}
+                showIcons={true}
+              />
+            )}
           </div>
         </>
       )}

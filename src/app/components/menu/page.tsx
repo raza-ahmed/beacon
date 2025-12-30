@@ -189,6 +189,9 @@ export default function MenuPage() {
             Menu items support interactive states (hover, selected, onClick), custom icons, and click handlers. Items automatically highlight on hover and can be marked as selected for active navigation states.
           </p>
           <p className="ds-content__text">
+            The Menu component supports customization through render props, allowing you to replace the default Switch, toggle button, and menu button with your own components. This makes it easy to integrate the Menu into different projects with varying requirements.
+          </p>
+          <p className="ds-content__text">
             All menu styles are built using design tokens, ensuring consistency across themes and hues. Use the interactive playground below to explore all available combinations.
           </p>
         </section>
@@ -446,25 +449,45 @@ export default function MenuPage() {
                   className="ds-menu-code-copy"
                   onClick={async () => {
                     await copyToClipboard(`interface MenuItem {
-    id: string;
-    label: string;
-    icon?: React.ReactNode;
-    selected?: boolean;
-    onClick?: (item: MenuItem) => void;
-}
+                          id: string;
+                          label: string;
+                          icon?: React.ReactNode;
+                          selected?: boolean;
+                          onClick?: (item: MenuItem) => void;
+                      }
 
-interface MenuProps {
-    variant?: "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
-    showMenu?: boolean;
-    showButton?: boolean;
-    menuItems?: MenuItem[];
-    headerTitle?: string;
-    headerSubtitle?: string;
-    showChevrons?: boolean;
-    avatarImageUrl?: string;
-    selectedItemId?: string;
-    onItemClick?: (item: MenuItem) => void;
-}`);
+                      interface SwitchRenderProps {
+                          checked: boolean;
+                          onChange: (checked: boolean) => void;
+                      }
+
+                      interface ToggleButtonRenderProps {
+                          isOpen: boolean;
+                          onClick: () => void;
+                      }
+
+                      interface MenuButtonRenderProps {
+                          onClick: () => void;
+                      }
+
+                      interface MenuProps {
+                          variant?: "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
+                          showMenu?: boolean;
+                          showButton?: boolean;
+                          menuItems?: MenuItem[];
+                          headerTitle?: string;
+                          headerSubtitle?: string;
+                          showChevrons?: boolean;
+                          avatarImageUrl?: string;
+                          selectedItemId?: string;
+                          onItemClick?: (item: MenuItem) => void;
+                          renderSwitch?: (props: SwitchRenderProps) => React.ReactNode;
+                          renderToggleButton?: (props: ToggleButtonRenderProps) => React.ReactNode;
+                          renderButton?: (props: MenuButtonRenderProps) => React.ReactNode;
+                          onSwitchChange?: (checked: boolean) => void;
+                          onToggleButtonClick?: () => void;
+                          onButtonClick?: () => void;
+                      }`);
                     setCopiedExample("api");
                     setTimeout(() => setCopiedExample(null), 2000);
                   }}
@@ -502,25 +525,45 @@ interface MenuProps {
                   PreTag="div"
                 >
                   {`interface MenuItem {
-  id: string;
-  label: string;
-  icon?: React.ReactNode;
-  selected?: boolean;
-  onClick?: (item: MenuItem) => void;
-}
+                id: string;
+                label: string;
+                icon?: React.ReactNode;
+                selected?: boolean;
+                onClick?: (item: MenuItem) => void;
+              }
 
-interface MenuProps {
-  variant?: "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
-  showMenu?: boolean;
-  showButton?: boolean;
-  menuItems?: MenuItem[];
-  headerTitle?: string;
-  headerSubtitle?: string;
-  showChevrons?: boolean;
-  avatarImageUrl?: string;
-  selectedItemId?: string;
-  onItemClick?: (item: MenuItem) => void;
-}`}
+              interface SwitchRenderProps {
+                checked: boolean;
+                onChange: (checked: boolean) => void;
+              }
+
+              interface ToggleButtonRenderProps {
+                isOpen: boolean;
+                onClick: () => void;
+              }
+
+              interface MenuButtonRenderProps {
+                onClick: () => void;
+              }
+
+              interface MenuProps {
+                variant?: "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
+                showMenu?: boolean;
+                showButton?: boolean;
+                menuItems?: MenuItem[];
+                headerTitle?: string;
+                headerSubtitle?: string;
+                showChevrons?: boolean;
+                avatarImageUrl?: string;
+                selectedItemId?: string;
+                onItemClick?: (item: MenuItem) => void;
+                renderSwitch?: (props: SwitchRenderProps) => React.ReactNode;
+                renderToggleButton?: (props: ToggleButtonRenderProps) => React.ReactNode;
+                renderButton?: (props: MenuButtonRenderProps) => React.ReactNode;
+                onSwitchChange?: (checked: boolean) => void;
+                onToggleButtonClick?: () => void;
+                onButtonClick?: () => void;
+              }`}
                 </SyntaxHighlighter>
               </div>
             </div>
@@ -667,6 +710,90 @@ interface MenuProps {
                     Callback function called when a menu item is clicked. Receives the clicked MenuItem as parameter.
                   </div>
                 </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>renderSwitch</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>(props: SwitchRenderProps) =&gt; React.ReactNode</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Render prop to customize or replace the Switch component. Receives checked state and onChange handler. If not provided, uses default Switch component.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>renderToggleButton</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>(props: ToggleButtonRenderProps) =&gt; React.ReactNode</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Render prop to customize or replace the toggle button (menu/close icon). Receives isOpen state and onClick handler. If not provided, uses default button with icons.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>renderButton</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>(props: MenuButtonRenderProps) =&gt; React.ReactNode</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Render prop to customize or replace the menu action button. Receives onClick handler. If not provided, uses default button with DownloadIcon.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>onSwitchChange</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>(checked: boolean) =&gt; void</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Callback function called when the Switch value changes. Useful for handling theme toggling or other switch-related functionality.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>onToggleButtonClick</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>() =&gt; void</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Callback function called when the toggle button is clicked. Useful for handling menu open/close state.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>onButtonClick</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>() =&gt; void</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Callback function called when the menu action button is clicked. Useful for handling button-specific actions.
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-api-reference__type" style={{ marginTop: "var(--spacing-500)" }}>
@@ -720,12 +847,12 @@ interface MenuProps {
                   PreTag="div"
                 >
                   {`interface MenuItem {
-  id: string;
-  label: string;
-  icon?: React.ReactNode;
-  selected?: boolean;
-  onClick?: (item: MenuItem) => void;
-}`}
+                    id: string;
+                    label: string;
+                    icon?: React.ReactNode;
+                    selected?: boolean;
+                    onClick?: (item: MenuItem) => void;
+                  }`}
                 </SyntaxHighlighter>
               </div>
               <div className="ds-api-reference__props" style={{ marginTop: "var(--spacing-400)" }}>
@@ -852,9 +979,9 @@ interface MenuProps {
                   className="ds-menu-code-copy"
                   onClick={async () => {
                     await copyToClipboard(`<Menu 
-  headerTitle="John Doe"
-  headerSubtitle="Administrator"
-/>`);
+                    headerTitle="John Doe"
+                    headerSubtitle="Administrator"
+                  />`);
                     setCopiedExample("header");
                     setTimeout(() => setCopiedExample(null), 2000);
                   }}
@@ -892,9 +1019,9 @@ interface MenuProps {
                   PreTag="div"
                 >
                   {`<Menu 
-  headerTitle="John Doe"
-  headerSubtitle="Administrator"
-/>`}
+                headerTitle="John Doe"
+                headerSubtitle="Administrator"
+              />`}
                 </SyntaxHighlighter>
               </div>
             </div>
@@ -906,8 +1033,8 @@ interface MenuProps {
                   className="ds-menu-code-copy"
                   onClick={async () => {
                     await copyToClipboard(`<Menu 
-  showButton={false}
-/>`);
+              showButton={false}
+            />`);
                     setCopiedExample("no-button");
                     setTimeout(() => setCopiedExample(null), 2000);
                   }}
@@ -1266,6 +1393,128 @@ const menuItems: MenuItem[] = [
   avatarImageUrl="/images/avatars/user.jpg"
   headerTitle="John Doe"
   headerSubtitle="Administrator"
+/>`}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Menu with Custom Components</h6>
+              <div style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="ds-menu-code-copy"
+                  onClick={async () => {
+                    await copyToClipboard(`import { Menu, Button, Switch } from 'beacon-ui';
+import { DownloadIcon } from 'beacon-icons';
+
+<Menu
+  menuItems={menuItems}
+  // Custom Switch component
+  renderSwitch={({ checked, onChange }) => (
+    <Switch 
+      checked={checked} 
+      onChange={onChange}
+      showIcons={true}
+    />
+  )}
+  // Custom toggle button
+  renderToggleButton={({ isOpen, onClick }) => (
+    <Button onClick={onClick} variant="outline" size="sm">
+      {isOpen ? "Close" : "Open"}
+    </Button>
+  )}
+  // Custom menu button
+  renderButton={({ onClick }) => (
+    <Button onClick={onClick} startIcon={<DownloadIcon size={16} />}>
+      Download
+    </Button>
+  )}
+  onSwitchChange={(checked) => {
+    console.log('Switch:', checked);
+    // Handle switch change (e.g., toggle theme)
+  }}
+  onToggleButtonClick={() => {
+    console.log('Toggle clicked');
+    // Handle toggle (e.g., open/close menu)
+  }}
+  onButtonClick={() => {
+    console.log('Button clicked');
+    // Handle button action (e.g., download)
+  }}
+/>`);
+                    setCopiedExample("custom-components");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "custom-components" ? (
+                    <>
+                      <CheckIcon size="xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon size="xs" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--bg-page-secondary)",
+                    fontSize: "var(--body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    border: "var(--border-width-25) solid var(--border-strong-100)",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                  {`import { Menu, Button, Switch } from 'beacon-ui';
+import { DownloadIcon } from 'beacon-icons';
+
+<Menu
+  menuItems={menuItems}
+  // Custom Switch component
+  renderSwitch={({ checked, onChange }) => (
+    <Switch 
+      checked={checked} 
+      onChange={onChange}
+      showIcons={true}
+    />
+  )}
+  // Custom toggle button
+  renderToggleButton={({ isOpen, onClick }) => (
+    <Button onClick={onClick} variant="outline" size="sm">
+      {isOpen ? "Close" : "Open"}
+    </Button>
+  )}
+  // Custom menu button
+  renderButton={({ onClick }) => (
+    <Button onClick={onClick} startIcon={<DownloadIcon size={16} />}>
+      Download
+    </Button>
+  )}
+  onSwitchChange={(checked) => {
+    console.log('Switch:', checked);
+    // Handle switch change (e.g., toggle theme)
+  }}
+  onToggleButtonClick={() => {
+    console.log('Toggle clicked');
+    // Handle toggle (e.g., open/close menu)
+  }}
+  onButtonClick={() => {
+    console.log('Button clicked');
+    // Handle button action (e.g., download)
+  }}
 />`}
                 </SyntaxHighlighter>
               </div>
