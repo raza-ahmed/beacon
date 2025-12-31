@@ -44,10 +44,10 @@ const SIZE_CONFIG: Record<
   sm: {
     height: "28px",
     iconSize: 16,
-    fontSize: "var(--body-small-text-size)",
-    lineHeight: "var(--body-small-line-height)",
-    labelFontSize: "var(--body-extra-small-text-size)",
-    labelLineHeight: "var(--body-extra-small-line-height)",
+    fontSize: "var(--fonts-body-small-text-size)",
+    lineHeight: "var(--fonts-body-small-line-height)",
+    labelFontSize: "var(--fonts-body-extra-small-text-size)",
+    labelLineHeight: "var(--fonts-body-extra-small-line-height)",
     paddingX: "var(--spacing-200)",
     paddingY: "var(--spacing-100)",
     borderRadius: "var(--corner-radius-100)",
@@ -56,10 +56,10 @@ const SIZE_CONFIG: Record<
   md: {
     height: "36px",
     iconSize: 16,
-    fontSize: "var(--body-small-text-size)",
-    lineHeight: "var(--body-small-line-height)",
-    labelFontSize: "var(--body-small-text-size)",
-    labelLineHeight: "var(--body-small-line-height)",
+    fontSize: "var(--fonts-body-small-text-size)",
+    lineHeight: "var(--fonts-body-small-line-height)",
+    labelFontSize: "var(--fonts-body-small-text-size)",
+    labelLineHeight: "var(--fonts-body-small-line-height)",
     paddingX: "var(--spacing-200)",
     paddingY: "var(--spacing-100)",
     borderRadius: "var(--corner-radius-100)",
@@ -68,10 +68,10 @@ const SIZE_CONFIG: Record<
   lg: {
     height: "48px",
     iconSize: 20,
-    fontSize: "var(--body-regular-text-size)",
-    lineHeight: "var(--body-regular-line-height)",
-    labelFontSize: "var(--body-regular-text-size)",
-    labelLineHeight: "var(--body-regular-line-height)",
+    fontSize: "var(--fonts-body-regular-text-size)",
+    lineHeight: "var(--fonts-body-regular-line-height)",
+    labelFontSize: "var(--fonts-body-regular-text-size)",
+    labelLineHeight: "var(--fonts-body-regular-line-height)",
     paddingX: "var(--spacing-400)",
     paddingY: "var(--spacing-300)",
     borderRadius: "var(--corner-radius-200)",
@@ -190,8 +190,8 @@ export function InputPreview({
 
   const errorMessageStyles = useMemo(() => {
     return {
-      fontSize: "var(--body-extra-small-text-size)",
-      lineHeight: "var(--body-extra-small-line-height)",
+      fontSize: "var(--fonts-body-extra-small-text-size)",
+      lineHeight: "var(--fonts-body-extra-small-line-height)",
       fontFamily: "var(--font-secondary)",
       color: "var(--fg-critical)",
     } as React.CSSProperties;

@@ -146,8 +146,8 @@ body {
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   width: 180px;
   padding: var(--spacing-200) var(--spacing-200) var(--spacing-200) calc(var(--spacing-200) + var(--icon-size-xs) + var(--spacing-100));
@@ -168,8 +168,8 @@ body {
   padding: var(--spacing-100) var(--spacing-200);
   background-color: var(--bg-primary-tonal);
   border-radius: var(--corner-radius-200);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary-on-tonal);
 }
@@ -192,8 +192,8 @@ body {
   border-radius: var(--corner-radius-200);
   color: var(--fg-neutral-secondary);
   font-family: inherit;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   cursor: pointer;
   transition: border-color 0.2s ease;
 }
@@ -224,8 +224,8 @@ body {
   border-radius: var(--corner-radius-100);
   color: var(--fg-neutral-tertiary);
   font-family: inherit;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -337,8 +337,8 @@ body {
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   width: 100%;
   min-width: 0;
@@ -473,8 +473,8 @@ body {
   border-radius: var(--corner-radius-200);
   color: var(--fg-neutral-tertiary);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   text-decoration: none;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -545,8 +545,8 @@ body {
   border-radius: var(--corner-radius-200);
   color: var(--fg-neutral-tertiary);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -577,9 +577,9 @@ body {
 
 .ds-content__title {
   font-family: var(--font-primary);
-  font-size: var(--heading-h3-text-size);
+  font-size: var(--fonts-heading-h3-text-size);
   font-weight: var(--font-weight-primary-semibold);
-  line-height: var(--heading-h3-line-height);
+  line-height: var(--fonts-heading-h3-line-height);
   color: var(--fg-neutral);
   text-transform: capitalize;
   margin-bottom: var(--spacing-300);
@@ -587,8 +587,8 @@ body {
 
 .ds-content__subtitle {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -607,8 +607,8 @@ body {
 
 .ds-content__text {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral-secondary);
   margin-bottom: var(--spacing-300);
 }
@@ -621,8 +621,8 @@ body {
   gap: var(--spacing-200);
   color: var(--fg-neutral-secondary);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
 }
 
 .ds-content__bullet-list li {
@@ -673,7 +673,7 @@ body {
 
 .ds-content__link {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
+  font-size: var(--fonts-body-regular-text-size);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary);
   text-decoration: none;
@@ -687,8 +687,8 @@ body {
 
 .ds-content__link-desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-tertiary);
 }
 
@@ -709,9 +709,9 @@ body {
 
 .ds-content__version-value {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
+  font-size: var(--fonts-body-small-text-size);
   font-weight: var(--font-weight-secondary-medium);
-  line-height: var(--body-small-line-height);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-tertiary);
 }
 
@@ -738,8 +738,8 @@ body {
 
 .ds-token-controls__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-tertiary);
 }
 
@@ -760,8 +760,8 @@ body {
   background: transparent;
   color: var(--fg-neutral);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-100);
   cursor: pointer;
@@ -786,8 +786,8 @@ body {
   background-color: var(--bg-page-primary);
   border: var(--border-width-25) solid var(--border-strong-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -816,8 +816,8 @@ body {
   background-color: var(--bg-page-primary);
   color: var(--fg-neutral);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   outline: none;
 }
 
@@ -855,8 +855,8 @@ body {
 .ds-color-table__desc {
   margin-top: var(--spacing-100);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -896,8 +896,8 @@ body {
   background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
   cursor: pointer;
@@ -910,8 +910,8 @@ body {
 }
 
 .ds-color-button__label {
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
 }
 
 .ds-color-button:hover {
@@ -938,8 +938,8 @@ body {
 .ds-color-token__code {
   display: inline-block;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
@@ -950,16 +950,16 @@ body {
 
 .ds-color-token__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-color-token__guidance {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -997,23 +997,23 @@ body {
 
 .ds-color-preview__subtitle {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   opacity: 0.9;
 }
 
 .ds-color-value {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   word-break: break-word;
 }
 
 .ds-color-value__meta {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-tertiary);
 }
 
@@ -1036,8 +1036,8 @@ body {
 .ds-palette__desc {
   margin-top: var(--spacing-100);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -1087,8 +1087,8 @@ body {
 .ds-palette-family__desc {
   margin-top: var(--spacing-50);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-tertiary);
 }
 
@@ -1116,8 +1116,8 @@ body {
 
 .ds-palette-family__preview-value {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   text-align: center;
   font-weight: var(--font-weight-secondary-medium);
@@ -1247,16 +1247,16 @@ body {
 
 .ds-swatch__var {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   word-break: break-word;
 }
 
 .ds-swatch__value {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   word-break: break-word;
 }
@@ -1292,8 +1292,8 @@ body {
 
 .ds-token-mapping__example {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-primary-on-tonal);
   background-color: var(--bg-primary-tonal);
   padding: var(--spacing-100) var(--spacing-200);
@@ -1304,8 +1304,8 @@ body {
 
 .ds-token-mapping__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -1363,8 +1363,8 @@ body {
 
 .ds-contrast__note {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin-bottom: var(--spacing-300);
 }
@@ -1396,16 +1396,16 @@ body {
 
 .ds-contrast__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-contrast__guidance {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -1435,16 +1435,16 @@ body {
 
 .ds-contrast__value {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   word-break: break-word;
 }
 
 .ds-contrast__code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   background-color: transparent;
   padding: 0;
@@ -1452,15 +1452,15 @@ body {
 
 .ds-contrast__ratio {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral);
 }
 
 .ds-contrast__status {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -1503,8 +1503,8 @@ body {
 
 .ds-token-row__code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
@@ -1514,16 +1514,16 @@ body {
 
 .ds-token-row__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-token-row__guidance {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -1540,8 +1540,8 @@ body {
   background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
   cursor: pointer;
@@ -1554,8 +1554,8 @@ body {
 }
 
 .ds-token-button__label {
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
 }
 
 .ds-token-button:hover {
@@ -1614,8 +1614,8 @@ body {
 
 .ds-token-preview__subtitle {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: inherit;
   opacity: 0.9;
 }
@@ -1630,8 +1630,8 @@ body {
 .ds-token-row__summary {
   cursor: pointer;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -1657,8 +1657,8 @@ body {
 
 .ds-spacing-bar__label {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   white-space: nowrap;
 }
@@ -1722,8 +1722,8 @@ body {
 
 .ds-responsive-preview__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -1776,8 +1776,8 @@ body {
   background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
   cursor: pointer;
@@ -1810,8 +1810,8 @@ body {
   padding: var(--spacing-200);
   border-radius: var(--corner-radius-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   text-align: center;
 }
@@ -1825,8 +1825,8 @@ body {
 .ds-theme-preview__text p {
   margin: 0;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
 }
 
 .ds-theme-preview__tokens {
@@ -1846,16 +1846,16 @@ body {
 
 .ds-theme-preview__token-name {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   flex: 1;
 }
 
 .ds-theme-preview__token-value {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   white-space: nowrap;
 }
@@ -1885,8 +1885,8 @@ body {
   background-color: var(--bg-page-primary);
   border-top: none;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
@@ -1926,8 +1926,8 @@ body {
   .ds-theme-comparison__cell::before {
     content: attr(data-label);
     font-family: var(--font-secondary);
-    font-size: var(--body-small-text-size);
-    line-height: var(--body-small-line-height);
+    font-size: var(--fonts-body-small-text-size);
+    line-height: var(--fonts-body-small-line-height);
     font-weight: var(--font-weight-secondary-medium);
     color: var(--fg-neutral-secondary);
     margin-right: var(--spacing-200);
@@ -1988,8 +1988,8 @@ body {
   background-color: var(--bg-page-primary);
   border-top: none;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
@@ -2024,8 +2024,8 @@ body {
   .ds-spacing-table__cell::before {
     content: attr(data-label);
     font-family: var(--font-secondary);
-    font-size: var(--body-small-text-size);
-    line-height: var(--body-small-line-height);
+    font-size: var(--fonts-body-small-text-size);
+    line-height: var(--fonts-body-small-line-height);
     font-weight: var(--font-weight-secondary-medium);
     color: var(--fg-neutral-secondary);
     margin-right: var(--spacing-200);
@@ -2044,8 +2044,8 @@ body {
 
 .ds-codeblock code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   white-space: pre;
 }
@@ -2127,8 +2127,8 @@ body {
 
   .ds-color-table__row--head .ds-color-table__cell {
     font-family: var(--font-secondary);
-    font-size: var(--body-small-text-size);
-    line-height: var(--body-small-line-height);
+    font-size: var(--fonts-body-small-text-size);
+    line-height: var(--fonts-body-small-line-height);
     font-weight: var(--font-weight-secondary-medium);
     color: var(--fg-neutral-tertiary);
   }
@@ -2148,8 +2148,8 @@ body {
 
   .ds-contrast__row--head .ds-contrast__cell {
     font-family: var(--font-secondary);
-    font-size: var(--body-small-text-size);
-    line-height: var(--body-small-line-height);
+    font-size: var(--fonts-body-small-text-size);
+    line-height: var(--fonts-body-small-line-height);
     font-weight: var(--font-weight-secondary-medium);
     color: var(--fg-neutral-tertiary);
   }
@@ -2388,8 +2388,8 @@ body {
   background-color: var(--static-primary);
   color: var(--static-white);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   border-radius: var(--corner-radius-100);
   cursor: pointer;
   box-shadow: var(--shadow-subtle);
@@ -2448,7 +2448,7 @@ body {
   margin: 0;
   padding: var(--spacing-300);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
+  font-size: var(--fonts-body-small-text-size);
   line-height: 1.5;
   color: var(--fg-neutral);
   background-color: var(--bg-page-tertiary);
@@ -2505,6 +2505,77 @@ body {
 .ds-card-preview-canvas {
   overflow: auto;
   padding: var(--spacing-200);
+}
+
+/* ============================================
+   CARD USAGE EXAMPLES (Independent from Playground)
+   ============================================ */
+
+.ds-card-example-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  margin-bottom: var(--spacing-400);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-300);
+  background-color: var(--bg-page-primary);
+  overflow: hidden;
+}
+
+.ds-card-example-preview {
+  width: 100%;
+  min-width: 0;
+}
+
+.ds-card-example-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: var(--spacing-400);
+}
+
+.ds-card-example-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/patterns/Dots_pt.png");
+  background-repeat: repeat;
+  background-size: 124px 124px;
+  background-position: top left;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ds-card-example-canvas {
+  padding: var(--spacing-200);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.ds-card-example-code {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-200);
+  background-color: var(--bg-page-secondary);
+  border-top: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-card-example-code > div {
+  position: relative;
+}
+
+.ds-card-example-code .ds-card-code-copy {
+  position: absolute;
+  top: var(--spacing-200);
+  right: var(--spacing-200);
+  z-index: 10;
 }
 
 .ds-button-preview-button {
@@ -2596,8 +2667,8 @@ body {
 .ds-radio-button-control-label,
 .ds-menu-control-label {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
@@ -2613,8 +2684,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
 }
@@ -2656,8 +2727,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23524e4f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -2875,8 +2946,8 @@ body {
   display: flex;
   justify-content: space-between;
   font-family: var(--font-secondary);
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
 }
 
@@ -2909,8 +2980,8 @@ body {
   align-items: center;
   gap: var(--spacing-100);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   cursor: pointer;
 }
@@ -2987,7 +3058,7 @@ body {
   background-color: transparent;
   color: var(--fg-neutral);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
+  font-size: var(--fonts-body-small-text-size);
   font-weight: var(--font-weight-secondary-medium);
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
@@ -3047,8 +3118,8 @@ body {
 
 .ds-anatomy-diagram__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
 }
 
@@ -3066,16 +3137,16 @@ body {
 
 .ds-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
@@ -3110,7 +3181,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
+  font-size: var(--fonts-body-regular-text-size);
   font-weight: var(--font-weight-secondary-medium);
   line-height: 1;
 }
@@ -3138,8 +3209,8 @@ body {
 
 .ds-button-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-semibold);
   color: var(--fg-neutral);
   margin: 0;
@@ -3147,8 +3218,8 @@ body {
 
 .ds-button-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -3168,8 +3239,8 @@ body {
   background-color: var(--bg-primary);
   color: var(--fg-on-action);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   padding: var(--spacing-200) var(--spacing-400);
   border-radius: var(--corner-radius-200);
@@ -3182,8 +3253,8 @@ body {
   background-color: var(--bg-primary-tonal);
   color: var(--fg-primary-on-tonal);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   padding: var(--spacing-200) var(--spacing-400);
   border-radius: var(--corner-radius-200);
@@ -3196,8 +3267,8 @@ body {
   background-color: transparent;
   color: var(--fg-primary);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   padding: var(--spacing-200) var(--spacing-400);
   border-radius: var(--corner-radius-200);
@@ -3210,8 +3281,8 @@ body {
   background-color: transparent;
   color: var(--fg-primary);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   padding: 0;
   text-decoration: underline;
@@ -3322,8 +3393,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23524e4f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -3352,8 +3423,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
@@ -3388,8 +3459,8 @@ body {
 
 .ds-avatar-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-semibold);
   color: var(--fg-neutral);
   margin: 0;
@@ -3397,8 +3468,8 @@ body {
 
 .ds-avatar-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -3434,7 +3505,7 @@ body {
   justify-content: center;
   color: var(--fg-on-action);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
+  font-size: var(--fonts-body-small-text-size);
   font-weight: var(--font-weight-secondary-medium);
 }
 
@@ -3531,8 +3602,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
   resize: vertical;
@@ -3566,8 +3637,8 @@ body {
 
 .ds-card-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-semibold);
   color: var(--fg-neutral);
   margin: 0;
@@ -3575,8 +3646,8 @@ body {
 
 .ds-card-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -3681,16 +3752,16 @@ body {
 
 .ds-card-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-card-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-100) var(--spacing-200);
@@ -3720,8 +3791,8 @@ body {
 
 .ds-card-product-info__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-semibold);
   color: var(--fg-neutral);
   margin: 0;
@@ -3729,8 +3800,8 @@ body {
 
 .ds-card-product-info__value {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -3754,8 +3825,8 @@ body {
 
 .ds-api-reference__type-title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-semibold);
   color: var(--fg-neutral);
   margin: 0 0 var(--spacing-200) 0;
@@ -3772,8 +3843,8 @@ body {
 
 .ds-api-reference__code code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral);
 }
 
@@ -3783,8 +3854,8 @@ body {
 
 .ds-api-reference__props-title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-semibold);
   color: var(--fg-neutral);
   margin: 0 0 var(--spacing-300) 0;
@@ -3805,8 +3876,8 @@ body {
 .ds-api-reference__props-cell {
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
 }
 
 .ds-api-reference__props-cell--name {
@@ -3820,7 +3891,7 @@ body {
 
 .ds-api-reference__props-cell--type code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  color: var(--fg-primary);
+  color: var(--fg-neutral);
 }
 
 .ds-api-reference__props-cell--default {
@@ -3869,9 +3940,9 @@ body {
 
 .ds-code-example__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
-  font-weight: var(--font-weight-secondary-medium);
+  font-size: var(--fonts-title-regular-text-size);
+  font-weight: var(--font-weight-secondary-bold);
+  line-height: var(--fonts-title-regular-line-height);
   color: var(--fg-neutral);
   margin: 0;
 }
@@ -3887,8 +3958,8 @@ body {
 
 .ds-code-example__code code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   color: var(--fg-neutral);
   white-space: pre;
 }
@@ -3966,8 +4037,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
 }
@@ -4002,8 +4073,8 @@ body {
 
 .ds-checkbox-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -4011,8 +4082,8 @@ body {
 
 .ds-checkbox-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -4062,8 +4133,8 @@ body {
 
 .ds-checkbox-anatomy-diagram__label-text {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral-secondary);
   margin: 0;
@@ -4083,16 +4154,16 @@ body {
 
 .ds-checkbox-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-checkbox-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
@@ -4156,8 +4227,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
 }
@@ -4190,8 +4261,8 @@ body {
 
 .ds-input-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -4199,8 +4270,8 @@ body {
 
 .ds-input-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -4241,8 +4312,8 @@ body {
 
 .ds-input-anatomy-diagram__label {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary);
   margin-bottom: var(--spacing-100);
@@ -4277,8 +4348,8 @@ body {
 .ds-input-anatomy-diagram__text {
   flex: 1;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-disabled);
 }
 
@@ -4289,8 +4360,8 @@ body {
   margin-top: var(--spacing-100);
   color: var(--fg-critical);
   font-family: var(--font-secondary);
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
 }
 
 .ds-input-anatomy-diagram__labels {
@@ -4307,16 +4378,16 @@ body {
 
 .ds-input-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-input-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
@@ -4384,8 +4455,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
 }
@@ -4435,8 +4506,8 @@ body {
 
 .ds-chip-anatomy-diagram__label-text {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-primary-on-tonal);
   margin: 0;
@@ -4456,16 +4527,16 @@ body {
 
 .ds-chip-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-chip-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
@@ -4492,8 +4563,8 @@ body {
 
 .ds-chip-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -4501,8 +4572,8 @@ body {
 
 .ds-chip-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -4623,16 +4694,16 @@ body {
 
 .ds-switch-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-switch-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
@@ -4659,8 +4730,8 @@ body {
 
 .ds-switch-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -4668,8 +4739,8 @@ body {
 
 .ds-switch-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -4743,8 +4814,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
 }
@@ -4798,8 +4869,8 @@ body {
 
 .ds-radio-button-anatomy-diagram__label-text {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral-secondary);
   margin: 0;
@@ -4819,16 +4890,16 @@ body {
 
 .ds-radio-button-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-radio-button-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--body-extra-small-text-size);
-  line-height: var(--body-extra-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
@@ -4859,8 +4930,8 @@ body {
 
 .ds-radio-button-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -4868,8 +4939,8 @@ body {
 
 .ds-radio-button-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -4962,8 +5033,8 @@ body {
   border-radius: var(--corner-radius-200);
   padding: var(--spacing-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
   transition: border-color 0.15s ease;
 }
@@ -5017,8 +5088,8 @@ body {
 
 .ds-menu-anatomy-diagram__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-regular);
   color: var(--fg-neutral);
   margin: 0;
@@ -5026,8 +5097,8 @@ body {
 
 .ds-menu-anatomy-diagram__subtitle {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -5052,8 +5123,8 @@ body {
 
 .ds-menu-anatomy-diagram__menu-item p {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral-secondary);
   margin: 0;
@@ -5083,16 +5154,16 @@ body {
 
 .ds-menu-anatomy-diagram__label-name {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
 }
 
 .ds-menu-anatomy-diagram__label-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   background-color: var(--bg-page-tertiary);
   padding: var(--spacing-100) var(--spacing-200);
@@ -5135,8 +5206,8 @@ body {
 
 .ds-menu-variant-card__title {
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
-  line-height: var(--body-regular-line-height);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral);
   margin: 0;
@@ -5144,8 +5215,8 @@ body {
 
 .ds-menu-variant-card__desc {
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
   margin: 0;
 }
@@ -5231,7 +5302,7 @@ body {
 .ds-search-results__group-title {
   padding: var(--spacing-100) var(--spacing-300);
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
+  font-size: var(--fonts-body-small-text-size);
   font-weight: var(--font-weight-secondary-medium);
   color: var(--fg-neutral-tertiary);
   text-transform: uppercase;
@@ -5258,8 +5329,8 @@ body {
 .ds-search-results__item-label {
   flex: 1;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
-  line-height: var(--body-small-line-height);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral);
 }
 
@@ -5272,7 +5343,7 @@ body {
   padding: var(--spacing-400) var(--spacing-300);
   text-align: center;
   font-family: var(--font-secondary);
-  font-size: var(--body-small-text-size);
+  font-size: var(--fonts-body-small-text-size);
   color: var(--fg-neutral-tertiary);
 }
 
@@ -5352,9 +5423,9 @@ body {
   padding: var(--spacing-200) var(--spacing-400);
   border-radius: var(--corner-radius-200);
   font-family: var(--font-secondary);
-  font-size: var(--body-regular-text-size);
+  font-size: var(--fonts-body-regular-text-size);
   font-weight: var(--font-weight-secondary-medium);
-  line-height: var(--body-regular-line-height);
+  line-height: var(--fonts-body-regular-line-height);
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;

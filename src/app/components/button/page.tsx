@@ -275,7 +275,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
                     flex: 1,
@@ -490,7 +490,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -671,7 +671,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -725,7 +725,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -780,7 +780,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -835,7 +835,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -891,7 +891,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -948,7 +948,7 @@ export default function ButtonPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}

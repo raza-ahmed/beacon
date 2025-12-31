@@ -1,53 +1,40 @@
-# Background Patterns
+# Pattern Images
 
-This directory contains background pattern images used in the Generic Card component.
+This directory contains background pattern images used by the Card component.
 
-## Pattern Types
+## Usage
 
-The following pattern types are available:
+These images are part of the `beacon-ui` package and are stored in `packages/beacon-ui/assets/patterns/`. 
 
-- **cubes** - Cubes pattern (33.5px × 50px)
-- **mathematics** - Mathematics pattern (64px × 128px)
-- **dots** - Dots pattern (186px × 186px)
-- **diagonal** - Diagonal lines pattern (7px × 7px)
-- **smudge** - Charcoal smudge pattern (200px × 200px)
-- **paper** - Rough paper pattern (158px × 158px)
-- **denim** - Denim pattern (210px × 163px)
-- **squares** - Squares pattern (32px × 32px)
-- **mosaic** - Mosaic pattern (355px × 288px)
-- **cotton** - Cotton pattern (157.5px × 157.5px)
+For the documentation site, they are automatically copied to `public/images/patterns/` during build via the `copy:assets` script.
 
-## How Patterns Work
+For consuming applications:
 
-Each pattern is a 128px × 128px frame containing a tiled image. The images use CSS `background-repeat: repeat` to automatically tile and fill any space while maintaining the pattern structure.
+1. Copy the pattern images from `node_modules/beacon-ui/assets/patterns/` to your application's `public/images/patterns/` directory
+2. The Card component will automatically reference them via `/images/patterns/` paths
 
-## Adding Pattern Images
+## Pattern Files
 
-Currently, patterns use Figma asset URLs which expire after 7 days. For production use:
+- `Cube_pt.png` - Cubes pattern
+- `Maths_pt.png` - Mathematics pattern
+- `Dots_pt.png` - Dots pattern
+- `Diagonal_pt.png` - Diagonal lines pattern
+- `Smudge_pt.png` - Charcoal smudge pattern
+- `Rough_Paper_pt.png` - Rough paper pattern
+- `Denim_pt.png` - Denim pattern
+- `Squares_pt.png` - Squares pattern
+- `Mosaic_pt.png` - Mosaic pattern
+- `Cotton_pt.png` - Cotton pattern
 
-1. Download the pattern images from Figma
-2. Save them in this directory with the naming convention: `{pattern-type}.png`
-   - Example: `cubes.png`, `mathematics.png`, etc.
-3. Update `src/utils/patternPaths.ts` to use local paths:
+## Automatic Setup (Optional)
 
-```typescript
-export const PATTERN_CONFIGS: Record<PatternType, PatternConfig> = {
-  cubes: {
-    imageUrl: "/images/patterns/cubes.png", // Changed from Figma URL
-    backgroundSize: "33.5px 50px",
-    backgroundPosition: "top left",
-  },
-  // ... update other patterns similarly
-};
+You can add a postinstall script to your `package.json` to automatically copy these images:
+
+```json
+{
+  "scripts": {
+    "postinstall": "mkdir -p public/images/patterns && cp -r node_modules/beacon-ui/assets/patterns/* public/images/patterns/"
+  }
+}
 ```
-
-## Pattern Configuration
-
-Each pattern has a configuration object that specifies:
-- `imageUrl`: Path to the pattern image
-- `backgroundSize`: The size of each tile (e.g., "33.5px 50px")
-- `backgroundPosition`: Starting position (usually "top left")
-- `inset`: Optional offset for positioning (e.g., "0 -322px -322px 0")
-
-These settings ensure the pattern tiles correctly and maintains its visual structure when applied to cards of different sizes.
 

@@ -195,7 +195,7 @@ export default function SwitchPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
                     flex: 1,
@@ -227,11 +227,11 @@ export default function SwitchPage() {
               <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "var(--spacing-500)" }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--spacing-200)" }}>
                   <SwitchPreview checked={false} status="default" theme={theme} hue={hue} />
-                  <p style={{ margin: 0, fontFamily: "var(--font-secondary)", fontSize: "var(--body-small-text-size)", color: "var(--fg-neutral-secondary)" }}>Unchecked</p>
+                  <p style={{ margin: 0, fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", color: "var(--fg-neutral-secondary)" }}>Unchecked</p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--spacing-200)" }}>
                   <SwitchPreview checked={true} status="default" theme={theme} hue={hue} />
-                  <p style={{ margin: 0, fontFamily: "var(--font-secondary)", fontSize: "var(--body-small-text-size)", color: "var(--fg-neutral-secondary)" }}>Checked</p>
+                  <p style={{ margin: 0, fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", color: "var(--fg-neutral-secondary)" }}>Checked</p>
                 </div>
               </div>
             </div>
@@ -417,7 +417,7 @@ export default function SwitchPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -536,7 +536,7 @@ export default function SwitchPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -586,7 +586,7 @@ export default function SwitchPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -639,7 +639,7 @@ export default function SwitchPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -692,7 +692,7 @@ export default function SwitchPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -745,7 +745,7 @@ export default function SwitchPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -805,7 +805,7 @@ export default function SwitchPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}

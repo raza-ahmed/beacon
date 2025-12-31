@@ -53,9 +53,9 @@
     "H3": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Font.Primary}",
+        "fontFamily": "{Fonts.IBM Plex Serif.Style.IBM Plex Serif}",
         "fontSize": "{Fonts.Heading.H3.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
+        "fontWeight": "{Fonts.IBM Plex Serif.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H3.Line Height}",
         "textTransform": "capitalize",

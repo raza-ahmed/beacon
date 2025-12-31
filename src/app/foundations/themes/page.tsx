@@ -287,7 +287,7 @@ export default function ThemesPage() {
                 className="ds-code-copy"
                 onClick={() => handleCopyCode(`:root, [data-theme="light"] {
                 --bg-page-primary: var(--color-neutral-50);
-                --fg-neutral: var(--color-neutral-900);
+                --fg-neutral: var(--color-neutral-800);
               }
 
               [data-theme="dark"] {
@@ -315,7 +315,7 @@ export default function ThemesPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -328,7 +328,7 @@ export default function ThemesPage() {
               >
                 {`:root, [data-theme="light"] {
   --bg-page-primary: var(--color-neutral-50);
-  --fg-neutral: var(--color-neutral-900);
+  --fg-neutral: var(--color-neutral-800);
 }
 
 [data-theme="dark"] {
@@ -345,15 +345,15 @@ export default function ThemesPage() {
                 type="button"
                 className="ds-code-copy"
                 onClick={() => handleCopyCode(`[data-hue="chromatic-prime"] {
-                    --color-primary-500: var(--color-purple-500);
+                    --color-primary-500: var(--color-chromatic-500);
                   }
 
                   [data-hue="hue-sky"] {
-                    --color-primary-500: var(--color-sky-500);
+                    --color-primary-500: var(--color-blue-500);
                   }
 
                   [data-hue="hue-indigo"] {
-                    --color-primary-500: var(--color-indigo-500);
+                    --color-primary-500: var(--color-purple-500);
                   }`, "css-2")}
                   aria-label="Copy code"
                 >
@@ -376,7 +376,7 @@ export default function ThemesPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -388,15 +388,15 @@ export default function ThemesPage() {
                 PreTag="div"
               >
                 {`[data-hue="chromatic-prime"] {
-                  --color-primary-500: var(--color-purple-500);
+                  --color-primary-500: var(--color-chromatic-500);
                 }
 
                 [data-hue="hue-sky"] {
-                  --color-primary-500: var(--color-sky-500);
+                  --color-primary-500: var(--color-blue-500);
                 }
 
                 [data-hue="hue-indigo"] {
-                  --color-primary-500: var(--color-indigo-500);
+                  --color-primary-500: var(--color-purple-500);
                 }`}
               </SyntaxHighlighter>
             </div>
@@ -452,7 +452,7 @@ export default function ThemesPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -538,7 +538,7 @@ color: #000000;`, "css-3")}
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}

@@ -29,22 +29,22 @@ const SIZE_CONFIG: Record<
 > = {
   sm: {
     iconSize: 16,
-    fontSize: "var(--body-extra-small-text-size)",
-    lineHeight: "var(--body-extra-small-line-height)",
+    fontSize: "var(--fonts-body-extra-small-text-size)",
+    lineHeight: "var(--fonts-body-extra-small-line-height)",
     paddingX: "var(--spacing-300)",
     paddingY: "var(--spacing-100)",
   },
   md: {
     iconSize: 20,
-    fontSize: "var(--body-small-text-size)",
-    lineHeight: "var(--body-small-line-height)",
+    fontSize: "var(--fonts-body-small-text-size)",
+    lineHeight: "var(--fonts-body-small-line-height)",
     paddingX: "var(--spacing-400)",
     paddingY: "var(--spacing-200)",
   },
   lg: {
     iconSize: 24,
-    fontSize: "var(--body-regular-text-size)",
-    lineHeight: "var(--body-regular-line-height)",
+    fontSize: "var(--fonts-body-regular-text-size)",
+    lineHeight: "var(--fonts-body-regular-line-height)",
     paddingX: "var(--spacing-450)",
     paddingY: "var(--spacing-200)",
   },

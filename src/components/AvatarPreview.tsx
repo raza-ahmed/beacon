@@ -39,9 +39,9 @@ const ICON_SIZE_CONFIG: Record<Exclude<AvatarSize, "xl">, { size: number }> = {
 
 // Text sizes (no xl)
 const TEXT_SIZE_CONFIG: Record<Exclude<AvatarSize, "xl">, { fontSize: string }> = {
-  sm: { fontSize: "var(--body-small-text-size)" },
-  md: { fontSize: "var(--body-regular-text-size)" },
-  lg: { fontSize: "var(--heading-h5-text-size)" },
+  sm: { fontSize: "var(--fonts-body-small-text-size)" },
+  md: { fontSize: "var(--fonts-body-regular-text-size)" },
+  lg: { fontSize: "var(--fonts-heading-h5-text-size)" },
 };
 
 export function AvatarPreview({

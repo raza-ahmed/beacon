@@ -192,7 +192,7 @@ export function MenuControls({
               backgroundColor: "var(--bg-page-primary)",
               color: "var(--fg-neutral)",
               fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-small-text-size)",
+              fontSize: "var(--fonts-body-small-text-size)",
               cursor: "pointer",
             }}
           >
@@ -234,7 +234,7 @@ export function MenuControls({
             </div>
           ))}
           {menuItems.length === 0 && (
-            <p style={{ color: "var(--fg-neutral-tertiary)", fontSize: "var(--body-small-text-size)", margin: 0 }}>
+            <p style={{ color: "var(--fg-neutral-tertiary)", fontSize: "var(--fonts-body-small-text-size)", margin: 0 }}>
               No menu items. Click "Add Item" to add one.
             </p>
           )}

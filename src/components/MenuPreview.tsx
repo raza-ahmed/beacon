@@ -172,8 +172,8 @@ export function MenuPreview({
       backgroundColor: "var(--bg-primary-tonal)",
       color: "var(--fg-primary-on-tonal)",
       fontFamily: "var(--font-secondary)",
-      fontSize: "var(--body-small-text-size)",
-      lineHeight: "var(--body-small-line-height)",
+      fontSize: "var(--fonts-body-small-text-size)",
+      lineHeight: "var(--fonts-body-small-line-height)",
       fontWeight: "var(--font-weight-secondary-medium)",
       cursor: "pointer",
       width: variant === "desktop" ? "100%" : "92px",
@@ -291,8 +291,8 @@ export function MenuPreview({
                 <p
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    lineHeight: "var(--body-small-line-height)",
+                    fontSize: "var(--fonts-body-small-text-size)",
+                    lineHeight: "var(--fonts-body-small-line-height)",
                     fontWeight: "var(--font-weight-secondary-regular)",
                     color: "var(--fg-neutral)",
                     margin: 0,
@@ -303,8 +303,8 @@ export function MenuPreview({
                 <p
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    fontSize: "var(--body-regular-text-size)",
-                    lineHeight: "var(--body-regular-line-height)",
+                    fontSize: "var(--fonts-body-regular-text-size)",
+                    lineHeight: "var(--fonts-body-regular-line-height)",
                     fontWeight: "var(--font-weight-secondary-medium)",
                     color: "var(--fg-neutral)",
                     margin: 0,
@@ -354,8 +354,8 @@ export function MenuPreview({
                 <p
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    lineHeight: "var(--body-small-line-height)",
+                    fontSize: "var(--fonts-body-small-text-size)",
+                    lineHeight: "var(--fonts-body-small-line-height)",
                     fontWeight: "var(--font-weight-secondary-regular)",
                     color: "var(--fg-neutral)",
                     margin: 0,
@@ -366,8 +366,8 @@ export function MenuPreview({
                 <p
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    fontSize: "var(--body-regular-text-size)",
-                    lineHeight: "var(--body-regular-line-height)",
+                    fontSize: "var(--fonts-body-regular-text-size)",
+                    lineHeight: "var(--fonts-body-regular-line-height)",
                     fontWeight: "var(--font-weight-secondary-medium)",
                     color: "var(--fg-neutral)",
                     margin: 0,

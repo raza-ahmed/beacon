@@ -250,7 +250,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: 0,
                     border: "none",
                     flex: 1,
@@ -458,7 +458,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -511,7 +511,7 @@ export default function AvatarPage() {
                     <code>"icon"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Content type displayed in avatar. Icon sizes: sm=16px, md=24px, lg=40px. Text sizes: sm=--body-small-text-size, md=--body-regular-text-size, lg=h5. Extra large only available for image type.
+                    Content type displayed in avatar. Icon sizes: sm=16px, md=24px, lg=40px. Text sizes: sm=--fonts-body-small-text-size, md=--fonts-body-regular-text-size, lg=h5. Extra large only available for image type.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -650,7 +650,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -701,7 +701,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -756,7 +756,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -811,7 +811,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -865,7 +865,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -918,7 +918,7 @@ export default function AvatarPage() {
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}

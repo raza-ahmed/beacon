@@ -46,8 +46,8 @@ export function SwitchPreview({
         <p
           style={{
             fontFamily: "var(--font-secondary)",
-            fontSize: "var(--body-small-text-size)",
-            lineHeight: "var(--body-small-line-height)",
+            fontSize: "var(--fonts-body-small-text-size)",
+            lineHeight: "var(--fonts-body-small-line-height)",
             fontWeight: "var(--font-weight-secondary-medium)",
             margin: 0,
             color: disabled ? "var(--fg-disabled)" : "var(--fg-neutral-secondary)",

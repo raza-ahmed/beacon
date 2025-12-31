@@ -150,24 +150,24 @@ function useBreakpointInfo(): BreakpointInfo[] {
 const RESPONSIVE_VALUES: Record<string, { desktop: string; tablet: string; mobile: string }> = {
   "--device-width": { desktop: "1440px", tablet: "834px", mobile: "430px" },
   "--menu-width": { desktop: "224px", tablet: "var(--device-width)", mobile: "var(--device-width)" },
-  "--heading-h1-text-size": { desktop: "64px", tablet: "60px", mobile: "48px" },
-  "--heading-h1-line-height": { desktop: "72px", tablet: "64px", mobile: "56px" },
-  "--heading-h1-paragraph-spacing": { desktop: "72px", tablet: "64px", mobile: "56px" },
-  "--heading-h2-text-size": { desktop: "52px", tablet: "48px", mobile: "40px" },
-  "--heading-h2-line-height": { desktop: "60px", tablet: "56px", mobile: "48px" },
-  "--heading-h2-paragraph-spacing": { desktop: "60px", tablet: "56px", mobile: "48px" },
-  "--heading-h3-text-size": { desktop: "40px", tablet: "36px", mobile: "32px" },
-  "--heading-h3-line-height": { desktop: "48px", tablet: "40px", mobile: "36px" },
-  "--heading-h3-paragraph-spacing": { desktop: "48px", tablet: "40px", mobile: "36px" },
-  "--heading-h4-text-size": { desktop: "32px", tablet: "32px", mobile: "28px" },
-  "--heading-h4-line-height": { desktop: "36px", tablet: "36px", mobile: "32px" },
-  "--heading-h4-paragraph-spacing": { desktop: "36px", tablet: "36px", mobile: "32px" },
-  "--heading-h5-text-size": { desktop: "24px", tablet: "24px", mobile: "24px" },
-  "--heading-h5-line-height": { desktop: "28px", tablet: "28px", mobile: "28px" },
-  "--heading-h5-paragraph-spacing": { desktop: "28px", tablet: "28px", mobile: "28px" },
-  "--heading-h6-text-size": { desktop: "20px", tablet: "20px", mobile: "20px" },
-  "--heading-h6-line-height": { desktop: "24px", tablet: "24px", mobile: "24px" },
-  "--heading-h6-paragraph-spacing": { desktop: "24px", tablet: "24px", mobile: "24px" },
+  "--fonts-heading-h1-text-size": { desktop: "64px", tablet: "60px", mobile: "48px" },
+  "--fonts-heading-h1-line-height": { desktop: "72px", tablet: "64px", mobile: "56px" },
+  "--fonts-heading-h1-paragraph-spacing": { desktop: "72px", tablet: "64px", mobile: "56px" },
+  "--fonts-heading-h2-text-size": { desktop: "52px", tablet: "48px", mobile: "40px" },
+  "--fonts-heading-h2-line-height": { desktop: "60px", tablet: "56px", mobile: "48px" },
+  "--fonts-heading-h2-paragraph-spacing": { desktop: "60px", tablet: "56px", mobile: "48px" },
+  "--fonts-heading-h3-text-size": { desktop: "40px", tablet: "36px", mobile: "32px" },
+  "--fonts-heading-h3-line-height": { desktop: "48px", tablet: "40px", mobile: "36px" },
+  "--fonts-heading-h3-paragraph-spacing": { desktop: "48px", tablet: "40px", mobile: "36px" },
+  "--fonts-heading-h4-text-size": { desktop: "32px", tablet: "32px", mobile: "28px" },
+  "--fonts-heading-h4-line-height": { desktop: "36px", tablet: "36px", mobile: "32px" },
+  "--fonts-heading-h4-paragraph-spacing": { desktop: "36px", tablet: "36px", mobile: "32px" },
+  "--fonts-heading-h5-text-size": { desktop: "24px", tablet: "24px", mobile: "24px" },
+  "--fonts-heading-h5-line-height": { desktop: "28px", tablet: "28px", mobile: "28px" },
+  "--fonts-heading-h5-paragraph-spacing": { desktop: "28px", tablet: "28px", mobile: "28px" },
+  "--fonts-heading-h6-text-size": { desktop: "20px", tablet: "20px", mobile: "20px" },
+  "--fonts-heading-h6-line-height": { desktop: "24px", tablet: "24px", mobile: "24px" },
+  "--fonts-heading-h6-paragraph-spacing": { desktop: "24px", tablet: "24px", mobile: "24px" },
   "--fonts-title-small-text-size": { desktop: "16px", tablet: "16px", mobile: "16px" },
   "--fonts-title-regular-text-size": { desktop: "20px", tablet: "20px", mobile: "20px" },
   "--fonts-body-extra-small-text-size": { desktop: "12px", tablet: "12px", mobile: "12px" },
@@ -635,7 +635,7 @@ export default function ResponsivenessPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -722,7 +722,7 @@ export default function ResponsivenessPage() {
                 type="button"
                 className="ds-code-copy"
                 onClick={() => handleCopyCode(`/* Good */
-                  font-size: var(--heading-h1-text-size);
+                  font-size: var(--fonts-heading-h1-text-size);
                   padding: var(--adaptive-set-d96-t80-m32);
 
                   /* Bad */
@@ -751,7 +751,7 @@ export default function ResponsivenessPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}
@@ -763,7 +763,7 @@ export default function ResponsivenessPage() {
                 PreTag="div"
               >
                 {`/* Good */
-                font-size: var(--heading-h1-text-size);
+                font-size: var(--fonts-heading-h1-text-size);
                 padding: var(--adaptive-set-d96-t80-m32);
 
                 /* Bad */
@@ -832,7 +832,7 @@ export default function ResponsivenessPage() {
                   margin: 0,
                   padding: "var(--spacing-300)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--body-small-text-size)",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-100)",
                 }}

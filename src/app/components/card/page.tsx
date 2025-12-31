@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import { CardPreview } from "@/components/CardPreview";
@@ -9,177 +10,56 @@ import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import type { PatternType } from "@/utils/patternPaths";
+import type { CornerRadiusStep } from "beacon-ui";
+import { Card, Avatar, Chip } from "beacon-ui";
+import { ListDetailsIcon, RightArrowIcon } from "beacon-icons";
 
-type CardType = "product" | "experience" | "info" | "generic";
-type ProductCardSize = "full" | "half";
-type ProductCardStatus = "default" | "highlighted";
-type ExperienceCardType = "default" | "skills" | "contacts";
-type GenericCardStatus = "default" | "highlighted" | "selected";
+type CardStatus = "default" | "highlighted" | "selected";
+type CardShadow = "0" | "50" | "100" | "200" | "300" | "400" | "500";
 
 interface CardConfig {
-  cardType: CardType;
-  // ProductCard
-  size: ProductCardSize;
-  status: ProductCardStatus;
-  hasImage: boolean;
-  imageAspectRatio: "16x9" | "4x3";
-  hasIdentifiers: boolean;
-  hasButton: boolean;
-  title: string;
-  description: string;
-  // ExperienceCard
-  experienceType: ExperienceCardType;
-  positionName: string;
-  companyName: string;
-  year: string;
-  experienceDescription: string;
-  label: string;
-  details: string;
-  // InfoCard
-  cardName: string;
-  cardDescription: string;
-  hasIcon: boolean;
-  // Generic Card
-  genericStatus: GenericCardStatus;
+  padding: number;
+  height?: string;
+  status: CardStatus;
+  shadow?: CardShadow;
+  cornerRadius?: CornerRadiusStep;
   showBgPattern: boolean;
   patternType: PatternType;
   showOverlay: boolean;
-  showShadow: boolean;
   showBorder: boolean;
 }
 
 function generateCardCode(config: CardConfig): string {
-  const { cardType } = config;
-
-  if (cardType === "product") {
     const props: string[] = [];
     
-    if (config.size !== "full") {
-      props.push(`size="${config.size}"`);
+  if (config.padding !== 400) {
+    props.push(`padding={${config.padding}}`);
+  }
+  
+  if (config.height) {
+    props.push(`height="${config.height}"`);
     }
     
     if (config.status !== "default") {
       props.push(`status="${config.status}"`);
     }
     
-    if (!config.hasImage) {
-      props.push(`hasImage={false}`);
-    }
-    
-    if (config.imageAspectRatio !== "16x9") {
-      props.push(`imageAspectRatio="${config.imageAspectRatio}"`);
-    }
-    
-    if (!config.hasIdentifiers) {
-      props.push(`hasIdentifiers={false}`);
-    }
-    
-    if (!config.hasButton) {
-      props.push(`hasButton={false}`);
-    }
-    
-    if (config.title !== "Product Title") {
-      props.push(`title="${config.title}"`);
-    }
-    
-    if (config.description !== "Add your products Details that description here. This paragraph is restricted only two lines even if content is large.") {
-      props.push(`description="${config.description}"`);
-    }
-
-    if (props.length === 0) {
-      return `<ProductCard />`;
-    }
-
-    const propsFormatted = props.map((prop) => `\n  ${prop}`).join("");
-    return `<ProductCard${propsFormatted}
-/>`;
-  }
-
-  if (cardType === "experience") {
-    const props: string[] = [];
-    
-    if (config.experienceType !== "default") {
-      props.push(`type="${config.experienceType}"`);
-    }
-    
-    if (config.positionName !== "Position Name") {
-      props.push(`positionName="${config.positionName}"`);
-    }
-    
-    if (config.companyName !== "Company Name") {
-      props.push(`companyName="${config.companyName}"`);
-    }
-    
-    if (config.year !== "2025-26") {
-      props.push(`year="${config.year}"`);
-    }
-    
-    if (config.experienceDescription !== "Long Description") {
-      props.push(`description="${config.experienceDescription}"`);
-    }
-    
-    if (config.experienceType === "contacts") {
-      if (config.label !== "Label") {
-        props.push(`label="${config.label}"`);
-      }
-      if (config.details !== "Details") {
-        props.push(`details="${config.details}"`);
-      }
-    }
-
-    if (props.length === 0) {
-      return `<ExperienceCard />`;
-    }
-
-    const propsFormatted = props.map((prop) => `\n  ${prop}`).join("");
-    return `<ExperienceCard${propsFormatted}
-/>`;
-  }
-
-  if (cardType === "info") {
-    const props: string[] = [];
-    
-    if (!config.hasIcon) {
-      props.push(`hasIcon={false}`);
-    }
-    
-    if (config.cardName !== "Card Name") {
-      props.push(`cardName="${config.cardName}"`);
-    }
-    
-    if (config.cardDescription !== "Card Description") {
-      props.push(`cardDescription="${config.cardDescription}"`);
-    }
-
-    if (props.length === 0) {
-      return `<InfoCard />`;
-    }
-
-    const propsFormatted = props.map((prop) => `\n  ${prop}`).join("");
-    return `<InfoCard${propsFormatted}
-/>`;
-  }
-
-  // Generic Card
-  const props: string[] = [];
-  
-  if (config.genericStatus !== "default") {
-    props.push(`status="${config.genericStatus}"`);
+  if (config.shadow) {
+    props.push(`shadow="${config.shadow}"`);
   }
   
-  if (config.showBgPattern) {
-    // Always include patternType when background pattern is enabled
-    props.push(`patternType="${config.patternType}"`);
-  } else {
+  if (config.cornerRadius !== undefined && config.cornerRadius !== 4) {
+    props.push(`cornerRadius={${config.cornerRadius}}`);
+  }
+  
+  if (!config.showBgPattern) {
     props.push(`showBgPattern={false}`);
+  } else if (config.patternType !== "cubes") {
+    props.push(`patternType="${config.patternType}"`);
   }
   
   if (!config.showOverlay) {
     props.push(`showOverlay={false}`);
-  }
-  
-  if (!config.showShadow) {
-    props.push(`showShadow={false}`);
   }
   
   if (!config.showBorder) {
@@ -188,14 +68,14 @@ function generateCardCode(config: CardConfig): string {
 
   if (props.length === 0) {
     return `<Card>
-  {/* Slot content */}
+  {/* Your content here */}
 </Card>`;
   }
 
   const propsFormatted = props.map((prop) => `\n  ${prop}`).join("");
   return `<Card${propsFormatted}
 >
-  {/* Slot content */}
+  {/* Your content here */}
 </Card>`;
 }
 
@@ -221,34 +101,13 @@ async function copyToClipboard(text: string) {
 export default function CardPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
   const [config, setConfig] = useState<CardConfig>({
-    cardType: "experience",
-    // ProductCard defaults
-    size: "full",
+    padding: 400,
     status: "default",
-    hasImage: true,
-    imageAspectRatio: "16x9",
-    hasIdentifiers: true,
-    hasButton: true,
-    title: "Product Title",
-    description: "Add your products Details that description here. This paragraph is restricted only two lines even if content is large.",
-    // ExperienceCard defaults
-    experienceType: "default",
-    positionName: "Position Name",
-    companyName: "Company Name",
-    year: "2025-26",
-    experienceDescription: "Long Description",
-    label: "Label",
-    details: "Details",
-    // InfoCard defaults
-    cardName: "Card Name",
-    cardDescription: "Card Description",
-    hasIcon: true,
-    // Generic Card defaults
-    genericStatus: "default",
-    showBgPattern: true,
+    shadow: "100",
+    cornerRadius: 4,
+    showBgPattern: false,
     patternType: "cubes",
-    showOverlay: true,
-    showShadow: true,
+    showOverlay: false,
     showBorder: true,
   });
   const [copied, setCopied] = useState(false);
@@ -260,11 +119,9 @@ export default function CardPage() {
     return [
       { id: "overview", label: "Overview" },
       { id: "playground", label: "Interactive Playground" },
-      { id: "anatomy", label: "Anatomy" },
-      { id: "variants", label: "Variants & States" },
-      { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
-      { id: "examples", label: "Code Examples" },
+      { id: "examples", label: "Usage Examples" },
+      { id: "guidelines", label: "Usage Guidelines" },
     ];
   }, []);
 
@@ -285,112 +142,64 @@ export default function CardPage() {
         <header className="ds-content__header">
           <h3 className="ds-content__title">Card</h3>
           <p className="ds-content__subtitle">
-            Flexible container components for displaying content. Cards provide structure and visual hierarchy for various types of information.
+            A flexible primitive container component for displaying content. Build any card layout by composing Card with your own content structure.
           </p>
         </header>
 
         <section id="overview" className="ds-content__section">
           <h6 className="ds-content__section-title">Overview</h6>
           <p className="ds-content__text">
-            Cards are versatile container components that organize and present content in a structured format. The Card component system includes four specialized types, each designed for specific use cases.
+            Card is a primitive component designed for maximum flexibility. Instead of providing pre-built card types, Card gives you the building blocks to construct any card layout you need. Control padding, elevation, background patterns, overlays, and borders to create custom card designs.
           </p>
           <p className="ds-content__text">
-            All card styles are built using design tokens, ensuring consistency across themes and hues. Use the interactive playground below to explore all available combinations.
+            All card styles are built using design tokens, ensuring consistency across themes and hues. Use the interactive playground below to explore all available options.
           </p>
         </section>
 
         <section id="playground" className="ds-content__section">
           <h6 className="ds-content__section-title">Interactive Playground</h6>
           <p className="ds-content__text">
-            Use the controls to customize the card and see how it looks in real-time. Switch between card types to explore different variants. Toggle between themes and hues to see how cards adapt to different contexts.
+            Use the controls to customize the card and see how it looks in real-time. Toggle between themes and hues to see how cards adapt to different contexts.
           </p>
           <div className="ds-card-playground">
             <CardControls
-              cardType={config.cardType}
               theme={theme}
               hue={hue}
-              size={config.size}
+              padding={config.padding}
+              height={config.height}
               status={config.status}
-              hasImage={config.hasImage}
-              imageAspectRatio={config.imageAspectRatio}
-              hasIdentifiers={config.hasIdentifiers}
-              hasButton={config.hasButton}
-              title={config.title}
-              description={config.description}
-              experienceType={config.experienceType}
-              positionName={config.positionName}
-              companyName={config.companyName}
-              year={config.year}
-              experienceDescription={config.experienceDescription}
-              label={config.label}
-              details={config.details}
-              cardName={config.cardName}
-              cardDescription={config.cardDescription}
-              hasIcon={config.hasIcon}
-              genericStatus={config.genericStatus}
+              shadow={config.shadow}
+              cornerRadius={config.cornerRadius}
               showBgPattern={config.showBgPattern}
               patternType={config.patternType}
               showOverlay={config.showOverlay}
-              showShadow={config.showShadow}
               showBorder={config.showBorder}
-              onCardTypeChange={(type) => updateConfig({ cardType: type })}
               onThemeChange={setTheme}
               onHueChange={setHue}
-              onSizeChange={(size) => updateConfig({ size })}
+              onPaddingChange={(padding) => updateConfig({ padding })}
+              onHeightChange={(height) => updateConfig({ height })}
               onStatusChange={(status) => updateConfig({ status })}
-              onHasImageChange={(has) => updateConfig({ hasImage: has })}
-              onImageAspectRatioChange={(ratio) => updateConfig({ imageAspectRatio: ratio })}
-              onHasIdentifiersChange={(has) => updateConfig({ hasIdentifiers: has })}
-              onHasButtonChange={(has) => updateConfig({ hasButton: has })}
-              onTitleChange={(title) => updateConfig({ title })}
-              onDescriptionChange={(description) => updateConfig({ description })}
-              onExperienceTypeChange={(type) => updateConfig({ experienceType: type })}
-              onPositionNameChange={(name) => updateConfig({ positionName: name })}
-              onCompanyNameChange={(name) => updateConfig({ companyName: name })}
-              onYearChange={(year) => updateConfig({ year })}
-              onExperienceDescriptionChange={(desc) => updateConfig({ experienceDescription: desc })}
-              onLabelChange={(label) => updateConfig({ label })}
-              onDetailsChange={(details) => updateConfig({ details })}
-              onCardNameChange={(name) => updateConfig({ cardName: name })}
-              onCardDescriptionChange={(desc) => updateConfig({ cardDescription: desc })}
-              onHasIconChange={(has) => updateConfig({ hasIcon: has })}
-              onGenericStatusChange={(status) => updateConfig({ genericStatus: status })}
+              onShadowChange={(shadow) => updateConfig({ shadow })}
+              onCornerRadiusChange={(cornerRadius) => updateConfig({ cornerRadius })}
               onShowBgPatternChange={(show) => updateConfig({ showBgPattern: show })}
               onPatternTypeChange={(type) => updateConfig({ patternType: type })}
               onShowOverlayChange={(show) => updateConfig({ showOverlay: show })}
-              onShowShadowChange={(show) => updateConfig({ showShadow: show })}
               onShowBorderChange={(show) => updateConfig({ showBorder: show })}
             />
             <div className="ds-card-playground-divider" />
             <div className="ds-card-preview-section">
                   <div className="ds-card-preview">
                     <CardPreview
-                      cardType={config.cardType}
                       theme={theme}
                       hue={hue}
-                      size={config.size}
+                  padding={config.padding}
+                  height={config.height}
                       status={config.status}
-                      hasImage={config.hasImage}
-                      imageAspectRatio={config.imageAspectRatio}
-                      hasIdentifiers={config.hasIdentifiers}
-                      hasButton={config.hasButton}
-                      title={config.title}
-                      description={config.description}
-                      experienceType={config.experienceType}
-                      positionName={config.positionName}
-                      companyName={config.companyName}
-                      year={config.year}
-                      experienceDescription={config.experienceDescription}
-                      label={config.label}
-                      details={config.details}
-                      cardName={config.cardName}
-                      cardDescription={config.cardDescription}
-                      hasIcon={config.hasIcon}
-                      genericStatus={config.genericStatus}
+                  shadow={config.shadow}
+                      cornerRadius={config.cornerRadius}
                       showBgPattern={config.showBgPattern}
                       patternType={config.patternType}
                       showOverlay={config.showOverlay}
-                      showShadow={config.showShadow}
                       showBorder={config.showBorder}
                     />
                   </div>
@@ -420,7 +229,7 @@ export default function CardPage() {
                         margin: 0,
                         padding: "var(--spacing-300)",
                         backgroundColor: "var(--bg-page-secondary)",
-                        fontSize: "var(--body-small-text-size)",
+                        fontSize: "var(--fonts-body-small-text-size)",
                         borderRadius: 0,
                         border: "none",
                         flex: 1,
@@ -442,38 +251,35 @@ export default function CardPage() {
           </div>
         </section>
 
-
-        <section id="product-card-info" className="ds-content__section">
-          <h6 className="ds-content__section-title">Product Card</h6>
-            <p className="ds-content__text">
-              ProductCard is designed for product displays and featured content. It supports two sizes (Full and Half) and two status variants (Default and Highlighted).
-            </p>
-            <div className="ds-card-product-info">
-              <div className="ds-card-product-info__grid">
-                <div className="ds-card-product-info__item">
-                  <h6 className="ds-card-product-info__label">Sizes</h6>
-                  <p className="ds-card-product-info__value">Full (horizontal), Half (vertical)</p>
-                </div>
-                <div className="ds-card-product-info__item">
-                  <h6 className="ds-card-product-info__label">Status</h6>
-                  <p className="ds-card-product-info__value">Default, Highlighted</p>
-                </div>
-                <div className="ds-card-product-info__item">
-                  <h6 className="ds-card-product-info__label">Features</h6>
-                  <p className="ds-card-product-info__value">Image (16:9 or 4:3), Title, Description, Identifiers, Button</p>
-                </div>
-                <div className="ds-card-product-info__item">
-                  <h6 className="ds-card-product-info__label">Use Case</h6>
-                  <p className="ds-card-product-info__value">E-commerce, product showcases, featured content</p>
-                </div>
-              </div>
-              <div className="ds-card-product-info__code">
+        <section id="api" className="ds-content__section">
+          <h6 className="ds-content__section-title">API Reference</h6>
+          <p className="ds-content__text">Card component props and types.</p>
+          <div className="ds-api-reference">
+            <div className="ds-api-reference__type">
+              <h6 className="ds-api-reference__type-title">CardProps</h6>
+              <div style={{ position: "relative" }}>
                 <button
                   type="button"
                   className="ds-card-code-copy"
-                  onClick={handleCopyCode}
-                  aria-label="Copy code">
-                  {copied ? (
+                  onClick={async () => {
+                    await copyToClipboard(`interface CardProps extends Omit<ComponentPropsWithRef<"div">, "slot"> {
+  padding?: number;
+  height?: string;
+  status?: "default" | "highlighted" | "selected";
+  shadow?: "0" | "50" | "100" | "200" | "300" | "400" | "500";
+  showBgPattern?: boolean;
+  patternType?: PatternType;
+  showOverlay?: boolean;
+  showBorder?: boolean;
+  children?: React.ReactNode;
+}`);
+                    setCopiedExample("api-card");
+                    setTimeout(() => setCopiedExample(null), 2000);
+                  }}
+                  aria-label="Copy code"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                >
+                  {copiedExample === "api-card" ? (
                     <>
                       <CheckIcon size="xs" />
                       <span>Copied!</span>
@@ -486,13 +292,13 @@ export default function CardPage() {
                   )}
                 </button>
                 <SyntaxHighlighter
-                  language="tsx"
+                  language="typescript"
                   style={syntaxTheme}
                   customStyle={{
                     margin: 0,
                     padding: "var(--spacing-300)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
                     border: "var(--border-width-25) solid var(--border-strong-100)",
                   }}
@@ -503,117 +309,691 @@ export default function CardPage() {
                   }}
                   PreTag="div"
                 >
-                  {generateCardCode(config)}
+                  {`interface CardProps extends Omit<ComponentPropsWithRef<"div">, "slot"> {
+  padding?: number;
+  height?: string;
+  status?: "default" | "highlighted" | "selected";
+  shadow?: "0" | "50" | "100" | "200" | "300" | "400" | "500";
+  showBgPattern?: boolean;
+  patternType?: PatternType;
+  showOverlay?: boolean;
+  showBorder?: boolean;
+  children?: React.ReactNode;
+}`}
+                </SyntaxHighlighter>
+              </div>
+              <div className="ds-api-reference__props" style={{ marginTop: "var(--spacing-400)" }}>
+                <h6 className="ds-api-reference__props-title">Card Props</h6>
+                <div className="ds-api-reference__props-table">
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>padding</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>number</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>400</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Spacing token value (100, 200, 300, 400, etc.). Maps directly to --spacing-{`{value}`}.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>height</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>string</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>undefined</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Fixed height as CSS value (e.g., "200px", "100%", "auto"). When set, content will scroll if it exceeds the height.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>status</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>"default" | "highlighted" | "selected"</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>"default"</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Background color variant. Default uses page-tertiary, highlighted/selected use page-primary.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>shadow</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>"0" | "50" | "100" | "200" | "300" | "400" | "500"</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>undefined</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Shadow/elevation level using drop-shadow tokens (--drop-shadow-0 through --drop-shadow-500).
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>showBgPattern</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>boolean</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>true</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Whether to show background pattern overlay.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>patternType</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>PatternType</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>"cubes"</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Pattern type when showBgPattern is true. Options: cubes, mathematics, dots, diagonal, smudge, paper, denim, squares, mosaic, cotton.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>showOverlay</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>boolean</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>true</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Whether to show gradient overlay.
+                    </div>
+                  </div>
+                  <div className="ds-api-reference__props-row">
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                      <code>showBorder</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                      <code>boolean</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                      <code>true</code>
+                    </div>
+                    <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                      Whether to show border. Selected status uses primary border color, others use strong-200.
+                    </div>
+                  </div>
+                    </div>
+                    </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="examples" className="ds-content__section">
+          <h6 className="ds-content__section-title">Usage Examples</h6>
+          <p className="ds-content__text">
+            Card is a primitive component designed for flexibility. Here are examples of how to build common card patterns using Card with your own content structure.
+          </p>
+
+          <div className="ds-code-examples">
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Basic Card</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Card padding={400}>
+                        Your content here
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-card-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Card } from 'beacon-ui';
+
+<Card padding={400}>
+  Your content here
+</Card>`);
+                        setCopiedExample("basic");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "basic" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Card } from 'beacon-ui';
+
+<Card padding={400}>
+  Your content here
+</Card>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+            </div>
+            </div>
+
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Card with Shadow</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Card padding={400} shadow="100">
+                        Elevated content
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-card-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Card } from 'beacon-ui';
+
+<Card padding={400} shadow="100">
+  Elevated content
+</Card>`);
+                        setCopiedExample("shadow");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "shadow" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Card } from 'beacon-ui';
+
+<Card padding={400} shadow="100">
+  Elevated content
+</Card>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+            </div>
+            </div>
+
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Product Card Pattern</h6>
+              <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+                Build a product card by composing Card with images, text, chips, and buttons:
+              </p>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas" style={{ display: "flex", justifyContent: "flex-start" }}>
+                      <Card padding={500} shadow="50" cornerRadius={4} showBgPattern={true} patternType="denim" showOverlay={true} showBorder={true} style={{ width: "50%", flexShrink: 0, minWidth: "320px" }}>
+                        <h5 style={{ margin: 0, color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-heading-h5-text-size)", fontWeight: "var(--font-weight-secondary-semibold)", lineHeight: "var(--fonts-heading-h5-line-height)" }}>Product Title</h5>
+                        <p style={{ margin: 0, color: "var(--fg-neutral-tertiary)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-secondary-medium)", lineHeight: "var(--fonts-body-regular-line-height)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
+                        <img
+                          src="/images/preview/16x9_1024x576_preview.png"
+                          alt="Product preview"
+                          style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover", borderRadius: "var(--corner-radius-400)" }}
+                        />
+                        <button style={{ padding: "var(--spacing-300) var(--spacing-400)", backgroundColor: "var(--bg-primary-tonal)", color: "var(--fg-primary-on-tonal)", border: "none", borderRadius: "var(--corner-radius-200)", cursor: "pointer", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", fontWeight: "var(--font-weight-secondary-medium)", lineHeight: "var(--fonts-body-small-line-height)", display: "flex", alignItems: "center", gap: "var(--spacing-200)", alignSelf: "flex-start" }}>
+                          Button
+                          <RightArrowIcon size="xs" />
+                        </button>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-card-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Card } from 'beacon-ui';
+import { RightArrowIcon } from 'beacon-icons';
+
+<Card 
+  padding={500} 
+  shadow="50" 
+  cornerRadius={4} 
+  showBgPattern={true} 
+  patternType="denim" 
+  showOverlay={true} 
+  showBorder={true}
+  style={{ width: "50%" }}
+>
+  <h5>Product Title</h5>
+  <p>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
+  <img
+    src="/images/preview/16x9_1024x576_preview.png"
+    alt="Product"
+    style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover" }}
+  />
+  <button>
+    Button
+    <RightArrowIcon size="xs" />
+  </button>
+</Card>`);
+                        setCopiedExample("product");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "product" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                  language="tsx"
+                  style={syntaxTheme}
+                  customStyle={{
+                    margin: 0,
+                    padding: "var(--spacing-300)",
+                    backgroundColor: "var(--bg-page-secondary)",
+                    fontSize: "var(--fonts-body-small-text-size)",
+                    borderRadius: "var(--corner-radius-200)",
+                    height: "100%",
+                  }}
+                  codeTagProps={{
+                    style: {
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                    },
+                  }}
+                  PreTag="div"
+                >
+                    {`import { Card } from 'beacon-ui';
+import { RightArrowIcon } from 'beacon-icons';
+
+<Card 
+  padding={500} 
+  shadow="50" 
+  cornerRadius={4} 
+  showBgPattern={true} 
+  patternType="denim" 
+  showOverlay={true} 
+  showBorder={true}
+  style={{ width: "50%" }}
+>
+  <h5>Product Title</h5>
+  <p>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
+  <img
+    src="/images/preview/16x9_1024x576_preview.png"
+    alt="Product"
+    style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover" }}
+  />
+  <button>
+    Button
+    <RightArrowIcon size="xs" />
+  </button>
+</Card>`}
                 </SyntaxHighlighter>
               </div>
             </div>
-        </section>
+            </div>
 
-        <section id="anatomy" className="ds-content__section">
-          <h6 className="ds-content__section-title">Anatomy</h6>
-          <p className="ds-content__text">
-            Cards consist of several parts that work together to create a cohesive container for content.
-          </p>
-          <div className="ds-card-anatomy-diagram">
-            <div className="ds-card-anatomy-diagram__card">
-              <div className="ds-card-anatomy-diagram__container">
-                <div className="ds-card-anatomy-diagram__image" />
-                <div className="ds-card-anatomy-diagram__content">
-                  <div className="ds-card-anatomy-diagram__title" />
-                  <div className="ds-card-anatomy-diagram__description" />
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Experience Card Pattern</h6>
+              <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+                Build an experience card with avatar, text, and metadata:
+              </p>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Card padding={400}>
+                        <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
+                          <Avatar
+                            size="lg"
+                            type="image"
+                            imageUrl="/images/avatars/avatar-female.png"
+                          />
+                          <div>
+                            <h5 style={{ margin: 0, color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-heading-h5-text-size)", fontWeight: "var(--font-weight-secondary-semibold)", lineHeight: "var(--fonts-heading-h5-line-height)" }}>Senior Designer</h5>
+                            <p style={{ margin: 0, color: "var(--fg-neutral-secondary)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", lineHeight: "var(--fonts-body-small-line-height)" }}>Design Studio</p>
+                            <p style={{ margin: 0, fontSize: "var(--fonts-body-extra-small-text-size)", color: "var(--fg-neutral-tertiary)", fontFamily: "var(--font-secondary)", lineHeight: "var(--fonts-body-extra-small-line-height)" }}>2023-2025</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  </div>
                 </div>
-                <div className="ds-card-anatomy-diagram__identifiers" />
-                <div className="ds-card-anatomy-diagram__button" />
-              </div>
-            </div>
-            <div className="ds-card-anatomy-diagram__labels">
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Container</span>
-                <code className="ds-card-anatomy-diagram__label-code">padding, border-radius, background</code>
-              </div>
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Image Area</span>
-                <code className="ds-card-anatomy-diagram__label-code">aspect-ratio, object-fit</code>
-              </div>
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Content Area</span>
-                <code className="ds-card-anatomy-diagram__label-code">flex layout, gap</code>
-              </div>
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Title</span>
-                <code className="ds-card-anatomy-diagram__label-code">--heading-h4-text-size or --heading-h5-text-size</code>
-              </div>
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Description</span>
-                <code className="ds-card-anatomy-diagram__label-code">--body-regular-text-size</code>
-              </div>
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Identifiers</span>
-                <code className="ds-card-anatomy-diagram__label-code">chips with --spacing-200 gap</code>
-              </div>
-              <div className="ds-card-anatomy-diagram__label-item">
-                <span className="ds-card-anatomy-diagram__label-name">Button</span>
-                <code className="ds-card-anatomy-diagram__label-code">tonal background, --corner-radius-200</code>
-              </div>
-            </div>
-          </div>
-        </section>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-card-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Card, Avatar } from 'beacon-ui';
 
-        <section id="variants" className="ds-content__section">
-          <h6 className="ds-content__section-title">Variants & States</h6>
-          <p className="ds-content__text">
-            Cards come in four main types, each suited for different content and use cases.
-          </p>
-          <div className="ds-card-variants-grid">
-            <div className="ds-card-variant-card">
-              <h6 className="ds-card-variant-card__title">Product Card</h6>
-              <p className="ds-card-variant-card__desc">
-                Designed for product displays and featured content. Supports full and half sizes, with optional images, identifiers, and action buttons.
+<Card padding={400}>
+  <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
+    <Avatar
+      size="lg"
+      type="image"
+      imageUrl="/images/avatars/avatar-female.png"
+    />
+    <div>
+      <h5>Senior Designer</h5>
+      <p>Design Studio</p>
+      <p>2023-2025</p>
+    </div>
+  </div>
+</Card>`);
+                        setCopiedExample("experience");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "experience" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Card, Avatar } from 'beacon-ui';
+
+<Card padding={400}>
+  <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
+    <Avatar
+      size="lg"
+      type="image"
+      imageUrl="/images/avatars/avatar-female.png"
+    />
+    <div>
+      <h5>Senior Designer</h5>
+      <p>Design Studio</p>
+      <p>2023-2025</p>
+    </div>
+  </div>
+</Card>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+            </div>
+            </div>
+
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Info Card Pattern</h6>
+              <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+                Build an info card with icon and text:
               </p>
-              <div className="ds-card-variant-card__preview">
-                <div style={{ width: "200px", height: "120px", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)" }} />
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Card padding={400}>
+                        <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
+                          <div style={{ width: "32px", height: "32px", borderRadius: "var(--corner-radius-200)", backgroundColor: "var(--bg-primary-tonal)", flexShrink: 0 }} />
+                          <div>
+                            <p style={{ margin: 0, fontWeight: "var(--font-weight-secondary-medium)", color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-regular-text-size)", lineHeight: "var(--fonts-body-regular-line-height)" }}>Card Name</p>
+                            <p style={{ margin: 0, fontSize: "var(--fonts-body-small-text-size)", color: "var(--fg-neutral-secondary)", fontFamily: "var(--font-secondary)", lineHeight: "var(--fonts-body-small-line-height)" }}>Card description text here.</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-card-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Card } from 'beacon-ui';
+
+<Card padding={400}>
+  <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
+    <div style={{ width: "32px", height: "32px", borderRadius: "var(--corner-radius-200)", backgroundColor: "var(--bg-primary-tonal)", flexShrink: 0 }} />
+    <div>
+      <p>Card Name</p>
+      <p>Card description text here.</p>
+    </div>
+  </div>
+</Card>`);
+                        setCopiedExample("info");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "info" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Card } from 'beacon-ui';
+
+<Card padding={400}>
+  <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
+    <div style={{ width: "32px", height: "32px", borderRadius: "var(--corner-radius-200)", backgroundColor: "var(--bg-primary-tonal)", flexShrink: 0 }} />
+    <div>
+      <p>Card Name</p>
+      <p>Card description text here.</p>
+    </div>
+  </div>
+</Card>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="ds-card-variant-card">
-              <h6 className="ds-card-variant-card__title">Experience Card</h6>
-              <p className="ds-card-variant-card__desc">
-                Used for work experience, skills, and contact information. Three variants: Default (full details), Skills (compact), and Contacts (label/details).
-              </p>
-              <div className="ds-card-variant-card__preview">
-                <div style={{ width: "200px", height: "120px", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)" }} />
-              </div>
             </div>
-            <div className="ds-card-variant-card">
-              <h6 className="ds-card-variant-card__title">Info Card</h6>
-              <p className="ds-card-variant-card__desc">
-                Simple information display with optional icon, name, and description. Ideal for notifications, tips, and informational content.
-              </p>
-              <div className="ds-card-variant-card__preview">
-                <div style={{ width: "200px", height: "120px", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)" }} />
-              </div>
-            </div>
-            <div className="ds-card-variant-card">
-              <h6 className="ds-card-variant-card__title">Generic Card</h6>
-              <p className="ds-card-variant-card__desc">
-                Flexible container with slot system for custom content. Supports status variants, background patterns, overlays, shadows, and borders.
-              </p>
-              <div className="ds-card-variant-card__preview">
-                <div style={{ width: "200px", height: "120px", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)" }} />
+
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Card with Fixed Height</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Card padding={400} height="200px">
+                        <div style={{ color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-regular-text-size)", lineHeight: "var(--fonts-body-regular-line-height)" }}>Fixed height content (200px)</div>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-card-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Card } from 'beacon-ui';
+
+<Card padding={400} height="200px">
+  <div>Fixed height content</div>
+</Card>
+
+// Or use "auto" to wrap content:
+<Card padding={400} height="auto">
+  <div>Content that wraps</div>
+</Card>
+
+// Or use percentage:
+<Card padding={400} height="100%">
+  <div>Full height content</div>
+</Card>`);
+                        setCopiedExample("height");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "height" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Card } from 'beacon-ui';
+
+<Card padding={400} height="200px">
+  <div>Fixed height content</div>
+</Card>
+
+// Or use "auto" to wrap content:
+<Card padding={400} height="auto">
+  <div>Content that wraps</div>
+</Card>
+
+// Or use percentage:
+<Card padding={400} height="100%">
+  <div>Full height content</div>
+</Card>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <p className="ds-content__text" style={{ marginTop: "var(--spacing-500)" }}>
-            For complete specifications of all card variants, see the{" "}
-            <a
-              href="https://www.figma.com/design/16M5gfw4D2vKg0pI2FXr5D/Beacon-Design-System?node-id=659-7626&m=dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ds-content__link"
-            >
-              Card components in Figma
-            </a>
-            .
-          </p>
         </section>
 
         <section id="guidelines" className="ds-content__section">
@@ -622,25 +1002,25 @@ export default function CardPage() {
             <div className="ds-do-dont__col">
               <div className="ds-do-dont__title">Do</div>
               <ul className="ds-content__bullet-list">
-                <li>Use ProductCard for e-commerce, product showcases, and featured content.</li>
-                <li>Use ExperienceCard for resumes, portfolios, and professional information.</li>
-                <li>Use InfoCard for notifications, tips, and simple informational displays.</li>
-                <li>Use Generic Card for custom layouts and flexible content composition.</li>
+                <li>Use Card as a flexible container for any content structure.</li>
+                <li>Compose Card with your own layout components (divs, images, buttons, etc.).</li>
+                <li>Use padding prop to control internal spacing (100, 200, 300, 400, etc.).</li>
+                <li>Use shadow prop to add elevation when needed (0, 50, 100, 200, 300, 400, 500).</li>
                 <li>Maintain consistent spacing and alignment within cards.</li>
                 <li>Ensure cards have sufficient contrast for accessibility.</li>
-                <li>Use appropriate card types based on content structure.</li>
+                <li>Use status prop to indicate visual hierarchy (default, highlighted, selected).</li>
               </ul>
             </div>
             <div className="ds-do-dont__col">
               <div className="ds-do-dont__title">Don't</div>
               <ul className="ds-content__bullet-list">
-                <li>Don't mix card types inconsistently in the same context.</li>
                 <li>Don't overload cards with too much information.</li>
                 <li>Don't use cards for navigation (use buttons or links instead).</li>
                 <li>Don't nest cards within cards unnecessarily.</li>
                 <li>Don't use cards for decorative purposes only.</li>
                 <li>Don't ignore accessibility requirements for card content.</li>
-                <li>Don't use Generic Card when a specialized card type would be more appropriate.</li>
+                <li>Don't use arbitrary padding values - stick to spacing token values (100, 200, 300, etc.).</li>
+                <li>Don't mix shadow levels inconsistently in the same context.</li>
               </ul>
             </div>
           </div>
@@ -648,7 +1028,7 @@ export default function CardPage() {
             Accessibility
           </h6>
           <ul className="ds-content__bullet-list">
-            <li>Provide descriptive alt text for images in ProductCard.</li>
+            <li>Provide descriptive alt text for images in cards.</li>
             <li>Ensure sufficient color contrast between text and background.</li>
             <li>Use semantic HTML structure for card content.</li>
             <li>Make interactive cards keyboard accessible.</li>
@@ -656,500 +1036,7 @@ export default function CardPage() {
             <li>Ensure focus states are clearly visible for interactive cards.</li>
           </ul>
         </section>
-
-        <section id="api" className="ds-content__section">
-          <h6 className="ds-content__section-title">API Reference</h6>
-          <p className="ds-content__text">Card component props and types.</p>
-          <div className="ds-api-reference">
-            <div className="ds-api-reference__type">
-              <h6 className="ds-api-reference__type-title">ProductCardProps</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface ProductCardProps {
-  size?: "full" | "half";
-  status?: "default" | "highlighted";
-  hasImage?: boolean;
-  imageAspectRatio?: "16x9" | "4x3";
-  hasIdentifiers?: boolean;
-  hasButton?: boolean;
-  title?: string;
-  description?: string;
-}`);
-                    setCopiedExample("api-product");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api-product" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`interface ProductCardProps {
-  size?: "full" | "half";
-  status?: "default" | "highlighted";
-  hasImage?: boolean;
-  imageAspectRatio?: "16x9" | "4x3";
-  hasIdentifiers?: boolean;
-  hasButton?: boolean;
-  title?: string;
-  description?: string;
-}`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-api-reference__type">
-              <h6 className="ds-api-reference__type-title">ExperienceCardProps</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface ExperienceCardProps {
-  type?: "default" | "skills" | "contacts";
-  positionName?: string;
-  companyName?: string;
-  year?: string;
-  description?: string;
-  label?: string;
-  details?: string;
-}`);
-                    setCopiedExample("api-experience");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api-experience" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`interface ExperienceCardProps {
-  type?: "default" | "skills" | "contacts";
-  positionName?: string;
-  companyName?: string;
-  year?: string;
-  description?: string;
-  label?: string;
-  details?: string;
-}`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-api-reference__type">
-              <h6 className="ds-api-reference__type-title">InfoCardProps</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface InfoCardProps {
-  hasIcon?: boolean;
-  cardName?: string;
-  cardDescription?: string;
-}`);
-                    setCopiedExample("api-info");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api-info" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`interface InfoCardProps {
-  hasIcon?: boolean;
-  cardName?: string;
-  cardDescription?: string;
-}`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-api-reference__type">
-              <h6 className="ds-api-reference__type-title">GenericCardProps</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface GenericCardProps {
-  status?: "default" | "highlighted" | "selected";
-  showBgPattern?: boolean;
-  showOverlay?: boolean;
-  showShadow?: boolean;
-  showBorder?: boolean;
-  children?: React.ReactNode;
-}`);
-                    setCopiedExample("api-generic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api-generic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`interface GenericCardProps {
-  status?: "default" | "highlighted" | "selected";
-  showBgPattern?: boolean;
-  showOverlay?: boolean;
-  showShadow?: boolean;
-  showBorder?: boolean;
-  children?: React.ReactNode;
-}`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="examples" className="ds-content__section">
-          <h6 className="ds-content__section-title">Code Examples</h6>
-          <p className="ds-content__text">Copyable code snippets for common card use cases.</p>
-          <div className="ds-code-examples">
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Basic Product Card</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<ProductCard
-  title="Product Title"
-  description="Product description"
-/>`);
-                    setCopiedExample("product");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "product" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<ProductCard
-  title="Product Title"
-  description="Product description"
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Experience Card Default</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<ExperienceCard
-  type="default"
-  positionName="Senior Designer"
-  companyName="Design Studio"
-  year="2023-2025"
-  description="Led design initiatives"
-/>`);
-                    setCopiedExample("experience");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "experience" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<ExperienceCard
-  type="default"
-  positionName="Senior Designer"
-  companyName="Design Studio"
-  year="2023-2025"
-  description="Led design initiatives"
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Info Card</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InfoCard
-  cardName="Information"
-  cardDescription="This is an informational card"
-  hasIcon
-/>`);
-                    setCopiedExample("info");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "info" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<InfoCard
-  cardName="Information"
-  cardDescription="This is an informational card"
-  hasIcon
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Generic Card</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Card
-  status="highlighted"
-  showShadow
-  showBorder
->
-  <div>Custom content</div>
-</Card>`);
-                    setCopiedExample("generic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "generic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Card
-  status="highlighted"
-  showShadow
-  showBorder
->
-  <div>Custom content</div>
-</Card>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-          </div>
-        </section>
       </article>
     </PageLayout>
   );
 }
-

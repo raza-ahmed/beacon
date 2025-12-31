@@ -28,9 +28,13 @@ const TYPOGRAPHY_STYLES: Array<{ name: string; className: string; category: "hea
   { name: "Title Regular", className: "text-title-regular", category: "title" },
   { name: "Title Small", className: "text-title-small", category: "title" },
   { name: "Body4 Regular", className: "text-body4-regular", category: "body" },
+  { name: "Body4 Medium", className: "text-body4-medium", category: "body" },
   { name: "Body3 Regular", className: "text-body3-regular", category: "body" },
+  { name: "Body3 Medium", className: "text-body3-medium", category: "body" },
   { name: "Body2 Regular", className: "text-body2-regular", category: "body" },
+  { name: "Body2 Medium", className: "text-body2-medium", category: "body" },
   { name: "Body1 Regular", className: "text-body1-regular", category: "body" },
+  { name: "Body1 Medium", className: "text-body1-medium", category: "body" },
 ];
 
 const COLOR_PREVIEWS: ColorPreview[] = [
