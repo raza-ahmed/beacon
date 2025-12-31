@@ -1,6 +1,6 @@
 {
   "name": "beacon-icons",
-  "version": "3.1.8",
+  "version": "3.1.4",
   "description": "Beacon Design System - Icon components",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -4,7 +4,6 @@
  * Syncs the version from packages/beacon-ui/package.json (source of truth)
  * to all other locations that need the version:
  * - src/constants/version.ts
- * - packages/beacon-icons/package.json
  * - README.md (if it has a hardcoded version)
  */
 
@@ -14,7 +13,6 @@ import * as path from "path";
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const BEACON_UI_PACKAGE_JSON = path.join(PROJECT_ROOT, "packages", "beacon-ui", "package.json");
 const VERSION_TS = path.join(PROJECT_ROOT, "src", "constants", "version.ts");
-const BEACON_ICONS_PACKAGE_JSON = path.join(PROJECT_ROOT, "packages", "beacon-icons", "package.json");
 const README_MD = path.join(PROJECT_ROOT, "README.md");
 
 // Read version from beacon-ui package.json
@@ -36,14 +34,6 @@ function updateVersionTs(version: string): void {
   );
   fs.writeFileSync(VERSION_TS, updated, "utf-8");
   console.log(`✓ Updated ${VERSION_TS}`);
-}
-
-// Update packages/beacon-icons/package.json
-function updateBeaconIconsPackageJson(version: string): void {
-  const packageJson = JSON.parse(fs.readFileSync(BEACON_ICONS_PACKAGE_JSON, "utf-8"));
-  packageJson.version = version;
-  fs.writeFileSync(BEACON_ICONS_PACKAGE_JSON, JSON.stringify(packageJson, null, 2) + "\n", "utf-8");
-  console.log(`✓ Updated ${BEACON_ICONS_PACKAGE_JSON}`);
 }
 
 // Update README.md if it has a hardcoded version
@@ -71,7 +61,6 @@ try {
   console.log(`Syncing version ${version}...\n`);
   
   updateVersionTs(version);
-  updateBeaconIconsPackageJson(version);
   updateReadme(version);
   
   console.log(`\n✓ Version sync complete!`);
