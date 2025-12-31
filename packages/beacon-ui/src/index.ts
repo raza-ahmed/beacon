@@ -12,7 +12,7 @@ export { RadioButton } from "./components/RadioButton";
 
 // Component Props Types
 export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState, ButtonColor } from "./components/Button";
-export type { CardProps, CardType, ProductCardSize, ProductCardStatus, ExperienceCardType, GenericCardStatus } from "./components/Card";
+export type { CardProps, CardStatus, CardShadow } from "./components/Card";
 export type { CheckboxProps, CheckboxStatus } from "./components/Checkbox";
 export type { SwitchProps, SwitchStatus } from "./components/Switch";
 export type { InputProps, InputSize, InputStatus } from "./components/Input";

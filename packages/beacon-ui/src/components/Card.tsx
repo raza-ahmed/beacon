@@ -1,785 +1,94 @@
 "use client";
 
-import { useMemo, ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
-import { RightArrowIcon, ArrowDownFallSlotIcon } from "../icons";
+import { ArrowDownFallSlotIcon } from "../icons";
 import { getPatternConfig, type PatternType } from "../utils/patternPaths";
+import type { CornerRadiusStep } from "./Button";
 
-export type CardType = "product" | "experience" | "info" | "generic";
+export type CardStatus = "default" | "highlighted" | "selected";
+export type CardShadow = "0" | "50" | "100" | "200" | "300" | "400" | "500";
 
-// ProductCard props
-export type ProductCardSize = "full" | "half";
-export type ProductCardStatus = "default" | "highlighted";
-
-// ExperienceCard props
-export type ExperienceCardType = "default" | "skills" | "contacts";
-
-// Generic Card props
-export type GenericCardStatus = "default" | "highlighted" | "selected";
+const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
+  0: "var(--corner-radius-none)",
+  1: "var(--corner-radius-100)",
+  2: "var(--corner-radius-200)",
+  3: "var(--corner-radius-300)",
+  4: "var(--corner-radius-400)",
+  5: "var(--corner-radius-full)",
+};
 
 export interface CardProps extends Omit<ComponentPropsWithRef<"div">, "slot"> {
-  cardType: CardType;
-  // ProductCard props
-  size?: ProductCardSize;
-  status?: ProductCardStatus;
-  hasImage?: boolean;
-  imageAspectRatio?: "16x9" | "4x3";
-  hasIdentifiers?: boolean;
-  hasButton?: boolean;
-  title?: string;
-  description?: string;
-  // ExperienceCard props
-  experienceType?: ExperienceCardType;
-  positionName?: string;
-  companyName?: string;
-  year?: string;
-  experienceDescription?: string;
-  label?: string;
-  details?: string;
-  // InfoCard props
-  cardName?: string;
-  cardDescription?: string;
-  hasIcon?: boolean;
-  // Generic Card props
-  genericStatus?: GenericCardStatus;
+  padding?: number;
+  height?: string;
+  status?: CardStatus;
+  shadow?: CardShadow;
+  cornerRadius?: CornerRadiusStep;
   showBgPattern?: boolean;
   patternType?: PatternType;
   showOverlay?: boolean;
-  showShadow?: boolean;
   showBorder?: boolean;
-  slot?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+function getSpacingToken(padding: number): string {
+  if (padding === 0) {
+    return "var(--spacing-none)";
+  }
+  return `var(--spacing-${padding})`;
+}
+
+function getShadowToken(shadow?: CardShadow): string | undefined {
+  if (!shadow) return undefined;
+  return `var(--drop-shadow-${shadow})`;
+}
+
+function getHeightValue(height?: string): string | undefined {
+  if (height === undefined) return undefined;
+  // Allow strings like "200px", "100%", "auto", "fill", etc.
+  return height;
 }
 
 export function Card({
-  cardType,
-  // ProductCard
-  size = "full",
+  padding = 400,
+  height,
   status = "default",
-  hasImage = true,
-  imageAspectRatio = "16x9",
-  hasIdentifiers = true,
-  hasButton = true,
-  title = "Product Title",
-  description = "Add your products Details that description here. This paragraph is restricted only two lines even if content is large.",
-  // ExperienceCard
-  experienceType = "default",
-  positionName = "Position Name",
-  companyName = "Company Name",
-  year = "2025-26",
-  experienceDescription = "Long Description",
-  label = "Label",
-  details = "Details",
-  // InfoCard
-  cardName = "Card Name",
-  cardDescription = "Card Description",
-  hasIcon = true,
-  // Generic Card
-  genericStatus = "default",
-  showBgPattern = true,
+  shadow,
+  cornerRadius = 4,
+  showBgPattern = false,
   patternType = "cubes",
-  showOverlay = true,
-  showShadow = true,
+  showOverlay = false,
   showBorder = true,
-  slot,
+  children,
   className,
   style,
   ref,
   ...rest
 }: CardProps) {
-    useThemeSafe(); // Ensure theme context is available
-  const renderProductCard = () => {
-    const isFull = size === "full";
-    const isHighlighted = status === "highlighted";
+  useThemeSafe();
 
-    const cardStyles: React.CSSProperties = {
-      position: "relative",
-      overflow: "hidden",
-      borderRadius: "var(--corner-radius-400)",
-      backgroundColor: isHighlighted ? "var(--bg-page-primary)" : "var(--bg-page-tertiary)",
-      display: "flex",
-      flexDirection: isFull ? "row" : "column",
-      gap: isFull ? "var(--spacing-500)" : "var(--spacing-200)",
-      padding: isFull ? 0 : "var(--spacing-400)",
-      width: isFull ? "100%" : "100%",
-      maxWidth: isFull ? "600px" : "400px",
-      minHeight: isFull ? "240px" : "auto",
-    };
+  const isDefault = status === "default";
+  const isHighlighted = status === "highlighted";
+  const isSelected = status === "selected";
 
-    const overlayStyles: React.CSSProperties = {
-      position: "absolute",
-      inset: "-1px",
-      background: `linear-gradient(to bottom, rgba(255,255,255,0) 26.827%, ${
-        isHighlighted ? "var(--bg-page-primary)" : "var(--bg-page-secondary)"
-      } 86.384%)`,
-      pointerEvents: "none",
-    };
+  const heightValue = getHeightValue(height);
+  // Only apply overflow: auto for fixed heights (not "auto" or undefined)
+  const hasFixedHeight = heightValue && heightValue !== "auto";
 
-    if (isFull) {
-      return (
-        <div style={cardStyles}>
-          {showBgPattern && (
-            <div
-              style={{
-                position: "absolute",
-                aspectRatio: "64/64",
-                inset: "-1px",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: "0 -322px -322px 0",
-                  backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"210\" height=\"163\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Crect width=\"210\" height=\"163\" fill=\"%23d2d2d6\"/%3E%3C/svg%3E')",
-                  backgroundRepeat: "repeat",
-                  backgroundSize: "210px 163px",
-                }}
-              />
-            </div>
-          )}
-          {showOverlay && <div style={overlayStyles} />}
-          {hasImage && (
-            <div
-              style={{
-                aspectRatio: imageAspectRatio === "16x9" ? "16/9" : "4/3",
-                flex: "1 0 0",
-                maxHeight: "240px",
-                maxWidth: "300px",
-                minHeight: "36px",
-                minWidth: "48px",
-                position: "relative",
-                borderRadius: "0 var(--corner-radius-400) 0 0",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundColor: "var(--bg-page-secondary)",
-                  borderRadius: "0 var(--corner-radius-400) 0 0",
-                }}
-              />
-            </div>
-          )}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              flex: "1 0 0",
-              gap: "var(--spacing-500)",
-              alignItems: "flex-start",
-              minHeight: 0,
-              minWidth: 0,
-              padding: "0 0 var(--spacing-500) 0",
-              position: "relative",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--spacing-200)",
-                alignItems: "flex-start",
-                width: "100%",
-              }}
-            >
-              <h4
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--heading-h4-text-size)",
-                  lineHeight: "var(--heading-h4-line-height)",
-                  fontWeight: "var(--font-weight-secondary-semibold)",
-                  color: "var(--fg-neutral)",
-                  margin: 0,
-                  textTransform: "capitalize",
-                }}
-              >
-                {title}
-              </h4>
-              <p
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--body-regular-text-size)",
-                  lineHeight: "var(--body-regular-line-height)",
-                  fontWeight: "var(--font-weight-secondary-regular)",
-                  color: "var(--fg-neutral-tertiary)",
-                  margin: 0,
-                  flex: "1 0 0",
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                {description}
-              </p>
-            </div>
-            {hasIdentifiers && (
-              <div
-                style={{
-                  display: "flex",
-                  gap: "var(--spacing-200)",
-                  alignItems: "flex-start",
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor: "var(--bg-page-tertiary)",
-                    padding: "var(--spacing-100) var(--spacing-300)",
-                    borderRadius: "var(--corner-radius-full)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "var(--spacing-100)",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      fontSize: "var(--body-extra-small-text-size)",
-                      lineHeight: "var(--body-extra-small-line-height)",
-                      color: "var(--fg-neutral-tertiary)",
-                    }}
-                  >
-                    Identifier
-                  </span>
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "var(--bg-page-tertiary)",
-                    padding: "var(--spacing-100) var(--spacing-300)",
-                    borderRadius: "var(--corner-radius-full)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "var(--spacing-100)",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      fontSize: "var(--body-extra-small-text-size)",
-                      lineHeight: "var(--body-extra-small-line-height)",
-                      color: "var(--fg-neutral-tertiary)",
-                    }}
-                  >
-                    Tag
-                  </span>
-                </div>
-              </div>
-            )}
-            {hasButton && (
-              <div
-                style={{
-                  backgroundColor: "var(--bg-primary-tonal)",
-                  padding: "var(--spacing-300) var(--spacing-400)",
-                  borderRadius: "var(--corner-radius-200)",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "var(--spacing-200)",
-                  cursor: "pointer",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-secondary)",
-                    fontSize: "var(--body-small-text-size)",
-                    lineHeight: "var(--body-small-line-height)",
-                    fontWeight: "var(--font-weight-secondary-medium)",
-                    color: "var(--fg-primary-on-tonal)",
-                  }}
-                >
-                  Button
-                </span>
-                <RightArrowIcon size="xs" />
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    }
-
-    // Half size (vertical)
-    return (
-      <div style={cardStyles}>
-        {showBgPattern && (
-          <div
-            style={{
-              position: "absolute",
-              aspectRatio: "64/64",
-              inset: "-1px",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                inset: "0 -322px -322px 0",
-                backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"210\" height=\"163\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Crect width=\"210\" height=\"163\" fill=\"%23d2d2d6\"/%3E%3C/svg%3E')",
-                backgroundRepeat: "repeat",
-                backgroundSize: "210px 163px",
-              }}
-            />
-          </div>
-        )}
-        {showOverlay && <div style={overlayStyles} />}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--spacing-200)",
-            alignItems: "flex-start",
-            width: "100%",
-            position: "relative",
-          }}
-        >
-          <h5
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--heading-h5-text-size)",
-              lineHeight: "var(--heading-h5-line-height)",
-              fontWeight: "var(--font-weight-secondary-semibold)",
-              color: "var(--fg-neutral)",
-              margin: 0,
-              textTransform: "capitalize",
-            }}
-          >
-            {title}
-          </h5>
-          <p
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-regular-text-size)",
-              lineHeight: "var(--body-regular-line-height)",
-              fontWeight: "var(--font-weight-secondary-regular)",
-              color: "var(--fg-neutral-tertiary)",
-              margin: 0,
-              display: "-webkit-box",
-              WebkitLineClamp: 1,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
-            {description}
-          </p>
-        </div>
-        {hasImage && (
-          <div
-            style={{
-              aspectRatio: imageAspectRatio === "16x9" ? "320/180" : "4/3",
-              minHeight: "27px",
-              minWidth: "48px",
-              position: "relative",
-              borderRadius: "var(--corner-radius-400)",
-              width: "100%",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                backgroundColor: "var(--bg-page-secondary)",
-                borderRadius: "var(--corner-radius-400)",
-              }}
-            />
-          </div>
-        )}
-        {hasIdentifiers && (
-          <div
-            style={{
-              display: "flex",
-              gap: "var(--spacing-200)",
-              alignItems: "flex-start",
-              position: "relative",
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: "var(--bg-page-tertiary)",
-                padding: "var(--spacing-100) var(--spacing-300)",
-                borderRadius: "var(--corner-radius-full)",
-                display: "flex",
-                alignItems: "center",
-                gap: "var(--spacing-100)",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--body-extra-small-text-size)",
-                  lineHeight: "var(--body-extra-small-line-height)",
-                  color: "var(--fg-neutral-tertiary)",
-                }}
-              >
-                Identifier
-              </span>
-            </div>
-            <div
-              style={{
-                backgroundColor: "var(--bg-page-tertiary)",
-                padding: "var(--spacing-100) var(--spacing-300)",
-                borderRadius: "var(--corner-radius-full)",
-                display: "flex",
-                alignItems: "center",
-                gap: "var(--spacing-100)",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--body-extra-small-text-size)",
-                  lineHeight: "var(--body-extra-small-line-height)",
-                  color: "var(--fg-neutral-tertiary)",
-                }}
-              >
-                Tag
-              </span>
-            </div>
-          </div>
-        )}
-        {hasButton && (
-          <div
-            style={{
-              backgroundColor: "var(--bg-primary-tonal)",
-              padding: "var(--spacing-300) var(--spacing-400)",
-              borderRadius: "var(--corner-radius-200)",
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--spacing-200)",
-              cursor: "pointer",
-              position: "relative",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--body-small-text-size)",
-                lineHeight: "var(--body-small-line-height)",
-                fontWeight: "var(--font-weight-secondary-medium)",
-                color: "var(--fg-primary-on-tonal)",
-              }}
-            >
-              Button
-            </span>
-            <RightArrowIcon size="xs" />
-          </div>
-        )}
-      </div>
-    );
+  const cardStyles: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "var(--spacing-400)",
+    alignItems: "flex-start",
+    overflow: hasFixedHeight ? "auto" : "hidden",
+    padding: getSpacingToken(padding),
+    borderRadius: CORNER_RADIUS_MAP[cornerRadius],
+    position: "relative",
+    backgroundColor: isDefault ? "var(--bg-page-tertiary)" : "var(--bg-page-primary)",
+    ...(heightValue && { height: heightValue }),
+    ...(shadow && { boxShadow: getShadowToken(shadow) }),
+    ...style,
   };
-
-  const renderExperienceCard = () => {
-    const isDefault = experienceType === "default";
-    const isSkills = experienceType === "skills";
-    const isContacts = experienceType === "contacts";
-
-    if (isDefault) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            gap: "var(--spacing-500)",
-            alignItems: "flex-start",
-            width: "480px",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              minHeight: "48px",
-              minWidth: "48px",
-              width: "64px",
-              height: "64px",
-              borderRadius: "var(--corner-radius-200)",
-              backgroundColor: "var(--bg-page-secondary)",
-              flexShrink: 0,
-            }}
-          />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              flex: "1 0 0",
-              gap: "var(--spacing-300)",
-              alignItems: "flex-start",
-              maxWidth: "600px",
-              minHeight: 0,
-              minWidth: 0,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--spacing-100)",
-                alignItems: "flex-start",
-                width: "100%",
-              }}
-            >
-              <h6
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--heading-h6-text-size)",
-                  lineHeight: "var(--heading-h6-line-height)",
-                  fontWeight: "var(--font-weight-secondary-semibold)",
-                  color: "var(--fg-neutral)",
-                  margin: 0,
-                  textTransform: "capitalize",
-                }}
-              >
-                {positionName}
-              </h6>
-              <p
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--body-regular-text-size)",
-                  lineHeight: "var(--body-regular-line-height)",
-                  fontWeight: "var(--font-weight-secondary-medium)",
-                  color: "var(--fg-neutral-tertiary)",
-                  margin: 0,
-                }}
-              >
-                {companyName}
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  fontSize: "var(--body-extra-small-text-size)",
-                  lineHeight: "var(--body-extra-small-line-height)",
-                  fontWeight: "var(--font-weight-secondary-regular)",
-                  color: "var(--fg-neutral-tertiary)",
-                  margin: 0,
-                }}
-              >
-                {year}
-              </p>
-            </div>
-            <p
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--body-small-text-size)",
-                lineHeight: "var(--body-small-line-height)",
-                fontWeight: "var(--font-weight-secondary-regular)",
-                color: "var(--fg-neutral-tertiary)",
-                margin: 0,
-              }}
-            >
-              {experienceDescription}
-            </p>
-          </div>
-        </div>
-      );
-    }
-
-    if (isSkills) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            gap: "var(--spacing-400)",
-            alignItems: "center",
-            backgroundColor: "var(--bg-page-secondary)",
-            padding: "var(--spacing-200)",
-            borderRadius: "var(--corner-radius-200)",
-            width: "480px",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              minHeight: "32px",
-              minWidth: "32px",
-              width: "48px",
-              height: "48px",
-              borderRadius: "var(--corner-radius-200)",
-              backgroundColor: "var(--bg-page-tertiary)",
-              flexShrink: 0,
-            }}
-          />
-          <p
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-regular-text-size)",
-              lineHeight: "var(--body-regular-line-height)",
-              fontWeight: "var(--font-weight-secondary-medium)",
-              color: "var(--fg-neutral)",
-              margin: 0,
-              flex: "1 0 0",
-            }}
-          >
-            {positionName}
-          </p>
-        </div>
-      );
-    }
-
-    // Contacts
-    return (
-      <div
-        style={{
-          display: "flex",
-          gap: "var(--spacing-400)",
-          alignItems: "center",
-          width: "480px",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: "1 0 0",
-            gap: "var(--spacing-100)",
-            alignItems: "flex-start",
-            maxWidth: "600px",
-            minHeight: 0,
-            minWidth: 0,
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-regular-text-size)",
-              lineHeight: "var(--body-regular-line-height)",
-              fontWeight: "var(--font-weight-secondary-regular)",
-              color: "var(--fg-neutral-tertiary)",
-              margin: 0,
-            }}
-          >
-            {label}
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-medium-text-size)",
-              lineHeight: "var(--body-medium-line-height)",
-              fontWeight: "var(--font-weight-secondary-medium)",
-              color: "var(--fg-neutral)",
-              margin: 0,
-            }}
-          >
-            {details}
-          </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: "var(--bg-page-tertiary)",
-            width: "48px",
-            height: "48px",
-            borderRadius: "var(--corner-radius-200)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          <div
-            style={{
-              width: "24px",
-              height: "24px",
-              backgroundColor: "var(--fg-neutral)",
-              borderRadius: "50%",
-            }}
-          />
-        </div>
-      </div>
-    );
-  };
-
-  const renderInfoCard = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          gap: "var(--spacing-400)",
-          alignItems: "flex-start",
-          width: "480px",
-          position: "relative",
-        }}
-      >
-        {hasIcon && (
-          <div
-            style={{
-              backgroundColor: "var(--bg-primary-tonal)",
-              width: "32px",
-              height: "32px",
-              borderRadius: "var(--corner-radius-200)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              padding: "8px",
-            }}
-          >
-            <div
-              style={{
-                width: "16px",
-                height: "16px",
-                backgroundColor: "var(--fg-primary-on-tonal)",
-                borderRadius: "50%",
-              }}
-            />
-          </div>
-        )}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: "1 0 0",
-            gap: "var(--spacing-300)",
-            alignItems: "flex-start",
-            maxWidth: "600px",
-            minHeight: 0,
-            minWidth: 0,
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-regular-text-size)",
-              lineHeight: "var(--body-regular-line-height)",
-              fontWeight: "var(--font-weight-secondary-medium)",
-              color: "var(--fg-neutral)",
-              margin: 0,
-            }}
-          >
-            {cardName}
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "var(--body-small-text-size)",
-              lineHeight: "var(--body-small-line-height)",
-              fontWeight: "var(--font-weight-secondary-regular)",
-              color: "var(--fg-neutral-tertiary)",
-              margin: 0,
-              textAlign: "justify",
-            }}
-          >
-            {cardDescription}
-          </p>
-        </div>
-      </div>
-    );
-  };
-
-  const renderGenericCard = () => {
-    const isDefault = genericStatus === "default";
-    const isHighlighted = genericStatus === "highlighted";
-    const isSelected = genericStatus === "selected";
-
-    const cardStyles: React.CSSProperties = {
-      display: "flex",
-      flexDirection: "column",
-      gap: "var(--spacing-400)",
-      alignItems: "flex-start",
-      overflow: "hidden",
-      padding: "var(--spacing-400)",
-      borderRadius: "var(--corner-radius-400)",
-      width: "400px",
-      position: "relative",
-      backgroundColor: isDefault ? "var(--bg-page-tertiary)" : "var(--bg-page-primary)",
-    };
 
     if (showBorder) {
       if (isSelected) {
@@ -789,61 +98,58 @@ export function Card({
       }
     }
 
-    if (showShadow) {
-      if (isHighlighted) {
-        cardStyles.boxShadow =
-          "0px 4px 6px -2px var(--shadow-subtle), 0px -4px 9px -6px var(--shadow-subtle)";
-      } else {
-        cardStyles.boxShadow =
-          "0px 1px 4px -2px var(--shadow-subtle), 0px 1px 4px 0px var(--shadow-subtle)";
-      }
-    }
-
     const overlayGradient = isDefault
       ? "var(--bg-page-secondary)"
       : "var(--bg-page-primary)";
 
-    return (
-      <div style={cardStyles}>
-        {showBgPattern && (() => {
+    // Build background layers using CSS multiple backgrounds
+    // CSS backgrounds stack: first listed = top layer, last listed = bottom layer
+    // We want: overlay (middle) first, pattern (bottom) last
+    // Content will naturally be on top since it's not a background
+    const backgroundLayers: string[] = [];
+    
+    if (showOverlay) {
+      backgroundLayers.push(
+        `linear-gradient(to bottom, rgba(255,255,255,0) 26.827%, ${overlayGradient} 86.384%)`
+      );
+    }
+    
+    if (showBgPattern) {
+      const patternConfig = getPatternConfig(patternType);
+      if (patternConfig.imageUrl) {
+        backgroundLayers.push(`url("${patternConfig.imageUrl}")`);
+      }
+    }
+
+    // Apply background layers to card styles
+    if (backgroundLayers.length > 0) {
+      cardStyles.backgroundImage = backgroundLayers.join(", ");
+      
+      if (showBgPattern && showOverlay) {
+        const patternConfig = getPatternConfig(patternType);
+        // First value applies to first background (overlay), second to pattern
+        cardStyles.backgroundRepeat = "no-repeat, repeat";
+        cardStyles.backgroundSize = patternConfig.backgroundSize 
+          ? `100% 100%, ${patternConfig.backgroundSize}`
+          : "100% 100%, auto";
+        cardStyles.backgroundPosition = patternConfig.backgroundPosition 
+          ? `center, ${patternConfig.backgroundPosition}`
+          : "center, top left";
+      } else if (showBgPattern) {
           const patternConfig = getPatternConfig(patternType);
-          if (!patternConfig.imageUrl) return null;
+        cardStyles.backgroundRepeat = "repeat";
+        cardStyles.backgroundSize = patternConfig.backgroundSize || "auto";
+        cardStyles.backgroundPosition = patternConfig.backgroundPosition || "top left";
+      } else if (showOverlay) {
+        cardStyles.backgroundRepeat = "no-repeat";
+        cardStyles.backgroundSize = "100% 100%";
+        cardStyles.backgroundPosition = "center";
+      }
+    }
           
           return (
-            <div
-              style={{
-                position: "absolute",
-                aspectRatio: "64/64",
-                inset: showBorder ? "-1px" : "0",
-                overflow: "hidden",
-                zIndex: 1,
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: patternConfig.inset || "0",
-                  backgroundImage: `url("${patternConfig.imageUrl}")`,
-                  backgroundRepeat: "repeat",
-                  backgroundSize: patternConfig.backgroundSize,
-                  backgroundPosition: patternConfig.backgroundPosition || "top left",
-                }}
-              />
-            </div>
-          );
-        })()}
-        {showOverlay && (
-          <div
-            style={{
-              position: "absolute",
-              inset: showBorder ? "-1px" : "0",
-              background: `linear-gradient(to bottom, rgba(255,255,255,0) 26.827%, ${overlayGradient} 86.384%)`,
-              pointerEvents: "none",
-              zIndex: 2,
-            }}
-          />
-        )}
-        {slot || (
+    <div ref={ref} className={className} style={cardStyles} {...rest}>
+      {children || (
           <div
             style={{
               backgroundColor: "var(--bg-warning-tonal)",
@@ -855,8 +161,6 @@ export function Card({
               alignItems: "center",
               justifyContent: "center",
               minHeight: "32px",
-              position: "relative",
-              zIndex: 3,
             }}
           >
             <div style={{ color: "var(--fg-warning-on-tonal)" }}>
@@ -866,27 +170,4 @@ export function Card({
         )}
       </div>
     );
-  };
-
-  const renderCard = () => {
-    switch (cardType) {
-      case "product":
-        return renderProductCard();
-      case "experience":
-        return renderExperienceCard();
-      case "info":
-        return renderInfoCard();
-      case "generic":
-        return renderGenericCard();
-      default:
-        return null;
-    }
-  };
-
-    return (
-      <div ref={ref} className={className} style={style} {...rest}>
-        {renderCard()}
-      </div>
-    );
 }
-

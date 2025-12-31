@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2025-01-02
+
+### Changed
+- Simplified Card component usage examples for better developer experience
+- Removed unnecessary wrapper divs from Card examples - Card's built-in flex layout handles spacing automatically
+- Improved code examples to be cleaner and more minimal, following design system best practices
+- Card examples now demonstrate cleaner, more maintainable code patterns
+
+### Fixed
+- Fixed missing line-height in typography previews across Card component examples
+- Fixed image constraints in Product Card Pattern example - removed fixed width/height props for better flexibility
+
 ## [3.1.9] - 2025-12-29
 
 ### Added
