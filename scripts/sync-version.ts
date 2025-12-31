@@ -9,6 +9,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { execSync } from "child_process";
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const BEACON_UI_PACKAGE_JSON = path.join(PROJECT_ROOT, "packages", "beacon-ui", "package.json");
@@ -55,6 +56,17 @@ function updateReadme(version: string): void {
   }
 }
 
+// Generate version data from CHANGELOG.md
+function generateVersionData(): void {
+  try {
+    const scriptPath = path.join(__dirname, "generate-version-data.ts");
+    execSync(`npx tsx "${scriptPath}"`, { stdio: "inherit", cwd: PROJECT_ROOT });
+  } catch (error) {
+    console.error("Error generating version data:", error);
+    // Don't exit - version sync can still succeed even if data generation fails
+  }
+}
+
 // Main execution
 try {
   const version = getVersion();
@@ -62,6 +74,7 @@ try {
   
   updateVersionTs(version);
   updateReadme(version);
+  generateVersionData();
   
   console.log(`\n✓ Version sync complete!`);
 } catch (error) {

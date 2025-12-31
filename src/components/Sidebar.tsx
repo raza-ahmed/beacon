@@ -20,6 +20,13 @@ export const navigationData: NavSection[] = [
     items: [
       { label: "Introduction", href: "/" },
       { label: "How to Use", href: "/how-to-use" },
+      {
+        label: "Versions",
+        children: [
+          { label: "Releases", href: "/releases" },
+          { label: "Changelog", href: "/changelog" },
+        ],
+      },
     ],
   },
   {
@@ -63,12 +70,13 @@ interface NavItemComponentProps {
 }
 
 function NavItemComponent({ item, isActive, currentPath, level = 0 }: NavItemComponentProps) {
-  const [isExpanded, setIsExpanded] = useState(true);
   const hasChildren = item.children && item.children.length > 0;
+  // Check if any child is active
+  const hasActiveChild = hasChildren ? item.children!.some((child) => child.href === currentPath) : false;
+  // Start collapsed by default, but expand if there's an active child
+  const [isExpanded, setIsExpanded] = useState(hasActiveChild);
 
   if (hasChildren) {
-    // Check if any child is active
-    const hasActiveChild = item.children!.some((child) => child.href === currentPath);
     
     return (
       <div className="ds-sidebar__nav-group">
