@@ -227,11 +227,11 @@ export default function SwitchPage() {
               <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "var(--spacing-500)" }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--spacing-200)" }}>
                   <SwitchPreview checked={false} status="default" theme={theme} hue={hue} />
-                  <p style={{ margin: 0, fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", color: "var(--fg-neutral-secondary)" }}>Unchecked</p>
+                  <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Unchecked</p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--spacing-200)" }}>
                   <SwitchPreview checked={true} status="default" theme={theme} hue={hue} />
-                  <p style={{ margin: 0, fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", color: "var(--fg-neutral-secondary)" }}>Checked</p>
+                  <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Checked</p>
                 </div>
               </div>
             </div>

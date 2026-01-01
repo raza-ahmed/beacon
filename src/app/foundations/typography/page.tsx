@@ -2,7 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
-import { CopyIcon } from "@/components/icons";
+import { CopyIcon, CheckIcon } from "@/components/icons";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { useTheme } from "@/providers/ThemeProvider";
 
 interface TypographyStyle {
   name: string;
@@ -120,12 +123,18 @@ function useComputedTypography() {
 
 export default function TypographyPage() {
   const { computed, mounted, typographyStyles } = useComputedTypography();
+  const { theme } = useTheme();
+  const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
   const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [copiedBasic, setCopiedBasic] = useState(false);
+  const [copiedWithColor, setCopiedWithColor] = useState(false);
+  const [copiedOverride, setCopiedOverride] = useState(false);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
       { id: "building-blocks", label: "Building Blocks" },
       { id: "style-demos", label: "Style Demos" },
+      { id: "implementation", label: "Implementation" },
       { id: "color-previews", label: "Color Previews" },
     ];
   }, []);
@@ -183,7 +192,7 @@ export default function TypographyPage() {
           <h6 className="ds-content__section-title">Building Blocks</h6>
 
           <div style={{ marginBottom: "var(--spacing-500)" }}>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Font Family
             </h6>
             <div className="ds-spacing-table">
@@ -221,7 +230,7 @@ export default function TypographyPage() {
           </div>
 
           <div style={{ marginBottom: "var(--spacing-500)" }}>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Font Weight
             </h6>
             <div className="ds-spacing-table">
@@ -259,7 +268,7 @@ export default function TypographyPage() {
           </div>
 
           <div>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Font Size & Line Height
             </h6>
             <div className="ds-spacing-table">
@@ -305,7 +314,7 @@ export default function TypographyPage() {
           <h6 className="ds-content__section-title">Style Demos</h6>
 
           <div style={{ marginBottom: "var(--spacing-500)" }}>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Headings
             </h6>
             {headings.map((style) => (
@@ -331,7 +340,7 @@ export default function TypographyPage() {
           </div>
 
           <div style={{ marginBottom: "var(--spacing-500)" }}>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Title
             </h6>
             {titles.map((style) => (
@@ -353,7 +362,7 @@ export default function TypographyPage() {
           </div>
 
           <div>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Paragraph
             </h6>
             {paragraphs.map((style) => (
@@ -371,6 +380,251 @@ export default function TypographyPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="implementation" className="ds-content__section">
+          <h6 className="ds-content__section-title">Implementation</h6>
+          <p className="ds-content__text" style={{ marginBottom: "var(--spacing-400)" }}>
+            Typography classes are automatically available once you import the design tokens. Use these utility classes instead of inline styles for consistent typography across your application.
+          </p>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Basic Usage
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              Apply typography classes directly to your HTML elements. The classes handle font family, size, weight, and line height automatically.
+            </p>
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-card-code-copy"
+                onClick={async () => {
+                  await copyToClipboard(`<h1 className="text-heading-h1">Main Heading</h1>
+<h2 className="text-heading-h2">Section Heading</h2>
+<h3 className="text-heading-h3">Subsection</h3>
+<p className="text-body3-regular">Regular body text for paragraphs and content.</p>
+<p className="text-body2-regular">Smaller body text for captions and labels.</p>
+<span className="text-title-small">Title Text</span>`);
+                  setCopiedBasic(true);
+                  setTimeout(() => setCopiedBasic(false), 2000);
+                }}
+                aria-label="Copy code"
+              >
+                {copiedBasic ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<h1 className="text-heading-h1">Main Heading</h1>
+<h2 className="text-heading-h2">Section Heading</h2>
+<h3 className="text-heading-h3">Subsection</h3>
+<p className="text-body3-regular">Regular body text for paragraphs and content.</p>
+<p className="text-body2-regular">Smaller body text for captions and labels.</p>
+<span className="text-title-small">Title Text</span>`}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              With Color and Spacing
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              Combine typography classes with inline styles for color, margin, and other non-typography properties. This keeps typography consistent while allowing layout flexibility.
+            </p>
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-card-code-copy"
+                onClick={async () => {
+                  await copyToClipboard(`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>
+  Section Title
+</h6>
+<p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>
+  Supporting text with secondary color.
+</p>
+<p className="text-body3-medium" style={{ marginTop: "var(--spacing-400)", color: "var(--fg-primary)" }}>
+  Highlighted text using primary color.
+</p>`);
+                  setCopiedWithColor(true);
+                  setTimeout(() => setCopiedWithColor(false), 2000);
+                }}
+                aria-label="Copy code"
+              >
+                {copiedWithColor ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>
+  Section Title
+</h6>
+<p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>
+  Supporting text with secondary color.
+</p>
+<p className="text-body3-medium" style={{ marginTop: "var(--spacing-400)", color: "var(--fg-primary)" }}>
+  Highlighted text using primary color.
+</p>`}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Overriding Default Styles
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              Heading classes include <code className="ds-token-row__code">text-transform: capitalize</code> by default. Override it with <code className="ds-token-row__code">textTransform: "none"</code> when needed. You can also override font weight for specific use cases.
+            </p>
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="ds-card-code-copy"
+                onClick={async () => {
+                  await copyToClipboard(`// Override text-transform for headings
+<h3 className="text-heading-h3" style={{ textTransform: "none" }}>
+  Custom Heading Without Capitalization
+</h3>
+
+// Override font weight for body text
+<p className="text-body3-regular" style={{ fontWeight: "var(--font-weight-secondary-semibold)" }}>
+  Body text with semibold weight
+</p>
+
+// Combine multiple overrides
+<h6 className="text-heading-h6" style={{ 
+  margin: 0, 
+  color: "var(--fg-neutral)", 
+  textTransform: "none",
+  fontWeight: "var(--font-weight-secondary-semibold)"
+}}>
+  Custom Styled Heading
+</h6>`);
+                  setCopiedOverride(true);
+                  setTimeout(() => setCopiedOverride(false), 2000);
+                }}
+                aria-label="Copy code"
+              >
+                {copiedOverride ? (
+                  <>
+                    <CheckIcon size="xs" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon size="xs" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`// Override text-transform for headings
+<h3 className="text-heading-h3" style={{ textTransform: "none" }}>
+  Custom Heading Without Capitalization
+</h3>
+
+// Override font weight for body text
+<p className="text-body3-regular" style={{ fontWeight: "var(--font-weight-secondary-semibold)" }}>
+  Body text with semibold weight
+</p>
+
+// Combine multiple overrides
+<h6 className="text-heading-h6" style={{ 
+  margin: 0, 
+  color: "var(--fg-neutral)", 
+  textTransform: "none",
+  fontWeight: "var(--font-weight-secondary-semibold)"
+}}>
+  Custom Styled Heading
+</h6>`}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+
+          <div>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Best Practices
+            </h6>
+            <ul className="ds-content__bullet-list">
+              <li>Always use typography classes instead of inline font styles for consistency</li>
+              <li>Use semantic HTML elements (<code className="ds-token-row__code">&lt;h1&gt;</code> through <code className="ds-token-row__code">&lt;h6&gt;</code>, <code className="ds-token-row__code">&lt;p&gt;</code>) with appropriate typography classes</li>
+              <li>Apply color, margin, and other non-typography properties via inline styles when needed</li>
+              <li>Override <code className="ds-token-row__code">text-transform</code> for headings when capitalization is not desired</li>
+              <li>Choose the appropriate body size (Body1-Body4) based on your content hierarchy</li>
+              <li>Use Medium weight variants for emphasis within body text</li>
+            </ul>
           </div>
         </section>
 

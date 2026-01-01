@@ -56,7 +56,7 @@ export default function IntroductionPage() {
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "var(--spacing-400)", marginTop: "var(--spacing-400)" }}>
             <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
-              <h6 style={{ fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-title-small-text-size)", fontWeight: "var(--font-weight-secondary-bold)", color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0 }}>
+              <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Components
               </h6>
               <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
@@ -72,7 +72,7 @@ export default function IntroductionPage() {
               </ul>
             </div>
             <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
-              <h6 style={{ fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-title-small-text-size)", fontWeight: "var(--font-weight-secondary-bold)", color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0 }}>
+              <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Foundations
               </h6>
               <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>

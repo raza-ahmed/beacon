@@ -53,9 +53,9 @@
     "H3": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.IBM Plex Serif.Style.IBM Plex Serif}",
+        "fontFamily": "{Font.Primary}",
         "fontSize": "{Fonts.Heading.H3.Text Size}",
-        "fontWeight": "{Fonts.IBM Plex Serif.Weight.Semibold}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H3.Line Height}",
         "textTransform": "capitalize",
@@ -91,7 +91,7 @@
       "$value": {
         "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
         "fontSize": "{Fonts.Heading.H6.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H6.Line Height}",
         "textTransform": "capitalize",

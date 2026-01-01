@@ -1,12 +1,6 @@
 /* Responsive tokens */
 :root {
   --device-width: 1440px;
-  --adaptive-set-d96-t80-m32: 96px;
-  --adaptive-set-d96-t48-m32: 96px;
-  --adaptive-set-d48-t32-m24: 48px;
-  --adaptive-set-d64-t80-m32: 64px;
-  --adaptive-set-d80-t64-m48: 80px;
-  --adaptive-set-d32-t80-m32: 32px;
   --heading-h1-text-size: 64px;
   --fonts-heading-h1-text-size: 64px;
   --heading-h1-paragraph-spacing: 72px;
@@ -73,18 +67,18 @@
   --fonts-body-medium-paragraph-spacing: 28px;
   --body-medium-line-height: 28px;
   --fonts-body-medium-line-height: 28px;
+  --adaptive-set-d96-t80-m32: 96px;
+  --adaptive-set-d96-t48-m32: 96px;
+  --adaptive-set-d48-t32-m24: 48px;
+  --adaptive-set-d64-t80-m32: 64px;
+  --adaptive-set-d80-t64-m48: 80px;
+  --adaptive-set-d32-t80-m32: 32px;
   --menu-width: 224px;
 }
 
 @media (max-width: 1024px) {
   :root {
     --device-width: 834px;
-    --adaptive-set-d96-t80-m32: 80px;
-    --adaptive-set-d96-t48-m32: 48px;
-    --adaptive-set-d48-t32-m24: 32px;
-    --adaptive-set-d64-t80-m32: 80px;
-    --adaptive-set-d80-t64-m48: 64px;
-    --adaptive-set-d32-t80-m32: 80px;
     --heading-h1-text-size: 60px;
     --fonts-heading-h1-text-size: 60px;
     --heading-h1-paragraph-spacing: 64px;
@@ -151,6 +145,12 @@
     --fonts-body-medium-paragraph-spacing: 28px;
     --body-medium-line-height: 28px;
     --fonts-body-medium-line-height: 28px;
+    --adaptive-set-d96-t80-m32: 80px;
+    --adaptive-set-d96-t48-m32: 48px;
+    --adaptive-set-d48-t32-m24: 32px;
+    --adaptive-set-d64-t80-m32: 80px;
+    --adaptive-set-d80-t64-m48: 64px;
+    --adaptive-set-d32-t80-m32: 80px;
     --menu-width: var(--device-width);
   }
 }
@@ -158,12 +158,6 @@
 @media (max-width: 768px) {
   :root {
     --device-width: 430px;
-    --adaptive-set-d96-t80-m32: 32px;
-    --adaptive-set-d96-t48-m32: 32px;
-    --adaptive-set-d48-t32-m24: 24px;
-    --adaptive-set-d64-t80-m32: 32px;
-    --adaptive-set-d80-t64-m48: 48px;
-    --adaptive-set-d32-t80-m32: 32px;
     --heading-h1-text-size: 48px;
     --fonts-heading-h1-text-size: 48px;
     --heading-h1-paragraph-spacing: 56px;
@@ -230,6 +224,12 @@
     --fonts-body-medium-paragraph-spacing: 28px;
     --body-medium-line-height: 28px;
     --fonts-body-medium-line-height: 28px;
+    --adaptive-set-d96-t80-m32: 32px;
+    --adaptive-set-d96-t48-m32: 32px;
+    --adaptive-set-d48-t32-m24: 24px;
+    --adaptive-set-d64-t80-m32: 32px;
+    --adaptive-set-d80-t64-m48: 48px;
+    --adaptive-set-d32-t80-m32: 32px;
     --menu-width: var(--device-width);
   }
 }

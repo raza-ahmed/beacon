@@ -434,12 +434,6 @@
 /* Responsive tokens */
 :root {
   --device-width: 1440px;
-  --adaptive-set-d96-t80-m32: 96px;
-  --adaptive-set-d96-t48-m32: 96px;
-  --adaptive-set-d48-t32-m24: 48px;
-  --adaptive-set-d64-t80-m32: 64px;
-  --adaptive-set-d80-t64-m48: 80px;
-  --adaptive-set-d32-t80-m32: 32px;
   --heading-h1-text-size: 64px;
   --fonts-heading-h1-text-size: 64px;
   --heading-h1-paragraph-spacing: 72px;
@@ -506,18 +500,18 @@
   --fonts-body-medium-paragraph-spacing: 28px;
   --body-medium-line-height: 28px;
   --fonts-body-medium-line-height: 28px;
+  --adaptive-set-d96-t80-m32: 96px;
+  --adaptive-set-d96-t48-m32: 96px;
+  --adaptive-set-d48-t32-m24: 48px;
+  --adaptive-set-d64-t80-m32: 64px;
+  --adaptive-set-d80-t64-m48: 80px;
+  --adaptive-set-d32-t80-m32: 32px;
   --menu-width: 224px;
 }
 
 @media (max-width: 1024px) {
   :root {
     --device-width: 834px;
-    --adaptive-set-d96-t80-m32: 80px;
-    --adaptive-set-d96-t48-m32: 48px;
-    --adaptive-set-d48-t32-m24: 32px;
-    --adaptive-set-d64-t80-m32: 80px;
-    --adaptive-set-d80-t64-m48: 64px;
-    --adaptive-set-d32-t80-m32: 80px;
     --heading-h1-text-size: 60px;
     --fonts-heading-h1-text-size: 60px;
     --heading-h1-paragraph-spacing: 64px;
@@ -584,6 +578,12 @@
     --fonts-body-medium-paragraph-spacing: 28px;
     --body-medium-line-height: 28px;
     --fonts-body-medium-line-height: 28px;
+    --adaptive-set-d96-t80-m32: 80px;
+    --adaptive-set-d96-t48-m32: 48px;
+    --adaptive-set-d48-t32-m24: 32px;
+    --adaptive-set-d64-t80-m32: 80px;
+    --adaptive-set-d80-t64-m48: 64px;
+    --adaptive-set-d32-t80-m32: 80px;
     --menu-width: var(--device-width);
   }
 }
@@ -591,12 +591,6 @@
 @media (max-width: 768px) {
   :root {
     --device-width: 430px;
-    --adaptive-set-d96-t80-m32: 32px;
-    --adaptive-set-d96-t48-m32: 32px;
-    --adaptive-set-d48-t32-m24: 24px;
-    --adaptive-set-d64-t80-m32: 32px;
-    --adaptive-set-d80-t64-m48: 48px;
-    --adaptive-set-d32-t80-m32: 32px;
     --heading-h1-text-size: 48px;
     --fonts-heading-h1-text-size: 48px;
     --heading-h1-paragraph-spacing: 56px;
@@ -663,6 +657,12 @@
     --fonts-body-medium-paragraph-spacing: 28px;
     --body-medium-line-height: 28px;
     --fonts-body-medium-line-height: 28px;
+    --adaptive-set-d96-t80-m32: 32px;
+    --adaptive-set-d96-t48-m32: 32px;
+    --adaptive-set-d48-t32-m24: 24px;
+    --adaptive-set-d64-t80-m32: 32px;
+    --adaptive-set-d80-t64-m48: 48px;
+    --adaptive-set-d32-t80-m32: 32px;
     --menu-width: var(--device-width);
   }
 }
@@ -728,7 +728,7 @@
 }
 .text-heading-h3 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h3-text-size);
   line-height: var(--fonts-heading-h3-line-height);
@@ -749,7 +749,7 @@
 }
 .text-heading-h6 {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-semibold);
+  font-weight: var(--font-weight-secondary-medium);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h6-text-size);
   line-height: var(--fonts-heading-h6-line-height);

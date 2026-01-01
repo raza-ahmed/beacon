@@ -22,6 +22,64 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.3.1",
+    "date": "2026-01-01",
+    "fixed": [
+      {
+        "description": "Fixed Card component default background color from `bg-page-tertiary` to `bg-page-secondary`"
+      },
+      {
+        "description": "Fixed card preview elements in documentation to use `bg-page-secondary` instead of `bg-page-tertiary`"
+      },
+      {
+        "description": "Corrected API documentation to reflect correct default background color (`page-secondary` instead of `page-tertiary`)"
+      },
+      {
+        "description": "Fixed incorrect default values in API reference table (`showBgPattern` and `showOverlay` now correctly show `false`)"
+      }
+    ]
+  },
+  {
+    "version": "3.3.0",
+    "date": "2025-01-02",
+    "added": [
+      {
+        "description": "Typography implementation guide section in documentation with code examples and best practices"
+      },
+      {
+        "description": "Comprehensive usage examples for typography classes with copy-to-clipboard functionality"
+      },
+      {
+        "description": "Implementation patterns for combining typography classes with inline styles for color and spacing"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Refactored all inline typography styles to use typography utility classes throughout documentation"
+      },
+      {
+        "description": "Improved typography class usage consistency across all component examples"
+      },
+      {
+        "description": "Updated build script to correctly determine font weight prefix based on fontWeight reference (not just fontFamily)"
+      },
+      {
+        "description": "Typography classes now properly handle H3 (secondary-semibold) and H6 (secondary-medium) font weights"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Fixed H3 typography class to use `font-weight-secondary-semibold` instead of `font-weight-primary-semibold`"
+      },
+      {
+        "description": "Fixed H6 typography class to use `font-weight-secondary-medium` instead of `font-weight-secondary-semibold`"
+      },
+      {
+        "description": "Corrected font weight determination logic in token build script to check fontWeight reference directly"
+      }
+    ]
+  },
+  {
     "version": "3.2.0",
     "date": "2025-01-01",
     "changed": [

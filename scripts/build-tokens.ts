@@ -561,15 +561,24 @@ function generateTypographyCss(): string {
 
     if (typographyValue.fontWeight) {
       const weight = typographyValue.fontWeight;
-      const tokenRef = typographyValue.fontFamily && isReference(typographyValue.fontFamily)
+      // Determine if weight is primary or secondary based on the fontWeight reference itself
+      // Check if fontWeight references DM Sans (secondary) or IBM Plex Serif (primary)
+      const weightRef = isReference(weight) ? weight.slice(1, -1).toLowerCase() : "";
+      const isPrimaryWeight = Boolean(
+        weightRef.includes("ibm") ||
+        weightRef.includes("plex")
+      );
+      // If fontWeight doesn't indicate, fall back to fontFamily check
+      const fontFamilyRef = typographyValue.fontFamily && isReference(typographyValue.fontFamily)
         ? typographyValue.fontFamily.slice(1, -1).toLowerCase()
         : "";
       const isPrimaryFont = Boolean(
         (typographyValue.fontFamily && !isReference(typographyValue.fontFamily) && typographyValue.fontFamily.includes("IBM")) ||
-          tokenRef.includes("font.primary") ||
-          tokenRef.includes("ibm")
+          fontFamilyRef.includes("font.primary") ||
+          fontFamilyRef.includes("ibm")
       );
-      const prefix = isPrimaryFont ? "primary" : "secondary";
+      // Use weight reference if available (it's more specific), otherwise fall back to fontFamily
+      const prefix = isReference(weight) && weightRef ? (isPrimaryWeight ? "primary" : "secondary") : (isPrimaryFont ? "primary" : "secondary");
 
       if (weight.includes("Bold")) {
         lines.push(`  font-weight: var(--font-weight-${prefix}-bold);`);

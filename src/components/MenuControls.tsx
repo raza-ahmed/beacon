@@ -234,7 +234,7 @@ export function MenuControls({
             </div>
           ))}
           {menuItems.length === 0 && (
-            <p style={{ color: "var(--fg-neutral-tertiary)", fontSize: "var(--fonts-body-small-text-size)", margin: 0 }}>
+            <p className="text-body2-regular" style={{ color: "var(--fg-neutral-tertiary)", margin: 0 }}>
               No menu items. Click "Add Item" to add one.
             </p>
           )}

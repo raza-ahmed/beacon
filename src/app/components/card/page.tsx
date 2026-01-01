@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import { CardPreview } from "@/components/CardPreview";
@@ -11,8 +10,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import type { PatternType } from "@/utils/patternPaths";
 import type { CornerRadiusStep } from "beacon-ui";
-import { Card, Avatar, Chip } from "beacon-ui";
-import { ListDetailsIcon, RightArrowIcon } from "beacon-icons";
+import { Card, Avatar, Button } from "beacon-ui";
+import { RightArrowIcon } from "beacon-icons";
 
 type CardStatus = "default" | "highlighted" | "selected";
 type CardShadow = "0" | "50" | "100" | "200" | "300" | "400" | "500";
@@ -364,7 +363,7 @@ export default function CardPage() {
                       <code>"default"</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                      Background color variant. Default uses page-tertiary, highlighted/selected use page-primary.
+                      Background color variant. Default uses page-secondary, highlighted/selected use page-primary.
                     </div>
                   </div>
                   <div className="ds-api-reference__props-row">
@@ -389,7 +388,7 @@ export default function CardPage() {
                       <code>boolean</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                      <code>true</code>
+                      <code>false</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                       Whether to show background pattern overlay.
@@ -417,7 +416,7 @@ export default function CardPage() {
                       <code>boolean</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                      <code>true</code>
+                      <code>false</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                       Whether to show gradient overlay.
@@ -598,17 +597,16 @@ export default function CardPage() {
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas" style={{ display: "flex", justifyContent: "flex-start" }}>
                       <Card padding={500} shadow="50" cornerRadius={4} showBgPattern={true} patternType="denim" showOverlay={true} showBorder={true} style={{ width: "50%", flexShrink: 0, minWidth: "320px" }}>
-                        <h5 style={{ margin: 0, color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-heading-h5-text-size)", fontWeight: "var(--font-weight-secondary-semibold)", lineHeight: "var(--fonts-heading-h5-line-height)" }}>Product Title</h5>
-                        <p style={{ margin: 0, color: "var(--fg-neutral-tertiary)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-secondary-medium)", lineHeight: "var(--fonts-body-regular-line-height)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
+                        <h5 className="text-heading-h5" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>Product Title</h5>
+                        <p className="text-body3-medium" style={{ margin: 0, color: "var(--fg-neutral-tertiary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
                         <img
-                          src="/images/preview/16x9_1024x576_preview.png"
+                          src="/images/preview/1x1_512px_preview.png"
                           alt="Product preview"
                           style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover", borderRadius: "var(--corner-radius-400)" }}
                         />
-                        <button style={{ padding: "var(--spacing-300) var(--spacing-400)", backgroundColor: "var(--bg-primary-tonal)", color: "var(--fg-primary-on-tonal)", border: "none", borderRadius: "var(--corner-radius-200)", cursor: "pointer", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", fontWeight: "var(--font-weight-secondary-medium)", lineHeight: "var(--fonts-body-small-line-height)", display: "flex", alignItems: "center", gap: "var(--spacing-200)", alignSelf: "flex-start" }}>
+                        <Button endIcon={<RightArrowIcon size="xs" />}>
                           Button
-                          <RightArrowIcon size="xs" />
-                        </button>
+                        </Button>
                       </Card>
                     </div>
                   </div>
@@ -619,7 +617,7 @@ export default function CardPage() {
                       type="button"
                       className="ds-card-code-copy"
                       onClick={async () => {
-                        await copyToClipboard(`import { Card } from 'beacon-ui';
+                        await copyToClipboard(`import { Card, Button } from 'beacon-ui';
 import { RightArrowIcon } from 'beacon-icons';
 
 <Card 
@@ -635,14 +633,13 @@ import { RightArrowIcon } from 'beacon-icons';
   <h5>Product Title</h5>
   <p>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
   <img
-    src="/images/preview/16x9_1024x576_preview.png"
+    src="/images/preview/1x1_512px_preview.png"
     alt="Product"
     style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover" }}
   />
-  <button>
+  <Button endIcon={<RightArrowIcon size="xs" />}>
     Button
-    <RightArrowIcon size="xs" />
-  </button>
+  </Button>
 </Card>`);
                         setCopiedExample("product");
                         setTimeout(() => setCopiedExample(null), 2000);
@@ -679,7 +676,7 @@ import { RightArrowIcon } from 'beacon-icons';
                   }}
                   PreTag="div"
                 >
-                    {`import { Card } from 'beacon-ui';
+                    {`import { Card, Button } from 'beacon-ui';
 import { RightArrowIcon } from 'beacon-icons';
 
 <Card 
@@ -692,17 +689,16 @@ import { RightArrowIcon } from 'beacon-icons';
   showBorder={true}
   style={{ width: "50%" }}
 >
-  <h5>Product Title</h5>
-  <p>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
+  <h5 className="text-heading-h5" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>Product Title</h5>
+  <p className="text-body3-medium" style={{ margin: 0, color: "var(--fg-neutral-tertiary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
   <img
-    src="/images/preview/16x9_1024x576_preview.png"
+    src="/images/preview/1x1_512px_preview.png"
     alt="Product"
     style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover" }}
   />
-  <button>
+  <Button endIcon={<RightArrowIcon size="xs" />}>
     Button
-    <RightArrowIcon size="xs" />
-  </button>
+  </Button>
 </Card>`}
                 </SyntaxHighlighter>
               </div>
@@ -726,9 +722,9 @@ import { RightArrowIcon } from 'beacon-icons';
                             imageUrl="/images/avatars/avatar-female.png"
                           />
                           <div>
-                            <h5 style={{ margin: 0, color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-heading-h5-text-size)", fontWeight: "var(--font-weight-secondary-semibold)", lineHeight: "var(--fonts-heading-h5-line-height)" }}>Senior Designer</h5>
-                            <p style={{ margin: 0, color: "var(--fg-neutral-secondary)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-small-text-size)", lineHeight: "var(--fonts-body-small-line-height)" }}>Design Studio</p>
-                            <p style={{ margin: 0, fontSize: "var(--fonts-body-extra-small-text-size)", color: "var(--fg-neutral-tertiary)", fontFamily: "var(--font-secondary)", lineHeight: "var(--fonts-body-extra-small-line-height)" }}>2023-2025</p>
+                            <h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>Senior Designer</h6>
+                            <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Design Studio</p>
+                            <p className="text-body1-regular" style={{ margin: 0, color: "var(--fg-neutral-tertiary)" }}>2023-2025</p>
                           </div>
                         </div>
                       </Card>
@@ -751,9 +747,9 @@ import { RightArrowIcon } from 'beacon-icons';
       imageUrl="/images/avatars/avatar-female.png"
     />
     <div>
-      <h5>Senior Designer</h5>
-      <p>Design Studio</p>
-      <p>2023-2025</p>
+      <h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>Senior Designer</h6>
+      <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Design Studio</p>
+      <p className="text-body1-regular" style={{ margin: 0, color: "var(--fg-neutral-tertiary)" }}>2023-2025</p>
     </div>
   </div>
 </Card>`);
@@ -802,9 +798,9 @@ import { RightArrowIcon } from 'beacon-icons';
       imageUrl="/images/avatars/avatar-female.png"
     />
     <div>
-      <h5>Senior Designer</h5>
-      <p>Design Studio</p>
-      <p>2023-2025</p>
+      <h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>Senior Designer</h6>
+      <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Design Studio</p>
+      <p className="text-body1-regular" style={{ margin: 0, color: "var(--fg-neutral-tertiary)" }}>2023-2025</p>
     </div>
   </div>
 </Card>`}
@@ -827,8 +823,8 @@ import { RightArrowIcon } from 'beacon-icons';
                         <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
                           <div style={{ width: "32px", height: "32px", borderRadius: "var(--corner-radius-200)", backgroundColor: "var(--bg-primary-tonal)", flexShrink: 0 }} />
                           <div>
-                            <p style={{ margin: 0, fontWeight: "var(--font-weight-secondary-medium)", color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-regular-text-size)", lineHeight: "var(--fonts-body-regular-line-height)" }}>Card Name</p>
-                            <p style={{ margin: 0, fontSize: "var(--fonts-body-small-text-size)", color: "var(--fg-neutral-secondary)", fontFamily: "var(--font-secondary)", lineHeight: "var(--fonts-body-small-line-height)" }}>Card description text here.</p>
+                            <p className="text-body3-medium" style={{ margin: 0, color: "var(--fg-neutral)" }}>Card Name</p>
+                            <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Card description text here.</p>
                           </div>
                         </div>
                       </Card>
@@ -893,8 +889,8 @@ import { RightArrowIcon } from 'beacon-icons';
   <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
     <div style={{ width: "32px", height: "32px", borderRadius: "var(--corner-radius-200)", backgroundColor: "var(--bg-primary-tonal)", flexShrink: 0 }} />
     <div>
-      <p>Card Name</p>
-      <p>Card description text here.</p>
+      <p className="text-body3-medium" style={{ margin: 0, color: "var(--fg-neutral)" }}>Card Name</p>
+      <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>Card description text here.</p>
     </div>
   </div>
 </Card>`}
@@ -912,7 +908,7 @@ import { RightArrowIcon } from 'beacon-icons';
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
                       <Card padding={400} height="200px">
-                        <div style={{ color: "var(--fg-neutral)", fontFamily: "var(--font-secondary)", fontSize: "var(--fonts-body-regular-text-size)", lineHeight: "var(--fonts-body-regular-line-height)" }}>Fixed height content (200px)</div>
+                        <div className="text-body3-regular" style={{ color: "var(--fg-neutral)" }}>Fixed height content (200px)</div>
                       </Card>
                     </div>
                   </div>

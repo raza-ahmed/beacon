@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.1] - 2026-01-01
+
+### Fixed
+- Fixed Card component default background color from `bg-page-tertiary` to `bg-page-secondary`
+- Fixed card preview elements in documentation to use `bg-page-secondary` instead of `bg-page-tertiary`
+- Corrected API documentation to reflect correct default background color (`page-secondary` instead of `page-tertiary`)
+- Fixed incorrect default values in API reference table (`showBgPattern` and `showOverlay` now correctly show `false`)
+
+## [3.3.0] - 2025-01-02
+
+### Added
+- Typography implementation guide section in documentation with code examples and best practices
+- Comprehensive usage examples for typography classes with copy-to-clipboard functionality
+- Implementation patterns for combining typography classes with inline styles for color and spacing
+
+### Changed
+- Refactored all inline typography styles to use typography utility classes throughout documentation
+- Improved typography class usage consistency across all component examples
+- Updated build script to correctly determine font weight prefix based on fontWeight reference (not just fontFamily)
+- Typography classes now properly handle H3 (secondary-semibold) and H6 (secondary-medium) font weights
+
+### Fixed
+- Fixed H3 typography class to use `font-weight-secondary-semibold` instead of `font-weight-primary-semibold`
+- Fixed H6 typography class to use `font-weight-secondary-medium` instead of `font-weight-secondary-semibold`
+- Corrected font weight determination logic in token build script to check fontWeight reference directly
+
 ## [3.2.0] - 2025-01-01
 
 ### Changed

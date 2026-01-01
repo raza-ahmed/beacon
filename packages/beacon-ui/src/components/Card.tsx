@@ -84,7 +84,7 @@ export function Card({
     padding: getSpacingToken(padding),
     borderRadius: CORNER_RADIUS_MAP[cornerRadius],
     position: "relative",
-    backgroundColor: isDefault ? "var(--bg-page-tertiary)" : "var(--bg-page-primary)",
+    backgroundColor: isDefault ? "var(--bg-page-secondary)" : "var(--bg-page-primary)",
     ...(heightValue && { height: heightValue }),
     ...(shadow && { boxShadow: getShadowToken(shadow) }),
     ...style,

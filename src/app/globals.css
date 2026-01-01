@@ -578,7 +578,7 @@ body {
 .ds-content__title {
   font-family: var(--font-primary);
   font-size: var(--fonts-heading-h3-text-size);
-  font-weight: var(--font-weight-primary-semibold);
+  font-weight: var(--font-weight-secondary-semibold);
   line-height: var(--fonts-heading-h3-line-height);
   color: var(--fg-neutral);
   text-transform: capitalize;
@@ -3693,7 +3693,7 @@ body {
 .ds-card-anatomy-diagram__image {
   width: 100%;
   height: 120px;
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-200);
 }
 
@@ -3706,14 +3706,14 @@ body {
 .ds-card-anatomy-diagram__title {
   width: 60%;
   height: 24px;
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-100);
 }
 
 .ds-card-anatomy-diagram__description {
   width: 80%;
   height: 16px;
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-100);
 }
 
@@ -3727,7 +3727,7 @@ body {
   content: "";
   width: 80px;
   height: 24px;
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-full);
 }
 

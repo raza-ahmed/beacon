@@ -379,7 +379,7 @@ export default function ResponsivenessPage() {
           </p>
 
           <div style={{ marginBottom: "var(--spacing-500)" }}>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Headings
             </h6>
             <div className="ds-spacing-table">
@@ -427,7 +427,7 @@ export default function ResponsivenessPage() {
           </div>
 
           <div>
-            <h6 style={{ marginBottom: "var(--spacing-300)", fontSize: "var(--fonts-body-regular-text-size)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
               Titles & Body
             </h6>
             <div className="ds-spacing-table">
