@@ -5,7 +5,7 @@ import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
-import { CopyIcon, CheckIcon } from "@/components/icons";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 const tocItems: TocItem[] = [
   { id: "for-designers", label: "For Designers" },
@@ -14,81 +14,10 @@ const tocItems: TocItem[] = [
   { id: "general-guidelines", label: "General Guidelines" },
 ];
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function HowToUsePage() {
   const { theme } = useTheme();
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
-  const [copiedUi, setCopiedUi] = useState(false);
-  const [copiedIcons, setCopiedIcons] = useState(false);
-  const [copiedSetup, setCopiedSetup] = useState(false);
-  const [copiedUsage, setCopiedUsage] = useState(false);
-
-  const handleCopyUi = async () => {
-    await copyToClipboard("npm install beacon-ui");
-    setCopiedUi(true);
-    setTimeout(() => setCopiedUi(false), 2000);
-  };
-
-  const handleCopyIcons = async () => {
-    await copyToClipboard("npm install beacon-icons");
-    setCopiedIcons(true);
-    setTimeout(() => setCopiedIcons(false), 2000);
-  };
-
-  const handleCopySetup = async () => {
-    await copyToClipboard(`// Import tokens CSS
-import 'beacon-ui/tokens';
-
-// Wrap your app with ThemeProvider
-import { ThemeProvider } from 'beacon-ui';
-
-function App() {
-  return (
-    <ThemeProvider defaultTheme="dark" defaultHue="hue-sky">
-      {/* Your app content */}
-    </ThemeProvider>
-  );
-}`);
-    setCopiedSetup(true);
-    setTimeout(() => setCopiedSetup(false), 2000);
-  };
-
-  const handleCopyUsage = async () => {
-    await copyToClipboard(`import { Button, Checkbox, Switch, Input } from 'beacon-ui';
-import { SearchIcon, CheckIcon } from 'beacon-icons';
-
-function MyComponent() {
-  return (
-    <>
-      <Button startIcon={<SearchIcon size="xs" />}>
-        Search
-      </Button>
-      <Checkbox checked={true} label="Accept terms" showLabel />
-      <Switch checked={false} />
-    </>
-  );
-}`);
-    setCopiedUsage(true);
-    setTimeout(() => setCopiedUsage(false), 2000);
-  };
 
   return (
     <PageLayout tocItems={tocItems} currentPath="/how-to-use">
@@ -178,24 +107,10 @@ function MyComponent() {
             
             <div style={{ display: "flex", gap: "var(--spacing-400)", flexWrap: "wrap" }}>
               <div style={{ flex: "1", minWidth: "280px", position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={handleCopyUi}
-                  aria-label="Copy install command"
-                >
-                  {copiedUi ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton
+                  code="npm install beacon-ui"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                />
                 <SyntaxHighlighter
                   language="bash"
                   style={syntaxTheme}
@@ -220,24 +135,10 @@ function MyComponent() {
               </div>
 
               <div style={{ flex: "1", minWidth: "280px", position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={handleCopyIcons}
-                  aria-label="Copy install command"
-                >
-                  {copiedIcons ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton
+                  code="npm install beacon-icons"
+                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+                />
                 <SyntaxHighlighter
                   language="bash"
                   style={syntaxTheme}
@@ -280,24 +181,22 @@ function MyComponent() {
               Import design tokens and wrap your app with ThemeProvider:
             </p>
             <div style={{ marginTop: "var(--spacing-300)", position: "relative" }}>
-              <button
-                type="button"
-                className="ds-card-code-copy"
-                onClick={handleCopySetup}
-                aria-label="Copy setup code"
-              >
-                {copiedSetup ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+              <CodeCopyButton
+                code={`// Import tokens CSS
+import 'beacon-ui/tokens';
+
+// Wrap your app with ThemeProvider
+import { ThemeProvider } from 'beacon-ui';
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="dark" defaultHue="hue-sky">
+      {/* Your app content */}
+    </ThemeProvider>
+  );
+}`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -351,24 +250,23 @@ function App() {
               Import and use components and icons:
             </p>
             <div style={{ marginTop: "var(--spacing-300)", position: "relative" }}>
-              <button
-                type="button"
-                className="ds-card-code-copy"
-                onClick={handleCopyUsage}
-                aria-label="Copy usage code"
-              >
-                {copiedUsage ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+              <CodeCopyButton
+                code={`import { Button, Checkbox, Switch, Input } from 'beacon-ui';
+import { SearchIcon, CheckIcon } from 'beacon-icons';
+
+function MyComponent() {
+  return (
+    <>
+      <Button startIcon={<SearchIcon size="xs" />}>
+        Search
+      </Button>
+      <Checkbox checked={true} label="Accept terms" showLabel />
+      <Switch checked={false} />
+    </>
+  );
+}`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}

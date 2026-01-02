@@ -6,11 +6,11 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { MenuPreview } from "@/components/MenuPreview";
 import { MenuControls } from "@/components/MenuControls";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { MenuItem } from "beacon-ui";
 import { UserPersonIcon, SettingsGearIcon } from "beacon-icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
 
@@ -112,24 +112,6 @@ function generateMenuCode(config: MenuConfig): string {
 />`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function MenuPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -144,8 +126,6 @@ export default function MenuPage() {
     avatarImageUrl: "",
     selectedItemId: undefined,
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -165,12 +145,6 @@ export default function MenuPage() {
     setConfig((prev) => ({ ...prev, ...updates }));
   };
 
-  const handleCopyCode = async () => {
-    const code = generateMenuCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <PageLayout tocItems={tocItems} currentPath="/components/menu">
@@ -246,24 +220,7 @@ export default function MenuPage() {
             </div>
           </div>
           <div className="ds-menu-preview-code">
-            <button
-              type="button"
-              className="ds-menu-code-copy"
-              onClick={handleCopyCode}
-              aria-label="Copy code"
-            >
-              {copied ? (
-                <>
-                  <CheckIcon size="xs" />
-                  <span>Copied!</span>
-                </>
-              ) : (
-                <>
-                  <CopyIcon size="xs" />
-                  <span>Copy</span>
-                </>
-              )}
-            </button>
+            <CodeCopyButton code={generateMenuCode(config)} />
             <SyntaxHighlighter
               language="tsx"
               style={syntaxTheme}
@@ -446,11 +403,8 @@ export default function MenuPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">MenuProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface MenuItem {
+                <CodeCopyButton
+                  code={`interface MenuItem {
                           id: string;
                           label: string;
                           icon?: React.ReactNode;
@@ -489,25 +443,9 @@ export default function MenuPage() {
                           onSwitchChange?: (checked: boolean) => void;
                           onToggleButtonClick?: () => void;
                           onButtonClick?: () => void;
-                      }`);
-                    setCopiedExample("api");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+                      }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -801,35 +739,16 @@ export default function MenuPage() {
             <div className="ds-api-reference__type" style={{ marginTop: "var(--spacing-500)" }}>
               <h6 className="ds-api-reference__type-title">MenuItem</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface MenuItem {
+                <CodeCopyButton
+                  code={`interface MenuItem {
   id: string;
   label: string;
   icon?: React.ReactNode;
   selected?: boolean;
   onClick?: (item: MenuItem) => void;
-}`);
-                    setCopiedExample("menuitem");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "menuitem" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -942,11 +861,8 @@ export default function MenuPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-menu-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { MenuItem } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { MenuItem } from 'beacon-ui';
 import { SettingsGearIcon } from 'beacon-icons';
 
 <MenuItem 
@@ -954,24 +870,8 @@ import { SettingsGearIcon } from 'beacon-icons';
   iconStart={true}
   iconStart1={<SettingsGearIcon size={20} />}
   iconEnd={true}
-/>`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -1036,11 +936,8 @@ import { SettingsGearIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-menu-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { MenuItem } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { MenuItem } from 'beacon-ui';
 import { UserPersonIcon } from 'beacon-icons';
 
 <MenuItem 
@@ -1065,24 +962,8 @@ import { UserPersonIcon } from 'beacon-icons';
   iconStart1={<UserPersonIcon size={20} />}
   iconEnd={true}
   state="Disabled"
-/>`);
-                        setCopiedExample("states");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "states" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}

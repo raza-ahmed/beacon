@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
+import { CopyIcon } from "@/components/icons";
 
 type Breakpoint = "desktop" | "tablet" | "mobile";
 
@@ -17,24 +18,6 @@ interface BreakpointInfo {
 }
 
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 function useCurrentBreakpoint(): Breakpoint {
   const [breakpoint, setBreakpoint] = useState<Breakpoint>("desktop");
@@ -182,7 +165,6 @@ export default function ResponsivenessPage() {
   const currentBreakpoint = useCurrentBreakpoint();
   const breakpointInfo = useBreakpointInfo();
   const [copiedText, setCopiedText] = useState<string | null>(null);
-  const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -200,15 +182,23 @@ export default function ResponsivenessPage() {
   }, []);
 
   const handleCopy = async (text: string) => {
-    await copyToClipboard(text);
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const el = document.createElement("textarea");
+      el.value = text;
+      el.setAttribute("readonly", "true");
+      el.style.position = "absolute";
+      el.style.left = "0";
+      el.style.top = "0";
+      el.style.transform = "translateX(-100%)";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
     setCopiedText(text);
     window.setTimeout(() => setCopiedText(null), 1200);
-  };
-
-  const handleCopyCode = async (code: string, blockId: string) => {
-    await copyToClipboard(code);
-    setCopiedBlock(blockId);
-    setTimeout(() => setCopiedBlock(null), 2000);
   };
 
   if (!mounted) {
@@ -602,10 +592,8 @@ export default function ResponsivenessPage() {
               In React, you can use these tokens with the <code>useCurrentBreakpoint</code> hook or check the computed value:
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`function ResponsiveComponent() {
+              <CodeCopyButton
+                code={`function ResponsiveComponent() {
                 const breakpoint = useCurrentBreakpoint();
                 return (
                   <>
@@ -613,21 +601,9 @@ export default function ResponsivenessPage() {
                     {breakpoint !== "mobile" && <DesktopTabletContent />}
                   </>
                 );
-              }`, "tsx-1")}
-                aria-label="Copy code"
-              >
-                {copiedBlock === "tsx-1" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+              }`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -718,10 +694,8 @@ export default function ResponsivenessPage() {
               Always use responsive tokens instead of hard-coding breakpoint-specific values. The tokens automatically adapt based on the current viewport size.
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`/* Good */
+              <CodeCopyButton
+                code={`/* Good */
                   font-size: var(--fonts-heading-h1-text-size);
                   padding: var(--adaptive-set-d96-t80-m32);
 
@@ -729,21 +703,9 @@ export default function ResponsivenessPage() {
                   font-size: 64px; /* Only works on desktop */
                   @media (max-width: 1024px) {
                     font-size: 60px;
-                  }`, "css-1")}
-                aria-label="Copy code"
-              >
-                {copiedBlock === "css-1" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+                  }`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="css"
                 style={syntaxTheme}
@@ -799,10 +761,8 @@ export default function ResponsivenessPage() {
               When you need custom responsive behavior beyond what tokens provide, use the standard breakpoints:
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`/* Tablet and below */
+              <CodeCopyButton
+                code={`/* Tablet and below */
                   @media (max-width: 1024px) {
                     /* Your styles */
                   }
@@ -810,21 +770,9 @@ export default function ResponsivenessPage() {
                   /* Mobile only */
                   @media (max-width: 768px) {
                     /* Your styles */
-                  }`, "css-2")}
-                aria-label="Copy code"
-              >
-                {copiedBlock === "css-2" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+                  }`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="css"
                 style={syntaxTheme}

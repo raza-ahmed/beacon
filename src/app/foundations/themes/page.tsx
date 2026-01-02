@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import type { Theme, HueVariant } from "@/tokens/types";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 const THEME_OPTIONS: { value: Theme; label: string }[] = [
   { value: "light", label: "Light" },
   { value: "dark", label: "Dark" },
@@ -121,39 +121,13 @@ function ThemePreview({
   );
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
-
 export default function ThemesPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const handleCopyCode = async (code: string, blockId: string) => {
-    await copyToClipboard(code);
-    setCopiedBlock(blockId);
-    setTimeout(() => setCopiedBlock(null), 2000);
-  };
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -282,10 +256,8 @@ export default function ThemesPage() {
               Brand tokens are defined with theme-specific selectors:
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`:root, [data-theme="light"] {
+              <CodeCopyButton
+                code={`:root, [data-theme="light"] {
                 --bg-page-primary: var(--color-neutral-50);
                 --fg-neutral: var(--color-neutral-800);
               }
@@ -293,21 +265,9 @@ export default function ThemesPage() {
               [data-theme="dark"] {
                 --bg-page-primary: var(--color-neutral-800);
                 --fg-neutral: var(--color-neutral-50);
-              }`, "css-1")}
-                aria-label="Copy code"
-              >
-                {copiedBlock === "css-1" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+              }`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="css"
                 style={syntaxTheme}
@@ -341,10 +301,8 @@ export default function ThemesPage() {
               The <code>data-hue</code> attribute controls which semantic color tokens are used:
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`[data-hue="chromatic-prime"] {
+              <CodeCopyButton
+                code={`[data-hue="chromatic-prime"] {
                     --color-primary-500: var(--color-chromatic-500);
                   }
 
@@ -354,21 +312,9 @@ export default function ThemesPage() {
 
                   [data-hue="hue-indigo"] {
                     --color-primary-500: var(--color-purple-500);
-                  }`, "css-2")}
-                  aria-label="Copy code"
-                >
-                {copiedBlock === "css-2" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+                  }`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="css"
                 style={syntaxTheme}
@@ -408,10 +354,8 @@ export default function ThemesPage() {
               Use the <code>ThemeProvider</code> and <code>useTheme</code> hook in your components:
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`import { ThemeProvider } from "@/providers/ThemeProvider";
+              <CodeCopyButton
+                code={`import { ThemeProvider } from "@/providers/ThemeProvider";
                 import { useTheme } from "@/providers/ThemeProvider";
 
                 function App() {
@@ -430,21 +374,9 @@ export default function ThemesPage() {
                       Switch to Dark
                     </button>
                   );
-                }`, "tsx-1")}
-                aria-label="Copy code"
-              >
-                {copiedBlock === "tsx-1" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+                }`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -507,30 +439,16 @@ export default function ThemesPage() {
               Never use hard-coded color values. Always reference theme tokens via CSS variables:
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-code-copy"
-                onClick={() => handleCopyCode(`/* Good */
+              <CodeCopyButton
+                code={`/* Good */
 background-color: var(--bg-page-primary);
 color: var(--fg-neutral);
 
 /* Bad */
 background-color: #ffffff;
-color: #000000;`, "css-3")}
-                aria-label="Copy code"
-              >
-                {copiedBlock === "css-3" ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+color: #000000;`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="css"
                 style={syntaxTheme}

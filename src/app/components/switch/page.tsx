@@ -6,10 +6,11 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { SwitchPreview } from "@/components/SwitchPreview";
 import { SwitchControls } from "@/components/SwitchControls";
-import { CopyIcon, CheckIcon, SunIcon, MoonIcon } from "@/components/icons";
+import { SunIcon, MoonIcon } from "@/components/icons";
 import { Switch } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -59,24 +60,6 @@ function generateSwitchCode(config: SwitchConfig): string {
 />`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function SwitchPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -87,8 +70,6 @@ export default function SwitchPage() {
     label: "Switch",
     showLabel: false,
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -106,13 +87,6 @@ export default function SwitchPage() {
 
   const updateConfig = (updates: Partial<SwitchConfig>) => {
     setConfig((prev) => ({ ...prev, ...updates }));
-  };
-
-  const handleCopyCode = async () => {
-    const code = generateSwitchCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -171,24 +145,7 @@ export default function SwitchPage() {
                 />
               </div>
               <div className="ds-switch-preview-code">
-                <button
-                  type="button"
-                  className="ds-switch-code-copy"
-                  onClick={handleCopyCode}
-                  aria-label="Copy code"
-                >
-                  {copied ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton code={generateSwitchCode(config)} />
                 <SyntaxHighlighter
                   language="tsx"
                   style={syntaxTheme}
@@ -383,34 +340,15 @@ export default function SwitchPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">SwitchProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-switch-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface SwitchProps {
+                <CodeCopyButton
+                  code={`interface SwitchProps {
   checked?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   showIcons?: boolean;
   onChange?: (checked: boolean) => void;
-}`);
-                    setCopiedExample("api");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -516,30 +454,11 @@ export default function SwitchPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-switch-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Switch } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Switch } from 'beacon-ui';
 
-<Switch />`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Switch />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -578,30 +497,11 @@ export default function SwitchPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-switch-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Switch } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Switch } from 'beacon-ui';
 
-<Switch checked />`);
-                        setCopiedExample("checked");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "checked" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Switch checked />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -640,30 +540,11 @@ export default function SwitchPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-switch-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Switch } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Switch } from 'beacon-ui';
 
-<Switch checked status="disabled" />`);
-                        setCopiedExample("disabled");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "disabled" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Switch checked status="disabled" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -702,30 +583,11 @@ export default function SwitchPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-switch-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Switch } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Switch } from 'beacon-ui';
 
-<Switch showIcons />`);
-                        setCopiedExample("theme");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "theme" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Switch showIcons />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -767,33 +629,14 @@ export default function SwitchPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-switch-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Switch } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Switch } from 'beacon-ui';
 
 <label style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)" }}>
   <span>Enable notifications</span>
   <Switch checked />
-</label>`);
-                        setCopiedExample("label");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "label" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</label>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -844,11 +687,8 @@ export default function SwitchPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-switch-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Switch } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Switch } from 'beacon-ui';
 
 <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
   <label style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)" }}>
@@ -859,24 +699,8 @@ export default function SwitchPage() {
     <span>Push notifications</span>
     <Switch />
   </label>
-</div>`);
-                        setCopiedExample("group");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "group" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</div>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}

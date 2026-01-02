@@ -6,9 +6,9 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { ButtonIconPreview } from "@/components/ButtonIconPreview";
 import { ButtonIconControls } from "@/components/ButtonIconControls";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { SearchIcon } from "beacon-icons";
 import { ButtonIcon } from "beacon-ui";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -92,25 +92,6 @@ function generateButtonIconCode(config: ButtonIconConfig): string {
 />`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  // Fallback for older browsers
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function ButtonIconPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -123,8 +104,6 @@ export default function ButtonIconPage() {
     loading: false,
     disabled: false,
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -144,13 +123,6 @@ export default function ButtonIconPage() {
 
   const updateConfig = (updates: Partial<ButtonIconConfig>) => {
     setConfig((prev) => ({ ...prev, ...updates }));
-  };
-
-  const handleCopyCode = async () => {
-    const code = generateButtonIconCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -219,24 +191,7 @@ export default function ButtonIconPage() {
                 />
               </div>
               <div className="ds-button-preview-code">
-                <button
-                  type="button"
-                  className="ds-button-code-copy"
-                  onClick={handleCopyCode}
-                  aria-label="Copy code"
-                >
-                  {copied ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton code={generateButtonIconCode(config)} />
                 <SyntaxHighlighter
                   language="tsx"
                   style={syntaxTheme}
@@ -398,11 +353,8 @@ export default function ButtonIconPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ButtonIconProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface ButtonIconProps {
+                <CodeCopyButton
+                  code={`interface ButtonIconProps {
   variant?: "filled" | "tonal" | "outline" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -412,25 +364,9 @@ export default function ButtonIconPage() {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   "aria-label"?: string;
-}`);
-                    setCopiedExample("api");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -567,31 +503,12 @@ export default function ButtonIconPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { ButtonIcon } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { ButtonIcon } from 'beacon-ui';
 import { SearchIcon } from 'beacon-icons';
 
-<ButtonIcon icon={<SearchIcon size="sm" />} />`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<ButtonIcon icon={<SearchIcon size="sm" />} />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -634,34 +551,15 @@ import { SearchIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { ButtonIcon } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { ButtonIcon } from 'beacon-ui';
 import { SearchIcon } from 'beacon-icons';
 
 <ButtonIcon variant="filled" icon={<SearchIcon size="sm" />} />
 <ButtonIcon variant="tonal" icon={<SearchIcon size="sm" />} />
 <ButtonIcon variant="outline" icon={<SearchIcon size="sm" />} />
-<ButtonIcon variant="link" icon={<SearchIcon size="sm" />} />`);
-                        setCopiedExample("variants");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "variants" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<ButtonIcon variant="link" icon={<SearchIcon size="sm" />} />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -708,35 +606,16 @@ import { SearchIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { ButtonIcon } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { ButtonIcon } from 'beacon-ui';
 import { SearchIcon } from 'beacon-icons';
 
 <ButtonIcon size="xs" icon={<SearchIcon size="xs" />} />
 <ButtonIcon size="sm" icon={<SearchIcon size="xs" />} />
 <ButtonIcon size="md" icon={<SearchIcon size="sm" />} />
 <ButtonIcon size="lg" icon={<SearchIcon size="rg" />} />
-<ButtonIcon size="xl" icon={<SearchIcon size="rm" />} />`);
-                        setCopiedExample("sizes");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "sizes" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<ButtonIcon size="xl" icon={<SearchIcon size="rm" />} />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -780,31 +659,12 @@ import { SearchIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { ButtonIcon } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { ButtonIcon } from 'beacon-ui';
 import { SearchIcon } from 'beacon-icons';
 
-<ButtonIcon disabled icon={<SearchIcon size="sm" />} />`);
-                        setCopiedExample("disabled");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "disabled" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<ButtonIcon disabled icon={<SearchIcon size="sm" />} />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}

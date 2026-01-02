@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { useTheme } from "@/providers/ThemeProvider";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
+import { CopyIcon } from "@/components/icons";
 
 interface TypographyStyle {
   name: string;
@@ -50,24 +51,6 @@ const COLOR_PREVIEWS: ColorPreview[] = [
   { name: "Disabled", cssVar: "--fg-disabled" },
 ];
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 function useComputedTypography() {
   const [computed, setComputed] = useState<Record<string, string>>({});
@@ -125,10 +108,8 @@ export default function TypographyPage() {
   const { computed, mounted, typographyStyles } = useComputedTypography();
   const { theme } = useTheme();
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
+
   const [copiedText, setCopiedText] = useState<string | null>(null);
-  const [copiedBasic, setCopiedBasic] = useState(false);
-  const [copiedWithColor, setCopiedWithColor] = useState(false);
-  const [copiedOverride, setCopiedOverride] = useState(false);
 
   const tocItems: TocItem[] = useMemo(() => {
     return [
@@ -140,10 +121,25 @@ export default function TypographyPage() {
   }, []);
 
   const handleCopy = async (text: string) => {
-    await copyToClipboard(text);
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const el = document.createElement("textarea");
+      el.value = text;
+      el.setAttribute("readonly", "true");
+      el.style.position = "absolute";
+      el.style.left = "0";
+      el.style.top = "0";
+      el.style.transform = "translateX(-100%)";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
     setCopiedText(text);
     window.setTimeout(() => setCopiedText(null), 1200);
   };
+
 
   const fontFamilies = useMemo(() => {
     return [
@@ -397,33 +393,15 @@ export default function TypographyPage() {
               Apply typography classes directly to your HTML elements. The classes handle font family, size, weight, and line height automatically.
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-card-code-copy"
-                onClick={async () => {
-                  await copyToClipboard(`<h1 className="text-heading-h1">Main Heading</h1>
+              <CodeCopyButton
+                code={`<h1 className="text-heading-h1">Main Heading</h1>
 <h2 className="text-heading-h2">Section Heading</h2>
 <h3 className="text-heading-h3">Subsection</h3>
 <p className="text-body3-regular">Regular body text for paragraphs and content.</p>
 <p className="text-body2-regular">Smaller body text for captions and labels.</p>
-<span className="text-title-small">Title Text</span>`);
-                  setCopiedBasic(true);
-                  setTimeout(() => setCopiedBasic(false), 2000);
-                }}
-                aria-label="Copy code"
-              >
-                {copiedBasic ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+<span className="text-title-small">Title Text</span>`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -461,11 +439,8 @@ export default function TypographyPage() {
               Combine typography classes with inline styles for color, margin, and other non-typography properties. This keeps typography consistent while allowing layout flexibility.
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-card-code-copy"
-                onClick={async () => {
-                  await copyToClipboard(`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>
+              <CodeCopyButton
+                code={`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>
   Section Title
 </h6>
 <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>
@@ -473,24 +448,9 @@ export default function TypographyPage() {
 </p>
 <p className="text-body3-medium" style={{ marginTop: "var(--spacing-400)", color: "var(--fg-primary)" }}>
   Highlighted text using primary color.
-</p>`);
-                  setCopiedWithColor(true);
-                  setTimeout(() => setCopiedWithColor(false), 2000);
-                }}
-                aria-label="Copy code"
-              >
-                {copiedWithColor ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+</p>`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -531,11 +491,8 @@ export default function TypographyPage() {
               Heading classes include <code className="ds-token-row__code">text-transform: capitalize</code> by default. Override it with <code className="ds-token-row__code">textTransform: "none"</code> when needed. You can also override font weight for specific use cases.
             </p>
             <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="ds-card-code-copy"
-                onClick={async () => {
-                  await copyToClipboard(`// Override text-transform for headings
+              <CodeCopyButton
+                code={`// Override text-transform for headings
 <h3 className="text-heading-h3" style={{ textTransform: "none" }}>
   Custom Heading Without Capitalization
 </h3>
@@ -553,24 +510,9 @@ export default function TypographyPage() {
   fontWeight: "var(--font-weight-secondary-semibold)"
 }}>
   Custom Styled Heading
-</h6>`);
-                  setCopiedOverride(true);
-                  setTimeout(() => setCopiedOverride(false), 2000);
-                }}
-                aria-label="Copy code"
-              >
-                {copiedOverride ? (
-                  <>
-                    <CheckIcon size="xs" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon size="xs" />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
+</h6>`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}

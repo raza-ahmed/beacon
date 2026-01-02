@@ -6,10 +6,11 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { ChipPreview } from "@/components/ChipPreview";
 import { ChipControls } from "@/components/ChipControls";
-import { CopyIcon, CheckIcon, ListDetailsIcon } from "@/components/icons";
+import { ListDetailsIcon } from "@/components/icons";
 import { Chip } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type ChipSize = "sm" | "md" | "lg";
 type ChipColor = "primary" | "neutral" | "success" | "critical" | "warning";
@@ -69,24 +70,6 @@ function generateChipCode(config: ChipConfig): string {
 />`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function ChipPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -97,8 +80,6 @@ export default function ChipPage() {
     showBorders: false,
     showIcon: false,
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -116,13 +97,6 @@ export default function ChipPage() {
 
   const updateConfig = (updates: Partial<ChipConfig>) => {
     setConfig((prev) => ({ ...prev, ...updates }));
-  };
-
-  const handleCopyCode = async () => {
-    const code = generateChipCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -181,24 +155,7 @@ export default function ChipPage() {
                 />
               </div>
               <div className="ds-chip-preview-code">
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={handleCopyCode}
-                  aria-label="Copy code"
-                >
-                  {copied ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton code={generateChipCode(config)} />
                 <SyntaxHighlighter
                   language="tsx"
                   style={syntaxTheme}
@@ -406,36 +363,17 @@ export default function ChipPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">ChipProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface ChipProps {
+                <CodeCopyButton
+                  code={`interface ChipProps {
   label?: string;
   color?: "primary" | "neutral" | "success" | "critical" | "warning";
   size?: "sm" | "md" | "lg";
   showBorders?: boolean;
   showIcon?: boolean;
   onClick?: () => void;
-}`);
-                    setCopiedExample("api");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -571,30 +509,11 @@ export default function ChipPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-chip-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Chip } from 'beacon-ui';
 
-<Chip />`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Chip />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -633,30 +552,11 @@ export default function ChipPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-chip-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Chip } from 'beacon-ui';
 
-<Chip label="Tag" />`);
-                        setCopiedExample("label");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "label" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Chip label="Tag" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -695,34 +595,15 @@ export default function ChipPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-chip-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Chip } from 'beacon-ui';
 import { ListDetailsIcon } from 'beacon-icons';
 
 <Chip 
   label="Filter"
   icon={<ListDetailsIcon size="xs" />}
-/>`);
-                        setCopiedExample("icon");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "icon" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -765,33 +646,14 @@ import { ListDetailsIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-chip-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Chip } from 'beacon-ui';
 
 <Chip 
   label="Selected"
   showBorders
-/>`);
-                        setCopiedExample("border");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "border" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -836,33 +698,14 @@ import { ListDetailsIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-chip-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Chip } from 'beacon-ui';
 
 <Chip label="Success" color="success" />
 <Chip label="Warning" color="warning" />
 <Chip label="Error" color="critical" />
-<Chip label="Neutral" color="neutral" />`);
-                        setCopiedExample("colors");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "colors" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Chip label="Neutral" color="neutral" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -908,34 +751,15 @@ import { ListDetailsIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-chip-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Chip } from 'beacon-ui';
 
 <div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
   <Chip label="Tag 1" />
   <Chip label="Tag 2" color="success" />
   <Chip label="Tag 3" color="warning" />
-</div>`);
-                        setCopiedExample("group");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "group" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</div>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}

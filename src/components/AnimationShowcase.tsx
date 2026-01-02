@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { CopyIcon, CheckIcon } from "./icons";
+import { useMemo } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { useTheme } from "@/providers/ThemeProvider";
+import { CodeCopyButton } from "./CodeCopyButton";
 
 interface AnimationShowcaseProps {
   title: string;
@@ -14,24 +14,6 @@ interface AnimationShowcaseProps {
   category?: string;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export function AnimationShowcase({
   title,
@@ -40,15 +22,8 @@ export function AnimationShowcase({
   children,
   category,
 }: AnimationShowcaseProps) {
-  const [copied, setCopied] = useState(false);
   const { theme } = useTheme();
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
-
-  const handleCopyCode = async () => {
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="ds-animation-showcase">
@@ -68,24 +43,7 @@ export function AnimationShowcase({
           <div className="ds-animation-showcase__preview-canvas">{children}</div>
         </div>
         <div className="ds-animation-showcase__code">
-          <button
-            type="button"
-            className="ds-animation-showcase__copy-button"
-            onClick={handleCopyCode}
-            aria-label="Copy code"
-          >
-            {copied ? (
-              <>
-                <CheckIcon size="xs" />
-                <span>Copied!</span>
-              </>
-            ) : (
-              <>
-                <CopyIcon size="xs" />
-                <span>Copy</span>
-              </>
-            )}
-          </button>
+          <CodeCopyButton code={code} />
           <SyntaxHighlighter
             language="tsx"
             style={syntaxTheme}

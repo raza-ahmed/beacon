@@ -6,11 +6,12 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { AvatarPreview } from "@/components/AvatarPreview";
 import { AvatarControls } from "@/components/AvatarControls";
-import { CopyIcon, CheckIcon, UserPersonIcon } from "@/components/icons";
+import { UserPersonIcon } from "@/components/icons";
 import { Avatar } from "beacon-ui";
 import { getAvatarImage } from "@/utils/imagePaths";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarType = "icon" | "text" | "image";
@@ -98,24 +99,6 @@ function generateAvatarCode(config: AvatarConfig): string {
 />`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function AvatarPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -128,8 +111,6 @@ export default function AvatarPage() {
     hasStroke: false,
     initials: "JD",
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   // Clean theme object to remove conflicting background properties
   // Always use dark theme (vscDarkPlus) since background is always dark (Primary Black)
@@ -151,12 +132,6 @@ export default function AvatarPage() {
     setConfig((prev) => ({ ...prev, ...updates }));
   };
 
-  const handleCopyCode = async () => {
-    const code = generateAvatarCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const imageUrl = config.type === "image" ? getAvatarImage("default") : undefined;
 
@@ -226,24 +201,7 @@ export default function AvatarPage() {
                 />
               </div>
               <div className="ds-avatar-preview-code">
-                <button
-                  type="button"
-                  className="ds-avatar-code-copy"
-                  onClick={handleCopyCode}
-                  aria-label="Copy code"
-                >
-                  {copied ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton code={generateAvatarCode(config)} />
                 <SyntaxHighlighter
                   language="tsx"
                   style={syntaxTheme}
@@ -419,11 +377,8 @@ export default function AvatarPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">AvatarProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-avatar-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface AvatarProps {
+                <CodeCopyButton
+                  code={`interface AvatarProps {
   size?: "sm" | "md" | "lg" | "xl";
   type?: "icon" | "text" | "image";
   color?: "primary" | "neutral" | "success" | "critical" | "warning";
@@ -433,25 +388,9 @@ export default function AvatarPage() {
   initials?: string;
   imageUrl?: string;
   alt?: string;
-}`);
-                    setCopiedExample("api");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -630,30 +569,11 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-avatar-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
 
-<Avatar />`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Avatar />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -692,30 +612,11 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-avatar-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
 
-<Avatar type="text" initials="JD" />`);
-                        setCopiedExample("text");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "text" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Avatar type="text" initials="JD" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -754,34 +655,15 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-avatar-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
 
 <Avatar 
   type="image"
   imageUrl="/images/avatars/avatar-female.png"
   alt="User avatar"
-/>`);
-                        setCopiedExample("image");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "image" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -827,33 +709,14 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-avatar-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
 
 <Avatar size="sm" />
 <Avatar size="md" />
 <Avatar size="lg" />
-<Avatar size="xl" />`);
-                        setCopiedExample("sizes");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "sizes" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Avatar size="xl" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -898,33 +761,14 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-avatar-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
 
 <Avatar />
 <Avatar isRound />
 <Avatar hasStroke />
-<Avatar isRound hasStroke />`);
-                        setCopiedExample("round");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "round" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Avatar isRound hasStroke />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -968,32 +812,13 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-avatar-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
 
 <Avatar color="primary" variant="solid" />
 <Avatar color="success" variant="faded" />
-<Avatar color="neutral" variant="solid" />`);
-                        setCopiedExample("colors");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "colors" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<Avatar color="neutral" variant="solid" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}

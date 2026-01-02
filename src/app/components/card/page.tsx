@@ -5,13 +5,13 @@ import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import { CardPreview } from "@/components/CardPreview";
 import { CardControls } from "@/components/CardControls";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import type { PatternType } from "@/utils/patternPaths";
 import type { CornerRadiusStep } from "beacon-ui";
 import { Card, Avatar, Button } from "beacon-ui";
 import { RightArrowIcon } from "beacon-icons";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type CardStatus = "default" | "highlighted" | "selected";
 type CardShadow = "0" | "50" | "100" | "200" | "300" | "400" | "500";
@@ -78,24 +78,6 @@ function generateCardCode(config: CardConfig): string {
 </Card>`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function CardPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -109,8 +91,6 @@ export default function CardPage() {
     showOverlay: false,
     showBorder: true,
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -126,13 +106,6 @@ export default function CardPage() {
 
   const updateConfig = (updates: Partial<CardConfig>) => {
     setConfig((prev) => ({ ...prev, ...updates }));
-  };
-
-  const handleCopyCode = async () => {
-    const code = generateCardCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -203,24 +176,7 @@ export default function CardPage() {
                     />
                   </div>
                   <div className="ds-card-preview-code">
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={handleCopyCode}
-                      aria-label="Copy code"
-                    >
-                      {copied ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+                    <CodeCopyButton code={generateCardCode(config)} />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -257,11 +213,8 @@ export default function CardPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">CardProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-card-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface CardProps extends Omit<ComponentPropsWithRef<"div">, "slot"> {
+                <CodeCopyButton
+                  code={`interface CardProps extends Omit<ComponentPropsWithRef<"div">, "slot"> {
   padding?: number;
   height?: string;
   status?: "default" | "highlighted" | "selected";
@@ -271,25 +224,9 @@ export default function CardPage() {
   showOverlay?: boolean;
   showBorder?: boolean;
   children?: React.ReactNode;
-}`);
-                    setCopiedExample("api-card");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api-card" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -463,32 +400,13 @@ export default function CardPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Card } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Card } from 'beacon-ui';
 
 <Card padding={400}>
   Your content here
-</Card>`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</Card>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -532,32 +450,13 @@ export default function CardPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Card } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Card } from 'beacon-ui';
 
 <Card padding={400} shadow="100">
   Elevated content
-</Card>`);
-                        setCopiedExample("shadow");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "shadow" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</Card>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -613,11 +512,8 @@ export default function CardPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Card, Button } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Card, Button } from 'beacon-ui';
 import { RightArrowIcon } from 'beacon-icons';
 
 <Card 
@@ -640,24 +536,8 @@ import { RightArrowIcon } from 'beacon-icons';
   <Button endIcon={<RightArrowIcon size="xs" />}>
     Button
   </Button>
-</Card>`);
-                        setCopiedExample("product");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "product" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</Card>`}
+                    />
                     <SyntaxHighlighter
                   language="tsx"
                   style={syntaxTheme}
@@ -733,11 +613,8 @@ import { RightArrowIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Card, Avatar } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Card, Avatar } from 'beacon-ui';
 
 <Card padding={400}>
   <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
@@ -752,24 +629,8 @@ import { RightArrowIcon } from 'beacon-icons';
       <p className="text-body1-regular" style={{ margin: 0, color: "var(--fg-neutral-tertiary)" }}>2023-2025</p>
     </div>
   </div>
-</Card>`);
-                        setCopiedExample("experience");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "experience" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</Card>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -833,11 +694,8 @@ import { RightArrowIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Card } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Card } from 'beacon-ui';
 
 <Card padding={400}>
   <div style={{ display: "flex", gap: "var(--spacing-400)", alignItems: "flex-start" }}>
@@ -847,24 +705,8 @@ import { RightArrowIcon } from 'beacon-icons';
       <p>Card description text here.</p>
     </div>
   </div>
-</Card>`);
-                        setCopiedExample("info");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "info" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</Card>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -915,11 +757,8 @@ import { RightArrowIcon } from 'beacon-icons';
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-card-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { Card } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { Card } from 'beacon-ui';
 
 <Card padding={400} height="200px">
   <div>Fixed height content</div>
@@ -933,24 +772,8 @@ import { RightArrowIcon } from 'beacon-icons';
 // Or use percentage:
 <Card padding={400} height="100%">
   <div>Full height content</div>
-</Card>`);
-                        setCopiedExample("height");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "height" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</Card>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}

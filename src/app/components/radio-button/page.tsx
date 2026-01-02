@@ -6,10 +6,10 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { RadioButtonPreview } from "@/components/RadioButtonPreview";
 import { RadioButtonControls } from "@/components/RadioButtonControls";
-import { CopyIcon, CheckIcon } from "@/components/icons";
 import { RadioButton } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
+import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type RadioButtonStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -49,24 +49,6 @@ function generateRadioButtonCode(config: RadioButtonConfig): string {
 />`;
 }
 
-async function copyToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const el = document.createElement("textarea");
-  el.value = text;
-  el.setAttribute("readonly", "true");
-  el.style.position = "absolute";
-  el.style.left = "0";
-  el.style.top = "0";
-  el.style.transform = "translateX(-100%)";
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-}
 
 export default function RadioButtonPage() {
   const { theme, hue, setTheme, setHue } = useTheme();
@@ -76,8 +58,6 @@ export default function RadioButtonPage() {
     label: "Radio Button",
     showLabel: true,
   });
-  const [copied, setCopied] = useState(false);
-  const [copiedExample, setCopiedExample] = useState<string | null>(null);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -97,12 +77,6 @@ export default function RadioButtonPage() {
     setConfig((prev) => ({ ...prev, ...updates }));
   };
 
-  const handleCopyCode = async () => {
-    const code = generateRadioButtonCode(config);
-    await copyToClipboard(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <PageLayout tocItems={tocItems} currentPath="/components/radio-button">
@@ -157,24 +131,7 @@ export default function RadioButtonPage() {
                 />
               </div>
               <div className="ds-radio-button-preview-code">
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={handleCopyCode}
-                  aria-label="Copy code"
-                >
-                  {copied ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                <CodeCopyButton code={generateRadioButtonCode(config)} />
                 <SyntaxHighlighter
                   language="tsx"
                   style={syntaxTheme}
@@ -377,34 +334,15 @@ export default function RadioButtonPage() {
             <div className="ds-api-reference__type">
               <h6 className="ds-api-reference__type-title">RadioButtonProps</h6>
               <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`interface RadioButtonProps {
+                <CodeCopyButton
+                  code={`interface RadioButtonProps {
   selected?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
   onChange?: (selected: boolean) => void;
-}`);
-                    setCopiedExample("api");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
+}`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "api" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                />
                 <SyntaxHighlighter
                   language="typescript"
                   style={syntaxTheme}
@@ -510,30 +448,11 @@ export default function RadioButtonPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-radio-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { RadioButton } from 'beacon-ui';
 
-<RadioButton />`);
-                        setCopiedExample("basic");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "basic" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<RadioButton />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -572,32 +491,13 @@ export default function RadioButtonPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-radio-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { RadioButton } from 'beacon-ui';
 
 <RadioButton 
   label="Option 1"
-/>`);
-                        setCopiedExample("label");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "label" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -638,33 +538,14 @@ export default function RadioButtonPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-radio-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { RadioButton } from 'beacon-ui';
 
 <RadioButton 
   selected
   label="Selected"
-/>`);
-                        setCopiedExample("selected");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "selected" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -706,34 +587,15 @@ export default function RadioButtonPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-radio-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { RadioButton } from 'beacon-ui';
 
 <RadioButton 
   selected
   status="disabled"
   label="Disabled"
-/>`);
-                        setCopiedExample("disabled");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "disabled" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+/>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -780,34 +642,15 @@ export default function RadioButtonPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-radio-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { RadioButton } from 'beacon-ui';
 
 <div>
   <RadioButton label="Option 1" />
   <RadioButton label="Option 2" selected />
   <RadioButton label="Option 3" />
-</div>`);
-                        setCopiedExample("group");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "group" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+</div>`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -856,34 +699,15 @@ export default function RadioButtonPage() {
                 </div>
                 <div className="ds-card-example-code">
                   <div style={{ position: "relative" }}>
-                    <button
-                      type="button"
-                      className="ds-radio-button-code-copy"
-                      onClick={async () => {
-                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+                    <CodeCopyButton
+                      code={`import { RadioButton } from 'beacon-ui';
 
 <RadioButton label="Default" status="default" />
 <RadioButton label="Hovered" status="hovered" />
 <RadioButton label="Focused" status="focused" />
 <RadioButton label="Pressed" status="pressed" />
-<RadioButton label="Disabled" status="disabled" />`);
-                        setCopiedExample("states");
-                        setTimeout(() => setCopiedExample(null), 2000);
-                      }}
-                      aria-label="Copy code"
-                    >
-                      {copiedExample === "states" ? (
-                        <>
-                          <CheckIcon size="xs" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <CopyIcon size="xs" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+<RadioButton label="Disabled" status="disabled" />`}
+                    />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
