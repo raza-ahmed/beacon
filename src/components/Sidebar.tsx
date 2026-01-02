@@ -59,6 +59,13 @@ export const navigationData: NavSection[] = [
       { label: "Switch", href: "/components/switch" },
     ],
   },
+  {
+    title: "Motion",
+    items: [
+      { label: "Guide", href: "/motion/guide" },
+      { label: "Animations", href: "/motion/animations" },
+    ],
+  },
 ];
 
 

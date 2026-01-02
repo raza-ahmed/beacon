@@ -11,7 +11,6 @@
   --color-primary-700: var(--color-chromatic-700);
   --color-primary-800: var(--color-chromatic-800);
   --color-primary-900: var(--color-chromatic-900);
-  --icon-size-rm: var(--scale-500);
 }
 
 /* hue-sky */
@@ -25,7 +24,6 @@
   --color-primary-700: var(--color-blue-700);
   --color-primary-800: var(--color-blue-800);
   --color-primary-900: var(--color-blue-900);
-  --icon-size-rm: var(--scale-550);
 }
 
 /* hue-indigo */
@@ -39,7 +37,6 @@
   --color-primary-700: var(--color-purple-700);
   --color-primary-800: var(--color-purple-800);
   --color-primary-900: var(--color-purple-900);
-  --icon-size-rm: var(--scale-550);
 }
 
 /* Shared semantic tokens (same across all hues) */
@@ -116,6 +113,7 @@
   --icon-size-xs: var(--scale-400);
   --icon-size-sm: var(--scale-450);
   --icon-size-rg: var(--scale-500);
+  --icon-size-rm: var(--scale-550);
   --icon-size-md: var(--scale-600);
   --icon-size-lg: var(--scale-650);
   --icon-size-xl: var(--scale-700);

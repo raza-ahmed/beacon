@@ -5485,3 +5485,191 @@ body {
     width: 100%;
   }
 }
+
+/* Animation Experiments Page Styles */
+.ds-animations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-500);
+  margin-top: var(--spacing-500);
+}
+
+@media (max-width: 768px) {
+  .ds-animations-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-animation-showcase {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-400);
+  overflow: hidden;
+  background-color: var(--bg-page-primary);
+  height: 100%;
+}
+
+.ds-animation-showcase__header {
+  padding: var(--spacing-400);
+  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.ds-animation-showcase__header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-300);
+}
+
+.ds-animation-showcase__title {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-title-regular-text-size);
+  font-weight: var(--font-weight-secondary-bold);
+  color: var(--fg-neutral);
+  margin: 0;
+  text-transform: none;
+  flex: 1;
+}
+
+.ds-animation-showcase__description {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
+  color: var(--fg-neutral-secondary);
+  margin: 0;
+}
+
+.ds-animation-showcase__category {
+  display: inline-block;
+  padding: var(--spacing-50) var(--spacing-200);
+  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-100);
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  color: var(--fg-neutral-secondary);
+  font-weight: var(--font-weight-secondary-medium);
+  flex-shrink: 0;
+}
+
+.ds-animation-showcase__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.ds-animation-showcase__preview {
+  padding: var(--spacing-500);
+  background-color: var(--bg-page-primary);
+  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.ds-animation-showcase__preview-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.ds-animation-showcase__code {
+  position: relative;
+  background-color: var(--bg-page-secondary);
+  min-height: 200px;
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-animation-showcase__code > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.ds-animation-showcase__code pre {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 1;
+}
+
+.ds-animation-showcase__copy-button {
+  position: absolute;
+  top: var(--spacing-200);
+  right: var(--spacing-200);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-100);
+  padding: var(--spacing-100) var(--spacing-300);
+  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-200);
+  border-radius: var(--corner-radius-200);
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  color: var(--fg-neutral);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ds-animation-showcase__copy-button:hover {
+  background-color: var(--bg-page-secondary);
+  border-color: var(--border-primary);
+  color: var(--fg-primary);
+}
+
+.ds-animation-showcase__copy-button:focus-visible {
+  outline: 2px solid var(--border-primary);
+  outline-offset: 2px;
+}
+
+.ds-animation-showcase__copy-button svg {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .ds-animations-category-tabs {
+    gap: var(--spacing-100);
+  }
+
+  .ds-animations-category-tab {
+    padding: var(--spacing-150) var(--spacing-300);
+    font-size: var(--fonts-body-small-text-size);
+  }
+
+  .ds-animations-grid {
+    gap: var(--spacing-400);
+  }
+
+  .ds-animation-showcase__preview {
+    padding: var(--spacing-400);
+    min-height: 250px;
+  }
+
+  .ds-animation-showcase__code {
+    max-height: 300px;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ds-animation-showcase *,
+  .ds-animation-showcase *::before,
+  .ds-animation-showcase *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

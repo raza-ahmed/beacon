@@ -6,7 +6,7 @@ interface IconProps {
   className?: string;
 }
 
-type IconSize = "xs" | "sm" | "rg" | "md" | "lg" | "xl" | "2xl";
+type IconSize = "xs" | "sm" | "rg" | "rm" | "md" | "lg" | "xl" | "2xl";
 
 function iconSizeVar(size: IconSize) {
   return `var(--icon-size-${size})`;

@@ -23,4 +23,5 @@ export { RadioButtonPreview } from "./RadioButtonPreview";
 export { RadioButtonControls } from "./RadioButtonControls";
 export { MenuPreview } from "./MenuPreview";
 export { MenuControls } from "./MenuControls";
+export { AnimationShowcase } from "./AnimationShowcase";
 

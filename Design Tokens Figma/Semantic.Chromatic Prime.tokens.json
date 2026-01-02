@@ -354,7 +354,7 @@
     },
     "rm": {
       "$type": "dimension",
-      "$value": "{Scale.500}"
+      "$value": "{Scale.550}"
     },
     "md": {
       "$type": "dimension",

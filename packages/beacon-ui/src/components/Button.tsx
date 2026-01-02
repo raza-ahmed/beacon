@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback, ComponentPropsWithRef } from "react";
+import { useMemo, useState, useCallback, ComponentPropsWithRef, cloneElement, isValidElement } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { LoaderIcon } from "../icons";
 
@@ -42,7 +42,7 @@ const SIZE_CONFIG: Record<
     paddingX: string;
     paddingY: string;
     fontSize: string;
-    iconSize: "xs" | "sm" | "rg" | "md";
+    iconSize: "xs" | "sm" | "rg" | "md" | "rm";
   }
 > = {
   xs: {
@@ -64,21 +64,21 @@ const SIZE_CONFIG: Record<
     paddingX: "var(--spacing-400)",
     paddingY: "var(--spacing-200)",
     fontSize: "var(--body-regular-text-size)",
-    iconSize: "xs",
+    iconSize: "sm",
   },
   lg: {
     height: "56px",
     paddingX: "var(--spacing-500)",
     paddingY: "var(--spacing-300)",
     fontSize: "var(--body-medium-text-size)",
-    iconSize: "sm",
+    iconSize: "rg",
   },
   xl: {
     height: "68px",
     paddingX: "var(--spacing-600)",
     paddingY: "var(--spacing-400)",
     fontSize: "var(--body-medium-text-size)",
-    iconSize: "sm",
+    iconSize: "rm",
   },
 };
 
@@ -189,10 +189,11 @@ export function Button({
 
     const buttonStyles = useMemo(() => {
       const baseStyles: React.CSSProperties = {
-        display: "inline-flex",
+        display: justifyContent === "space-between" ? "flex" : "inline-flex", // Use flex (block-level) for space-between to ensure full width
         alignItems: "center",
-        justifyContent: justifyContent,
-        gap: "var(--spacing-100)",
+        justifyContent: justifyContent === "space-between" ? "flex-start" : justifyContent, // Use flex-start for space-between, let contentLayout handle distribution
+        gap: justifyContent === "space-between" ? "0" : "var(--spacing-100)", // Remove gap for space-between, use spacing-100 for center layout
+        textAlign: justifyContent === "space-between" ? "left" : undefined, // Align text to left when space-between is used
         fontFamily: "var(--font-secondary)",
         fontSize: sizeConfig.fontSize,
         lineHeight: "1",
@@ -208,7 +209,7 @@ export function Button({
         paddingRight: sizeConfig.paddingX,
         paddingTop: sizeConfig.paddingY,
         paddingBottom: sizeConfig.paddingY,
-        width: fillContainer ? "100%" : "auto",
+        width: fillContainer || justifyContent === "space-between" ? "100%" : "auto", // Full width when space-between is used
         opacity: isDisabled ? 0.6 : 1,
       };
 
@@ -315,8 +316,17 @@ export function Button({
       return { ...baseStyles, ...variantStyles, ...stateStyles, ...style };
     }, [variant, sizeConfig, borderRadius, fillContainer, justifyContent, currentState, isDisabled, isLoading, color, style]);
 
-    const showStartIcon = !loading && startIcon;
-    const showEndIcon = !loading && endIcon;
+    // Clone icons with the correct size based on button size
+    const iconSize = sizeConfig.iconSize;
+    const clonedStartIcon = startIcon && isValidElement(startIcon)
+      ? cloneElement(startIcon, { size: iconSize } as any)
+      : startIcon;
+    const clonedEndIcon = endIcon && isValidElement(endIcon)
+      ? cloneElement(endIcon, { size: iconSize } as any)
+      : endIcon;
+
+    const showStartIcon = !loading && clonedStartIcon;
+    const showEndIcon = !loading && clonedEndIcon;
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -329,12 +339,52 @@ export function Button({
       [isDisabled, isLoading, onClick]
     );
 
+    // For space-between layout, group start icon and text together on the left,
+    // with end icon on the right. The wrapper spans full width to ensure proper distribution.
+    // The left group uses flex: 1 to take up available space, ensuring text aligns left.
+    // For center layout, all items are centered together.
+    // Note: To swap text and icons (e.g., text before startIcon), simply reorder
+    // the JSX elements in the contentLayout below.
+    const contentLayout = justifyContent === "space-between" ? (
+      <span style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "space-between" }}>
+        <span style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "var(--spacing-100)", flex: "1 1 0%", minWidth: 0, width: 0 }}>
+          {showStartIcon && <span style={{ display: "inline-flex", alignItems: "center", flexShrink: 0 }}>{clonedStartIcon}</span>}
+          <span style={{ flex: "1 1 0%", minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", paddingLeft: showStartIcon ? "0" : undefined }}>{children}</span>
+        </span>
+        {showEndIcon && <span style={{ display: "inline-flex", alignItems: "center", flexShrink: 0, marginLeft: "var(--spacing-100)" }}>{clonedEndIcon}</span>}
+      </span>
+    ) : (
+      <>
+        {showStartIcon && <span style={{ display: "inline-flex", alignItems: "center" }}>{clonedStartIcon}</span>}
+        {children}
+        {showEndIcon && <span style={{ display: "inline-flex", alignItems: "center" }}>{clonedEndIcon}</span>}
+      </>
+    );
+
+    // Create invisible content that matches the actual layout structure to preserve width when loading
+    // This ensures the button maintains its original size when transitioning to loading state
+    const invisibleContent = justifyContent === "space-between" ? (
+      <span style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "space-between", visibility: "hidden" }}>
+        <span style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "var(--spacing-100)", flex: "1 1 0%", minWidth: 0, width: 0 }}>
+          {startIcon && <span style={{ display: "inline-flex", alignItems: "center", flexShrink: 0 }}>{clonedStartIcon}</span>}
+          <span style={{ flex: "1 1 0%", minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", paddingLeft: startIcon ? "0" : undefined }}>{children}</span>
+        </span>
+        {endIcon && <span style={{ display: "inline-flex", alignItems: "center", flexShrink: 0, marginLeft: "var(--spacing-100)" }}>{clonedEndIcon}</span>}
+      </span>
+    ) : (
+      <span style={{ visibility: "hidden", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: "var(--spacing-100)" }}>
+        {startIcon && <span style={{ display: "inline-flex", alignItems: "center" }}>{clonedStartIcon}</span>}
+        {children}
+        {endIcon && <span style={{ display: "inline-flex", alignItems: "center" }}>{clonedEndIcon}</span>}
+      </span>
+    );
+
     return (
       <button
         ref={ref}
         type={type}
         className={className}
-        style={buttonStyles}
+        style={{ ...buttonStyles, position: loading ? "relative" : undefined }}
         disabled={isDisabled}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
@@ -346,13 +396,16 @@ export function Button({
         {...rest}
       >
         {loading ? (
-          <LoaderIcon size={LOADER_ICON_SIZE_MAP[size]} className="ds-button-loading-spinner" />
-        ) : (
           <>
-            {showStartIcon && <span style={{ display: "inline-flex", alignItems: "center" }}>{startIcon}</span>}
-            {children}
-            {showEndIcon && <span style={{ display: "inline-flex", alignItems: "center" }}>{endIcon}</span>}
+            {/* Preserve original content width when loading by keeping it invisible but in flow */}
+            {invisibleContent}
+            {/* Position loader absolutely in center */}
+            <span style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}>
+              <LoaderIcon size={LOADER_ICON_SIZE_MAP[size]} className="ds-button-loading-spinner" />
+            </span>
           </>
+        ) : (
+          contentLayout
         )}
       </button>
     );
