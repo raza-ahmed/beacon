@@ -21,6 +21,80 @@ import {
   minimalBorderFadeVariants,
 } from "@/utils/animations";
 
+function SmallCard({ title, description }: { title: string; description?: string }) {
+  return (
+    <Card
+      padding={300}
+      cornerRadius={3}
+      showBorder={true}
+      style={{
+        width: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--spacing-200)",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "120px",
+            borderRadius: "var(--corner-radius-200)",
+            overflow: "hidden",
+            backgroundColor: "var(--bg-page-secondary)",
+          }}
+        >
+          <img
+            src="/images/preview/3x2_1024x683_preview.png"
+            alt={title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--spacing-100)",
+          }}
+        >
+          <h6
+            style={{
+              fontFamily: "var(--font-secondary)",
+              fontSize: "var(--fonts-body-regular-text-size)",
+              fontWeight: "var(--font-weight-secondary-semibold)",
+              color: "var(--fg-neutral)",
+              margin: 0,
+            }}
+          >
+            {title}
+          </h6>
+          {description && (
+            <p
+              style={{
+                fontFamily: "var(--font-secondary)",
+                fontSize: "var(--fonts-body-small-text-size)",
+                color: "var(--fg-neutral-secondary)",
+                margin: 0,
+                lineHeight: "var(--fonts-body-small-line-height)",
+              }}
+            >
+              {description}
+            </p>
+          )}
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 function BorderGlowCard() {
   const borderGlowVariants = {
     hover: {
@@ -40,50 +114,19 @@ function BorderGlowCard() {
   };
 
   return (
-    <div style={{ width: "300px" }}>
-      <motion.div
-        variants={borderGlowVariants}
-        initial="rest"
-        whileHover="hover"
-        animate="rest"
-        style={{
-          borderWidth: "var(--border-width-25)",
-          borderStyle: "solid",
-          borderRadius: "var(--corner-radius-400)",
-        }}
-      >
-        <Card
-          padding={400}
-          cornerRadius={4}
-          showBorder={false}
-          style={{
-            height: "200px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--spacing-200)",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-            }}
-          >
-            <h6
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--fonts-title-regular-text-size)",
-                color: "var(--fg-neutral)",
-                margin: 0,
-              }}
-            >
-              Border Glow
-            </h6>
-          </div>
-        </Card>
-      </motion.div>
-    </div>
+    <motion.div
+      variants={borderGlowVariants}
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+      style={{
+        borderWidth: "var(--border-width-25)",
+        borderStyle: "solid",
+        borderRadius: "var(--corner-radius-300)",
+      }}
+    >
+      <SmallCard title="Border Glow" description="Hover to see the effect" />
+    </motion.div>
   );
 }
 
@@ -133,7 +176,9 @@ import { professionalVariants } from "@/utils/animations";
   </Card>
 </motion.div>`}
               >
-                <HoverLift showShadow={false} />
+                <HoverLift showShadow={false}>
+                  <SmallCard title="Lift Effect" description="Hover to lift" />
+                </HoverLift>
               </AnimationShowcase>
 
               <AnimationShowcase
@@ -154,7 +199,9 @@ import { professionalShadowVariants } from "@/utils/animations";
   </Card>
 </motion.div>`}
               >
-                <HoverLift showShadow={true} />
+                <HoverLift showShadow={true}>
+                  <SmallCard title="Shadow Depth" description="Dynamic shadow effect" />
+                </HoverLift>
               </AnimationShowcase>
 
               <AnimationShowcase
@@ -215,36 +262,8 @@ import { professionalSmoothScaleVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
                 >
-                  <Card
-                    padding={400}
-                    cornerRadius={4}
-                    showBorder={true}
-                    style={{ height: "200px" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <h6
-                        style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
-                        }}
-                      >
-                        Smooth Scale
-                      </h6>
-                    </div>
-                  </Card>
+                  <SmallCard title="Smooth Scale" description="Subtle scaling effect" />
                 </motion.div>
               </AnimationShowcase>
             </div>
@@ -312,36 +331,8 @@ import { playfulElasticVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
                 >
-                  <Card
-                    padding={400}
-                    cornerRadius={4}
-                    showBorder={true}
-                    style={{ height: "200px" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <h6
-                        style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
-                        }}
-                      >
-                        Elastic Scale
-                      </h6>
-                    </div>
-                  </Card>
+                  <SmallCard title="Elastic Scale" description="Spring-based animation" />
                 </motion.div>
               </AnimationShowcase>
 
@@ -368,36 +359,8 @@ import { playfulJellyVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
                 >
-                  <Card
-                    padding={400}
-                    cornerRadius={4}
-                    showBorder={true}
-                    style={{ height: "200px" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <h6
-                        style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
-                        }}
-                      >
-                        Jelly
-                      </h6>
-                    </div>
-                  </Card>
+                  <SmallCard title="Jelly" description="Elastic wobble effect" />
                 </motion.div>
               </AnimationShowcase>
 
@@ -424,36 +387,8 @@ import { playfulPopVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
                 >
-                  <Card
-                    padding={400}
-                    cornerRadius={4}
-                    showBorder={true}
-                    style={{ height: "200px" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <h6
-                        style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
-                        }}
-                      >
-                        Pop
-                      </h6>
-                    </div>
-                  </Card>
+                  <SmallCard title="Pop" description="Quick spring effect" />
                 </motion.div>
               </AnimationShowcase>
             </div>
@@ -491,36 +426,8 @@ import { minimalFadeVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
                 >
-                  <Card
-                    padding={400}
-                    cornerRadius={4}
-                    showBorder={true}
-                    style={{ height: "200px" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <h6
-                        style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
-                        }}
-                      >
-                        Fade Effect
-                      </h6>
-                    </div>
-                  </Card>
+                  <SmallCard title="Fade Effect" description="Subtle opacity change" />
                 </motion.div>
               </AnimationShowcase>
 
@@ -547,36 +454,8 @@ import { minimalShiftVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
                 >
-                  <Card
-                    padding={400}
-                    cornerRadius={4}
-                    showBorder={true}
-                    style={{ height: "200px" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <h6
-                        style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
-                        }}
-                      >
-                        Subtle Shift
-                      </h6>
-                    </div>
-                  </Card>
+                  <SmallCard title="Subtle Shift" description="Minimal movement" />
                 </motion.div>
               </AnimationShowcase>
 
@@ -603,35 +482,76 @@ import { minimalSoftGlowVariants } from "@/utils/animations";
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
-                  style={{ width: "300px" }}
+                  style={{
+                    borderRadius: "var(--corner-radius-300)",
+                  }}
                 >
                   <Card
-                    padding={400}
-                    cornerRadius={4}
+                    padding={300}
+                    cornerRadius={3}
                     showBorder={true}
                     shadow={undefined}
-                    style={{ height: "200px" }}
+                    style={{
+                      width: "100%",
+                      overflow: "hidden",
+                    }}
                   >
                     <div
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
                       }}
                     >
-                      <h6
+                      <div
                         style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
+                          width: "100%",
+                          height: "120px",
+                          borderRadius: "var(--corner-radius-200)",
+                          overflow: "hidden",
+                          backgroundColor: "var(--bg-page-secondary)",
                         }}
                       >
-                        Soft Glow
-                      </h6>
+                        <img
+                          src="/images/preview/3x2_1024x683_preview.png"
+                          alt="Soft Glow"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "var(--spacing-100)",
+                        }}
+                      >
+                        <h6
+                          style={{
+                            fontFamily: "var(--font-secondary)",
+                            fontSize: "var(--fonts-body-regular-text-size)",
+                            fontWeight: "var(--font-weight-secondary-semibold)",
+                            color: "var(--fg-neutral)",
+                            margin: 0,
+                          }}
+                        >
+                          Soft Glow
+                        </h6>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-secondary)",
+                            fontSize: "var(--fonts-body-small-text-size)",
+                            color: "var(--fg-neutral-secondary)",
+                            margin: 0,
+                            lineHeight: "var(--fonts-body-small-line-height)",
+                          }}
+                        >
+                          Gentle glow effect
+                        </p>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
@@ -666,38 +586,76 @@ import { minimalBorderFadeVariants } from "@/utils/animations";
                   whileHover="hover"
                   animate="rest"
                   style={{
-                    width: "300px",
                     borderWidth: "var(--border-width-25)",
                     borderStyle: "solid",
-                    borderRadius: "var(--corner-radius-400)",
+                    borderRadius: "var(--corner-radius-300)",
                   }}
                 >
                   <Card
-                    padding={400}
-                    cornerRadius={4}
+                    padding={300}
+                    cornerRadius={3}
                     showBorder={false}
-                    style={{ height: "200px" }}
+                    style={{
+                      width: "100%",
+                      overflow: "hidden",
+                    }}
                   >
                     <div
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "var(--spacing-200)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
                       }}
                     >
-                      <h6
+                      <div
                         style={{
-                          fontFamily: "var(--font-secondary)",
-                          fontSize: "var(--fonts-title-regular-text-size)",
-                          color: "var(--fg-neutral)",
-                          margin: 0,
+                          width: "100%",
+                          height: "120px",
+                          borderRadius: "var(--corner-radius-200)",
+                          overflow: "hidden",
+                          backgroundColor: "var(--bg-page-secondary)",
                         }}
                       >
-                        Border Fade
-                      </h6>
+                        <img
+                          src="/images/preview/3x2_1024x683_preview.png"
+                          alt="Border Fade"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "var(--spacing-100)",
+                        }}
+                      >
+                        <h6
+                          style={{
+                            fontFamily: "var(--font-secondary)",
+                            fontSize: "var(--fonts-body-regular-text-size)",
+                            fontWeight: "var(--font-weight-secondary-semibold)",
+                            color: "var(--fg-neutral)",
+                            margin: 0,
+                          }}
+                        >
+                          Border Fade
+                        </h6>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-secondary)",
+                            fontSize: "var(--fonts-body-small-text-size)",
+                            color: "var(--fg-neutral-secondary)",
+                            margin: 0,
+                            lineHeight: "var(--fonts-body-small-line-height)",
+                          }}
+                        >
+                          Border opacity transition
+                        </p>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
@@ -724,7 +682,9 @@ import { minimalBorderFadeVariants } from "@/utils/animations";
   {/* Your content */}
 </Card3D>`}
               >
-                <Card3D intensity={15} perspective={1000} scale={1.05} />
+                <Card3D intensity={15} perspective={1000} scale={1.05}>
+                  <SmallCard title="3D Tilt Card" description="Mouse-based tilt" />
+                </Card3D>
               </AnimationShowcase>
 
               <AnimationShowcase
@@ -737,7 +697,9 @@ import { minimalBorderFadeVariants } from "@/utils/animations";
   {/* Your content */}
 </TiltContainer>`}
               >
-                <TiltContainer maxTilt={10} perspective={1000} scale={1.02} />
+                <TiltContainer maxTilt={10} perspective={1000} scale={1.02}>
+                  <SmallCard title="Tilt Container" description="Alternative tilt" />
+                </TiltContainer>
               </AnimationShowcase>
 
               <AnimationShowcase
@@ -750,7 +712,9 @@ import { minimalBorderFadeVariants } from "@/utils/animations";
   {/* Your content */}
 </ParallaxHover>`}
               >
-                <ParallaxHover />
+                <ParallaxHover>
+                  <SmallCard title="Parallax Hover" description="Depth effect" />
+                </ParallaxHover>
               </AnimationShowcase>
 
               <AnimationShowcase
@@ -763,7 +727,9 @@ import { minimalBorderFadeVariants } from "@/utils/animations";
   {/* Your content */}
 </DepthGlow>`}
               >
-                <DepthGlow />
+                <DepthGlow>
+                  <SmallCard title="Depth Glow" description="Glowing shadow" />
+                </DepthGlow>
               </AnimationShowcase>
             </div>
         </section>

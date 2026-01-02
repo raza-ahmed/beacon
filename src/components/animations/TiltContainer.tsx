@@ -47,16 +47,18 @@ export function TiltContainer({
           transformStyle: "preserve-3d",
         }}
       >
-        <Card
-          padding={400}
-          cornerRadius={4}
-          showBorder={true}
-          style={{
-            width: "300px",
-            height: "200px",
-          }}
-        >
-          {children || (
+        {children ? (
+          children
+        ) : (
+          <Card
+            padding={400}
+            cornerRadius={4}
+            showBorder={true}
+            style={{
+              width: "300px",
+              height: "200px",
+            }}
+          >
             <div
               style={{
                 display: "flex",
@@ -88,8 +90,8 @@ export function TiltContainer({
                 Move mouse to tilt
               </p>
             </div>
-          )}
-        </Card>
+          </Card>
+        )}
       </motion.div>
     </div>
   );

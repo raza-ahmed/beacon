@@ -15,15 +15,17 @@ export function ParallaxHover({ children }: ParallaxHoverProps) {
       initial="rest"
       whileHover="hover"
       animate="rest"
-      style={{ width: "300px", perspective: 1000 }}
+      style={{ perspective: 1000 }}
     >
-      <Card
-        padding={400}
-        cornerRadius={4}
-        showBorder={true}
-        style={{ height: "200px" }}
-      >
-        {children || (
+      {children ? (
+        children
+      ) : (
+        <Card
+          padding={400}
+          cornerRadius={4}
+          showBorder={true}
+          style={{ width: "300px", height: "200px" }}
+        >
           <div
             style={{
               display: "flex",
@@ -55,8 +57,8 @@ export function ParallaxHover({ children }: ParallaxHoverProps) {
               Hover to see parallax
             </p>
           </div>
-        )}
-      </Card>
+        </Card>
+      )}
     </motion.div>
   );
 }

@@ -43,7 +43,6 @@ export function HoverLift({ showShadow = true, children }: HoverLiftProps) {
           shadowY.set(2);
           shadowBlur.set(8);
         }}
-        style={{ width: "300px" }}
       >
         <motion.div
           style={{
@@ -51,16 +50,19 @@ export function HoverLift({ showShadow = true, children }: HoverLiftProps) {
             borderRadius: "var(--corner-radius-400)",
           }}
         >
-          <Card
-            padding={400}
-            cornerRadius={4}
-            showBorder={true}
-            shadow={undefined}
-            style={{
-              height: "200px",
-            }}
-          >
-            {children || (
+          {children ? (
+            children
+          ) : (
+            <Card
+              padding={400}
+              cornerRadius={4}
+              showBorder={true}
+              shadow={undefined}
+              style={{
+                width: "300px",
+                height: "200px",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -92,8 +94,8 @@ export function HoverLift({ showShadow = true, children }: HoverLiftProps) {
                   Hover to see shadow
                 </p>
               </div>
-            )}
-          </Card>
+            </Card>
+          )}
         </motion.div>
       </motion.div>
     );
@@ -105,17 +107,19 @@ export function HoverLift({ showShadow = true, children }: HoverLiftProps) {
       initial="rest"
       whileHover="hover"
       animate="rest"
-      style={{ width: "300px" }}
     >
-      <Card
-        padding={400}
-        cornerRadius={4}
-        showBorder={true}
-        style={{
-          height: "200px",
-        }}
-      >
-        {children || (
+      {children ? (
+        children
+      ) : (
+        <Card
+          padding={400}
+          cornerRadius={4}
+          showBorder={true}
+          style={{
+            width: "300px",
+            height: "200px",
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -147,8 +151,8 @@ export function HoverLift({ showShadow = true, children }: HoverLiftProps) {
               Hover to lift
             </p>
           </div>
-        )}
-      </Card>
+        </Card>
+      )}
     </motion.div>
   );
 }

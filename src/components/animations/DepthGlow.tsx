@@ -16,18 +16,19 @@ export function DepthGlow({ children }: DepthGlowProps) {
       whileHover="hover"
       animate="rest"
       style={{ 
-        width: "300px",
         borderRadius: "var(--corner-radius-400)",
       }}
     >
-      <Card
-        padding={400}
-        cornerRadius={4}
-        showBorder={true}
-        shadow={undefined}
-        style={{ height: "200px" }}
-      >
-        {children || (
+      {children ? (
+        children
+      ) : (
+        <Card
+          padding={400}
+          cornerRadius={4}
+          showBorder={true}
+          shadow={undefined}
+          style={{ width: "300px", height: "200px" }}
+        >
           <div
             style={{
               display: "flex",
@@ -59,8 +60,8 @@ export function DepthGlow({ children }: DepthGlowProps) {
               Hover to see depth
             </p>
           </div>
-        )}
-      </Card>
+        </Card>
+      )}
     </motion.div>
   );
 }
