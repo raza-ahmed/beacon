@@ -41,6 +41,7 @@ export const navigationData: NavSection[] = [
         ],
       },
       { label: "Typography", href: "/foundations/typography" },
+      { label: "Icons", href: "/foundations/icons" },
       { label: "Responsiveness", href: "/foundations/responsiveness" },
       { label: "Accessibility", href: "/foundations/accessibility" },
     ],
