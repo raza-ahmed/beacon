@@ -75,6 +75,10 @@
         "$type": "color",
         "$value": "{Color.Gray.800}"
       },
+      "900": {
+        "$type": "color",
+        "$value": "{Color.Gray.900}"
+      },
       "White": {
         "$type": "color",
         "$value": "{Color.White.1000}"

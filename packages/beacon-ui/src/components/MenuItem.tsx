@@ -36,10 +36,10 @@ export function MenuItem({
   const backgroundColor = isActive
     ? "var(--bg-primary-tonal)"
     : isHovered
-    ? "var(--bg-page-secondary)"
-    : isDisabled
     ? "var(--bg-page-primary)"
-    : "var(--bg-page-primary)";
+    : isDisabled
+    ? "var(--bg-page-base)"
+    : "var(--bg-page-base)";
 
   // Text colors based on state
   const textColor = isActive
@@ -79,9 +79,18 @@ export function MenuItem({
     borderRadius: "var(--corner-radius-200)",
     width: "100%",
     backgroundColor,
+    background: backgroundColor,
     border: borderStyle,
     cursor: isDisabled ? "not-allowed" : onClick ? "pointer" : "default",
     transition: "background-color 0.2s ease, border-color 0.2s ease",
+    appearance: "none",
+    WebkitAppearance: "none",
+    MozAppearance: "none",
+    outline: "none",
+    fontFamily: "inherit",
+    fontSize: "inherit",
+    lineHeight: "inherit",
+    textAlign: "left",
     ...style,
   };
 

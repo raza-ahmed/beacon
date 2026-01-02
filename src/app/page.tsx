@@ -41,7 +41,6 @@ export default function IntroductionPage() {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                borderRadius: "var(--corner-radius-400)",
               }}
             />
           </div>
@@ -54,8 +53,8 @@ export default function IntroductionPage() {
             foundations to accelerate development while maintaining design
             consistency.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "var(--spacing-400)", marginTop: "var(--spacing-400)" }}>
-            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+          <div className="ds-content__grid">
+            <div className="ds-content__card">
               <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Components
               </h6>
@@ -72,7 +71,7 @@ export default function IntroductionPage() {
                 <li>Switch</li>
               </ul>
             </div>
-            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+            <div className="ds-content__card">
               <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Foundations
               </h6>

@@ -39,7 +39,7 @@
   --color-gray-600: #3f3c3d;
   --color-gray-700: #2a2728;
   --color-gray-800: #1f1d1d;
-  --color-gray-900: #0b0a0a;
+  --color-gray-900: #161616;
   --color-green-100: #e0ffff;
   --color-green-200: #9bfdfa;
   --color-green-300: #69fcf7;
@@ -170,6 +170,7 @@
   --color-neutral-600: var(--color-gray-600);
   --color-neutral-700: var(--color-gray-700);
   --color-neutral-800: var(--color-gray-800);
+  --color-neutral-900: var(--color-gray-900);
   --color-neutral-white: var(--color-white-1000);
   --color-neutral-black: var(--color-black-1000);
   --color-success-100: var(--color-green-100);
@@ -257,7 +258,7 @@
 
 /* Brand tokens - light theme */
 :root, [data-theme="light"] {
-  --bg-white: var(--color-alpha-neutral-white-1000);
+  --bg-page-base: var(--color-alpha-neutral-white-1000);
   --bg-page-primary: var(--color-neutral-50);
   --bg-page-secondary: var(--color-neutral-100);
   --bg-page-tertiary: var(--color-neutral-200);
@@ -344,7 +345,7 @@
 
 /* Brand tokens - dark theme */
 [data-theme="dark"] {
-  --bg-white: var(--color-neutral-800);
+  --bg-page-base: var(--color-neutral-900);
   --bg-page-primary: var(--color-neutral-800);
   --bg-page-secondary: var(--color-neutral-700);
   --bg-page-tertiary: var(--color-neutral-600);
@@ -700,13 +701,13 @@
 /* Typography utility classes */
 .text-title-small {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-bold);
+  font-weight: var(--font-weight-secondary-medium);
   font-size: var(--fonts-title-small-text-size);
   line-height: var(--fonts-title-small-line-height);
 }
 .text-title-regular {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-bold);
+  font-weight: var(--font-weight-secondary-medium);
   font-size: var(--fonts-title-regular-text-size);
   line-height: var(--fonts-title-regular-line-height);
 }
@@ -747,7 +748,7 @@
 }
 .text-heading-h6 {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-medium);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h6-text-size);
   line-height: var(--fonts-heading-h6-line-height);

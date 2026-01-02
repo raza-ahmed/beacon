@@ -59,7 +59,7 @@ export default function MotionGuidePage() {
         <section id="use-cases" className="ds-content__section">
           <h6 className="ds-content__section-title">Where to Use Animations</h6>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "var(--spacing-400)", marginTop: "var(--spacing-400)" }}>
-            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-primary)", borderRadius: "var(--corner-radius-200)"}}>
               <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Interactive Cards
               </h6>
@@ -70,7 +70,7 @@ export default function MotionGuidePage() {
                 <li>Content previews</li>
               </ul>
             </div>
-            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-primary)", borderRadius: "var(--corner-radius-200)"}}>
               <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Navigation Elements
               </h6>
@@ -81,7 +81,7 @@ export default function MotionGuidePage() {
                 <li>Breadcrumbs</li>
               </ul>
             </div>
-            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-primary)", borderRadius: "var(--corner-radius-200)"}}>
               <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Call-to-Action
               </h6>
@@ -92,7 +92,7 @@ export default function MotionGuidePage() {
                 <li>Promotional banners</li>
               </ul>
             </div>
-            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-secondary)", borderRadius: "var(--corner-radius-200)", border: "var(--border-width-25) solid var(--border-strong-200)" }}>
+            <div style={{ padding: "var(--spacing-300)", backgroundColor: "var(--bg-page-primary)", borderRadius: "var(--corner-radius-200)" }}>
               <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
                 Data Visualization
               </h6>

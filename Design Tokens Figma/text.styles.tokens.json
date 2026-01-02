@@ -5,7 +5,7 @@
       "$value": {
         "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
         "fontSize": "{Fonts.Title.Small.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Bold}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Title.Small.Line Height}",
         "textTransform": "none",
@@ -17,7 +17,7 @@
       "$value": {
         "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
         "fontSize": "{Fonts.Title.Regular.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Bold}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Title.Regular.Line Height}",
         "textTransform": "none",
@@ -91,7 +91,7 @@
       "$value": {
         "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
         "fontSize": "{Fonts.Heading.H6.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H6.Line Height}",
         "textTransform": "capitalize",

@@ -300,7 +300,7 @@ export default function CardPage() {
                       <code>"default"</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                      Background color variant. Default uses page-secondary, highlighted/selected use page-primary.
+                      Background color variant. All statuses use page-primary.
                     </div>
                   </div>
                   <div className="ds-api-reference__props-row">

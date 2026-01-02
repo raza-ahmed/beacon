@@ -40,16 +40,7 @@ function renderChanges(entry: VersionEntry | null) {
 
         return (
           <div key={key} style={{ marginBottom: "var(--spacing-400)" }}>
-            <h6
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--fonts-title-small-text-size)",
-                fontWeight: "var(--font-weight-secondary-bold)",
-                color: "var(--fg-neutral)",
-                marginBottom: "var(--spacing-200)",
-                marginTop: 0,
-              }}
-            >
+            <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
               {label}
             </h6>
             <ul className="ds-content__bullet-list" style={{ marginTop: 0 }}>
@@ -101,35 +92,12 @@ export default function ReleasesPage() {
 
         <section id="current-version" className="ds-content__section">
           <h6 className="ds-content__section-title">Current Version</h6>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "var(--spacing-300)",
-              padding: "var(--spacing-400)",
-              backgroundColor: "var(--bg-page-secondary)",
-              borderRadius: "var(--corner-radius-300)",
-              border: "var(--border-width-25) solid var(--border-strong-200)",
-              marginBottom: "var(--spacing-400)",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--fonts-heading-h5-text-size)",
-                fontWeight: "var(--font-weight-secondary-bold)",
-                color: "var(--fg-neutral)",
-              }}
-            >
+          <div className="ds-content__version-badge">
+            <span className="text-heading-h5" style={{ color: "var(--fg-neutral)", textTransform: "none" }}>
               {DESIGN_SYSTEM_VERSION}
             </span>
             {currentVersion && (
-              <span
-                style={{
-                  fontSize: "var(--fonts-body-regular-text-size)",
-                  color: "var(--fg-neutral-secondary)",
-                }}
-              >
+              <span className="text-body3-regular" style={{ color: "var(--fg-neutral-secondary)" }}>
                 Released {formatDate(currentVersion.date)}
               </span>
             )}

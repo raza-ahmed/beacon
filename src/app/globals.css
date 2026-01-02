@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   color: var(--fg-neutral);
   min-height: 100vh;
   overflow: hidden;
@@ -71,7 +71,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-300) var(--spacing-600);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-bottom: var(--border-width-25) solid var(--border-strong-100);
   flex-shrink: 0;
 }
@@ -609,7 +609,7 @@ body {
   font-family: var(--font-secondary);
   font-size: var(--fonts-body-regular-text-size);
   line-height: var(--fonts-body-regular-line-height);
-  color: var(--fg-neutral-secondary);
+  color: var(--fg-neutral-tertiary);
   margin-bottom: var(--spacing-300);
 }
 
@@ -619,7 +619,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
-  color: var(--fg-neutral-secondary);
+  color: var(--fg-neutral-tertiary);
   font-family: var(--font-secondary);
   font-size: var(--fonts-body-regular-text-size);
   line-height: var(--fonts-body-regular-line-height);
@@ -633,7 +633,6 @@ body {
   width: 400px;
   max-width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--corner-radius-400);
   overflow: hidden;
   margin-top: var(--spacing-300);
 }
@@ -1065,7 +1064,6 @@ body {
   flex-direction: column;
   padding: var(--spacing-300);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
   background-color: var(--bg-page-secondary);
   gap: var(--spacing-200);
   overflow: hidden;
@@ -1214,6 +1212,7 @@ body {
   border: var(--border-width-25) solid var(--border-strong-200);
   background-color: transparent;
   cursor: pointer;
+  margin-top: 2px;
   transition: border-color 0.15s ease, transform 0.15s ease;
   flex: 0 0 calc(var(--scale-500) + var(--scale-100));
 }
@@ -1271,8 +1270,7 @@ body {
 .ds-token-mapping__layer {
   padding: var(--spacing-400);
   border-radius: var(--corner-radius-200);
-  background-color: var(--bg-page-secondary);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-primary);
   display: flex;
   flex-direction: column;
 }
@@ -1294,8 +1292,8 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: var(--fonts-body-small-text-size);
   line-height: var(--fonts-body-small-line-height);
-  color: var(--fg-primary-on-tonal);
-  background-color: var(--bg-primary-tonal);
+  color: var(--fg-neutral-secondary);
+  background-color: var(--bg-page-base);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-200);
   display: inline-block;
@@ -1344,13 +1342,12 @@ body {
   margin-top: var(--spacing-400);
   padding: var(--spacing-300);
   border-radius: var(--corner-radius-200);
-  background-color: var(--bg-primary-tonal);
-  border: var(--border-width-25) solid var(--border-primary-tonal);
+  background-color: var(--bg-page-primary);
 }
 
 .ds-token-mapping__example-box .ds-content__text {
   margin: 0;
-  color: var(--fg-primary-on-tonal);
+  color: var(--fg-neutral-tertiary);
 }
 
 .ds-token-mapping__example-box code {
@@ -1358,7 +1355,7 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  color: var(--fg-primary);
+  color: var(--fg-neutral);
 }
 
 .ds-contrast__note {
@@ -1945,7 +1942,73 @@ body {
   line-height: var(--fonts-title-regular-line-height);
   font-weight: var(--font-weight-secondary-bold);
   color: var(--fg-neutral);
-  margin: 0 0 var(--spacing-200) 0;
+}
+
+.ds-content__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+}
+
+.ds-content__card {
+  padding: var(--spacing-300);
+  background-color: var(--bg-page-primary);
+  border-radius: var(--corner-radius-200);
+}
+
+.ds-content__flex {
+  display: flex;
+  gap: var(--spacing-300);
+  align-items: baseline;
+}
+
+.ds-content__flex-wrap {
+  display: flex;
+  gap: var(--spacing-400);
+  flex-wrap: wrap;
+}
+
+.ds-content__version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  background-color: var(--bg-page-primary);
+  border-radius: var(--corner-radius-300);
+  margin-bottom: var(--spacing-400);
+}
+
+.ds-content__code-wrapper {
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+}
+
+.ds-content__entry {
+  margin-bottom: var(--spacing-600);
+  padding-bottom: var(--spacing-600);
+  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+}
+
+.ds-content__code-container {
+  position: relative;
+  margin-top: var(--spacing-300);
+}
+
+.ds-content__code-copy-button {
+  position: absolute;
+  top: var(--spacing-200);
+  right: var(--spacing-200);
+  z-index: 1;
+}
+
+.ds-content__code-copy-button--centered {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-200);
+  transform: translateY(-50%);
+  z-index: 1;
 }
 
 /* ============================================
@@ -2081,8 +2144,7 @@ body {
 .ds-do-dont__col {
   padding: var(--spacing-300);
   border-radius: var(--corner-radius-200);
-  background-color: var(--bg-page-secondary);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-primary);
 }
 
 .ds-do-dont__title {
@@ -2232,6 +2294,19 @@ body {
   outline-offset: 2px;
 }
 
+/* Remove outline on active state (click) for buttons and links */
+button:active,
+a:active {
+  outline: none;
+}
+
+/* Remove outline from buttons focused via mouse click (not keyboard) */
+/* Using !important to override inline styles from Button components */
+button:focus:not(:focus-visible) {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
 /* Exclude search inputs from global focus style */
 .ds-header__search-input:focus-visible,
 .ds-mobile-drawer__search-input:focus-visible {
@@ -2253,7 +2328,7 @@ body {
   grid-template-columns: 364px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   overflow: hidden;
   align-items: stretch;
 }
@@ -2289,7 +2364,7 @@ body {
 .ds-radio-button-preview-section {
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   align-self: stretch;
   overflow: hidden;
 }
@@ -2301,7 +2376,8 @@ body {
 .ds-input-preview,
 .ds-chip-preview,
 .ds-switch-preview,
-.ds-radio-button-preview {
+.ds-radio-button-preview,
+.ds-avatar-preview {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2322,7 +2398,8 @@ body {
 .ds-input-preview::before,
 .ds-chip-preview::before,
 .ds-switch-preview::before,
-.ds-radio-button-preview::before {
+.ds-radio-button-preview::before,
+.ds-avatar-preview::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -2341,7 +2418,8 @@ body {
 .ds-input-preview > *,
 .ds-chip-preview > *,
 .ds-switch-preview > *,
-.ds-radio-button-preview > * {
+.ds-radio-button-preview > *,
+.ds-avatar-preview > * {
   position: relative;
   z-index: 1;
 }
@@ -2478,7 +2556,7 @@ body {
 .ds-radio-button-playground-divider,
 .ds-menu-playground-divider {
   width: var(--border-width-25);
-  background-color: var(--border-strong-200);
+  background-color: var(--border-strong-100);
 }
 
 /* Base preview container - shared between button and card */
@@ -2516,9 +2594,9 @@ body {
   flex-direction: column;
   gap: var(--spacing-400);
   margin-bottom: var(--spacing-400);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   border-radius: var(--corner-radius-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   overflow: hidden;
 }
 
@@ -3083,9 +3161,7 @@ body {
 .ds-anatomy-diagram {
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-anatomy-diagram__button {
@@ -3151,13 +3227,11 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-anatomy-diagram__avatar {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-bottom: var(--spacing-500);
 }
 
@@ -3202,9 +3276,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-button-variant-card__title {
@@ -3229,7 +3302,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
 }
 
@@ -3299,7 +3372,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   overflow: hidden;
   align-items: stretch;
 }
@@ -3327,7 +3400,7 @@ body {
 .ds-avatar-preview-section {
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   align-self: stretch;
   overflow: hidden;
 }
@@ -3337,7 +3410,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-500);
-  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  border-bottom: var(--border-width-25) solid var(--border-strong-100);
   flex: 0 0 50%;
   height: 50%;
   min-height: 0;
@@ -3452,7 +3525,6 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  border: var(--border-width-25) solid var(--border-strong-200);
   border-radius: var(--corner-radius-300);
   background-color: var(--bg-page-primary);
 }
@@ -3549,7 +3621,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -3568,7 +3640,7 @@ body {
 
   .ds-card-preview {
     min-height: 200px;
-    border-top: 1px solid var(--border-strong-200);
+    border-top: 1px solid var(--border-strong-100);
   }
 
   .ds-card-preview-code {
@@ -3630,7 +3702,7 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
 }
@@ -3668,7 +3740,7 @@ body {
   gap: var(--spacing-400);
   margin-top: var(--spacing-400);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
 }
@@ -3784,7 +3856,7 @@ body {
   flex-direction: column;
   gap: var(--spacing-100);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
   border: var(--border-width-25) solid var(--border-strong-200);
 }
@@ -3984,7 +4056,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -4013,7 +4085,7 @@ body {
 
 .ds-checkbox-playground-divider {
   width: var(--border-width-25);
-  background-color: var(--border-strong-200);
+  background-color: var(--border-strong-100);
 }
 
 /* Checkbox preview section, preview, and preview-code use base styles defined above */
@@ -4066,9 +4138,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-checkbox-variant-card__title {
@@ -4093,7 +4164,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
   min-height: 60px;
 }
@@ -4101,15 +4172,11 @@ body {
 .ds-checkbox-anatomy-diagram {
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
-  border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-checkbox-anatomy-diagram__checkbox {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: var(--spacing-200);
   margin-bottom: var(--spacing-500);
 }
@@ -4168,7 +4235,6 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 /* ============================================
@@ -4180,7 +4246,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -4199,7 +4265,7 @@ body {
 
   .ds-input-preview {
     min-height: 200px;
-    border-top: 1px solid var(--border-strong-200);
+    border-top: 1px solid var(--border-strong-100);
   }
 
   .ds-input-preview-code {
@@ -4254,9 +4320,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-input-variant-card__title {
@@ -4281,24 +4346,21 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-400);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
   min-height: 100px;
 }
 
 .ds-input-anatomy-diagram {
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-input-anatomy-diagram__input {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin-bottom: var(--spacing-500);
 }
 
@@ -4392,7 +4454,6 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 /* ============================================
@@ -4404,7 +4465,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -4476,15 +4537,13 @@ body {
   gap: var(--spacing-400);
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-chip-anatomy-diagram__chip {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   gap: var(--spacing-300);
 }
 
@@ -4541,7 +4600,6 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-chip-variants-grid {
@@ -4556,9 +4614,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-chip-variant-card__title {
@@ -4583,9 +4640,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
   min-height: 80px;
 }
 
@@ -4598,7 +4654,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -4648,15 +4704,13 @@ body {
   gap: var(--spacing-400);
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-switch-anatomy-diagram__switch {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   gap: var(--spacing-300);
 }
 
@@ -4708,7 +4762,6 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-switch-variants-grid {
@@ -4723,9 +4776,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-switch-variant-card__title {
@@ -4750,9 +4802,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
   min-height: 80px;
 }
 
@@ -4765,7 +4816,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -4836,15 +4887,13 @@ body {
 .ds-radio-button-anatomy-diagram {
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-radio-button-anatomy-diagram__radio {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: var(--spacing-200);
   margin-bottom: var(--spacing-500);
 }
@@ -4904,7 +4953,6 @@ body {
   background-color: var(--bg-page-primary);
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 /* ============================================
@@ -4923,9 +4971,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-radio-button-variant-card__title {
@@ -4954,7 +5001,7 @@ body {
   grid-template-columns: 380px auto 1fr;
   margin-top: var(--spacing-400);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   background-color: var(--bg-page-primary);
   overflow: hidden;
   min-height: 448px;
@@ -4984,7 +5031,7 @@ body {
 /* Menu-specific preview styles - preview takes 100% height */
 .ds-menu-preview-section {
   display: flex;
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   align-self: stretch;
   overflow: hidden;
 }
@@ -5057,9 +5104,7 @@ body {
   gap: var(--spacing-500);
   margin-top: var(--spacing-400);
   padding: var(--spacing-500);
-  background-color: var(--bg-page-secondary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-menu-anatomy-diagram__menu {
@@ -5165,7 +5210,7 @@ body {
   font-size: var(--fonts-body-small-text-size);
   line-height: var(--fonts-body-small-line-height);
   color: var(--fg-neutral-secondary);
-  background-color: var(--bg-page-tertiary);
+  background-color: var(--bg-page-primary);
   padding: var(--spacing-100) var(--spacing-200);
   border-radius: var(--corner-radius-100);
 }
@@ -5195,9 +5240,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-300);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-300);
-  border: var(--border-width-25) solid var(--border-strong-200);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -5226,9 +5270,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
   min-height: 80px;
   width: 100%;
   max-width: 100%;
@@ -5266,9 +5309,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-300);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
   min-height: 80px;
 }
 
@@ -5512,8 +5554,7 @@ body {
 
 .ds-animation-showcase__header {
   padding: var(--spacing-400);
-  border-bottom: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -5566,7 +5607,7 @@ body {
 
 .ds-animation-showcase__preview {
   padding: var(--spacing-500);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-bottom: var(--border-width-25) solid var(--border-strong-200);
   display: flex;
   align-items: center;

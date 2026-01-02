@@ -1,8 +1,8 @@
 {
   "Background": {
-    "White": {
+    "Page_Base": {
       "$type": "color",
-      "$value": "{Color.Neutral.800}"
+      "$value": "{Color.Neutral.900}"
     },
     "Page_Primary": {
       "$type": "color",

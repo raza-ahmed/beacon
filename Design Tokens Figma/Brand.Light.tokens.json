@@ -1,6 +1,6 @@
 {
   "Background": {
-    "White": {
+    "Page_Base": {
       "$type": "color",
       "$value": "{Color.Alpha-Neutral.White-1000}"
     },

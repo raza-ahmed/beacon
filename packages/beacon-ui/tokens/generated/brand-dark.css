@@ -1,6 +1,6 @@
 /* Brand tokens - dark theme */
 [data-theme="dark"] {
-  --bg-white: var(--color-neutral-800);
+  --bg-page-base: var(--color-neutral-900);
   --bg-page-primary: var(--color-neutral-800);
   --bg-page-secondary: var(--color-neutral-700);
   --bg-page-tertiary: var(--color-neutral-600);

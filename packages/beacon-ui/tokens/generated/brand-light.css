@@ -1,6 +1,6 @@
 /* Brand tokens - light theme */
 :root, [data-theme="light"] {
-  --bg-white: var(--color-alpha-neutral-white-1000);
+  --bg-page-base: var(--color-alpha-neutral-white-1000);
   --bg-page-primary: var(--color-neutral-50);
   --bg-page-secondary: var(--color-neutral-100);
   --bg-page-tertiary: var(--color-neutral-200);

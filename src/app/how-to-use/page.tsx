@@ -92,25 +92,15 @@ export default function HowToUsePage() {
           </p>
           
           <div style={{ marginTop: "var(--spacing-400)" }}>
-            <h6
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--fonts-title-small-text-size)",
-                fontWeight: "var(--font-weight-secondary-bold)",
-                color: "var(--fg-neutral)",
-                marginBottom: "var(--spacing-300)",
-                marginTop: 0,
-              }}
-            >
+            <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-300)", marginTop: 0, textTransform: "none" }}>
               Install Packages
             </h6>
             
-            <div style={{ display: "flex", gap: "var(--spacing-400)", flexWrap: "wrap" }}>
-              <div style={{ flex: "1", minWidth: "280px", position: "relative" }}>
-                <CodeCopyButton
-                  code="npm install beacon-ui"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                />
+            <div className="ds-content__flex-wrap">
+              <div className="ds-content__code-wrapper">
+                <div className="ds-content__code-copy-button--centered">
+                  <CodeCopyButton code="npm install beacon-ui" style={{ position: "relative", top: 0, right: 0 }} />
+                </div>
                 <SyntaxHighlighter
                   language="bash"
                   style={syntaxTheme}
@@ -118,9 +108,8 @@ export default function HowToUsePage() {
                     margin: 0,
                     padding: "var(--spacing-400)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "14px",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-200)",
                     overflow: "auto",
                   }}
                   codeTagProps={{
@@ -134,11 +123,10 @@ export default function HowToUsePage() {
                 </SyntaxHighlighter>
               </div>
 
-              <div style={{ flex: "1", minWidth: "280px", position: "relative" }}>
-                <CodeCopyButton
-                  code="npm install beacon-icons"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                />
+              <div className="ds-content__code-wrapper">
+                <div className="ds-content__code-copy-button--centered">
+                  <CodeCopyButton code="npm install beacon-icons" style={{ position: "relative", top: 0, right: 0 }} />
+                </div>
                 <SyntaxHighlighter
                   language="bash"
                   style={syntaxTheme}
@@ -146,9 +134,8 @@ export default function HowToUsePage() {
                     margin: 0,
                     padding: "var(--spacing-400)",
                     backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "14px",
+                    fontSize: "var(--fonts-body-small-text-size)",
                     borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-200)",
                     overflow: "auto",
                   }}
                   codeTagProps={{
@@ -165,24 +152,16 @@ export default function HowToUsePage() {
           </div>
 
           <div style={{ marginTop: "var(--spacing-500)" }}>
-            <h6
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--fonts-title-small-text-size)",
-                fontWeight: "var(--font-weight-secondary-bold)",
-                color: "var(--fg-neutral)",
-                marginBottom: "var(--spacing-200)",
-                marginTop: 0,
-              }}
-            >
+            <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
               Setup
             </h6>
             <p className="ds-content__text">
               Import design tokens and wrap your app with ThemeProvider:
             </p>
-            <div style={{ marginTop: "var(--spacing-300)", position: "relative" }}>
-              <CodeCopyButton
-                code={`// Import tokens CSS
+            <div className="ds-content__code-container">
+              <div className="ds-content__code-copy-button">
+                <CodeCopyButton
+                  code={`// Import tokens CSS
 import 'beacon-ui/tokens';
 
 // Wrap your app with ThemeProvider
@@ -195,8 +174,9 @@ function App() {
     </ThemeProvider>
   );
 }`}
-                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-              />
+                  style={{ position: "relative", top: 0, right: 0 }}
+                />
+              </div>
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -204,7 +184,7 @@ function App() {
                   margin: 0,
                   padding: "var(--spacing-400)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "14px",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-200)",
                   overflow: "auto",
@@ -234,24 +214,16 @@ function App() {
           </div>
 
           <div style={{ marginTop: "var(--spacing-500)" }}>
-            <h6
-              style={{
-                fontFamily: "var(--font-secondary)",
-                fontSize: "var(--fonts-title-small-text-size)",
-                fontWeight: "var(--font-weight-secondary-bold)",
-                color: "var(--fg-neutral)",
-                marginBottom: "var(--spacing-200)",
-                marginTop: 0,
-              }}
-            >
+            <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
               Usage
             </h6>
             <p className="ds-content__text">
               Import and use components and icons:
             </p>
-            <div style={{ marginTop: "var(--spacing-300)", position: "relative" }}>
-              <CodeCopyButton
-                code={`import { Button, Checkbox, Switch, Input } from 'beacon-ui';
+            <div className="ds-content__code-container">
+              <div className="ds-content__code-copy-button">
+                <CodeCopyButton
+                  code={`import { Button, Checkbox, Switch, Input } from 'beacon-ui';
 import { SearchIcon, CheckIcon } from 'beacon-icons';
 
 function MyComponent() {
@@ -265,8 +237,9 @@ function MyComponent() {
     </>
   );
 }`}
-                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-              />
+                  style={{ position: "relative", top: 0, right: 0 }}
+                />
+              </div>
               <SyntaxHighlighter
                 language="tsx"
                 style={syntaxTheme}
@@ -274,7 +247,7 @@ function MyComponent() {
                   margin: 0,
                   padding: "var(--spacing-400)",
                   backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "14px",
+                  fontSize: "var(--fonts-body-small-text-size)",
                   borderRadius: "var(--corner-radius-200)",
                   border: "var(--border-width-25) solid var(--border-strong-200)",
                   overflow: "auto",

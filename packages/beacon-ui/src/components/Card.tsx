@@ -84,7 +84,7 @@ export function Card({
     padding: getSpacingToken(padding),
     borderRadius: CORNER_RADIUS_MAP[cornerRadius],
     position: "relative",
-    backgroundColor: isDefault ? "var(--bg-page-secondary)" : "var(--bg-page-primary)",
+    backgroundColor: "var(--bg-page-primary)",
     ...(heightValue && { height: heightValue }),
     ...(shadow && { boxShadow: getShadowToken(shadow) }),
     ...style,
@@ -98,9 +98,7 @@ export function Card({
       }
     }
 
-    const overlayGradient = isDefault
-      ? "var(--bg-page-secondary)"
-      : "var(--bg-page-primary)";
+    const overlayGradient = "var(--bg-page-primary)";
 
     // Build background layers using CSS multiple backgrounds
     // CSS backgrounds stack: first listed = top layer, last listed = bottom layer

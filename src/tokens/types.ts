@@ -125,6 +125,7 @@ export type SemanticColor =
   | "Color.Neutral.600"
   | "Color.Neutral.700"
   | "Color.Neutral.800"
+  | "Color.Neutral.900"
   | "Color.Neutral.White"
   | "Color.Neutral.Black"
   | "Color.Success.100"
@@ -190,7 +191,7 @@ export type SpacingToken =
   | "Spacing.None";
 
 export type BackgroundToken =
-  | "Background.White"
+  | "Background.Page_Base"
   | "Background.Page_Primary"
   | "Background.Page_Secondary"
   | "Background.Page_Tertiary"

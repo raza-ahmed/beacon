@@ -22,13 +22,13 @@
 /* Typography utility classes */
 .text-title-small {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-bold);
+  font-weight: var(--font-weight-secondary-medium);
   font-size: var(--fonts-title-small-text-size);
   line-height: var(--fonts-title-small-line-height);
 }
 .text-title-regular {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-bold);
+  font-weight: var(--font-weight-secondary-medium);
   font-size: var(--fonts-title-regular-text-size);
   line-height: var(--fonts-title-regular-line-height);
 }
@@ -69,7 +69,7 @@
 }
 .text-heading-h6 {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-medium);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h6-text-size);
   line-height: var(--fonts-heading-h6-line-height);
