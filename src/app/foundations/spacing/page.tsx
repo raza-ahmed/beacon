@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
-import { CopyIcon } from "@/components/icons";
+import { TokenCopyButton } from "@/components/TokenCopyButton";
 
 interface ScaleToken {
   name: string;
@@ -215,8 +215,6 @@ export default function SpacingPage() {
   const scaleTokens = useScaleTokens(computed);
   const spacingTokens = useSpacingTokens(computed);
   const adaptiveTokens = useAdaptiveTokens(computed);
-  const [copiedText, setCopiedText] = useState<string | null>(null);
-
   const tocItems: TocItem[] = useMemo(() => {
     return [
       { id: "overview", label: "Overview" },
@@ -225,12 +223,6 @@ export default function SpacingPage() {
       { id: "responsive", label: "Responsive" },
     ];
   }, []);
-
-  const handleCopyVar = async (text: string) => {
-    await copyToClipboard(text);
-    setCopiedText(text);
-    window.setTimeout(() => setCopiedText(null), 1200);
-  };
 
   if (!mounted) {
     return (
@@ -338,24 +330,8 @@ export default function SpacingPage() {
                     {showVisual ? <SpacingBar value={token.value} cssVar={token.cssVar} /> : <span style={{ color: "var(--fg-neutral-secondary)" }}>—</span>}
                   </div>
                   <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                    <button
-                      className={`ds-token-button ${copiedText === token.cssVar ? "ds-token-button--secondary" : ""}`}
-                      onClick={() => handleCopyVar(token.cssVar)}
-                      aria-label="Copy variable name"
-                      title="Copy variable name"
-                    >
-                      <span className="ds-token-button__label">var</span>
-                      <CopyIcon size="xs" />
-                    </button>
-                    <button
-                      className={`ds-token-button ds-token-button--secondary ${copiedText === token.value ? "" : ""}`}
-                      onClick={() => handleCopyVar(token.value)}
-                      aria-label="Copy raw value"
-                      title="Copy raw value"
-                    >
-                      <span className="ds-token-button__label">raw</span>
-                      <CopyIcon size="xs" />
-                    </button>
+                    <TokenCopyButton text={token.cssVar} label="var" />
+                    <TokenCopyButton text={token.value} label="raw" />
                   </div>
                 </div>
               );
@@ -390,24 +366,8 @@ export default function SpacingPage() {
                   </div>
                   <div className="ds-spacing-table__cell" data-label="Value">{token.resolvedValue}</div>
                   <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                    <button
-                      className={`ds-token-button ${copiedText === token.cssVar ? "ds-token-button--secondary" : ""}`}
-                      onClick={() => handleCopyVar(token.cssVar)}
-                      aria-label="Copy variable name"
-                      title="Copy variable name"
-                    >
-                      <span className="ds-token-button__label">var</span>
-                      <CopyIcon size="xs" />
-                    </button>
-                    <button
-                      className={`ds-token-button ds-token-button--secondary ${copiedText === token.resolvedValue ? "" : ""}`}
-                      onClick={() => handleCopyVar(token.resolvedValue)}
-                      aria-label="Copy raw value"
-                      title="Copy raw value"
-                    >
-                      <span className="ds-token-button__label">raw</span>
-                      <CopyIcon size="xs" />
-                    </button>
+                    <TokenCopyButton text={token.cssVar} label="var" />
+                    <TokenCopyButton text={token.resolvedValue} label="raw" />
                   </div>
                 </div>
               );
@@ -441,24 +401,8 @@ export default function SpacingPage() {
                 <div className="ds-spacing-table__cell" data-label="Tablet">{token.tablet}</div>
                 <div className="ds-spacing-table__cell" data-label="Mobile">{token.mobile}</div>
                 <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                  <button
-                    className={`ds-token-button ${copiedText === token.cssVar ? "ds-token-button--secondary" : ""}`}
-                    onClick={() => handleCopyVar(token.cssVar)}
-                    aria-label="Copy variable name"
-                    title="Copy variable name"
-                  >
-                    <span className="ds-token-button__label">var</span>
-                    <CopyIcon size="xs" />
-                  </button>
-                  <button
-                    className={`ds-token-button ds-token-button--secondary ${copiedText === token.desktop ? "" : ""}`}
-                    onClick={() => handleCopyVar(token.desktop)}
-                    aria-label="Copy raw value"
-                    title="Copy raw value"
-                  >
-                    <span className="ds-token-button__label">raw</span>
-                    <CopyIcon size="xs" />
-                  </button>
+                  <TokenCopyButton text={token.cssVar} label="var" />
+                  <TokenCopyButton text={token.desktop} label="raw" />
                 </div>
               </div>
             ))}

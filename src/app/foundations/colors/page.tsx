@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant, Theme } from "@/tokens/types";
-import { CopyIcon } from "@/components/icons";
+import { TokenCopyButton } from "@/components/TokenCopyButton";
 
 type TokenKind = "bg" | "fg" | "border" | "static" | "util" | "shadow" | "palette";
 
@@ -1142,8 +1142,6 @@ function TokenTable({
   tokens,
   refreshKey,
   filter,
-  onCopyVar,
-  onCopySnippet,
   computed,
 }: {
   title: string;
@@ -1151,8 +1149,6 @@ function TokenTable({
   tokens: TokenSpec[];
   refreshKey: string;
   filter: string;
-  onCopyVar: (cssVar: string) => void;
-  onCopySnippet: (token: TokenSpec) => void;
   computed: Record<string, string>;
 }) {
   const rows = useMemo(() => {
@@ -1205,29 +1201,8 @@ function TokenTable({
               </div>
 
               <div className="ds-color-table__cell ds-color-table__cell--actions" role="cell">
-                <button
-                  type="button"
-                  className="ds-color-button"
-                  onClick={() => onCopyVar(t.cssVar)}
-                  aria-label="Copy variable name"
-                  title="Copy variable name"
-                >
-                  <span className="ds-color-button__label">var</span>
-                  <CopyIcon size="xs" />
-                </button>
-                <button
-                  type="button"
-                  className="ds-color-button ds-color-button--secondary"
-                  onClick={async () => {
-                    const hex = colorToHex(valueToShow);
-                    await copyToClipboard(hex || valueToShow);
-                  }}
-                  aria-label="Copy raw hex value"
-                  title="Copy raw hex value"
-                >
-                  <span className="ds-color-button__label">raw</span>
-                  <CopyIcon size="xs" />
-                </button>
+                <TokenCopyButton text={t.cssVar} label="var" />
+                <TokenCopyButton text={colorToHex(valueToShow) || valueToShow} label="raw" />
               </div>
             </div>
           );
@@ -1400,11 +1375,9 @@ function PaletteFamilyCard({
 function ContrastSection({
   computed,
   refreshKey,
-  onCopyVar,
 }: {
   computed: Record<string, string>;
   refreshKey: string;
-  onCopyVar: (cssVar: string) => void;
 }) {
   const rows = useMemo(() => {
     const pairings: { id: string; label: string; bg: `--${string}`; fg: `--${string}`; guidance: string }[] = [
@@ -1496,17 +1469,19 @@ function ContrastSection({
               <div className="ds-contrast__guidance">{r.guidance}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
-              <button type="button" className="ds-contrast__token" onClick={() => onCopyVar(r.bg)}>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)" }}>
                 <span className="ds-contrast__chip" style={{ backgroundColor: cssVarValue(r.bg) }} />
                 <code className="ds-contrast__code">{r.bg}</code>
-              </button>
+                <TokenCopyButton text={r.bg} label="var" />
+              </div>
               <div className="ds-contrast__value">{r.bgStr || "(unavailable)"}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
-              <button type="button" className="ds-contrast__token" onClick={() => onCopyVar(r.fg)}>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)" }}>
                 <span className="ds-contrast__chip" style={{ backgroundColor: cssVarValue(r.fg) }} />
                 <code className="ds-contrast__code">{r.fg}</code>
-              </button>
+                <TokenCopyButton text={r.fg} label="var" />
+              </div>
               <div className="ds-contrast__value">{r.fgStr || "(unavailable)"}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
@@ -1540,7 +1515,6 @@ function ContrastSection({
 export default function ColorsPage() {
   const groups = useBrandTokenGroups();
   const { theme, hue, setTheme, setHue } = useTheme();
-  const [copiedText, setCopiedText] = useState<string | null>(null);
   const [filter, setFilter] = useState("");
   const refreshKey = `${theme}:${hue}`;
   const palette = usePaletteFamilies();
@@ -1582,31 +1556,9 @@ export default function ColorsPage() {
     ];
   }, []);
 
-  const handleCopyVar = async (cssVar: string) => {
-    await copyToClipboard(cssVar);
-    setCopiedText(cssVar);
-    window.setTimeout(() => setCopiedText(null), 1200);
-  };
-
   const handleCopyPaletteValue = async (value: string, cssVar: string) => {
     const text = value?.trim() ? value.trim() : cssVar;
     await copyToClipboard(text);
-    setCopiedText(text);
-    window.setTimeout(() => setCopiedText(null), 1200);
-  };
-
-  const handleCopyTokenSnippet = async (token: TokenSpec) => {
-    const snippet =
-      token.kind === "bg" || token.kind === "util"
-        ? `background-color: var(${token.cssVar});`
-        : token.kind === "fg"
-          ? `color: var(${token.cssVar});`
-          : token.kind === "border"
-            ? `border: var(--border-width-25) solid var(${token.cssVar});`
-            : `background-color: var(${token.cssVar});`;
-    await copyToClipboard(snippet);
-    setCopiedText(snippet);
-    window.setTimeout(() => setCopiedText(null), 1200);
   };
 
   return (
@@ -1746,11 +1698,6 @@ export default function ColorsPage() {
               />
             </div>
 
-            {copiedText ? (
-              <div className="ds-token-controls__toast" role="status" aria-live="polite">
-                Copied: <code>{copiedText}</code>
-              </div>
-            ) : null}
           </div>
         </section>
 
@@ -1794,8 +1741,6 @@ export default function ColorsPage() {
                 tokens={group.tokens}
                 refreshKey={refreshKey}
                 filter={filter}
-                onCopyVar={handleCopyVar}
-                onCopySnippet={handleCopyTokenSnippet}
                 computed={computed}
               />
             ))}
@@ -1807,7 +1752,7 @@ export default function ColorsPage() {
           <p className="ds-content__text">
             This section computes contrast in the current theme/hue context and evaluates against WCAG AA (small text).
           </p>
-          <ContrastSection computed={computed} refreshKey={refreshKey} onCopyVar={handleCopyVar} />
+          <ContrastSection computed={computed} refreshKey={refreshKey} />
         </section>
 
         <section id="usage-guidance" className="ds-content__section">

@@ -6,7 +6,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { useTheme } from "@/providers/ThemeProvider";
 import { CodeCopyButton } from "@/components/CodeCopyButton";
-import { CopyIcon } from "@/components/icons";
+import { TokenCopyButton } from "@/components/TokenCopyButton";
 
 interface TypographyStyle {
   name: string;
@@ -109,8 +109,6 @@ export default function TypographyPage() {
   const { theme } = useTheme();
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
-  const [copiedText, setCopiedText] = useState<string | null>(null);
-
   const tocItems: TocItem[] = useMemo(() => {
     return [
       { id: "building-blocks", label: "Building Blocks" },
@@ -119,26 +117,6 @@ export default function TypographyPage() {
       { id: "color-previews", label: "Color Previews" },
     ];
   }, []);
-
-  const handleCopy = async (text: string) => {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-    } else {
-      const el = document.createElement("textarea");
-      el.value = text;
-      el.setAttribute("readonly", "true");
-      el.style.position = "absolute";
-      el.style.left = "0";
-      el.style.top = "0";
-      el.style.transform = "translateX(-100%)";
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
-    }
-    setCopiedText(text);
-    window.setTimeout(() => setCopiedText(null), 1200);
-  };
 
 
   const fontFamilies = useMemo(() => {
@@ -210,15 +188,7 @@ export default function TypographyPage() {
                     {font.value}
                   </div>
                   <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                    <button
-                      className={`ds-token-button ${copiedText === font.cssVar ? "ds-token-button--secondary" : ""}`}
-                      onClick={() => handleCopy(font.cssVar)}
-                      aria-label="Copy variable name"
-                      title="Copy variable name"
-                    >
-                      <span className="ds-token-button__label">var</span>
-                      <CopyIcon size="xs" />
-                    </button>
+                    <TokenCopyButton text={font.cssVar} label="var" />
                   </div>
                 </div>
               ))}
@@ -248,15 +218,7 @@ export default function TypographyPage() {
                     {weight.value}
                   </div>
                   <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                    <button
-                      className={`ds-token-button ${copiedText === weight.cssVar ? "ds-token-button--secondary" : ""}`}
-                      onClick={() => handleCopy(weight.cssVar)}
-                      aria-label="Copy variable name"
-                      title="Copy variable name"
-                    >
-                      <span className="ds-token-button__label">var</span>
-                      <CopyIcon size="xs" />
-                    </button>
+                    <TokenCopyButton text={weight.cssVar} label="var" />
                   </div>
                 </div>
               ))}
@@ -290,15 +252,7 @@ export default function TypographyPage() {
                     {style.lineHeight}
                   </div>
                   <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                    <button
-                      className={`ds-token-button ${copiedText === style.className ? "ds-token-button--secondary" : ""}`}
-                      onClick={() => handleCopy(style.className)}
-                      aria-label="Copy class name"
-                      title="Copy class name"
-                    >
-                      <span className="ds-token-button__label">class</span>
-                      <CopyIcon size="xs" />
-                    </button>
+                    <TokenCopyButton text={style.className} label="class" />
                   </div>
                 </div>
               ))}

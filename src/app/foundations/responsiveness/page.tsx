@@ -6,7 +6,7 @@ import { useTheme } from "@/providers/ThemeProvider";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { CodeCopyButton } from "@/components/CodeCopyButton";
-import { CopyIcon } from "@/components/icons";
+import { TokenCopyButton } from "@/components/TokenCopyButton";
 
 type Breakpoint = "desktop" | "tablet" | "mobile";
 
@@ -164,8 +164,6 @@ export default function ResponsivenessPage() {
   const { computed, mounted } = useComputedResponsiveTokens();
   const currentBreakpoint = useCurrentBreakpoint();
   const breakpointInfo = useBreakpointInfo();
-  const [copiedText, setCopiedText] = useState<string | null>(null);
-
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
   const tocItems: TocItem[] = useMemo(() => {
@@ -180,26 +178,6 @@ export default function ResponsivenessPage() {
       { id: "usage-guidance", label: "Usage Guidance" },
     ];
   }, []);
-
-  const handleCopy = async (text: string) => {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-    } else {
-      const el = document.createElement("textarea");
-      el.value = text;
-      el.setAttribute("readonly", "true");
-      el.style.position = "absolute";
-      el.style.left = "0";
-      el.style.top = "0";
-      el.style.transform = "translateX(-100%)";
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
-    }
-    setCopiedText(text);
-    window.setTimeout(() => setCopiedText(null), 1200);
-  };
 
   if (!mounted) {
     return (
@@ -348,15 +326,7 @@ export default function ResponsivenessPage() {
                 {RESPONSIVE_VALUES["--device-width"].mobile}
               </div>
               <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                <button
-                  className={`ds-token-button ${copiedText === "--device-width" ? "ds-token-button--secondary" : ""}`}
-                  onClick={() => handleCopy("--device-width")}
-                  aria-label="Copy variable name"
-                  title="Copy variable name"
-                >
-                  <span className="ds-token-button__label">var</span>
-                  <CopyIcon size="xs" />
-                </button>
+                <TokenCopyButton text="--device-width" label="var" />
               </div>
             </div>
           </div>
@@ -401,15 +371,7 @@ export default function ResponsivenessPage() {
                       {values.mobile}
                     </div>
                     <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                      <button
-                        className={`ds-token-button ${copiedText === key ? "ds-token-button--secondary" : ""}`}
-                        onClick={() => handleCopy(key)}
-                        aria-label="Copy variable name"
-                        title="Copy variable name"
-                      >
-                        <span className="ds-token-button__label">var</span>
-                        <CopyIcon size="xs" />
-                      </button>
+                      <TokenCopyButton text={key} label="var" />
                     </div>
                   </div>
                 ))}
@@ -454,15 +416,7 @@ export default function ResponsivenessPage() {
                       {values.mobile}
                     </div>
                     <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                      <button
-                        className={`ds-token-button ${copiedText === key ? "ds-token-button--secondary" : ""}`}
-                        onClick={() => handleCopy(key)}
-                        aria-label="Copy variable name"
-                        title="Copy variable name"
-                      >
-                        <span className="ds-token-button__label">var</span>
-                        <CopyIcon size="xs" />
-                      </button>
+                      <TokenCopyButton text={key} label="var" />
                     </div>
                   </div>
                 ))}
@@ -668,15 +622,7 @@ export default function ResponsivenessPage() {
                 <code style={{ fontSize: "var(--fonts-body-small-text-size)" }}>{RESPONSIVE_VALUES["--menu-width"].mobile}</code>
               </div>
               <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
-                <button
-                  className={`ds-token-button ${copiedText === "--menu-width" ? "ds-token-button--secondary" : ""}`}
-                  onClick={() => handleCopy("--menu-width")}
-                  aria-label="Copy variable name"
-                  title="Copy variable name"
-                >
-                  <span className="ds-token-button__label">var</span>
-                  <CopyIcon size="xs" />
-                </button>
+                <TokenCopyButton text="--menu-width" label="var" />
               </div>
             </div>
           </div>
