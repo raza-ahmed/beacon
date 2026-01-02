@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2026-01-15
+
+### Added
+- Button Icon component for icon-only button interactions with support for all button variants, sizes, and states
+- Motion animations system with comprehensive animation library including:
+  - Professional animations (lift, shadow depth, border glow, smooth scale)
+  - Playful animations (bounce, elastic, jelly, pop)
+  - Minimal animations (fade, shift, soft glow, border fade)
+  - 3D-focused animations (tilt, flip, parallax, depth glow)
+- Motion guide documentation with usage guidelines, best practices, and implementation examples
+- Icons are now available for search in design system website
+
 ## [3.3.1] - 2026-01-01
 
 ### Fixed

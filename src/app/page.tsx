@@ -29,7 +29,7 @@ export default function IntroductionPage() {
             Beacon Design System creates a seamless, user-friendly, and visually
             coherent digital environment. This system serves as the foundation
             upon which all our digital products are built, ensuring consistency,
-            efficiency, and accessibility across all user interfaces. With 9
+            efficiency, and accessibility across all user interfaces. With 10
             production-ready components and comprehensive design tokens, Beacon
             provides everything needed to build cohesive, accessible applications.
           </p>
@@ -62,6 +62,7 @@ export default function IntroductionPage() {
               <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
                 <li>Avatar</li>
                 <li>Button</li>
+                <li>Button Icon</li>
                 <li>Card</li>
                 <li>Checkbox</li>
                 <li>Chip</li>

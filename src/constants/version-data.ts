@@ -22,6 +22,36 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.0",
+    "date": "2026-01-15",
+    "added": [
+      {
+        "description": "Button Icon component for icon-only button interactions with support for all button variants, sizes, and states"
+      },
+      {
+        "description": "Motion animations system with comprehensive animation library including:"
+      },
+      {
+        "description": "Professional animations (lift, shadow depth, border glow, smooth scale)"
+      },
+      {
+        "description": "Playful animations (bounce, elastic, jelly, pop)"
+      },
+      {
+        "description": "Minimal animations (fade, shift, soft glow, border fade)"
+      },
+      {
+        "description": "3D-focused animations (tilt, flip, parallax, depth glow)"
+      },
+      {
+        "description": "Motion guide documentation with usage guidelines, best practices, and implementation examples"
+      },
+      {
+        "description": "Icons are now available for search in design system website"
+      }
+    ]
+  },
+  {
     "version": "3.3.1",
     "date": "2026-01-01",
     "fixed": [

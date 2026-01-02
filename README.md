@@ -50,19 +50,20 @@ function App() {
 
 **beacon-ui** (Components & Tokens)
 - **Package Name**: `beacon-ui`
-- **Version**: 3.3.1
+- **Version**: 3.4.0
 - **NPM**: https://www.npmjs.com/package/beacon-ui
 - **Documentation**: https://beacon.uxraza.com/
 
 **beacon-icons** (Icon Components)
 - **Package Name**: `beacon-icons`
-- **Version**: 3.3.1
+- **Version**: 3.4.0
 - **NPM**: https://www.npmjs.com/package/beacon-icons
 
 ### Included Components
 
 - Avatar
 - Button
+- Button Icon
 - Card
 - Checkbox
 - Chip
@@ -73,7 +74,7 @@ function App() {
 
 ### Features
 
-- ✅ 9 production-ready components
+- ✅ 10 production-ready components
 - ✅ Complete design token system
 - ✅ TypeScript support
 - ✅ Theme support (light/dark)
@@ -256,7 +257,7 @@ The design system follows semantic versioning:
 - **MINOR**: New features (backward compatible)
 - **PATCH**: Bug fixes (backward compatible)
 
-Current version: **3.3.1**
+Current version: **3.4.0**
 
 ---
 
