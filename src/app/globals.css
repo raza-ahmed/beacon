@@ -832,15 +832,15 @@ body {
 
 .ds-color-table {
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  border: var(--border-width-25) solid var(--border-strong-100);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
 }
 
 .ds-color-table__header {
   padding: var(--spacing-300);
-  border-bottom: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  border-bottom: var(--border-width-25) solid var(--border-strong-100);
+  background-color: var(--bg-page-base);
 }
 
 .ds-color-table__title {
@@ -1506,7 +1506,6 @@ body {
   padding: var(--spacing-50) var(--spacing-100);
   border-radius: var(--corner-radius-100);
   background-color: var(--bg-page-primary);
-  border: var(--border-width-25) solid var(--border-strong-200);
 }
 
 .ds-token-row__label {
@@ -2018,7 +2017,7 @@ body {
 .ds-spacing-table {
   border-radius: var(--corner-radius-200);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   overflow: hidden;
 }
 
@@ -2048,7 +2047,7 @@ body {
 }
 
 .ds-spacing-table__row--head {
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   border-top: none;
   font-family: var(--font-secondary);
   font-size: var(--fonts-body-small-text-size);
@@ -2179,9 +2178,8 @@ body {
 
   .ds-color-table__row--head {
     display: grid;
-    background-color: var(--bg-page-primary);
+    background-color: var(--bg-page-base);
     border-top: none;
-    border-bottom: var(--border-width-25) solid var(--border-strong-200);
     position: sticky;
     top: 0;
     z-index: 1;
@@ -5752,8 +5750,8 @@ button:focus:not(:focus-visible) {
   align-items: center;
   gap: var(--spacing-200);
   padding: var(--spacing-400);
-  background-color: var(--bg-page-secondary);
-  border: var(--border-width-25) solid var(--border-strong-200);
+  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-100);
   border-radius: var(--corner-radius-300);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -5762,7 +5760,7 @@ button:focus:not(:focus-visible) {
 
 .ds-icon-card:hover {
   border-color: var(--border-primary);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-secondary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.4.0] - 2026-01-15
+## [3.4.1] - 2026-01-03
+
+### Changed
+- Refactored inline CSS styles in changelog, how-to-use, and releases pages to use design system token variables and CSS utility classes
+- Added CSS utility classes for common content patterns: `.ds-content__grid`, `.ds-content__card`, `.ds-content__flex`, `.ds-content__flex-wrap`, `.ds-content__version-badge`, `.ds-content__entry`, `.ds-content__code-container`, `.ds-content__code-wrapper`
+
+### Fixed
+- Fixed copy button vertical alignment in code blocks for install package sections
+- Fixed button outline appearing momentarily on click - outline now only appears for keyboard navigation, not mouse clicks
+- Improved consistency of styling across documentation pages by replacing inline styles with design system classes
+
+## [3.4.0] - 2026-01-02
 
 ### Added
 - Button Icon component for icon-only button interactions with support for all button variants, sizes, and states

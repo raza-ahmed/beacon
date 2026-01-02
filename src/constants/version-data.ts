@@ -22,8 +22,31 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.1",
+    "date": "2026-01-03",
+    "changed": [
+      {
+        "description": "Refactored inline CSS styles in changelog, how-to-use, and releases pages to use design system token variables and CSS utility classes"
+      },
+      {
+        "description": "Added CSS utility classes for common content patterns: grid, card, flex, version badge, entry, code container, and code wrapper"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Fixed copy button vertical alignment in code blocks for install package sections"
+      },
+      {
+        "description": "Fixed button outline appearing momentarily on click - outline now only appears for keyboard navigation, not mouse clicks"
+      },
+      {
+        "description": "Improved consistency of styling across documentation pages by replacing inline styles with design system classes"
+      }
+    ]
+  },
+  {
     "version": "3.4.0",
-    "date": "2026-01-15",
+    "date": "2026-01-02",
     "added": [
       {
         "description": "Button Icon component for icon-only button interactions with support for all button variants, sizes, and states"
