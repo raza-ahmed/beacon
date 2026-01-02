@@ -7,6 +7,7 @@ import type { HueVariant } from "@/tokens/types";
 import { RadioButtonPreview } from "@/components/RadioButtonPreview";
 import { RadioButtonControls } from "@/components/RadioButtonControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
+import { RadioButton } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -88,7 +89,7 @@ export default function RadioButtonPage() {
       { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
-      { id: "examples", label: "Code Examples" },
+      { id: "examples", label: "Usage Examples" },
     ];
   }, []);
 
@@ -494,329 +495,423 @@ export default function RadioButtonPage() {
         </section>
 
         <section id="examples" className="ds-content__section">
-          <h6 className="ds-content__section-title">Code Examples</h6>
+          <h6 className="ds-content__section-title">Usage Examples</h6>
           <p className="ds-content__text">Copyable code snippets for common radio button use cases.</p>
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Radio Button</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<RadioButton />`);
-                    setCopiedExample("basic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "basic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<RadioButton />`}
-                </SyntaxHighlighter>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <RadioButton />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-radio-button-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+
+<RadioButton />`);
+                        setCopiedExample("basic");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "basic" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { RadioButton } from 'beacon-ui';
+
+<RadioButton />`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Radio Button with Label</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<RadioButton 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <RadioButton label="Option 1" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-radio-button-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+
+<RadioButton 
   label="Option 1"
 />`);
-                    setCopiedExample("label");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "label" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<RadioButton 
+                        setCopiedExample("label");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "label" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { RadioButton } from 'beacon-ui';
+
+<RadioButton 
   label="Option 1"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Selected Radio Button</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<RadioButton 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <RadioButton selected label="Selected" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-radio-button-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+
+<RadioButton 
   selected
   label="Selected"
 />`);
-                    setCopiedExample("selected");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "selected" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<RadioButton 
+                        setCopiedExample("selected");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "selected" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { RadioButton } from 'beacon-ui';
+
+<RadioButton 
   selected
   label="Selected"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Disabled Radio Button</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<RadioButton 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <RadioButton selected status="disabled" label="Disabled" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-radio-button-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+
+<RadioButton 
   selected
   status="disabled"
   label="Disabled"
 />`);
-                    setCopiedExample("disabled");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "disabled" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<RadioButton 
+                        setCopiedExample("disabled");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "disabled" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { RadioButton } from 'beacon-ui';
+
+<RadioButton 
   selected
   status="disabled"
   label="Disabled"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Radio Button Group</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<div>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
+                        <RadioButton label="Option 1" />
+                        <RadioButton label="Option 2" selected />
+                        <RadioButton label="Option 3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-radio-button-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+
+<div>
   <RadioButton label="Option 1" />
   <RadioButton label="Option 2" selected />
   <RadioButton label="Option 3" />
 </div>`);
-                    setCopiedExample("group");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "group" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<div>
+                        setCopiedExample("group");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "group" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { RadioButton } from 'beacon-ui';
+
+<div>
   <RadioButton label="Option 1" />
   <RadioButton label="Option 2" selected />
   <RadioButton label="Option 3" />
 </div>`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Radio Button with States</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-radio-button-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<RadioButton label="Default" status="default" />
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
+                        <RadioButton label="Default" status="default" />
+                        <RadioButton label="Hovered" status="hovered" />
+                        <RadioButton label="Focused" status="focused" />
+                        <RadioButton label="Pressed" status="pressed" />
+                        <RadioButton label="Disabled" status="disabled" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-radio-button-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { RadioButton } from 'beacon-ui';
+
+<RadioButton label="Default" status="default" />
 <RadioButton label="Hovered" status="hovered" />
 <RadioButton label="Focused" status="focused" />
 <RadioButton label="Pressed" status="pressed" />
 <RadioButton label="Disabled" status="disabled" />`);
-                    setCopiedExample("states");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "states" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<RadioButton label="Default" status="default" />
+                        setCopiedExample("states");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "states" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { RadioButton } from 'beacon-ui';
+
+<RadioButton label="Default" status="default" />
 <RadioButton label="Hovered" status="hovered" />
 <RadioButton label="Focused" status="focused" />
 <RadioButton label="Pressed" status="pressed" />
 <RadioButton label="Disabled" status="disabled" />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

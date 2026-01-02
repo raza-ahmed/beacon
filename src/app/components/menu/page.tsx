@@ -7,6 +7,8 @@ import type { HueVariant } from "@/tokens/types";
 import { MenuPreview } from "@/components/MenuPreview";
 import { MenuControls } from "@/components/MenuControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
+import { MenuItem } from "beacon-ui";
+import { UserPersonIcon, SettingsGearIcon } from "beacon-icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -155,7 +157,7 @@ export default function MenuPage() {
       { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
-      { id: "examples", label: "Code Examples" },
+      { id: "examples", label: "Usage Examples" },
     ];
   }, []);
 
@@ -920,603 +922,214 @@ export default function MenuPage() {
         </section>
 
         <section id="examples" className="ds-content__section">
-          <h6 className="ds-content__section-title">Code Examples</h6>
-          <p className="ds-content__text">Copyable code snippets for common menu use cases.</p>
+          <h6 className="ds-content__section-title">Usage Examples</h6>
+          <p className="ds-content__text">Copyable code snippets for common menu item use cases.</p>
           <div className="ds-code-examples">
             <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Basic Menu</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu />`);
-                    setCopiedExample("basic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "basic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu />`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu with Custom Header</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu 
-                    headerTitle="John Doe"
-                    headerSubtitle="Administrator"
-                  />`);
-                    setCopiedExample("header");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "header" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu 
-                headerTitle="John Doe"
-                headerSubtitle="Administrator"
-              />`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu without Button</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu 
-              showButton={false}
-            />`);
-                    setCopiedExample("no-button");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "no-button" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu 
-  showButton={false}
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu without Chevrons</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu 
-  showChevrons={false}
-/>`);
-                    setCopiedExample("no-chevrons");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "no-chevrons" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu 
-  showChevrons={false}
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Tablet Open Variant</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu 
-  variant="tablet-open"
-/>`);
-                    setCopiedExample("tablet-open");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "tablet-open" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu 
-  variant="tablet-open"
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu with Custom Items</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu 
-  menuItems={[
-    { id: "1", label: "Dashboard" },
-    { id: "2", label: "Settings" },
-    { id: "3", label: "Profile" }
-  ]}
-/>`);
-                    setCopiedExample("custom-items");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "custom-items" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu 
-  menuItems={[
-    { id: "1", label: "Dashboard" },
-    { id: "2", label: "Settings" },
-    { id: "3", label: "Profile" }
-  ]}
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu with Icons and Selection</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`import { Menu, MenuItem } from 'beacon-ui';
-import { SearchIcon, SettingsGearIcon, UserPersonIcon } from 'beacon-icons';
+              <h6 className="ds-code-example__title">Basic Menu Item</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas" style={{ display: "flex", justifyContent: "flex-start", width: "100%" }}>
+                      <MenuItem 
+                        menuTitle="Settings"
+                        iconStart={true}
+                        iconStart1={<SettingsGearIcon size={20} />}
+                        iconEnd={true}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-menu-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { MenuItem } from 'beacon-ui';
+import { SettingsGearIcon } from 'beacon-icons';
 
-const menuItems: MenuItem[] = [
-  { 
-    id: "1", 
-    label: "Search", 
-    icon: <SearchIcon size={20} />
-  },
-  { 
-    id: "2", 
-    label: "Settings", 
-    icon: <SettingsGearIcon size={20} />,
-    selected: true
-  },
-  { 
-    id: "3", 
-    label: "Profile", 
-    icon: <UserPersonIcon size={20} />
-  }
-];
-
-<Menu 
-  menuItems={menuItems}
-  selectedItemId="2"
-  onItemClick={(item) => console.log('Clicked:', item)}
+<MenuItem 
+  menuTitle="Settings"
+  iconStart={true}
+  iconStart1={<SettingsGearIcon size={20} />}
+  iconEnd={true}
 />`);
-                    setCopiedExample("icons-selection");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "icons-selection" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`import { Menu, MenuItem } from 'beacon-ui';
-import { SearchIcon, SettingsGearIcon, UserPersonIcon } from 'beacon-icons';
+                        setCopiedExample("basic");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "basic" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { MenuItem } from 'beacon-ui';
+import { SettingsGearIcon } from 'beacon-icons';
 
-const menuItems: MenuItem[] = [
-  { 
-    id: "1", 
-    label: "Search", 
-    icon: <SearchIcon size={20} />
-  },
-  { 
-    id: "2", 
-    label: "Settings", 
-    icon: <SettingsGearIcon size={20} />,
-    selected: true
-  },
-  { 
-    id: "3", 
-    label: "Profile", 
-    icon: <UserPersonIcon size={20} />
-  }
-];
-
-<Menu 
-  menuItems={menuItems}
-  selectedItemId="2"
-  onItemClick={(item) => console.log('Clicked:', item)}
+<MenuItem 
+  menuTitle="Settings"
+  iconStart={true}
+  iconStart1={<SettingsGearIcon size={20} />}
+  iconEnd={true}
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu with Custom Avatar Image</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Menu 
-  avatarImageUrl="/images/avatars/user.jpg"
-  headerTitle="John Doe"
-  headerSubtitle="Administrator"
-/>`);
-                    setCopiedExample("custom-avatar");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "custom-avatar" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Menu 
-  avatarImageUrl="/images/avatars/user.jpg"
-  headerTitle="John Doe"
-  headerSubtitle="Administrator"
-/>`}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-            <div className="ds-code-example">
-              <h6 className="ds-code-example__title">Menu with Custom Components</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-menu-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`import { Menu, Button, Switch } from 'beacon-ui';
-import { DownloadIcon } from 'beacon-icons';
+              <h6 className="ds-code-example__title">Menu Item States</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas" style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)", width: "100%" }}>
+                      <MenuItem 
+                        menuTitle="Default"
+                        iconStart={true}
+                        iconStart1={<UserPersonIcon size={20} />}
+                        iconEnd={true}
+                        state="Default"
+                      />
+                      <MenuItem 
+                        menuTitle="Active"
+                        iconStart={true}
+                        iconStart1={<UserPersonIcon size={20} />}
+                        iconEnd={true}
+                        state="Active"
+                      />
+                      <MenuItem 
+                        menuTitle="Disabled"
+                        iconStart={true}
+                        iconStart1={<UserPersonIcon size={20} />}
+                        iconEnd={true}
+                        state="Disabled"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-menu-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { MenuItem } from 'beacon-ui';
+import { UserPersonIcon } from 'beacon-icons';
 
-<Menu
-  menuItems={menuItems}
-  // Custom Switch component
-  renderSwitch={({ checked, onChange }) => (
-    <Switch 
-      checked={checked} 
-      onChange={onChange}
-      showIcons={true}
-    />
-  )}
-  // Custom toggle button
-  renderToggleButton={({ isOpen, onClick }) => (
-    <Button onClick={onClick} variant="outline" size="sm">
-      {isOpen ? "Close" : "Open"}
-    </Button>
-  )}
-  // Custom menu button
-  renderButton={({ onClick }) => (
-    <Button onClick={onClick} startIcon={<DownloadIcon size={16} />}>
-      Download
-    </Button>
-  )}
-  onSwitchChange={(checked) => {
-    console.log('Switch:', checked);
-    // Handle switch change (e.g., toggle theme)
-  }}
-  onToggleButtonClick={() => {
-    console.log('Toggle clicked');
-    // Handle toggle (e.g., open/close menu)
-  }}
-  onButtonClick={() => {
-    console.log('Button clicked');
-    // Handle button action (e.g., download)
-  }}
-/>`);
-                    setCopiedExample("custom-components");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "custom-components" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`import { Menu, Button, Switch } from 'beacon-ui';
-import { DownloadIcon } from 'beacon-icons';
+<MenuItem 
+  menuTitle="Default"
+  iconStart={true}
+  iconStart1={<UserPersonIcon size={20} />}
+  iconEnd={true}
+  state="Default"
+/>
 
-<Menu
-  menuItems={menuItems}
-  // Custom Switch component
-  renderSwitch={({ checked, onChange }) => (
-    <Switch 
-      checked={checked} 
-      onChange={onChange}
-      showIcons={true}
-    />
-  )}
-  // Custom toggle button
-  renderToggleButton={({ isOpen, onClick }) => (
-    <Button onClick={onClick} variant="outline" size="sm">
-      {isOpen ? "Close" : "Open"}
-    </Button>
-  )}
-  // Custom menu button
-  renderButton={({ onClick }) => (
-    <Button onClick={onClick} startIcon={<DownloadIcon size={16} />}>
-      Download
-    </Button>
-  )}
-  onSwitchChange={(checked) => {
-    console.log('Switch:', checked);
-    // Handle switch change (e.g., toggle theme)
-  }}
-  onToggleButtonClick={() => {
-    console.log('Toggle clicked');
-    // Handle toggle (e.g., open/close menu)
-  }}
-  onButtonClick={() => {
-    console.log('Button clicked');
-    // Handle button action (e.g., download)
-  }}
+<MenuItem 
+  menuTitle="Active"
+  iconStart={true}
+  iconStart1={<UserPersonIcon size={20} />}
+  iconEnd={true}
+  state="Active"
+/>
+
+<MenuItem 
+  menuTitle="Disabled"
+  iconStart={true}
+  iconStart1={<UserPersonIcon size={20} />}
+  iconEnd={true}
+  state="Disabled"
+/>`);
+                        setCopiedExample("states");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "states" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { MenuItem } from 'beacon-ui';
+import { UserPersonIcon } from 'beacon-icons';
+
+<MenuItem 
+  menuTitle="Default"
+  iconStart={true}
+  iconStart1={<UserPersonIcon size={20} />}
+  iconEnd={true}
+  state="Default"
+/>
+
+<MenuItem 
+  menuTitle="Active"
+  iconStart={true}
+  iconStart1={<UserPersonIcon size={20} />}
+  iconEnd={true}
+  state="Active"
+/>
+
+<MenuItem 
+  menuTitle="Disabled"
+  iconStart={true}
+  iconStart1={<UserPersonIcon size={20} />}
+  iconEnd={true}
+  state="Disabled"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

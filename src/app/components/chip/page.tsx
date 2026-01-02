@@ -7,6 +7,7 @@ import type { HueVariant } from "@/tokens/types";
 import { ChipPreview } from "@/components/ChipPreview";
 import { ChipControls } from "@/components/ChipControls";
 import { CopyIcon, CheckIcon, ListDetailsIcon } from "@/components/icons";
+import { Chip } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -109,7 +110,7 @@ export default function ChipPage() {
       { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
-      { id: "examples", label: "Code Examples" },
+      { id: "examples", label: "Usage Examples" },
     ];
   }, []);
 
@@ -555,325 +556,414 @@ export default function ChipPage() {
         </section>
 
         <section id="examples" className="ds-content__section">
-          <h6 className="ds-content__section-title">Code Examples</h6>
+          <h6 className="ds-content__section-title">Usage Examples</h6>
           <p className="ds-content__text">Copyable code snippets for common chip use cases.</p>
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Chip</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Chip />`);
-                    setCopiedExample("basic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "basic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Chip />`}
-                </SyntaxHighlighter>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Chip />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-chip-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+
+<Chip />`);
+                        setCopiedExample("basic");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "basic" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Chip } from 'beacon-ui';
+
+<Chip />`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip with Label</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Chip 
-  label="Tag"
-/>`);
-                    setCopiedExample("label");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "label" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Chip 
-  label="Tag"
-/>`}
-                </SyntaxHighlighter>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Chip label="Tag" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-chip-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+
+<Chip label="Tag" />`);
+                        setCopiedExample("label");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "label" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Chip } from 'beacon-ui';
+
+<Chip label="Tag" />`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip with Icon</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Chip 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Chip label="Filter" icon={<ListDetailsIcon size="xs" />} />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-chip-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+import { ListDetailsIcon } from 'beacon-icons';
+
+<Chip 
   label="Filter"
-  showIcon
+  icon={<ListDetailsIcon size="xs" />}
 />`);
-                    setCopiedExample("icon");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "icon" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Chip 
+                        setCopiedExample("icon");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "icon" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Chip } from 'beacon-ui';
+import { ListDetailsIcon } from 'beacon-icons';
+
+<Chip 
   label="Filter"
-  showIcon
+  icon={<ListDetailsIcon size="xs" />}
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip with Border</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Chip 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Chip label="Selected" showBorders />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-chip-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+
+<Chip 
   label="Selected"
   showBorders
 />`);
-                    setCopiedExample("border");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "border" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Chip 
+                        setCopiedExample("border");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "border" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Chip } from 'beacon-ui';
+
+<Chip 
   label="Selected"
   showBorders
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Color Variants</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Chip label="Success" color="success" />
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas" style={{ display: "flex", gap: "var(--spacing-300)", flexWrap: "wrap" }}>
+                      <Chip label="Success" color="success" />
+                      <Chip label="Warning" color="warning" />
+                      <Chip label="Error" color="critical" />
+                      <Chip label="Neutral" color="neutral" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-chip-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+
+<Chip label="Success" color="success" />
 <Chip label="Warning" color="warning" />
 <Chip label="Error" color="critical" />
 <Chip label="Neutral" color="neutral" />`);
-                    setCopiedExample("colors");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "colors" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Chip label="Success" color="success" />
+                        setCopiedExample("colors");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "colors" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Chip } from 'beacon-ui';
+
+<Chip label="Success" color="success" />
 <Chip label="Warning" color="warning" />
 <Chip label="Error" color="critical" />
 <Chip label="Neutral" color="neutral" />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Chip Group</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-chip-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
+                        <Chip label="Tag 1" />
+                        <Chip label="Tag 2" color="success" />
+                        <Chip label="Tag 3" color="warning" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-chip-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Chip } from 'beacon-ui';
+
+<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
   <Chip label="Tag 1" />
   <Chip label="Tag 2" color="success" />
   <Chip label="Tag 3" color="warning" />
 </div>`);
-                    setCopiedExample("group");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "group" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
+                        setCopiedExample("group");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "group" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Chip } from 'beacon-ui';
+
+<div style={{ display: "flex", gap: "var(--spacing-200)", flexWrap: "wrap" }}>
   <Chip label="Tag 1" />
   <Chip label="Tag 2" color="success" />
   <Chip label="Tag 3" color="warning" />
 </div>`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

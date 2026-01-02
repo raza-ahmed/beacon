@@ -7,6 +7,7 @@ import type { HueVariant } from "@/tokens/types";
 import { CheckboxPreview } from "@/components/CheckboxPreview";
 import { CheckboxControls } from "@/components/CheckboxControls";
 import { CopyIcon, CheckIcon } from "@/components/icons";
+import { Checkbox } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -88,7 +89,7 @@ export default function CheckboxPage() {
       { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
-      { id: "examples", label: "Code Examples" },
+      { id: "examples", label: "Usage Examples" },
     ];
   }, []);
 
@@ -502,329 +503,421 @@ export default function CheckboxPage() {
         </section>
 
         <section id="examples" className="ds-content__section">
-          <h6 className="ds-content__section-title">Code Examples</h6>
+          <h6 className="ds-content__section-title">Usage Examples</h6>
           <p className="ds-content__text">Copyable code snippets for common checkbox use cases.</p>
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Checkbox</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-checkbox-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Checkbox />`);
-                    setCopiedExample("basic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "basic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Checkbox />`}
-                </SyntaxHighlighter>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Checkbox />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-checkbox-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Checkbox } from 'beacon-ui';
+
+<Checkbox />`);
+                        setCopiedExample("basic");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "basic" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Checkbox } from 'beacon-ui';
+
+<Checkbox />`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Checkbox with Label</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-checkbox-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Checkbox 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Checkbox label="Accept terms and conditions" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-checkbox-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Checkbox } from 'beacon-ui';
+
+<Checkbox 
   label="Accept terms and conditions"
 />`);
-                    setCopiedExample("label");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "label" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Checkbox 
+                        setCopiedExample("label");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "label" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Checkbox } from 'beacon-ui';
+
+<Checkbox 
   label="Accept terms and conditions"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Checked Checkbox</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-checkbox-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Checkbox 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Checkbox checked label="I agree" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-checkbox-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Checkbox } from 'beacon-ui';
+
+<Checkbox 
   checked
   label="I agree"
 />`);
-                    setCopiedExample("checked");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "checked" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Checkbox 
+                        setCopiedExample("checked");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "checked" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Checkbox } from 'beacon-ui';
+
+<Checkbox 
   checked
   label="I agree"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Disabled Checkbox</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-checkbox-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Checkbox 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Checkbox checked status="disabled" label="Cannot change" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-checkbox-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Checkbox } from 'beacon-ui';
+
+<Checkbox 
   checked
   status="disabled"
   label="Cannot change"
 />`);
-                    setCopiedExample("disabled");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "disabled" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Checkbox 
+                        setCopiedExample("disabled");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "disabled" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Checkbox } from 'beacon-ui';
+
+<Checkbox 
   checked
   status="disabled"
   label="Cannot change"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Checkbox with States</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-checkbox-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<Checkbox label="Default" status="default" />
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas" style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
+                      <Checkbox label="Default" status="default" />
+                      <Checkbox label="Hovered" status="hovered" />
+                      <Checkbox label="Focused" status="focused" />
+                      <Checkbox label="Pressed" status="pressed" />
+                      <Checkbox label="Disabled" status="disabled" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-checkbox-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Checkbox } from 'beacon-ui';
+
+<Checkbox label="Default" status="default" />
 <Checkbox label="Hovered" status="hovered" />
 <Checkbox label="Focused" status="focused" />
 <Checkbox label="Pressed" status="pressed" />
 <Checkbox label="Disabled" status="disabled" />`);
-                    setCopiedExample("states");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "states" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<Checkbox label="Default" status="default" />
+                        setCopiedExample("states");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "states" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Checkbox } from 'beacon-ui';
+
+<Checkbox label="Default" status="default" />
 <Checkbox label="Hovered" status="hovered" />
 <Checkbox label="Focused" status="focused" />
 <Checkbox label="Pressed" status="pressed" />
 <Checkbox label="Disabled" status="disabled" />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Checkbox Group</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-checkbox-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<div>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
+                        <Checkbox label="Option 1" />
+                        <Checkbox label="Option 2" checked />
+                        <Checkbox label="Option 3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-checkbox-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Checkbox } from 'beacon-ui';
+
+<div>
   <Checkbox label="Option 1" />
   <Checkbox label="Option 2" checked />
   <Checkbox label="Option 3" />
 </div>`);
-                    setCopiedExample("group");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "group" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                  language="tsx"
-                  style={syntaxTheme}
-                  customStyle={{
-                    margin: 0,
-                    padding: "var(--spacing-300)",
-                    backgroundColor: "var(--bg-page-secondary)",
-                    fontSize: "var(--fonts-body-small-text-size)",
-                    borderRadius: "var(--corner-radius-200)",
-                    border: "var(--border-width-25) solid var(--border-strong-100)",
-                  }}
-                  codeTagProps={{
-                    style: {
-                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    },
-                  }}
-                  PreTag="div"
-                >
-                  {`<div>
+                        setCopiedExample("group");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "group" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Checkbox } from 'beacon-ui';
+
+<div>
   <Checkbox label="Option 1" />
   <Checkbox label="Option 2" checked />
   <Checkbox label="Option 3" />
 </div>`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

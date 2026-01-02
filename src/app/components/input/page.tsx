@@ -7,6 +7,7 @@ import type { HueVariant } from "@/tokens/types";
 import { InputPreview } from "@/components/InputPreview";
 import { InputControls } from "@/components/InputControls";
 import { CopyIcon, CheckIcon, UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "@/components/icons";
+import { Input } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 
@@ -160,7 +161,7 @@ export default function InputPage() {
       { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
-      { id: "examples", label: "Code Examples" },
+      { id: "examples", label: "Usage Examples" },
     ];
   }, []);
 
@@ -816,441 +817,557 @@ export default function InputPage() {
         </section>
 
         <section id="examples" className="ds-content__section">
-          <h6 className="ds-content__section-title">Code Examples</h6>
+          <h6 className="ds-content__section-title">Usage Examples</h6>
           <p className="ds-content__text">Copyable code snippets for common input field use cases.</p>
           <div className="ds-code-examples">
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Basic Input Field</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField />`);
-                    setCopiedExample("basic");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "basic" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField />`}
-                </SyntaxHighlighter>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+
+<Input />`);
+                        setCopiedExample("basic");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "basic" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input />`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Label</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input label="Email" placeholder="Enter your email" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+
+<Input 
   label="Email"
   placeholder="Enter your email"
 />`);
-                    setCopiedExample("label");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "label" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("label");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "label" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
   label="Email"
   placeholder="Enter your email"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Icons</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input placeholder="Search" placeholderIcon={<SearchIcon size="xs" />} endIcon={<ChevronDownIcon size="xs" />} />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
+
+<Input 
   placeholder="Search"
-  showPlaceholderIcon
-  showEndIcon
+  placeholderIcon={<SearchIcon size="xs" />}
+  endIcon={<ChevronDownIcon size="xs" />}
 />`);
-                    setCopiedExample("icons");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "icons" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("icons");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "icons" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
+
+<Input 
   placeholder="Search"
-  showPlaceholderIcon
-  showEndIcon
+  placeholderIcon={<SearchIcon size="xs" />}
+  endIcon={<ChevronDownIcon size="xs" />}
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Error</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input label="Email" placeholder="Enter your email" showError />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+
+<Input 
   label="Email"
   placeholder="Enter your email"
   showError
 />`);
-                    setCopiedExample("error");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "error" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("error");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "error" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
   label="Email"
   placeholder="Enter your email"
   showError
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Input with Number Prefix</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input label="Phone" placeholder="123456789" numberPrefix="+1" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+
+<Input 
   label="Phone"
   placeholder="123456789"
-  showNumberPrefix
+  numberPrefix="+1"
 />`);
-                    setCopiedExample("prefix");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "prefix" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("prefix");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "prefix" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
   label="Phone"
   placeholder="123456789"
-  showNumberPrefix
+  numberPrefix="+1"
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Rounded Input</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input placeholder="Search" rounded />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+
+<Input 
   placeholder="Search"
   rounded
 />`);
-                    setCopiedExample("rounded");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "rounded" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("rounded");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "rounded" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
   placeholder="Search"
   rounded
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Icon Only Input</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input iconOnly placeholderIcon={<SearchIcon size="xs" />} />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+import { SearchIcon } from 'beacon-icons';
+
+<Input 
   iconOnly
-  showPlaceholderIcon
+  placeholderIcon={<SearchIcon size="xs" />}
 />`);
-                    setCopiedExample("iconOnly");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "iconOnly" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("iconOnly");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "iconOnly" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+import { SearchIcon } from 'beacon-icons';
+
+<Input 
   iconOnly
-  showPlaceholderIcon
+  placeholderIcon={<SearchIcon size="xs" />}
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="ds-code-example">
               <h6 className="ds-code-example__title">Disabled Input</h6>
-              <div style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  className="ds-input-code-copy"
-                  onClick={async () => {
-                    await copyToClipboard(`<InputField 
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input label="Email" placeholder="Enter your email" disabled />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <button
+                      type="button"
+                      className="ds-input-code-copy"
+                      onClick={async () => {
+                        await copyToClipboard(`import { Input } from 'beacon-ui';
+
+<Input 
   label="Email"
   placeholder="Enter your email"
   disabled
 />`);
-                    setCopiedExample("disabled");
-                    setTimeout(() => setCopiedExample(null), 2000);
-                  }}
-                  aria-label="Copy code"
-                  style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
-                >
-                  {copiedExample === "disabled" ? (
-                    <>
-                      <CheckIcon size="xs" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon size="xs" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-                <SyntaxHighlighter
-                language="tsx"
-                style={syntaxTheme}
-                customStyle={{
-                  margin: 0,
-                  padding: "var(--spacing-300)",
-                  backgroundColor: "var(--bg-page-secondary)",
-                  fontSize: "var(--fonts-body-small-text-size)",
-                  borderRadius: "var(--corner-radius-200)",
-                  border: "none",
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                  },
-                }}
-                PreTag="div"
-              >
-                {`<InputField 
+                        setCopiedExample("disabled");
+                        setTimeout(() => setCopiedExample(null), 2000);
+                      }}
+                      aria-label="Copy code"
+                    >
+                      {copiedExample === "disabled" ? (
+                        <>
+                          <CheckIcon size="xs" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <CopyIcon size="xs" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
   label="Email"
   placeholder="Enter your email"
   disabled
 />`}
-                </SyntaxHighlighter>
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
