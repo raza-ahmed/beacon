@@ -50,6 +50,7 @@ export const navigationData: NavSection[] = [
     items: [
       { label: "Avatar", href: "/components/avatar" },
       { label: "Button", href: "/components/button" },
+      { label: "Button Icon", href: "/components/button-icon" },
       { label: "Card", href: "/components/card" },
       { label: "Checkbox", href: "/components/checkbox" },
       { label: "Chip", href: "/components/chip" },

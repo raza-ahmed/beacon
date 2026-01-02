@@ -1,5 +1,6 @@
 // Components
 export { Button } from "./components/Button";
+export { ButtonIcon } from "./components/ButtonIcon";
 export { Card } from "./components/Card";
 export { Checkbox } from "./components/Checkbox";
 export { Switch } from "./components/Switch";
@@ -12,6 +13,7 @@ export { RadioButton } from "./components/RadioButton";
 
 // Component Props Types
 export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState, ButtonColor } from "./components/Button";
+export type { ButtonIconProps } from "./components/ButtonIcon";
 export type { CardProps, CardStatus, CardShadow } from "./components/Card";
 export type { CheckboxProps, CheckboxStatus } from "./components/Checkbox";
 export type { SwitchProps, SwitchStatus } from "./components/Switch";
