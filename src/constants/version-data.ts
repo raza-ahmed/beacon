@@ -22,6 +22,15 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.2",
+    "date": "2026-01-03",
+    "added": [
+      {
+        "description": "Added `underline` prop to Button component for link variant to control text decoration"
+      }
+    ]
+  },
+  {
     "version": "3.4.1",
     "date": "2026-01-03",
     "changed": [
@@ -29,7 +38,7 @@ const versionData: VersionEntry[] = [
         "description": "Refactored inline CSS styles in changelog, how-to-use, and releases pages to use design system token variables and CSS utility classes"
       },
       {
-        "description": "Added CSS utility classes for common content patterns: grid, card, flex, version badge, entry, code container, and code wrapper"
+        "description": "Added CSS utility classes for common content patterns: `.ds-content__grid`, `.ds-content__card`, `.ds-content__flex`, `.ds-content__flex-wrap`, `.ds-content__version-badge`, `.ds-content__entry`, `.ds-content__code-container`, `.ds-content__code-wrapper`"
       }
     ],
     "fixed": [

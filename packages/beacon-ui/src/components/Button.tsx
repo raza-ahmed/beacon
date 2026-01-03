@@ -23,6 +23,7 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<"button">, "type
   state?: ButtonState;
   color?: ButtonColor;
   type?: "button" | "submit" | "reset";
+  underline?: boolean;
   children: React.ReactNode;
 }
 
@@ -103,6 +104,7 @@ export function Button({
   state: stateProp,
   color = "primary",
   type = "button",
+  underline,
   children,
   className,
   style,
@@ -260,8 +262,8 @@ export function Button({
             borderWidth: 0,
             borderStyle: "none",
             borderColor: "transparent",
-            textDecoration: "underline",
-            textUnderlineOffset: "2px",
+            textDecoration: underline !== false ? "underline" : "none",
+            textUnderlineOffset: underline !== false ? "2px" : undefined,
           };
           break;
       }
@@ -314,7 +316,7 @@ export function Button({
       }
 
       return { ...baseStyles, ...variantStyles, ...stateStyles, ...style };
-    }, [variant, sizeConfig, borderRadius, fillContainer, justifyContent, currentState, isDisabled, isLoading, color, style]);
+    }, [variant, sizeConfig, borderRadius, fillContainer, justifyContent, currentState, isDisabled, isLoading, color, underline, style]);
 
     // Clone icons with the correct size based on button size
     const iconSize = sizeConfig.iconSize;
