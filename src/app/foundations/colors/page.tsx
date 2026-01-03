@@ -1275,7 +1275,7 @@ function PaletteGrid({
 function colorToHex(colorStr: string): string {
   if (!colorStr) return "";
   
-  // If already hex, return it
+  // If already hex, return it (preserve alpha if present)
   const hexMatch = colorStr.match(/#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})/);
   if (hexMatch) return `#${hexMatch[1]}`;
   
@@ -1285,6 +1285,11 @@ function colorToHex(colorStr: string): string {
     const r = color.r.toString(16).padStart(2, "0");
     const g = color.g.toString(16).padStart(2, "0");
     const b = color.b.toString(16).padStart(2, "0");
+    // Include alpha if it's not fully opaque
+    if (color.a < 1) {
+      const a = Math.round(color.a * 255).toString(16).padStart(2, "0");
+      return `#${r}${g}${b}${a}`;
+    }
     return `#${r}${g}${b}`;
   }
   
@@ -1295,11 +1300,20 @@ function colorToHex(colorStr: string): string {
     document.body.appendChild(tempEl);
     const computed = window.getComputedStyle(tempEl).color;
     document.body.removeChild(tempEl);
-    const rgbMatch = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-    if (rgbMatch) {
-      const r = Number.parseInt(rgbMatch[1]).toString(16).padStart(2, "0");
-      const g = Number.parseInt(rgbMatch[2]).toString(16).padStart(2, "0");
-      const b = Number.parseInt(rgbMatch[3]).toString(16).padStart(2, "0");
+    // Try to match rgba with alpha
+    const rgbaMatch = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)/);
+    if (rgbaMatch) {
+      const r = Number.parseInt(rgbaMatch[1]).toString(16).padStart(2, "0");
+      const g = Number.parseInt(rgbaMatch[2]).toString(16).padStart(2, "0");
+      const b = Number.parseInt(rgbaMatch[3]).toString(16).padStart(2, "0");
+      // Include alpha if present and not fully opaque
+      if (rgbaMatch[4] !== undefined) {
+        const alpha = Number.parseFloat(rgbaMatch[4]);
+        if (alpha < 1) {
+          const a = Math.round(alpha * 255).toString(16).padStart(2, "0");
+          return `#${r}${g}${b}${a}`;
+        }
+      }
       return `#${r}${g}${b}`;
     }
   } catch {
