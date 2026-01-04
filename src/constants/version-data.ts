@@ -22,6 +22,21 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.3",
+    "date": "2026-01-04",
+    "added": [
+      {
+        "description": "Tabs component with Tab and TabItem subcomponents for navigation and content organization"
+      },
+      {
+        "description": "TabItem supports horizontal and vertical placement, default and pill styles, multiple sizes, and icon support"
+      },
+      {
+        "description": "Tab component supports equal width distribution and configurable corner radius for pill style"
+      }
+    ]
+  },
+  {
     "version": "3.4.2",
     "date": "2026-01-03",
     "added": [
