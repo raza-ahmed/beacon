@@ -3,18 +3,24 @@
   RewriteEngine On
   RewriteBase /
 
+  # Redirect .html URLs to clean URLs (must be first)
+  # THE_REQUEST ensures this only matches actual browser requests, not internal rewrites
+  RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
+  RewriteCond %{REQUEST_URI} !^/$
+  RewriteRule ^ /%1 [R=301,L]
+
   # First, handle directory requests - if directory exists but no index.html, check for .html file
   # This handles cases like /how-to-use/ or /foundations/colors/
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteCond %{REQUEST_URI} ^(.+)/$
   RewriteCond %{DOCUMENT_ROOT}%1.html -f
-  RewriteRule ^(.+)/$ /$1.html [L,R=301]
+  RewriteRule ^(.+)/$ /$1.html [L]
 
   # If directory without trailing slash, check for .html file
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteCond %{REQUEST_URI} !/$
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
-  RewriteRule ^(.+)$ /$1.html [L,R=301]
+  RewriteRule ^(.+)$ /$1.html [L]
 
   # Handle Next.js static export routing - if file doesn't exist, try .html extension
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -88,6 +94,6 @@ Options -Indexes
   </FilesMatch>
 </IfModule>
 
-# Custom error pages (optional)
+# Custom error pages
 ErrorDocument 404 /404.html
 
