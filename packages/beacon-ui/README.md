@@ -493,14 +493,9 @@ Components adapt seamlessly across breakpoints:
 
 ## Assets (Images)
 
-The package includes static assets (images) for patterns, avatars, and previews. These are located in `assets/` directory.
+The package includes static assets (images) for avatars and previews. These are located in `assets/` directory.
 
-### Pattern Images (Card Component)
-
-The Card component uses background pattern images. To use them:
-
-1. Copy pattern images from `node_modules/beacon-ui/assets/patterns/` to your `public/images/patterns/` directory
-2. The Card component will automatically reference them via `/images/patterns/` paths
+**Note:** Background patterns are now CSS-based and don't require image files. See the [Background Patterns documentation](/utility/bg-patterns) for details.
 
 ### Automatic Setup
 
@@ -509,7 +504,7 @@ Add a postinstall script to your `package.json`:
 ```json
 {
   "scripts": {
-    "postinstall": "mkdir -p public/images/patterns public/images/avatars public/images/preview && cp -r node_modules/beacon-ui/assets/patterns/* public/images/patterns/ && cp -r node_modules/beacon-ui/assets/avatars/* public/images/avatars/ && cp -r node_modules/beacon-ui/assets/preview/* public/images/preview/"
+    "postinstall": "mkdir -p public/images/avatars public/images/preview && cp -r node_modules/beacon-ui/assets/avatars/* public/images/avatars/ && cp -r node_modules/beacon-ui/assets/preview/* public/images/preview/"
   }
 }
 ```

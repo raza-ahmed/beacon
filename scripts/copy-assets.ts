@@ -22,7 +22,7 @@ const packageAssetsDir = path.join(__dirname, "../packages/beacon-ui/assets");
 const publicImagesDir = path.join(__dirname, "../public/images");
 
 // Directories to copy
-const assetDirs = ["patterns", "avatars", "preview"];
+const assetDirs = ["avatars", "preview"];
 
 function copyDirectory(src: string, dest: string) {
   if (!fs.existsSync(src)) {

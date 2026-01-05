@@ -4,7 +4,6 @@ This directory contains static assets (images) used by the Beacon UI components.
 
 ## Structure
 
-- **patterns/** - Background pattern images for Card component
 - **avatars/** - Avatar placeholder images
 - **preview/** - Preview/demo images for documentation examples
 
@@ -13,7 +12,7 @@ This directory contains static assets (images) used by the Beacon UI components.
 These assets are part of the `beacon-ui` package. For Next.js applications:
 
 1. The assets are automatically copied to `public/images/` during build via the `copy:assets` script
-2. Components reference them via `/images/patterns/`, `/images/avatars/`, `/images/preview/` paths
+2. Components reference them via `/images/avatars/`, `/images/preview/` paths
 3. For non-Next.js applications, copy these assets to your public/assets directory manually
 
 ## Package Distribution
