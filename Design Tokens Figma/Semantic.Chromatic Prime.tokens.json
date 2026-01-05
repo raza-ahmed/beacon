@@ -195,6 +195,22 @@
         "$type": "color",
         "$value": "{Color.White.0}"
       },
+      "White-20": {
+        "$type": "color",
+        "$value": "{Color.White.20}"
+      },
+      "White-30": {
+        "$type": "color",
+        "$value": "{Color.White.30}"
+      },
+      "White-40": {
+        "$type": "color",
+        "$value": "{Color.White.40}"
+      },
+      "White-70": {
+        "$type": "color",
+        "$value": "{Color.White.70}"
+      },
       "White-100": {
         "$type": "color",
         "$value": "{Color.White.100}"
@@ -234,6 +250,22 @@
       "Black-0": {
         "$type": "color",
         "$value": "{Color.Black.0}"
+      },
+      "Black-40": {
+        "$type": "color",
+        "$value": "{Color.Black.40}"
+      },
+      "Black-60": {
+        "$type": "color",
+        "$value": "{Color.Black.60}"
+      },
+      "Black-80": {
+        "$type": "color",
+        "$value": "{Color.Black.80}"
+      },
+      "Black-120": {
+        "$type": "color",
+        "$value": "{Color.Black.120}"
       },
       "Black-100": {
         "$type": "color",

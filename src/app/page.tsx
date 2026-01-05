@@ -29,9 +29,10 @@ export default function IntroductionPage() {
             Beacon Design System creates a seamless, user-friendly, and visually
             coherent digital environment. This system serves as the foundation
             upon which all our digital products are built, ensuring consistency,
-            efficiency, and accessibility across all user interfaces. With 10
-            production-ready components and comprehensive design tokens, Beacon
-            provides everything needed to build cohesive, accessible applications.
+            efficiency, and accessibility across all user interfaces. With 11
+            production-ready components, comprehensive design tokens, motion animations,
+            and CSS-based background patterns, Beacon provides everything needed to
+            build cohesive, accessible applications.
           </p>
           <div className="ds-content__image-placeholder">
             <img
@@ -69,6 +70,7 @@ export default function IntroductionPage() {
                 <li>Menu</li>
                 <li>Radio Button</li>
                 <li>Switch</li>
+                <li>Tabs</li>
               </ul>
             </div>
             <div className="ds-content__card">
@@ -78,8 +80,27 @@ export default function IntroductionPage() {
               <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
                 <li>Design Tokens (Colors, Spacing, Themes)</li>
                 <li>Typography</li>
+                <li>Icons</li>
                 <li>Responsiveness</li>
                 <li>Accessibility</li>
+              </ul>
+            </div>
+            <div className="ds-content__card">
+              <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
+                Motion
+              </h6>
+              <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
+                <li>Animation Guide</li>
+                <li>Animation Library (Professional, Playful, Minimal, 3D)</li>
+              </ul>
+            </div>
+            <div className="ds-content__card">
+              <h6 className="text-title-small" style={{ color: "var(--fg-neutral)", marginBottom: "var(--spacing-200)", marginTop: 0, textTransform: "none" }}>
+                Utility
+              </h6>
+              <ul className="ds-content__bullet-list" style={{ marginBottom: 0 }}>
+                <li>Background Patterns (33 CSS-based patterns)</li>
+                <li>Pattern Categories (Dot, Line, Grid, Ring, Wave, Texture, Shape)</li>
               </ul>
             </div>
           </div>

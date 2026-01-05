@@ -54,6 +54,11 @@ export default function HowToUsePage() {
               documentation for light and dark mode implementations
             </li>
             <li>
+              Use CSS-based background patterns from the{" "}
+              <a href="/utility/bg-patterns" className="ds-content__link">Background Patterns</a>{" "}
+              utility page. Patterns automatically adapt to light and dark themes
+            </li>
+            <li>
               Extend existing patterns rather than creating one-off solutions. Check existing components first
             </li>
           </ul>
@@ -73,6 +78,11 @@ export default function HowToUsePage() {
               Use design tokens as CSS variables (e.g., <code>var(--bg-primary)</code>, <code>var(--spacing-400)</code>) instead of hardcoded values
             </li>
             <li>
+              Apply CSS background patterns using pattern classes (e.g., <code>dot-node</code>, <code>grid-nested</code>) from the{" "}
+              <a href="/utility/bg-patterns" className="ds-content__link">Background Patterns</a>{" "}
+              utility page. Patterns use token variables and adapt to themes automatically
+            </li>
+            <li>
               Match component behavior and states exactly as defined in documentation
             </li>
             <li>
@@ -81,6 +91,10 @@ export default function HowToUsePage() {
             </li>
             <li>
               Use TypeScript types from component documentation for type safety
+            </li>
+            <li>
+              Explore the <a href="/motion/guide" className="ds-content__link">Motion animations</a>{" "}
+              system for adding animations to components
             </li>
           </ul>
         </section>
@@ -223,7 +237,7 @@ function App() {
             <div className="ds-content__code-container">
               <div className="ds-content__code-copy-button">
                 <CodeCopyButton
-                  code={`import { Button, Checkbox, Switch, Input } from 'beacon-ui';
+                  code={`import { Button, Card, Tabs, Tab, TabItem } from 'beacon-ui';
 import { SearchIcon, CheckIcon } from 'beacon-icons';
 
 function MyComponent() {
@@ -232,8 +246,13 @@ function MyComponent() {
       <Button startIcon={<SearchIcon size="xs" />}>
         Search
       </Button>
-      <Checkbox checked={true} label="Accept terms" showLabel />
-      <Switch checked={false} />
+      <Card padding={400} showBgPattern patternType="dot-node">
+        <p>Card with background pattern</p>
+      </Card>
+      <Tabs>
+        <TabItem label="Tab 1" value="tab1">Content 1</TabItem>
+        <TabItem label="Tab 2" value="tab2">Content 2</TabItem>
+      </Tabs>
     </>
   );
 }`}
@@ -259,7 +278,7 @@ function MyComponent() {
                 }}
                 PreTag="div"
               >
-                {`import { Button, Checkbox, Switch, Input } from 'beacon-ui';
+                {`import { Button, Card, Tabs, Tab, TabItem } from 'beacon-ui';
 import { SearchIcon, CheckIcon } from 'beacon-icons';
 
 function MyComponent() {
@@ -268,8 +287,13 @@ function MyComponent() {
       <Button startIcon={<SearchIcon size="xs" />}>
         Search
       </Button>
-      <Checkbox checked={true} label="Accept terms" showLabel />
-      <Switch checked={false} />
+      <Card padding={400} showBgPattern patternType="dot-node">
+        <p>Card with background pattern</p>
+      </Card>
+      <Tabs>
+        <TabItem label="Tab 1" value="tab1">Content 1</TabItem>
+        <TabItem label="Tab 2" value="tab2">Content 2</TabItem>
+      </Tabs>
     </>
   );
 }`}
@@ -300,6 +324,13 @@ function MyComponent() {
             </li>
             <li>
               Use design tokens consistently. Never hardcode colors, spacing, or typography values
+            </li>
+            <li>
+              Use CSS-based background patterns instead of image assets for better performance and theme compatibility
+            </li>
+            <li>
+              Reference the <a href="/utility/bg-patterns" className="ds-content__link">Background Patterns</a>{" "}
+              utility page for available pattern options
             </li>
           </ul>
         </section>

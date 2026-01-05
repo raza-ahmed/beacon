@@ -753,6 +753,34 @@ function useBrandTokenGroups(): TokenGroup[] {
         guidance: "Strong overlay for focus/attention lock.",
         preview: { overlayOnVar: "--bg-page-primary", backgroundVar: "--util-overlay-strong", foregroundVar: "--fg-white", borderVar: "--border-neutral-secondary" },
       },
+      {
+        kind: "util",
+        cssVar: "--util-pattern-ink-1",
+        label: "Pattern Ink 1",
+        guidance: "Primary pattern color for CSS background patterns (strongest opacity).",
+        preview: { backgroundVar: "--bg-page-primary", foregroundVar: "--fg-neutral", borderVar: "--border-neutral-secondary" },
+      },
+      {
+        kind: "util",
+        cssVar: "--util-pattern-ink-2",
+        label: "Pattern Ink 2",
+        guidance: "Secondary pattern color for CSS background patterns (medium opacity).",
+        preview: { backgroundVar: "--bg-page-primary", foregroundVar: "--fg-neutral", borderVar: "--border-neutral-secondary" },
+      },
+      {
+        kind: "util",
+        cssVar: "--util-pattern-ink-3",
+        label: "Pattern Ink 3",
+        guidance: "Tertiary pattern color for CSS background patterns (light opacity).",
+        preview: { backgroundVar: "--bg-page-primary", foregroundVar: "--fg-neutral", borderVar: "--border-neutral-secondary" },
+      },
+      {
+        kind: "util",
+        cssVar: "--util-pattern-ink-4",
+        label: "Pattern Ink 4",
+        guidance: "Quaternary pattern color for CSS background patterns (lightest opacity).",
+        preview: { backgroundVar: "--bg-page-primary", foregroundVar: "--fg-neutral", borderVar: "--border-neutral-secondary" },
+      },
     ];
 
     const shadow: TokenSpec[] = [
@@ -825,7 +853,7 @@ function useBrandTokenGroups(): TokenGroup[] {
       {
         id: "tokens-utilities",
         title: "Utilities",
-        description: "Overlay colors and utility roles (commonly for backdrops and focus lock).",
+        description: "Overlay colors, pattern ink tokens, and utility roles (commonly for backdrops, focus lock, and CSS background patterns).",
         kind: "util",
         tokens: util,
       },

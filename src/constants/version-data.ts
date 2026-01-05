@@ -22,6 +22,48 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.4",
+    "date": "2026-01-05",
+    "changed": [
+      {
+        "description": "Migrated background patterns from image-based to CSS-based implementation for better performance and scalability"
+      },
+      {
+        "description": "All pattern classes now use design token variables (`--util-pattern-ink-1` through `--util-pattern-ink-4`) for theme-aware styling"
+      },
+      {
+        "description": "Patterns automatically adapt to light and dark themes using the design token system"
+      }
+    ],
+    "added": [
+      {
+        "description": "Pattern ink color tokens (`Pattern_Ink_1` through `Pattern_Ink_4`) added to brand token collection for both light and dark themes"
+      },
+      {
+        "description": "New Utility section in documentation with Background Patterns page showcasing all available CSS patterns"
+      },
+      {
+        "description": "Comprehensive pattern library with 33 CSS-based patterns organized by category (Dot, Line, Grid, Ring, Wave, Texture, Shape)"
+      }
+    ],
+    "removed": [
+      {
+        "description": "Removed image-based pattern assets (`public/images/patterns/` and `packages/beacon-ui/assets/patterns/`)"
+      },
+      {
+        "description": "Removed pattern image copying from build scripts"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Pattern variables now persist across token rebuilds by being defined in source token JSON files"
+      },
+      {
+        "description": "All pattern classes updated to use token-based variables instead of hardcoded values"
+      }
+    ]
+  },
+  {
     "version": "3.4.3",
     "date": "2026-01-04",
     "added": [

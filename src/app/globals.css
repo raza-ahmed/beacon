@@ -2415,9 +2415,9 @@ button:focus:not(:focus-visible) {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle, var(--pattern-ink-1) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, var(--pattern-ink-4) 1px, transparent 1px),
-    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+    radial-gradient(circle, var(--util-pattern-ink-1) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--util-pattern-ink-4) 1px, transparent 1px),
+    linear-gradient(var(--util-pattern-ink-4) 1px, transparent 1px);
   background-size: 48px 48px;
   background-position: 24px 24px, 0 0, 0 0;
   background-repeat: repeat;
@@ -2436,7 +2436,7 @@ button:focus:not(:focus-visible) {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 2px 2px, var(--pattern-ink-1) 2px, transparent 0);
+  background-image: radial-gradient(circle at 2px 2px, var(--util-pattern-ink-1) 2px, transparent 0);
   background-size: 24px 24px;
   background-repeat: repeat;
   opacity: 0.15;
@@ -2656,9 +2656,9 @@ button:focus:not(:focus-visible) {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle, var(--pattern-ink-1) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, var(--pattern-ink-4) 1px, transparent 1px),
-    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+    radial-gradient(circle, var(--util-pattern-ink-1) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--util-pattern-ink-4) 1px, transparent 1px),
+    linear-gradient(var(--util-pattern-ink-4) 1px, transparent 1px);
   background-size: 48px 48px;
   background-position: 24px 24px, 0 0, 0 0;
   background-repeat: repeat;
@@ -5882,13 +5882,13 @@ button:focus:not(:focus-visible) {
    =============================== */
 
 .dot-subtle {
-  background-image: radial-gradient(circle at 2px 2px, var(--pattern-ink-1) 2px, transparent 0);
+  background-image: radial-gradient(circle at 2px 2px, var(--util-pattern-ink-1) 2px, transparent 0);
   background-size: 24px 24px;
   background-repeat: repeat;
 }
 
 .dot-halftone {
-  background-image: radial-gradient(circle, var(--pattern-ink-2) 40%, transparent 41%);
+  background-image: radial-gradient(circle, var(--util-pattern-ink-2) 40%, transparent 41%);
   background-size: 18px 18px;
   background-repeat: repeat;
   opacity: 0.95;
@@ -5896,8 +5896,8 @@ button:focus:not(:focus-visible) {
 
 .dot-polka {
   background-image:
-    radial-gradient(var(--pattern-ink-1) 2px, transparent 2px),
-    radial-gradient(var(--pattern-ink-1) 2px, transparent 2px);
+    radial-gradient(var(--util-pattern-ink-1) 2px, transparent 2px),
+    radial-gradient(var(--util-pattern-ink-1) 2px, transparent 2px);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
   background-repeat: repeat;
@@ -5905,9 +5905,9 @@ button:focus:not(:focus-visible) {
 
 .dot-stars {
   background-image:
-    radial-gradient(var(--pattern-ink-1) 1px, transparent 1px),
-    radial-gradient(var(--pattern-ink-2) 1px, transparent 1px),
-    radial-gradient(var(--pattern-ink-2) 0.5px, transparent 0.5px);
+    radial-gradient(var(--util-pattern-ink-1) 1px, transparent 1px),
+    radial-gradient(var(--util-pattern-ink-2) 1px, transparent 1px),
+    radial-gradient(var(--util-pattern-ink-2) 0.5px, transparent 0.5px);
   background-size: 50px 50px, 30px 30px, 17px 17px;
   background-position: 0 0, 15px 25px, 7px 12px;
   background-repeat: repeat;
@@ -5915,9 +5915,9 @@ button:focus:not(:focus-visible) {
 
 .dot-node {
   background-image:
-    radial-gradient(circle, var(--pattern-ink-1) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, var(--pattern-ink-4) 1px, transparent 1px),
-    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+    radial-gradient(circle, var(--util-pattern-ink-1) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--util-pattern-ink-4) 1px, transparent 1px),
+    linear-gradient(var(--util-pattern-ink-4) 1px, transparent 1px);
   background-size: 48px 48px;
   background-position: 24px 24px, 0 0, 0 0;
   background-repeat: repeat;
@@ -5925,8 +5925,8 @@ button:focus:not(:focus-visible) {
 
 .dot-striped {
   background-image:
-    radial-gradient(var(--pattern-ink-2) 1.5px, transparent 1.5px),
-    linear-gradient(var(--pattern-ink-3) 1px, transparent 1px);
+    radial-gradient(var(--util-pattern-ink-2) 1.5px, transparent 1.5px),
+    linear-gradient(var(--util-pattern-ink-3) 1px, transparent 1px);
   background-size: 20px 20px, 20px 20px;
   background-repeat: repeat;
 }
@@ -5936,13 +5936,13 @@ button:focus:not(:focus-visible) {
    =============================== */
 
 .line-vertical {
-  background-image: linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px);
+  background-image: linear-gradient(90deg, var(--util-pattern-ink-2) 1px, transparent 1px);
   background-size: 32px 32px;
   background-repeat: repeat;
 }
 
 .line-horizontal {
-  background-image: linear-gradient(var(--pattern-ink-2) 1px, transparent 1px);
+  background-image: linear-gradient(var(--util-pattern-ink-2) 1px, transparent 1px);
   background-size: 32px 32px;
   background-repeat: repeat;
 }
@@ -5951,12 +5951,12 @@ button:focus:not(:focus-visible) {
   background-image:
     repeating-linear-gradient(
       0deg,
-      var(--pattern-ink-2) 0px,
-      var(--pattern-ink-2) 1px,
+      var(--util-pattern-ink-2) 0px,
+      var(--util-pattern-ink-2) 1px,
       transparent 1px,
       transparent 3px,
-      var(--pattern-ink-2) 3px,
-      var(--pattern-ink-2) 4px,
+      var(--util-pattern-ink-2) 3px,
+      var(--util-pattern-ink-2) 4px,
       transparent 4px,
       transparent 24px
     );
@@ -5967,8 +5967,8 @@ button:focus:not(:focus-visible) {
   background-image:
     repeating-linear-gradient(
       90deg,
-      var(--pattern-ink-3) 0px,
-      var(--pattern-ink-3) 2px,
+      var(--util-pattern-ink-3) 0px,
+      var(--util-pattern-ink-3) 2px,
       transparent 2px,
       transparent 8px
     );
@@ -5978,7 +5978,7 @@ button:focus:not(:focus-visible) {
 }
 
 .line-diagonal {
-  background-image: repeating-linear-gradient(45deg, var(--pattern-ink-2), var(--pattern-ink-2) 1px, transparent 1px, transparent 24px), repeating-linear-gradient(-45deg, var(--pattern-ink-2), var(--pattern-ink-2) 1px, transparent 1px, transparent 24px);
+  background-image: repeating-linear-gradient(45deg, var(--util-pattern-ink-2), var(--util-pattern-ink-2) 1px, transparent 1px, transparent 24px), repeating-linear-gradient(-45deg, var(--util-pattern-ink-2), var(--util-pattern-ink-2) 1px, transparent 1px, transparent 24px);
   background-repeat: repeat;
 }
 
@@ -5987,13 +5987,13 @@ button:focus:not(:focus-visible) {
    =============================== */
 
 .grid-soft {
-  background-image: linear-gradient(var(--pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px);
+  background-image: linear-gradient(var(--util-pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--util-pattern-ink-2) 1px, transparent 1px);
   background-size: 36px 36px;
   background-repeat: repeat;
 }
 
 .grid-offset {
-  background-image: linear-gradient(var(--pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px);
+  background-image: linear-gradient(var(--util-pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--util-pattern-ink-2) 1px, transparent 1px);
   background-size: 16px 16px;
   background-position: 16px 16px;
   background-repeat: repeat;
@@ -6001,10 +6001,10 @@ button:focus:not(:focus-visible) {
 
 .grid-graph {
   background-image:
-    linear-gradient(var(--pattern-ink-1) 2px, transparent 2px),
-    linear-gradient(90deg, var(--pattern-ink-1) 2px, transparent 2px),
-    linear-gradient(var(--pattern-ink-1) 1px, transparent 1px),
-    linear-gradient(90deg, var(--pattern-ink-1) 1px, transparent 1px);
+    linear-gradient(var(--util-pattern-ink-1) 2px, transparent 2px),
+    linear-gradient(90deg, var(--util-pattern-ink-1) 2px, transparent 2px),
+    linear-gradient(var(--util-pattern-ink-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--util-pattern-ink-1) 1px, transparent 1px);
   background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
   background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
   background-repeat: repeat;
@@ -6012,26 +6012,26 @@ button:focus:not(:focus-visible) {
 
 .grid-nested {
   background-image:
-    linear-gradient(var(--pattern-ink-2) 1px, transparent 1px),
-    linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px),
-    linear-gradient(var(--pattern-ink-3) 1px, transparent 1px),
-    linear-gradient(90deg, var(--pattern-ink-3) 1px, transparent 1px);
+    linear-gradient(var(--util-pattern-ink-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--util-pattern-ink-2) 1px, transparent 1px),
+    linear-gradient(var(--util-pattern-ink-3) 1px, transparent 1px),
+    linear-gradient(90deg, var(--util-pattern-ink-3) 1px, transparent 1px);
   background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
   background-repeat: repeat;
 }
 
 .grid-datacenter {
   background-image:
-    linear-gradient(var(--pattern-ink-2) 2px, transparent 2px),
-    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+    linear-gradient(var(--util-pattern-ink-2) 2px, transparent 2px),
+    linear-gradient(var(--util-pattern-ink-4) 1px, transparent 1px);
   background-size: 100% 48px, 100% 8px;
   background-repeat: repeat;
 }
 
 .grid-plus {
   background-image:
-    linear-gradient(var(--pattern-ink-2) 2px, transparent 2px),
-    linear-gradient(90deg, var(--pattern-ink-2) 2px, transparent 2px);
+    linear-gradient(var(--util-pattern-ink-2) 2px, transparent 2px),
+    linear-gradient(90deg, var(--util-pattern-ink-2) 2px, transparent 2px);
   background-size: 8px 32px, 32px 8px;
   background-position: 14px 0, 0 14px;
   background-repeat: repeat;
@@ -6039,8 +6039,8 @@ button:focus:not(:focus-visible) {
 
 .grid-minimal-plus {
   background-image:
-    linear-gradient(var(--pattern-ink-3) 6px, transparent 6px),
-    linear-gradient(90deg, var(--pattern-ink-3) 6px, transparent 6px);
+    linear-gradient(var(--util-pattern-ink-3) 6px, transparent 6px),
+    linear-gradient(90deg, var(--util-pattern-ink-3) 6px, transparent 6px);
   background-size: 1px 60px, 60px 1px;
   background-position: 30px 27px, 27px 30px;
   background-repeat: repeat;
@@ -6055,7 +6055,7 @@ button:focus:not(:focus-visible) {
     repeating-radial-gradient(
       circle at center,
       transparent 0 10px,
-      var(--pattern-ink-2) 10px 11px
+      var(--util-pattern-ink-2) 10px 11px
     );
   background-size: 100% 100%;
   background-repeat: repeat;
@@ -6063,24 +6063,24 @@ button:focus:not(:focus-visible) {
 
 .ring-outline {
   background-image:
-    radial-gradient(circle, transparent 8px, var(--pattern-ink-2) 8px, var(--pattern-ink-2) 9px, transparent 9px);
+    radial-gradient(circle, transparent 8px, var(--util-pattern-ink-2) 8px, var(--util-pattern-ink-2) 9px, transparent 9px);
   background-size: 36px 36px;
   background-repeat: repeat;
 }
 
 .ring-quarter {
   background-image:
-    radial-gradient(circle at 0 0, transparent 12px, var(--pattern-ink-2) 12px, var(--pattern-ink-2) 13px, transparent 13px),
-    radial-gradient(circle at 100% 100%, transparent 12px, var(--pattern-ink-2) 12px, var(--pattern-ink-2) 13px, transparent 13px);
+    radial-gradient(circle at 0 0, transparent 12px, var(--util-pattern-ink-2) 12px, var(--util-pattern-ink-2) 13px, transparent 13px),
+    radial-gradient(circle at 100% 100%, transparent 12px, var(--util-pattern-ink-2) 12px, var(--util-pattern-ink-2) 13px, transparent 13px);
   background-size: 32px 32px;
   background-repeat: repeat;
 }
 
 .ring-orbital {
   background-image:
-    radial-gradient(circle, transparent 24px, var(--pattern-ink-3) 24px, var(--pattern-ink-3) 25px, transparent 25px),
-    radial-gradient(circle, transparent 12px, var(--pattern-ink-2) 12px, var(--pattern-ink-2) 13px, transparent 13px),
-    radial-gradient(circle, var(--pattern-ink-1) 2px, transparent 2px);
+    radial-gradient(circle, transparent 24px, var(--util-pattern-ink-3) 24px, var(--util-pattern-ink-3) 25px, transparent 25px),
+    radial-gradient(circle, transparent 12px, var(--util-pattern-ink-2) 12px, var(--util-pattern-ink-2) 13px, transparent 13px),
+    radial-gradient(circle, var(--util-pattern-ink-1) 2px, transparent 2px);
   background-size: 70px 70px;
   background-position: 35px 35px, 35px 35px, 35px 35px;
   background-repeat: repeat;
@@ -6092,18 +6092,18 @@ button:focus:not(:focus-visible) {
       circle at 50% 50%,
       transparent 0px,
       transparent 18px,
-      var(--pattern-ink-3) 18px,
-      var(--pattern-ink-3) 19px
+      var(--util-pattern-ink-3) 18px,
+      var(--util-pattern-ink-3) 19px
     ),
-    linear-gradient(0deg, transparent 49%, var(--pattern-ink-4) 49%, var(--pattern-ink-4) 51%, transparent 51%),
-    linear-gradient(90deg, transparent 49%, var(--pattern-ink-4) 49%, var(--pattern-ink-4) 51%, transparent 51%);
+    linear-gradient(0deg, transparent 49%, var(--util-pattern-ink-4) 49%, var(--util-pattern-ink-4) 51%, transparent 51%),
+    linear-gradient(90deg, transparent 49%, var(--util-pattern-ink-4) 49%, var(--util-pattern-ink-4) 51%, transparent 51%);
   background-size: 100px 100px;
   background-position: 50px 50px, 0 0, 0 0;
   background-repeat: repeat;
 }
 
 .ring-noise {
-  background-image: repeating-radial-gradient(circle at 0 0, var(--pattern-ink-2), var(--pattern-ink-2) 1px, transparent 1px, transparent 14px);
+  background-image: repeating-radial-gradient(circle at 0 0, var(--util-pattern-ink-2), var(--util-pattern-ink-2) 1px, transparent 1px, transparent 14px);
   background-repeat: repeat;
 }
 
@@ -6113,8 +6113,8 @@ button:focus:not(:focus-visible) {
 
 .wave-scallop {
   background-image:
-    radial-gradient(circle at 50% 0%, var(--pattern-ink-2) 8px, transparent 9px),
-    radial-gradient(circle at 0% 0%, var(--pattern-ink-2) 8px, transparent 9px);
+    radial-gradient(circle at 50% 0%, var(--util-pattern-ink-2) 8px, transparent 9px),
+    radial-gradient(circle at 0% 0%, var(--util-pattern-ink-2) 8px, transparent 9px);
   background-size: 40px 20px;
   background-position: 0 0, 20px 0;
   background-repeat: repeat;
@@ -6125,7 +6125,7 @@ button:focus:not(:focus-visible) {
     repeating-linear-gradient(
       -35deg,
       transparent 0 18px,
-      var(--pattern-ink-2) 18px 26px
+      var(--util-pattern-ink-2) 18px 26px
     );
   background-size: auto;
   background-repeat: repeat;
@@ -6138,8 +6138,8 @@ button:focus:not(:focus-visible) {
 
 .tex-woven {
   background-image:
-    linear-gradient(90deg, var(--pattern-ink-2) 50%, transparent 50%),
-    linear-gradient(var(--pattern-ink-2) 50%, transparent 50%);
+    linear-gradient(90deg, var(--util-pattern-ink-2) 50%, transparent 50%),
+    linear-gradient(var(--util-pattern-ink-2) 50%, transparent 50%);
   background-size: 16px 8px, 8px 16px;
   background-position: 0 0, 8px 8px;
   background-repeat: repeat;
@@ -6147,8 +6147,8 @@ button:focus:not(:focus-visible) {
 
 .tex-herringbone {
   background-image:
-    linear-gradient(45deg, var(--pattern-ink-2) 12%, transparent 12%, transparent 50%, var(--pattern-ink-2) 50%, var(--pattern-ink-2) 62%, transparent 62%),
-    linear-gradient(-45deg, var(--pattern-ink-2) 12%, transparent 12%, transparent 50%, var(--pattern-ink-2) 50%, var(--pattern-ink-2) 62%, transparent 62%);
+    linear-gradient(45deg, var(--util-pattern-ink-2) 12%, transparent 12%, transparent 50%, var(--util-pattern-ink-2) 50%, var(--util-pattern-ink-2) 62%, transparent 62%),
+    linear-gradient(-45deg, var(--util-pattern-ink-2) 12%, transparent 12%, transparent 50%, var(--util-pattern-ink-2) 50%, var(--util-pattern-ink-2) 62%, transparent 62%);
   background-size: 16px 16px;
   background-position: 0 0, 8px 0;
   background-repeat: repeat;
@@ -6156,8 +6156,8 @@ button:focus:not(:focus-visible) {
 
 .tex-brick {
   background-image:
-    linear-gradient(var(--pattern-ink-2) 8px, transparent 8px),
-    linear-gradient(90deg, var(--pattern-ink-2) 8px, transparent 8px);
+    linear-gradient(var(--util-pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(90deg, var(--util-pattern-ink-2) 8px, transparent 8px);
   background-size: 72px 48px, 36px 24px;
   background-position: 0 0, 36px 24px;
   background-repeat: repeat;
@@ -6170,15 +6170,15 @@ button:focus:not(:focus-visible) {
       0deg,
       transparent,
       transparent 2px,
-      var(--pattern-ink-3) 2px,
-      var(--pattern-ink-3) 4px
+      var(--util-pattern-ink-3) 2px,
+      var(--util-pattern-ink-3) 4px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 2px,
-      var(--pattern-ink-3) 2px,
-      var(--pattern-ink-3) 4px
+      var(--util-pattern-ink-3) 2px,
+      var(--util-pattern-ink-3) 4px
     );
   background-repeat: repeat;
 }
@@ -6188,7 +6188,7 @@ button:focus:not(:focus-visible) {
    =============================== */
 
 .shape-checker {
-  background-image: linear-gradient(45deg, var(--pattern-ink-2) 25%, transparent 25%), linear-gradient(-45deg, var(--pattern-ink-2) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--pattern-ink-2) 75%), linear-gradient(-45deg, transparent 75%, var(--pattern-ink-2) 75%);
+  background-image: linear-gradient(45deg, var(--util-pattern-ink-2) 25%, transparent 25%), linear-gradient(-45deg, var(--util-pattern-ink-2) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--util-pattern-ink-2) 75%), linear-gradient(-45deg, transparent 75%, var(--util-pattern-ink-2) 75%);
   background-size: 24px 24px;
   background-position: 0 0, 0 12px, 12px -12px, -12px 0;
   background-repeat: repeat;
@@ -6196,15 +6196,15 @@ button:focus:not(:focus-visible) {
 
 .shape-triangle {
   background-image:
-    linear-gradient(45deg, var(--pattern-ink-2) 50%, transparent 50%);
+    linear-gradient(45deg, var(--util-pattern-ink-2) 50%, transparent 50%);
   background-size: 16px 16px;
   background-repeat: repeat;
 }
 
 .shape-zigzag {
   background-image:
-    linear-gradient(135deg, var(--pattern-ink-2) 25%, transparent 25%),
-    linear-gradient(225deg, var(--pattern-ink-2) 25%, transparent 25%);
+    linear-gradient(135deg, var(--util-pattern-ink-2) 25%, transparent 25%),
+    linear-gradient(225deg, var(--util-pattern-ink-2) 25%, transparent 25%);
   background-size: 20px 20px;
   background-position: 0 0, 10px 0;
   background-repeat: repeat;
@@ -6212,10 +6212,10 @@ button:focus:not(:focus-visible) {
 
 .shape-bracket {
   background-image:
-    linear-gradient(var(--pattern-ink-2) 8px, transparent 8px),
-    linear-gradient(90deg, var(--pattern-ink-2) 8px, transparent 8px),
-    linear-gradient(180deg, var(--pattern-ink-2) 8px, transparent 8px),
-    linear-gradient(270deg, var(--pattern-ink-2) 8px, transparent 8px);
+    linear-gradient(var(--util-pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(90deg, var(--util-pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(180deg, var(--util-pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(270deg, var(--util-pattern-ink-2) 8px, transparent 8px);
   background-size: 48px 48px;
   background-position: 0 0, 0 0, 47px 47px, 47px 47px;
   background-repeat: repeat;

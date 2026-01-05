@@ -304,6 +304,22 @@
     }
   },
   "Utilities": {
+    "Pattern_Ink_1": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-120}"
+    },
+    "Pattern_Ink_2": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-80}"
+    },
+    "Pattern_Ink_3": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.Black-60}"
+    },
+    "Pattern_Ink_4": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.White-20}"
+    },
     "Overlay_Dull": {
       "$type": "color",
       "$value": "{Color.Alpha-Neutral.Black-200}"
