@@ -74,6 +74,10 @@
   --static-primary-black: var(--color-primary-900);
   --static-white: var(--color-alpha-neutral-white-1000);
   --static-black: var(--color-alpha-neutral-black-1000);
+  --util-pattern-ink-1: var(--color-alpha-neutral-white-70);
+  --util-pattern-ink-2: var(--color-alpha-neutral-white-40);
+  --util-pattern-ink-3: var(--color-alpha-neutral-white-30);
+  --util-pattern-ink-4: var(--color-alpha-neutral-black-40);
   --util-overlay-dull: var(--color-alpha-neutral-black-200);
   --util-overlay-light: var(--color-alpha-neutral-black-300);
   --util-overlay-medium: var(--color-alpha-neutral-black-500);

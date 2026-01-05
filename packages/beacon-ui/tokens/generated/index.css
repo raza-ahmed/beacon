@@ -65,7 +65,11 @@
   --color-orange-700: #7c4a15;
   --color-orange-800: #593815;
   --color-black-0: #00000000;
+  --color-black-40: #0000000a;
+  --color-black-60: #0000000f;
+  --color-black-80: #00000014;
   --color-black-100: #0000001a;
+  --color-black-120: #0000001f;
   --color-black-200: #00000033;
   --color-black-300: #0000004d;
   --color-black-400: #00000066;
@@ -75,6 +79,10 @@
   --color-black-800: #000000cc;
   --color-black-1000: #000000;
   --color-white-0: #ffffff00;
+  --color-white-20: #ffffff05;
+  --color-white-30: #ffffff08;
+  --color-white-40: #ffffff0a;
+  --color-white-70: #ffffff12;
   --color-white-100: #ffffff1a;
   --color-white-200: #ffffff33;
   --color-white-300: #ffffff4d;
@@ -198,6 +206,10 @@
   --color-critical-700: var(--color-red-700);
   --color-critical-800: var(--color-red-800);
   --color-alpha-neutral-white-0: var(--color-white-0);
+  --color-alpha-neutral-white-20: var(--color-white-20);
+  --color-alpha-neutral-white-30: var(--color-white-30);
+  --color-alpha-neutral-white-40: var(--color-white-40);
+  --color-alpha-neutral-white-70: var(--color-white-70);
   --color-alpha-neutral-white-100: var(--color-white-100);
   --color-alpha-neutral-white-200: var(--color-white-200);
   --color-alpha-neutral-white-300: var(--color-white-300);
@@ -208,6 +220,10 @@
   --color-alpha-neutral-white-800: var(--color-white-800);
   --color-alpha-neutral-white-1000: var(--color-white-1000);
   --color-alpha-neutral-black-0: var(--color-black-0);
+  --color-alpha-neutral-black-40: var(--color-black-40);
+  --color-alpha-neutral-black-60: var(--color-black-60);
+  --color-alpha-neutral-black-80: var(--color-black-80);
+  --color-alpha-neutral-black-120: var(--color-black-120);
   --color-alpha-neutral-black-100: var(--color-black-100);
   --color-alpha-neutral-black-200: var(--color-black-200);
   --color-alpha-neutral-black-300: var(--color-black-300);
@@ -332,6 +348,10 @@
   --static-primary-black: var(--color-primary-900);
   --static-white: var(--color-alpha-neutral-white-1000);
   --static-black: var(--color-alpha-neutral-black-1000);
+  --util-pattern-ink-1: var(--color-alpha-neutral-black-120);
+  --util-pattern-ink-2: var(--color-alpha-neutral-black-80);
+  --util-pattern-ink-3: var(--color-alpha-neutral-black-60);
+  --util-pattern-ink-4: var(--color-alpha-neutral-white-20);
   --util-overlay-dull: var(--color-alpha-neutral-black-200);
   --util-overlay-light: var(--color-alpha-neutral-black-300);
   --util-overlay-medium: var(--color-alpha-neutral-black-500);
@@ -419,6 +439,10 @@
   --static-primary-black: var(--color-primary-900);
   --static-white: var(--color-alpha-neutral-white-1000);
   --static-black: var(--color-alpha-neutral-black-1000);
+  --util-pattern-ink-1: var(--color-alpha-neutral-white-70);
+  --util-pattern-ink-2: var(--color-alpha-neutral-white-40);
+  --util-pattern-ink-3: var(--color-alpha-neutral-white-30);
+  --util-pattern-ink-4: var(--color-alpha-neutral-black-40);
   --util-overlay-dull: var(--color-alpha-neutral-black-200);
   --util-overlay-light: var(--color-alpha-neutral-black-300);
   --util-overlay-medium: var(--color-alpha-neutral-black-500);

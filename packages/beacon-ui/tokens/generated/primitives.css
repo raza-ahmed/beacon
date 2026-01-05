@@ -62,7 +62,11 @@
   --color-orange-700: #7c4a15;
   --color-orange-800: #593815;
   --color-black-0: #00000000;
+  --color-black-40: #0000000a;
+  --color-black-60: #0000000f;
+  --color-black-80: #00000014;
   --color-black-100: #0000001a;
+  --color-black-120: #0000001f;
   --color-black-200: #00000033;
   --color-black-300: #0000004d;
   --color-black-400: #00000066;
@@ -72,6 +76,10 @@
   --color-black-800: #000000cc;
   --color-black-1000: #000000;
   --color-white-0: #ffffff00;
+  --color-white-20: #ffffff05;
+  --color-white-30: #ffffff08;
+  --color-white-40: #ffffff0a;
+  --color-white-70: #ffffff12;
   --color-white-100: #ffffff1a;
   --color-white-200: #ffffff33;
   --color-white-300: #ffffff4d;

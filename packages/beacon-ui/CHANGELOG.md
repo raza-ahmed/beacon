@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.4] - 2026-01-05
+
+### Changed
+- Migrated background patterns from image-based to CSS-based implementation for better performance and scalability
+- All pattern classes now use design token variables (`--util-pattern-ink-1` through `--util-pattern-ink-4`) for theme-aware styling
+- Patterns automatically adapt to light and dark themes using the design token system
+
+### Added
+- Pattern ink color tokens (`Pattern_Ink_1` through `Pattern_Ink_4`) added to brand token collection for both light and dark themes
+- New Utility section in documentation with Background Patterns page showcasing all available CSS patterns
+- Comprehensive pattern library with 33 CSS-based patterns organized by category (Dot, Line, Grid, Ring, Wave, Texture, Shape)
+
+### Removed
+- Removed image-based pattern assets (`public/images/patterns/` and `packages/beacon-ui/assets/patterns/`)
+- Removed pattern image copying from build scripts
+
+### Fixed
+- Pattern variables now persist across token rebuilds by being defined in source token JSON files
+- All pattern classes updated to use token-based variables instead of hardcoded values
+
 ## [3.4.3] - 2026-01-04
 
 ### Added

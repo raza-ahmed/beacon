@@ -1,6 +1,6 @@
 {
   "name": "beacon-ui",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "description": "Beacon Design System - Components and tokens",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

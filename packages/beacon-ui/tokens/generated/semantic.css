@@ -78,6 +78,10 @@
   --color-critical-700: var(--color-red-700);
   --color-critical-800: var(--color-red-800);
   --color-alpha-neutral-white-0: var(--color-white-0);
+  --color-alpha-neutral-white-20: var(--color-white-20);
+  --color-alpha-neutral-white-30: var(--color-white-30);
+  --color-alpha-neutral-white-40: var(--color-white-40);
+  --color-alpha-neutral-white-70: var(--color-white-70);
   --color-alpha-neutral-white-100: var(--color-white-100);
   --color-alpha-neutral-white-200: var(--color-white-200);
   --color-alpha-neutral-white-300: var(--color-white-300);
@@ -88,6 +92,10 @@
   --color-alpha-neutral-white-800: var(--color-white-800);
   --color-alpha-neutral-white-1000: var(--color-white-1000);
   --color-alpha-neutral-black-0: var(--color-black-0);
+  --color-alpha-neutral-black-40: var(--color-black-40);
+  --color-alpha-neutral-black-60: var(--color-black-60);
+  --color-alpha-neutral-black-80: var(--color-black-80);
+  --color-alpha-neutral-black-120: var(--color-black-120);
   --color-alpha-neutral-black-100: var(--color-black-100);
   --color-alpha-neutral-black-200: var(--color-black-200);
   --color-alpha-neutral-black-300: var(--color-black-300);
