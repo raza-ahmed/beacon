@@ -6,6 +6,29 @@ import { type PatternType, PATTERN_CONFIGS } from "@/utils/patternPaths";
 import { Switch } from "./Switch";
 import type { CornerRadiusStep } from "beacon-ui";
 
+// Filter out legacy patterns and default for the dropdown
+const CSS_PATTERNS = Object.keys(PATTERN_CONFIGS).filter(
+  (key) => key !== "default" && !["cubes", "mathematics", "dots", "diagonal", "smudge", "paper", "denim", "squares", "mosaic", "cotton"].includes(key)
+) as PatternType[];
+
+// Group patterns by category for better organization
+const PATTERN_GROUPS = {
+  Dot: CSS_PATTERNS.filter((p) => p.startsWith("dot-")),
+  Line: CSS_PATTERNS.filter((p) => p.startsWith("line-")),
+  Grid: CSS_PATTERNS.filter((p) => p.startsWith("grid-")),
+  Ring: CSS_PATTERNS.filter((p) => p.startsWith("ring-")),
+  Wave: CSS_PATTERNS.filter((p) => p.startsWith("wave-")),
+  Texture: CSS_PATTERNS.filter((p) => p.startsWith("tex-")),
+  Shape: CSS_PATTERNS.filter((p) => p.startsWith("shape-")),
+};
+
+function formatPatternName(pattern: string): string {
+  return pattern
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 type CardStatus = "default" | "highlighted" | "selected";
 type CardShadow = "0" | "50" | "100" | "200" | "300" | "400" | "500";
 
@@ -266,13 +289,15 @@ export function CardControls({
                 value={patternType}
                 onChange={(e) => onPatternTypeChange?.(e.target.value as PatternType)}
               >
-                {Object.entries(PATTERN_CONFIGS)
-                  .filter(([key]) => key !== "default")
-                  .map(([key, config]) => (
-                    <option key={key} value={key}>
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
-                    </option>
-                  ))}
+                {Object.entries(PATTERN_GROUPS).map(([category, patterns]) => (
+                  <optgroup key={category} label={category}>
+                    {patterns.map((pattern) => (
+                      <option key={pattern} value={pattern}>
+                        {formatPatternName(pattern)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
               </select>
             </div>
           )}

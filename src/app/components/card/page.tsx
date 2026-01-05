@@ -86,8 +86,8 @@ export default function CardPage() {
     status: "default",
     shadow: "100",
     cornerRadius: 4,
-    showBgPattern: false,
-    patternType: "cubes",
+    showBgPattern: true,
+    patternType: "dot-node",
     showOverlay: false,
     showBorder: true,
   });
@@ -339,10 +339,10 @@ export default function CardPage() {
                       <code>PatternType</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                      <code>"cubes"</code>
+                      <code>"grid-nested"</code>
                     </div>
                     <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                      Pattern type when showBgPattern is true. Options: cubes, mathematics, dots, diagonal, smudge, paper, denim, squares, mosaic, cotton.
+                      Pattern type when showBgPattern is true. Options include CSS-based patterns organized by category: Dot (subtle, halftone, polka, stars, node, striped), Line (vertical, horizontal, stacked, hashrate, diagonal), Grid (soft, offset, graph, nested, datacenter, plus, minimal-plus), Ring (concentric, outline, quarter, orbital, radar, noise), Wave (scallop, stripe), Texture (woven, herringbone, brick, paper), and Shape (checker, triangle, zigzag, bracket). Legacy pattern names (cubes, mathematics, dots, diagonal, smudge, paper, denim, squares, mosaic, cotton) are automatically mapped to new CSS patterns.
                     </div>
                   </div>
                   <div className="ds-api-reference__props-row">
@@ -392,7 +392,7 @@ export default function CardPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Card padding={400}>
+                      <Card padding={400} showBgPattern={true} patternType="dot-node">
                         Your content here
                       </Card>
                     </div>
@@ -403,7 +403,7 @@ export default function CardPage() {
                     <CodeCopyButton
                       code={`import { Card } from 'beacon-ui';
 
-<Card padding={400}>
+<Card padding={400} showBgPattern={true} patternType="dot-node">
   Your content here
 </Card>`}
                     />
@@ -427,7 +427,7 @@ export default function CardPage() {
                     >
                       {`import { Card } from 'beacon-ui';
 
-<Card padding={400}>
+<Card padding={400} showBgPattern={true} patternType="dot-node">
   Your content here
 </Card>`}
                     </SyntaxHighlighter>
@@ -442,7 +442,7 @@ export default function CardPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Card padding={400} shadow="100">
+                      <Card padding={400} shadow="100" showBgPattern={true} patternType="dot-node">
                         Elevated content
                       </Card>
                     </div>
@@ -453,7 +453,7 @@ export default function CardPage() {
                     <CodeCopyButton
                       code={`import { Card } from 'beacon-ui';
 
-<Card padding={400} shadow="100">
+<Card padding={400} shadow="100" showBgPattern={true} patternType="dot-node">
   Elevated content
 </Card>`}
                     />
@@ -477,7 +477,7 @@ export default function CardPage() {
                     >
                       {`import { Card } from 'beacon-ui';
 
-<Card padding={400} shadow="100">
+<Card padding={400} shadow="100" showBgPattern={true} patternType="dot-node">
   Elevated content
 </Card>`}
                     </SyntaxHighlighter>
@@ -495,7 +495,7 @@ export default function CardPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas" style={{ display: "flex", justifyContent: "flex-start" }}>
-                      <Card padding={500} shadow="50" cornerRadius={4} showBgPattern={true} patternType="denim" showOverlay={true} showBorder={true} style={{ width: "50%", flexShrink: 0, minWidth: "320px" }}>
+                      <Card padding={500} shadow="50" cornerRadius={4} showBgPattern={true} patternType="ring-noise" showOverlay={true} showBorder={true} style={{ width: "50%", flexShrink: 0, minWidth: "320px" }}>
                         <h5 className="text-heading-h5" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>Product Title</h5>
                         <p className="text-body3-medium" style={{ margin: 0, color: "var(--fg-neutral-tertiary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>Longer descriptive content for this product card. Visually limited to two lines within the card. Brief overview of key features designed to help users understand what the product offers at a glance.</p>
                         <img
@@ -521,7 +521,7 @@ import { RightArrowIcon } from 'beacon-icons';
   shadow="50" 
   cornerRadius={4} 
   showBgPattern={true} 
-  patternType="denim" 
+  patternType="ring-noise" 
   showOverlay={true} 
   showBorder={true}
   style={{ width: "50%" }}
@@ -564,7 +564,7 @@ import { RightArrowIcon } from 'beacon-icons';
   shadow="50" 
   cornerRadius={4} 
   showBgPattern={true} 
-  patternType="denim" 
+  patternType="ring-noise" 
   showOverlay={true} 
   showBorder={true}
   style={{ width: "50%" }}

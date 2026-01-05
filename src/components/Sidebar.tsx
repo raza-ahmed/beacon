@@ -69,6 +69,12 @@ export const navigationData: NavSection[] = [
       { label: "Animations", href: "/motion/animations" },
     ],
   },
+  {
+    title: "Utility",
+    items: [
+      { label: "Bg Patterns", href: "/utility/bg-patterns" },
+    ],
+  },
 ];
 
 

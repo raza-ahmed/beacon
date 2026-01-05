@@ -2354,7 +2354,6 @@ button:focus:not(:focus-visible) {
 
 /* Base preview section - shared across all interactive playgrounds */
 .ds-button-preview-section,
-.ds-card-preview-section,
 .ds-checkbox-preview-section,
 .ds-input-preview-section,
 .ds-chip-preview-section,
@@ -2367,9 +2366,16 @@ button:focus:not(:focus-visible) {
   overflow: hidden;
 }
 
+.ds-card-preview-section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page-base);
+  align-self: stretch;
+  overflow: hidden;
+}
+
 /* Base preview - shared across all interactive playgrounds (top 50%) */
 .ds-button-preview,
-.ds-card-preview,
 .ds-checkbox-preview,
 .ds-input-preview,
 .ds-chip-preview,
@@ -2389,9 +2395,38 @@ button:focus:not(:focus-visible) {
   position: relative;
 }
 
+.ds-card-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-500);
+  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  flex: 0 0 50%;
+  height: 50%;
+  max-height: 50%;
+  min-height: 180px;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent;
+}
+
+.ds-card-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, var(--pattern-ink-1) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--pattern-ink-4) 1px, transparent 1px),
+    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 24px 24px, 0 0, 0 0;
+  background-repeat: repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Background pattern for all preview divs */
 .ds-button-preview::before,
-.ds-card-preview::before,
 .ds-checkbox-preview::before,
 .ds-input-preview::before,
 .ds-chip-preview::before,
@@ -2401,10 +2436,9 @@ button:focus:not(:focus-visible) {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/images/patterns/Dots_pt.png");
+  background-image: radial-gradient(circle at 2px 2px, var(--pattern-ink-1) 2px, transparent 0);
+  background-size: 24px 24px;
   background-repeat: repeat;
-  background-size: 124px 124px;
-  background-position: top left;
   opacity: 0.15;
   z-index: 0;
   pointer-events: none;
@@ -2421,6 +2455,7 @@ button:focus:not(:focus-visible) {
   position: relative;
   z-index: 1;
 }
+
 
 /* Base preview code - shared across all interactive playgrounds (bottom 50%) */
 .ds-button-preview-code,
@@ -2565,6 +2600,9 @@ button:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 /* Base preview canvas - shared between button and card */
@@ -2581,6 +2619,9 @@ button:focus:not(:focus-visible) {
 .ds-card-preview-canvas {
   overflow: auto;
   padding: var(--spacing-200);
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 /* ============================================
@@ -2614,11 +2655,13 @@ button:focus:not(:focus-visible) {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/images/patterns/Dots_pt.png");
+  background-image:
+    radial-gradient(circle, var(--pattern-ink-1) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--pattern-ink-4) 1px, transparent 1px),
+    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 24px 24px, 0 0, 0 0;
   background-repeat: repeat;
-  background-size: 124px 124px;
-  background-position: top left;
-  opacity: 0.15;
   z-index: 0;
   pointer-events: none;
 }
@@ -5828,4 +5871,432 @@ button:focus:not(:focus-visible) {
     width: 48px;
     height: 48px;
   }
+}
+
+/* ============================================
+   BACKGROUND PATTERNS
+   ============================================ */
+
+/* ===============================
+   DOT — Dot-based patterns
+   =============================== */
+
+.dot-subtle {
+  background-image: radial-gradient(circle at 2px 2px, var(--pattern-ink-1) 2px, transparent 0);
+  background-size: 24px 24px;
+  background-repeat: repeat;
+}
+
+.dot-halftone {
+  background-image: radial-gradient(circle, var(--pattern-ink-2) 40%, transparent 41%);
+  background-size: 18px 18px;
+  background-repeat: repeat;
+  opacity: 0.95;
+}
+
+.dot-polka {
+  background-image:
+    radial-gradient(var(--pattern-ink-1) 2px, transparent 2px),
+    radial-gradient(var(--pattern-ink-1) 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  background-repeat: repeat;
+}
+
+.dot-stars {
+  background-image:
+    radial-gradient(var(--pattern-ink-1) 1px, transparent 1px),
+    radial-gradient(var(--pattern-ink-2) 1px, transparent 1px),
+    radial-gradient(var(--pattern-ink-2) 0.5px, transparent 0.5px);
+  background-size: 50px 50px, 30px 30px, 17px 17px;
+  background-position: 0 0, 15px 25px, 7px 12px;
+  background-repeat: repeat;
+}
+
+.dot-node {
+  background-image:
+    radial-gradient(circle, var(--pattern-ink-1) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--pattern-ink-4) 1px, transparent 1px),
+    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 24px 24px, 0 0, 0 0;
+  background-repeat: repeat;
+}
+
+.dot-striped {
+  background-image:
+    radial-gradient(var(--pattern-ink-2) 1.5px, transparent 1.5px),
+    linear-gradient(var(--pattern-ink-3) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px;
+  background-repeat: repeat;
+}
+
+/* ===============================
+   LINE — Line-based patterns
+   =============================== */
+
+.line-vertical {
+  background-image: linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-repeat: repeat;
+}
+
+.line-horizontal {
+  background-image: linear-gradient(var(--pattern-ink-2) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-repeat: repeat;
+}
+
+.line-stacked {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--pattern-ink-2) 0px,
+      var(--pattern-ink-2) 1px,
+      transparent 1px,
+      transparent 3px,
+      var(--pattern-ink-2) 3px,
+      var(--pattern-ink-2) 4px,
+      transparent 4px,
+      transparent 24px
+    );
+  background-repeat: repeat;
+}
+
+.line-hashrate {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--pattern-ink-3) 0px,
+      var(--pattern-ink-3) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+  background-size: 8px 1px;
+  background-position: 0 50%;
+  background-repeat: repeat;
+}
+
+.line-diagonal {
+  background-image: repeating-linear-gradient(45deg, var(--pattern-ink-2), var(--pattern-ink-2) 1px, transparent 1px, transparent 24px), repeating-linear-gradient(-45deg, var(--pattern-ink-2), var(--pattern-ink-2) 1px, transparent 1px, transparent 24px);
+  background-repeat: repeat;
+}
+
+/* ===============================
+   GRID — Grid-based patterns
+   =============================== */
+
+.grid-soft {
+  background-image: linear-gradient(var(--pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px);
+  background-size: 36px 36px;
+  background-repeat: repeat;
+}
+
+.grid-offset {
+  background-image: linear-gradient(var(--pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: 16px 16px;
+  background-repeat: repeat;
+}
+
+.grid-graph {
+  background-image:
+    linear-gradient(var(--pattern-ink-1) 2px, transparent 2px),
+    linear-gradient(90deg, var(--pattern-ink-1) 2px, transparent 2px),
+    linear-gradient(var(--pattern-ink-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-ink-1) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+  background-repeat: repeat;
+}
+
+.grid-nested {
+  background-image:
+    linear-gradient(var(--pattern-ink-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-ink-2) 1px, transparent 1px),
+    linear-gradient(var(--pattern-ink-3) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-ink-3) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+  background-repeat: repeat;
+}
+
+.grid-datacenter {
+  background-image:
+    linear-gradient(var(--pattern-ink-2) 2px, transparent 2px),
+    linear-gradient(var(--pattern-ink-4) 1px, transparent 1px);
+  background-size: 100% 48px, 100% 8px;
+  background-repeat: repeat;
+}
+
+.grid-plus {
+  background-image:
+    linear-gradient(var(--pattern-ink-2) 2px, transparent 2px),
+    linear-gradient(90deg, var(--pattern-ink-2) 2px, transparent 2px);
+  background-size: 8px 32px, 32px 8px;
+  background-position: 14px 0, 0 14px;
+  background-repeat: repeat;
+}
+
+.grid-minimal-plus {
+  background-image:
+    linear-gradient(var(--pattern-ink-3) 6px, transparent 6px),
+    linear-gradient(90deg, var(--pattern-ink-3) 6px, transparent 6px);
+  background-size: 1px 60px, 60px 1px;
+  background-position: 30px 27px, 27px 30px;
+  background-repeat: repeat;
+}
+
+/* ===============================
+   RING — Circular patterns
+   =============================== */
+
+.ring-concentric {
+  background-image:
+    repeating-radial-gradient(
+      circle at center,
+      transparent 0 10px,
+      var(--pattern-ink-2) 10px 11px
+    );
+  background-size: 100% 100%;
+  background-repeat: repeat;
+}
+
+.ring-outline {
+  background-image:
+    radial-gradient(circle, transparent 8px, var(--pattern-ink-2) 8px, var(--pattern-ink-2) 9px, transparent 9px);
+  background-size: 36px 36px;
+  background-repeat: repeat;
+}
+
+.ring-quarter {
+  background-image:
+    radial-gradient(circle at 0 0, transparent 12px, var(--pattern-ink-2) 12px, var(--pattern-ink-2) 13px, transparent 13px),
+    radial-gradient(circle at 100% 100%, transparent 12px, var(--pattern-ink-2) 12px, var(--pattern-ink-2) 13px, transparent 13px);
+  background-size: 32px 32px;
+  background-repeat: repeat;
+}
+
+.ring-orbital {
+  background-image:
+    radial-gradient(circle, transparent 24px, var(--pattern-ink-3) 24px, var(--pattern-ink-3) 25px, transparent 25px),
+    radial-gradient(circle, transparent 12px, var(--pattern-ink-2) 12px, var(--pattern-ink-2) 13px, transparent 13px),
+    radial-gradient(circle, var(--pattern-ink-1) 2px, transparent 2px);
+  background-size: 70px 70px;
+  background-position: 35px 35px, 35px 35px, 35px 35px;
+  background-repeat: repeat;
+}
+
+.ring-radar {
+  background-image:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      transparent 0px,
+      transparent 18px,
+      var(--pattern-ink-3) 18px,
+      var(--pattern-ink-3) 19px
+    ),
+    linear-gradient(0deg, transparent 49%, var(--pattern-ink-4) 49%, var(--pattern-ink-4) 51%, transparent 51%),
+    linear-gradient(90deg, transparent 49%, var(--pattern-ink-4) 49%, var(--pattern-ink-4) 51%, transparent 51%);
+  background-size: 100px 100px;
+  background-position: 50px 50px, 0 0, 0 0;
+  background-repeat: repeat;
+}
+
+.ring-noise {
+  background-image: repeating-radial-gradient(circle at 0 0, var(--pattern-ink-2), var(--pattern-ink-2) 1px, transparent 1px, transparent 14px);
+  background-repeat: repeat;
+}
+
+/* ===============================
+   WAVE — Wavy/curved patterns
+   =============================== */
+
+.wave-scallop {
+  background-image:
+    radial-gradient(circle at 50% 0%, var(--pattern-ink-2) 8px, transparent 9px),
+    radial-gradient(circle at 0% 0%, var(--pattern-ink-2) 8px, transparent 9px);
+  background-size: 40px 20px;
+  background-position: 0 0, 20px 0;
+  background-repeat: repeat;
+}
+
+.wave-stripe {
+  background-image:
+    repeating-linear-gradient(
+      -35deg,
+      transparent 0 18px,
+      var(--pattern-ink-2) 18px 26px
+    );
+  background-size: auto;
+  background-repeat: repeat;
+  opacity: 0.9;
+}
+
+/* ===============================
+   TEX — Texture patterns
+   =============================== */
+
+.tex-woven {
+  background-image:
+    linear-gradient(90deg, var(--pattern-ink-2) 50%, transparent 50%),
+    linear-gradient(var(--pattern-ink-2) 50%, transparent 50%);
+  background-size: 16px 8px, 8px 16px;
+  background-position: 0 0, 8px 8px;
+  background-repeat: repeat;
+}
+
+.tex-herringbone {
+  background-image:
+    linear-gradient(45deg, var(--pattern-ink-2) 12%, transparent 12%, transparent 50%, var(--pattern-ink-2) 50%, var(--pattern-ink-2) 62%, transparent 62%),
+    linear-gradient(-45deg, var(--pattern-ink-2) 12%, transparent 12%, transparent 50%, var(--pattern-ink-2) 50%, var(--pattern-ink-2) 62%, transparent 62%);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 0;
+  background-repeat: repeat;
+}
+
+.tex-brick {
+  background-image:
+    linear-gradient(var(--pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(90deg, var(--pattern-ink-2) 8px, transparent 8px);
+  background-size: 72px 48px, 36px 24px;
+  background-position: 0 0, 36px 24px;
+  background-repeat: repeat;
+  opacity: 0.95;
+}
+
+.tex-paper {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--pattern-ink-3) 2px,
+      var(--pattern-ink-3) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      var(--pattern-ink-3) 2px,
+      var(--pattern-ink-3) 4px
+    );
+  background-repeat: repeat;
+}
+
+/* ===============================
+   SHAPE — Geometric shapes
+   =============================== */
+
+.shape-checker {
+  background-image: linear-gradient(45deg, var(--pattern-ink-2) 25%, transparent 25%), linear-gradient(-45deg, var(--pattern-ink-2) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--pattern-ink-2) 75%), linear-gradient(-45deg, transparent 75%, var(--pattern-ink-2) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+  background-repeat: repeat;
+}
+
+.shape-triangle {
+  background-image:
+    linear-gradient(45deg, var(--pattern-ink-2) 50%, transparent 50%);
+  background-size: 16px 16px;
+  background-repeat: repeat;
+}
+
+.shape-zigzag {
+  background-image:
+    linear-gradient(135deg, var(--pattern-ink-2) 25%, transparent 25%),
+    linear-gradient(225deg, var(--pattern-ink-2) 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 0;
+  background-repeat: repeat;
+}
+
+.shape-bracket {
+  background-image:
+    linear-gradient(var(--pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(90deg, var(--pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(180deg, var(--pattern-ink-2) 8px, transparent 8px),
+    linear-gradient(270deg, var(--pattern-ink-2) 8px, transparent 8px);
+  background-size: 48px 48px;
+  background-position: 0 0, 0 0, 47px 47px, 47px 47px;
+  background-repeat: repeat;
+}
+
+/* ============================================
+   PATTERNS PAGE STYLES
+   ============================================ */
+
+.ds-patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-300);
+}
+
+.ds-pattern-tile {
+  height: 220px;
+  border-radius: var(--corner-radius-300);
+  background-color: var(--bg-page-primary);
+  padding: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.ds-pattern-preview {
+  flex: 1;
+  border-radius: var(--corner-radius-200);
+  background-color: var(--bg-page-primary);
+  background-repeat: repeat;
+  min-height: 0;
+}
+
+/* Ensure pattern classes override background-color when applied */
+.ds-pattern-preview.dot-subtle,
+.ds-pattern-preview.dot-halftone,
+.ds-pattern-preview.dot-polka,
+.ds-pattern-preview.dot-stars,
+.ds-pattern-preview.dot-node,
+.ds-pattern-preview.dot-striped,
+.ds-pattern-preview.line-vertical,
+.ds-pattern-preview.line-horizontal,
+.ds-pattern-preview.line-stacked,
+.ds-pattern-preview.line-hashrate,
+.ds-pattern-preview.line-diagonal,
+.ds-pattern-preview.grid-soft,
+.ds-pattern-preview.grid-offset,
+.ds-pattern-preview.grid-graph,
+.ds-pattern-preview.grid-nested,
+.ds-pattern-preview.grid-datacenter,
+.ds-pattern-preview.grid-plus,
+.ds-pattern-preview.grid-minimal-plus,
+.ds-pattern-preview.ring-concentric,
+.ds-pattern-preview.ring-outline,
+.ds-pattern-preview.ring-quarter,
+.ds-pattern-preview.ring-orbital,
+.ds-pattern-preview.ring-radar,
+.ds-pattern-preview.ring-noise,
+.ds-pattern-preview.wave-scallop,
+.ds-pattern-preview.wave-stripe,
+.ds-pattern-preview.tex-woven,
+.ds-pattern-preview.tex-herringbone,
+.ds-pattern-preview.tex-brick,
+.ds-pattern-preview.tex-paper,
+.ds-pattern-preview.shape-checker,
+.ds-pattern-preview.shape-triangle,
+.ds-pattern-preview.shape-zigzag,
+.ds-pattern-preview.shape-bracket {
+  background-color: var(--bg-page-base);
+}
+
+.ds-pattern-label {
+  padding: var(--spacing-100) var(--spacing-200);
+  border-radius: var(--corner-radius-200);
+  background: var(--bg-page-base);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  color: var(--fg-neutral);
+}
+
+.ds-pattern-label__prefix {
+  opacity: 0.5;
 }
