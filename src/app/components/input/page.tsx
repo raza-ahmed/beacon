@@ -13,7 +13,7 @@ import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type InputSize = "sm" | "md" | "lg";
-type InputStatus = "default" | "active";
+type InputStatus = "default" | "active" | "disabled";
 
 interface InputConfig {
   label: string;
@@ -29,7 +29,6 @@ interface InputConfig {
   showNumberPrefix: boolean;
   rounded: boolean;
   iconOnly: boolean;
-  disabled: boolean;
 }
 
 const SIZE_LABELS: Record<InputSize, string> = {
@@ -41,6 +40,7 @@ const SIZE_LABELS: Record<InputSize, string> = {
 const STATUS_LABELS: Record<InputStatus, string> = {
   default: "default",
   active: "active",
+  disabled: "disabled",
 };
 
 function generateInputCode(config: InputConfig): string {
@@ -98,8 +98,8 @@ function generateInputCode(config: InputConfig): string {
     props.push(`iconOnly`);
   }
 
-  if (config.disabled) {
-    props.push(`disabled`);
+  if (config.status === "disabled") {
+    props.push(`status="disabled"`);
   }
 
   if (props.length === 0) {
@@ -129,7 +129,6 @@ export default function InputPage() {
     showNumberPrefix: false,
     rounded: false,
     iconOnly: false,
-    disabled: false,
   });
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
@@ -191,7 +190,6 @@ export default function InputPage() {
               showNumberPrefix={config.showNumberPrefix}
               rounded={config.rounded}
               iconOnly={config.iconOnly}
-              disabled={config.disabled}
               onLabelChange={(label) => updateConfig({ label })}
               onPlaceholderChange={(placeholder) => updateConfig({ placeholder })}
               onValueChange={(value) => updateConfig({ value })}
@@ -205,7 +203,6 @@ export default function InputPage() {
               onShowNumberPrefixChange={(show) => updateConfig({ showNumberPrefix: show })}
               onRoundedChange={(rounded) => updateConfig({ rounded })}
               onIconOnlyChange={(iconOnly) => updateConfig({ iconOnly })}
-              onDisabledChange={(disabled) => updateConfig({ disabled })}
             />
             <div className="ds-input-playground-divider" />
             <div className="ds-input-preview-section">
@@ -224,7 +221,7 @@ export default function InputPage() {
                   showNumberPrefix={config.showNumberPrefix}
                   rounded={config.rounded}
                   iconOnly={config.iconOnly}
-                  disabled={config.disabled}
+                  disabled={config.status === "disabled"}
                   theme={theme}
                   hue={hue}
                 />
@@ -397,7 +394,7 @@ export default function InputPage() {
                 Disabled state prevents interaction and applies muted styling.
               </p>
               <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" disabled={true} />
+                <InputPreview placeholder="Placeholder" size="md" status="disabled" />
               </div>
             </div>
             <div className="ds-input-variant-card">
@@ -487,7 +484,7 @@ export default function InputPage() {
   placeholder?: string;
   value?: string;
   size?: "sm" | "md" | "lg";
-  status?: "default" | "active";
+  status?: "default" | "active" | "disabled";
   showLabel?: boolean;
   showStartIcon?: boolean;
   showEndIcon?: boolean;
@@ -496,7 +493,7 @@ export default function InputPage() {
   showNumberPrefix?: boolean;
   rounded?: boolean;
   iconOnly?: boolean;
-  disabled?: boolean;
+  borderRadius?: string;
   onChange?: (value: string) => void;
 }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
@@ -524,7 +521,7 @@ export default function InputPage() {
   placeholder?: string;
   value?: string;
   size?: "sm" | "md" | "lg";
-  status?: "default" | "active";
+  status?: "default" | "active" | "disabled";
   showLabel?: boolean;
   showStartIcon?: boolean;
   showEndIcon?: boolean;
@@ -533,7 +530,7 @@ export default function InputPage() {
   showNumberPrefix?: boolean;
   rounded?: boolean;
   iconOnly?: boolean;
-  disabled?: boolean;
+  borderRadius?: string;
   onChange?: (value: string) => void;
 }`}
                 </SyntaxHighlighter>
@@ -603,13 +600,13 @@ export default function InputPage() {
                     <code>status</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>"default" | "active"</code>
+                    <code>"default" | "active" | "disabled"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
                     <code>"default"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Visual state of the input field: default or active (focused).
+                    Visual state of the input field: default, active (focused), or disabled.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -726,16 +723,14 @@ export default function InputPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>disabled</code>
+                    <code>borderRadius</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>boolean</code>
+                    <code>string</code>
                   </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>false</code>
-                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">—</div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Whether the input field is disabled. Prevents interaction and applies disabled styling.
+                    Custom border radius value. Overrides the default border radius for the size.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -1124,7 +1119,7 @@ import { SearchIcon } from 'beacon-icons';
 <Input 
   label="Email"
   placeholder="Enter your email"
-  disabled
+  status="disabled"
 />`}
                     />
                     <SyntaxHighlighter

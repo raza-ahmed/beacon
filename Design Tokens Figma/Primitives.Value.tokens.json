@@ -57,7 +57,7 @@
       },
       "500": {
         "$type": "color",
-        "$value": "#0b6cf4"
+        "$value": "#056dff"
       },
       "600": {
         "$type": "color",
@@ -193,35 +193,35 @@
     "Red": {
       "100": {
         "$type": "color",
-        "$value": "#fedddd"
+        "$value": "#ffe5ee"
       },
       "200": {
         "$type": "color",
-        "$value": "#ff9898"
+        "$value": "#ff99bb"
       },
       "300": {
         "$type": "color",
-        "$value": "#f76d6d"
+        "$value": "#ff6699"
       },
       "400": {
         "$type": "color",
-        "$value": "#f44141"
+        "$value": "#ff3377"
       },
       "500": {
         "$type": "color",
-        "$value": "#f22625"
+        "$value": "#ff1f69"
       },
       "600": {
         "$type": "color",
-        "$value": "#ac1616"
+        "$value": "#cc0044"
       },
       "700": {
         "$type": "color",
-        "$value": "#8f0f0f"
+        "$value": "#990033"
       },
       "800": {
         "$type": "color",
-        "$value": "#7b0b0b"
+        "$value": "#660022"
       }
     },
     "Orange": {
@@ -243,7 +243,7 @@
       },
       "500": {
         "$type": "color",
-        "$value": "#d87a16"
+        "$value": "#e07400"
       },
       "600": {
         "$type": "color",
@@ -521,6 +521,32 @@
         "Semibold": {
           "$type": "string",
           "$value": "SemiBold"
+        }
+      }
+    },
+    "Geist_Mono": {
+      "Style": {
+        "Geist_Mono": {
+          "$type": "string",
+          "$value": "Geist Mono"
+        }
+      },
+      "Weight": {
+        "Regular": {
+          "$type": "string",
+          "$value": "Regular"
+        },
+        "Medium": {
+          "$type": "string",
+          "$value": "Medium"
+        },
+        "Semibold": {
+          "$type": "string",
+          "$value": "SemiBold"
+        },
+        "Bold": {
+          "$type": "string",
+          "$value": "Bold"
         }
       }
     }

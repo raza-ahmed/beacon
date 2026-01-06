@@ -87,8 +87,6 @@ export function TabItemPreview({
       baseStyles.flex = "1 0 0";
       baseStyles.width = "100%";
       baseStyles.minWidth = 0;
-    } else {
-      baseStyles.gap = "var(--spacing-200)";
     }
 
     if (placement === "Vertical") {
@@ -101,28 +99,6 @@ export function TabItemPreview({
 
     return baseStyles;
   }, [placement, fullWidth]);
-
-  const contentStyles = useMemo((): React.CSSProperties => {
-    const baseStyles: React.CSSProperties = {
-      display: "flex",
-      gap: "var(--spacing-200)",
-      alignItems: "center",
-      paddingLeft: sizeConfig.paddingX,
-      paddingRight: sizeConfig.paddingX,
-      paddingTop: sizeConfig.paddingY,
-      paddingBottom: sizeConfig.paddingY,
-    };
-
-    if (placement === "Vertical") {
-      return {
-        ...baseStyles,
-        flexDirection: "column" as const,
-        justifyContent: "center",
-      };
-    }
-
-    return baseStyles;
-  }, [placement, sizeConfig]);
 
   const itemStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
@@ -138,25 +114,56 @@ export function TabItemPreview({
 
     if (style === "Pill") {
       const pillPaddingX = size === "Small" ? "var(--spacing-300)" : "var(--spacing-400)";
-      return {
+      const pillStyles: React.CSSProperties = {
         ...baseStyles,
         paddingLeft: pillPaddingX,
         paddingRight: pillPaddingX,
+        paddingTop: 0,
+        paddingBottom: 0,
         borderRadius: CORNER_RADIUS_MAP[cornerRadius],
-        ...(state === "Active"
-          ? {
-              backgroundColor: "var(--bg-primary)",
-            }
-          : state === "Hover"
-            ? {
-                backgroundColor: "var(--bg-page-secondary)",
-              }
-            : {}),
       };
+
+      // All Pill variants have a background with corner radius
+      if (state === "Active") {
+        pillStyles.backgroundColor = "var(--bg-primary)";
+      } else if (state === "Hover") {
+        pillStyles.backgroundColor = "var(--bg-page-secondary)";
+      } else if (state === "Disabled") {
+        pillStyles.backgroundColor = "var(--bg-disabled)";
+      } else {
+        // Default state: transparent or subtle background
+        pillStyles.backgroundColor = "transparent";
+      }
+
+      return pillStyles;
     }
 
     return baseStyles;
   }, [style, size, state, cornerRadius, fullWidth]);
+
+  const contentStyles = useMemo((): React.CSSProperties => {
+    const baseStyles: React.CSSProperties = {
+      display: "flex",
+      gap: "var(--spacing-200)",
+      alignItems: "center",
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingTop: sizeConfig.paddingY,
+      paddingBottom: sizeConfig.paddingY,
+      position: "relative",
+      flexShrink: 0,
+    };
+
+    if (placement === "Vertical") {
+      return {
+        ...baseStyles,
+        flexDirection: "column" as const,
+        justifyContent: "center",
+      };
+    }
+
+    return baseStyles;
+  }, [placement, sizeConfig]);
 
   const textStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
@@ -202,6 +209,7 @@ export function TabItemPreview({
     } else if (state === "Disabled") {
       return "var(--fg-disabled)";
     }
+    // Default state: icons use neutral-secondary color
     return "var(--fg-neutral-secondary)";
   }, [state, style]);
 

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.5] - 2026-01-06
+
+### Added
+- Typography configuration system via `typography.config.json` for customizable primary and secondary fonts
+- Build script now dynamically maps fonts from configuration with configurable fallbacks
+
+### Fixed
+- TabItem Pill style now correctly handles disabled state with proper background color
+- TabItem Pill padding and state transitions improved for consistent visual appearance
+
 ## [3.4.4] - 2026-01-05
 
 ### Changed

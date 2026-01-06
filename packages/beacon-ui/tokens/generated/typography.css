@@ -34,14 +34,14 @@
 }
 .text-heading-h1 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h1-text-size);
   line-height: var(--fonts-heading-h1-line-height);
 }
 .text-heading-h2 {
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h2-text-size);
   line-height: var(--fonts-heading-h2-line-height);

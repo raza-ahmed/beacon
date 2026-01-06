@@ -16,7 +16,7 @@
   --color-blue-200: #cee2fd;
   --color-blue-300: #9ec4fa;
   --color-blue-400: #6da7f8;
-  --color-blue-500: #0b6cf4;
+  --color-blue-500: #056dff;
   --color-blue-600: #0957c3;
   --color-blue-700: #004296;
   --color-blue-800: #002150;
@@ -48,19 +48,19 @@
   --color-green-600: #018f8a;
   --color-green-700: #02615e;
   --color-green-800: #014a47;
-  --color-red-100: #fedddd;
-  --color-red-200: #ff9898;
-  --color-red-300: #f76d6d;
-  --color-red-400: #f44141;
-  --color-red-500: #f22625;
-  --color-red-600: #ac1616;
-  --color-red-700: #8f0f0f;
-  --color-red-800: #7b0b0b;
+  --color-red-100: #ffe5ee;
+  --color-red-200: #ff99bb;
+  --color-red-300: #ff6699;
+  --color-red-400: #ff3377;
+  --color-red-500: #ff1f69;
+  --color-red-600: #cc0044;
+  --color-red-700: #990033;
+  --color-red-800: #660022;
   --color-orange-100: #fffbf5;
   --color-orange-200: #fae3b7;
   --color-orange-300: #f7c97f;
   --color-orange-400: #efaf57;
-  --color-orange-500: #d87a16;
+  --color-orange-500: #e07400;
   --color-orange-600: #aa6215;
   --color-orange-700: #7c4a15;
   --color-orange-800: #593815;
@@ -124,6 +124,11 @@
   --fonts-ibm-plex-serif-weight-regular: 400;
   --fonts-ibm-plex-serif-weight-medium: 500;
   --fonts-ibm-plex-serif-weight-semibold: 600;
+  --fonts-geist-mono-style-geist-mono: Geist Mono;
+  --fonts-geist-mono-weight-regular: 400;
+  --fonts-geist-mono-weight-medium: 500;
+  --fonts-geist-mono-weight-semibold: 600;
+  --fonts-geist-mono-weight-bold: 700;
 }
 
 /* Semantic tokens - all hue variants */
@@ -737,14 +742,14 @@
 }
 .text-heading-h1 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h1-text-size);
   line-height: var(--fonts-heading-h1-line-height);
 }
 .text-heading-h2 {
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-secondary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h2-text-size);
   line-height: var(--fonts-heading-h2-line-height);

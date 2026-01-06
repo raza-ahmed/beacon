@@ -500,34 +500,131 @@ function generateEffectsCss(): string {
 }
 
 /**
+ * Load typography configuration
+ */
+function loadTypographyConfig(): {
+  primary: { font: string; fallback: string };
+  secondary: { font: string; fallback: string };
+  availableFonts: Record<string, { name: string; fallback: string; cssVar: string }>;
+} {
+  const configPath = path.join(PROJECT_ROOT, "typography.config.json");
+  if (!fs.existsSync(configPath)) {
+    // Default fallback configuration
+    return {
+      primary: { font: "IBM_Plex_Serif", fallback: "serif" },
+      secondary: { font: "DM_Sans", fallback: "sans-serif" },
+      availableFonts: {
+        Inter: { name: "Inter", fallback: "sans-serif", cssVar: "fonts-inter-style-inter" },
+        DM_Sans: { name: "DM Sans", fallback: "sans-serif", cssVar: "fonts-dm-sans-style-dm-sans" },
+        IBM_Plex_Serif: { name: "IBM Plex Serif", fallback: "serif", cssVar: "fonts-ibm-plex-serif-style-ibm-plex-serif" },
+        Geist_Mono: { name: "Geist Mono", fallback: "monospace", cssVar: "fonts-geist-mono-style-geist-mono" },
+      },
+    };
+  }
+  const configContent = fs.readFileSync(configPath, "utf-8");
+  return JSON.parse(configContent);
+}
+
+/**
+ * Get font CSS variable name from font key
+ */
+function getFontCssVar(fontKey: string, config: ReturnType<typeof loadTypographyConfig>): string {
+  const font = config.availableFonts[fontKey];
+  if (!font) {
+    throw new Error(`Font "${fontKey}" not found in typography configuration`);
+  }
+  return `--${font.cssVar}`;
+}
+
+/**
+ * Get font weight CSS variable name
+ */
+function getFontWeightCssVar(fontKey: string, weight: string): string {
+  const fontKeyLower = fontKey.toLowerCase().replace(/_/g, "-");
+  const weightLower = weight.toLowerCase();
+  return `--fonts-${fontKeyLower}-weight-${weightLower}`;
+}
+
+/**
  * Generate CSS for typography tokens
  */
 function generateTypographyCss(): string {
   const typography = readTokenFile("text.styles.tokens.json");
   const tokens = extractTokens(typography);
+  const config = loadTypographyConfig();
   const lines: string[] = ["/* Typography tokens */"];
 
   // Generate CSS custom properties for typography
   lines.push(":root {");
   lines.push("  /* Font families mapped from primitives */");
-  lines.push("  --font-primary: var(--fonts-ibm-plex-serif-style-ibm-plex-serif), serif;");
-  lines.push("  --font-secondary: var(--fonts-dm-sans-style-dm-sans), sans-serif;");
+  
+  // Get primary and secondary font configurations
+  const primaryFont = config.availableFonts[config.primary.font];
+  const secondaryFont = config.availableFonts[config.secondary.font];
+  
+  if (!primaryFont || !secondaryFont) {
+    throw new Error("Primary or secondary font not found in available fonts");
+  }
+  
+  lines.push(`  --font-primary: var(${getFontCssVar(config.primary.font, config)}), ${config.primary.fallback};`);
+  lines.push(`  --font-secondary: var(${getFontCssVar(config.secondary.font, config)}), ${config.secondary.fallback};`);
   lines.push("");
   lines.push("  /* Font weight tokens mapped from primitives */");
-  lines.push("  --font-weight-regular: var(--fonts-dm-sans-weight-regular);");
-  lines.push("  --font-weight-medium: var(--fonts-dm-sans-weight-medium);");
-  lines.push("  --font-weight-semibold: var(--fonts-dm-sans-weight-semibold);");
-  lines.push("  --font-weight-bold: var(--fonts-dm-sans-weight-bold);");
-  lines.push("  --font-weight-primary-regular: var(--fonts-ibm-plex-serif-weight-regular);");
-  lines.push("  --font-weight-primary-medium: var(--fonts-ibm-plex-serif-weight-medium);");
-  lines.push("  --font-weight-primary-semibold: var(--fonts-ibm-plex-serif-weight-semibold);");
-  // IBM Plex Serif export doesn't include a bold token in primitives - fall back to 700.
-  lines.push("  --font-weight-primary-bold: var(--font-weight-bold);");
-  lines.push("  --font-weight-secondary-regular: var(--fonts-dm-sans-weight-regular);");
-  lines.push("  --font-weight-secondary-medium: var(--fonts-dm-sans-weight-medium);");
-  lines.push("  --font-weight-secondary-semibold: var(--fonts-dm-sans-weight-semibold);");
-  lines.push("  --font-weight-secondary-bold: var(--fonts-dm-sans-weight-bold);");
+  
+  // Default weights use secondary font
+  lines.push(`  --font-weight-regular: var(${getFontWeightCssVar(config.secondary.font, "regular")});`);
+  lines.push(`  --font-weight-medium: var(${getFontWeightCssVar(config.secondary.font, "medium")});`);
+  lines.push(`  --font-weight-semibold: var(${getFontWeightCssVar(config.secondary.font, "semibold")});`);
+  lines.push(`  --font-weight-bold: var(${getFontWeightCssVar(config.secondary.font, "bold")});`);
+  
+  // Primary font weights - check if font has bold weight in primitives
+  const primitives = readTokenFile("Primitives.Value.tokens.json");
+  const fontTokens = extractTokens((primitives.Fonts as TokenFile)?.[config.primary.font] as TokenFile || {});
+  const primaryHasBold = Array.from(fontTokens.keys()).some(key => 
+    key.toLowerCase().includes("bold") && !key.toLowerCase().includes("semibold")
+  );
+  
+  lines.push(`  --font-weight-primary-regular: var(${getFontWeightCssVar(config.primary.font, "regular")});`);
+  lines.push(`  --font-weight-primary-medium: var(${getFontWeightCssVar(config.primary.font, "medium")});`);
+  lines.push(`  --font-weight-primary-semibold: var(${getFontWeightCssVar(config.primary.font, "semibold")});`);
+  if (primaryHasBold) {
+    lines.push(`  --font-weight-primary-bold: var(${getFontWeightCssVar(config.primary.font, "bold")});`);
+  } else {
+    // Fallback to bold weight if primary font doesn't have bold
+    lines.push("  --font-weight-primary-bold: var(--font-weight-bold);");
+  }
+  
+  // Secondary font weights
+  lines.push(`  --font-weight-secondary-regular: var(${getFontWeightCssVar(config.secondary.font, "regular")});`);
+  lines.push(`  --font-weight-secondary-medium: var(${getFontWeightCssVar(config.secondary.font, "medium")});`);
+  lines.push(`  --font-weight-secondary-semibold: var(${getFontWeightCssVar(config.secondary.font, "semibold")});`);
+  lines.push(`  --font-weight-secondary-bold: var(${getFontWeightCssVar(config.secondary.font, "bold")});`);
   lines.push("}");
+
+  // Helper function to determine if a font reference matches primary or secondary
+  function isPrimaryFont(fontRef: string, config: ReturnType<typeof loadTypographyConfig>): boolean {
+    if (!fontRef) return false;
+    
+    const tokenRef = isReference(fontRef) ? fontRef.slice(1, -1) : "";
+    const fontName = !isReference(fontRef) ? fontRef : "";
+    
+    // Check if it references font.primary
+    if (tokenRef.toLowerCase().includes("font.primary")) {
+      return true;
+    }
+    
+    // Check against configured primary font
+    const primaryFontName = config.availableFonts[config.primary.font]?.name.toLowerCase() || "";
+    const primaryFontKey = config.primary.font.toLowerCase().replace(/_/g, "");
+    
+    if (tokenRef.toLowerCase().includes(primaryFontKey) || 
+        tokenRef.toLowerCase().includes(primaryFontName.replace(/\s+/g, "")) ||
+        fontName.toLowerCase().includes(primaryFontName)) {
+      return true;
+    }
+    
+    return false;
+  }
 
   // Generate utility classes for typography styles
   lines.push("\n/* Typography utility classes */");
@@ -551,34 +648,23 @@ function generateTypographyCss(): string {
 
     if (typographyValue.fontFamily) {
       const fontRef = typographyValue.fontFamily;
-      const tokenRef = isReference(fontRef) ? fontRef.slice(1, -1).toLowerCase() : "";
-      const isPrimaryFont =
-        tokenRef.includes("font.primary") ||
-        tokenRef.includes("ibm") ||
-        (!isReference(fontRef) && fontRef.includes("IBM"));
-      lines.push(`  font-family: var(--font-${isPrimaryFont ? "primary" : "secondary"});`);
+      const isPrimary = isPrimaryFont(fontRef, config);
+      lines.push(`  font-family: var(--font-${isPrimary ? "primary" : "secondary"});`);
     }
 
     if (typographyValue.fontWeight) {
       const weight = typographyValue.fontWeight;
       // Determine if weight is primary or secondary based on the fontWeight reference itself
-      // Check if fontWeight references DM Sans (secondary) or IBM Plex Serif (primary)
-      const weightRef = isReference(weight) ? weight.slice(1, -1).toLowerCase() : "";
-      const isPrimaryWeight = Boolean(
-        weightRef.includes("ibm") ||
-        weightRef.includes("plex")
-      );
+      const weightRef = isReference(weight) ? weight.slice(1, -1) : "";
+      const isPrimaryWeight = isPrimaryFont(weight, config);
+      
       // If fontWeight doesn't indicate, fall back to fontFamily check
-      const fontFamilyRef = typographyValue.fontFamily && isReference(typographyValue.fontFamily)
-        ? typographyValue.fontFamily.slice(1, -1).toLowerCase()
-        : "";
-      const isPrimaryFont = Boolean(
-        (typographyValue.fontFamily && !isReference(typographyValue.fontFamily) && typographyValue.fontFamily.includes("IBM")) ||
-          fontFamilyRef.includes("font.primary") ||
-          fontFamilyRef.includes("ibm")
-      );
+      const isPrimaryFontFamily = typographyValue.fontFamily 
+        ? isPrimaryFont(typographyValue.fontFamily, config)
+        : false;
+      
       // Use weight reference if available (it's more specific), otherwise fall back to fontFamily
-      const prefix = isReference(weight) && weightRef ? (isPrimaryWeight ? "primary" : "secondary") : (isPrimaryFont ? "primary" : "secondary");
+      const prefix = isReference(weight) && weightRef ? (isPrimaryWeight ? "primary" : "secondary") : (isPrimaryFontFamily ? "primary" : "secondary");
 
       if (weight.includes("Bold")) {
         lines.push(`  font-weight: var(--font-weight-${prefix}-bold);`);

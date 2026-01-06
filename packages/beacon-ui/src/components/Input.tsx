@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, ComponentPropsWithRef } from "react";
+import { useMemo, useState, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "../icons";
 
@@ -20,6 +20,7 @@ export interface InputProps extends Omit<ComponentPropsWithRef<"input">, "size">
   numberPrefix?: string;
   rounded?: boolean;
   iconOnly?: boolean;
+  borderRadius?: string;
 }
 
 const SIZE_CONFIG: Record<
@@ -56,7 +57,7 @@ const SIZE_CONFIG: Record<
     lineHeight: "var(--body-small-line-height)",
     labelFontSize: "var(--body-small-text-size)",
     labelLineHeight: "var(--body-small-line-height)",
-    paddingX: "var(--spacing-200)",
+    paddingX: "var(--spacing-300)",
     paddingY: "var(--spacing-100)",
     borderRadius: "var(--corner-radius-100)",
     gap: "var(--spacing-100)",
@@ -89,6 +90,7 @@ export function Input({
   rounded = false,
   iconOnly = false,
   disabled = false,
+  borderRadius,
   className,
   style,
   value,
@@ -105,7 +107,7 @@ export function Input({
         return "var(--border-strong-100)";
       }
       if (status === "active") {
-        return "var(--border-neutral-primary)";
+        return "var(--border-primary)";
       }
       return "var(--border-strong-200)";
     }, [status, disabled]);
@@ -116,7 +118,7 @@ export function Input({
         alignItems: "center",
         border: `var(--border-width-25) solid ${borderColor}`,
         backgroundColor: "var(--bg-page-primary)",
-        borderRadius: rounded ? "var(--corner-radius-full)" : sizeConfig.borderRadius,
+        borderRadius: borderRadius || (rounded ? "var(--corner-radius-full)" : sizeConfig.borderRadius),
         gap: sizeConfig.gap,
         paddingLeft: sizeConfig.paddingX,
         paddingRight: sizeConfig.paddingX,
@@ -127,20 +129,21 @@ export function Input({
         justifyContent: iconOnly ? "center" : "flex-start",
         cursor: disabled ? "not-allowed" : "text",
         opacity: disabled ? 0.6 : 1,
+        transition: "border-color 0.15s ease",
       };
 
       return baseStyles;
-    }, [sizeConfig, borderColor, rounded, iconOnly, disabled]);
+    }, [sizeConfig, borderColor, rounded, borderRadius, iconOnly, disabled]);
 
     const labelStyles = useMemo(() => {
       return {
         fontSize: sizeConfig.labelFontSize,
         lineHeight: sizeConfig.labelLineHeight,
         fontFamily: "var(--font-secondary)",
-        color: "var(--fg-neutral)",
+        color: disabled ? "var(--fg-disabled)" : "var(--fg-neutral)",
         marginBottom: "var(--spacing-100)",
       } as React.CSSProperties;
-    }, [sizeConfig]);
+    }, [sizeConfig, disabled]);
 
     const prefixStyles = useMemo(() => {
       return {
@@ -196,10 +199,30 @@ export function Input({
       width: "100%",
     };
 
+    const [isHovered, setIsHovered] = useState(false);
+
+    const hoverBorderColor = useMemo(() => {
+      if (disabled || status === "active") {
+        return borderColor;
+      }
+      return isHovered ? "var(--border-neutral-primary)" : borderColor;
+    }, [disabled, status, isHovered, borderColor]);
+
+    const containerStylesWithHover = useMemo(() => {
+      return {
+        ...inputContainerStyles,
+        border: `var(--border-width-25) solid ${hoverBorderColor}`,
+      };
+    }, [inputContainerStyles, hoverBorderColor]);
+
     if (iconOnly) {
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "100%" }}>
-          <div style={inputContainerStyles}>
+          <div 
+            style={containerStylesWithHover}
+            onMouseEnter={() => !disabled && setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
             {placeholderIcon && (
               <div style={{ color: "var(--fg-neutral)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {placeholderIcon}
@@ -222,7 +245,11 @@ export function Input({
             {label}
           </label>
         )}
-        <div style={inputContainerStyles}>
+        <div 
+          style={containerStylesWithHover}
+          onMouseEnter={() => !disabled && setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {startIcon && (
             <div style={{ color: "var(--fg-neutral)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
               {startIcon}

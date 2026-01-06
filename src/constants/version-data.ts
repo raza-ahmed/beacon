@@ -22,6 +22,26 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.5",
+    "date": "2026-01-06",
+    "added": [
+      {
+        "description": "Typography configuration system via `typography.config.json` for customizable primary and secondary fonts"
+      },
+      {
+        "description": "Build script now dynamically maps fonts from configuration with configurable fallbacks"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "TabItem Pill style now correctly handles disabled state with proper background color"
+      },
+      {
+        "description": "TabItem Pill padding and state transitions improved for consistent visual appearance"
+      }
+    ]
+  },
+  {
     "version": "3.4.4",
     "date": "2026-01-05",
     "changed": [

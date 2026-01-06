@@ -1,0 +1,33 @@
+{
+  "primary": {
+    "font": "IBM_Plex_Serif",
+    "fallback": "serif"
+  },
+  "secondary": {
+    "font": "DM_Sans",
+    "fallback": "sans-serif"
+  },
+  "availableFonts": {
+    "Inter": {
+      "name": "Inter",
+      "fallback": "sans-serif",
+      "cssVar": "fonts-inter-style-inter"
+    },
+    "DM_Sans": {
+      "name": "DM Sans",
+      "fallback": "sans-serif",
+      "cssVar": "fonts-dm-sans-style-dm-sans"
+    },
+    "IBM_Plex_Serif": {
+      "name": "IBM Plex Serif",
+      "fallback": "serif",
+      "cssVar": "fonts-ibm-plex-serif-style-ibm-plex-serif"
+    },
+    "Geist_Mono": {
+      "name": "Geist Mono",
+      "fallback": "monospace",
+      "cssVar": "fonts-geist-mono-style-geist-mono"
+    }
+  }
+}
+

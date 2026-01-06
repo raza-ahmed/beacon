@@ -380,14 +380,14 @@ export default function SpacingPage() {
           <p className="ds-content__text">
             Breakpoint-aware spacing tokens that adapt to different screen sizes. These tokens automatically adjust their values based on device breakpoints.
           </p>
-          <div className="ds-spacing-table">
+          <div className="ds-spacing-table ds-spacing-table--responsive">
             <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--responsive">
               <div className="ds-spacing-table__cell">Adaptive Set Token</div>
               <div className="ds-spacing-table__cell">CSS Variable</div>
               <div className="ds-spacing-table__cell">Desktop</div>
               <div className="ds-spacing-table__cell">Tablet</div>
               <div className="ds-spacing-table__cell">Mobile</div>
-              <div className="ds-spacing-table__cell">Actions</div>
+              <div className="ds-spacing-table__cell ds-spacing-table__cell--actions">Actions</div>
             </div>
             {adaptiveTokens.map((token) => (
               <div key={token.cssVar} className="ds-spacing-table__row ds-spacing-table__row--responsive">

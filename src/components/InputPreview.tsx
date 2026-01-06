@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "./icons";
 
 type InputSize = "sm" | "md" | "lg";
-type InputStatus = "default" | "active";
+type InputStatus = "default" | "active" | "disabled";
 
 interface InputPreviewProps {
   label?: string;
@@ -60,7 +60,7 @@ const SIZE_CONFIG: Record<
     lineHeight: "var(--fonts-body-small-line-height)",
     labelFontSize: "var(--fonts-body-small-text-size)",
     labelLineHeight: "var(--fonts-body-small-line-height)",
-    paddingX: "var(--spacing-200)",
+    paddingX: "var(--spacing-300)",
     paddingY: "var(--spacing-100)",
     borderRadius: "var(--corner-radius-100)",
     gap: "var(--spacing-100)",
@@ -99,16 +99,17 @@ export function InputPreview({
 }: InputPreviewProps) {
   const sizeConfig = SIZE_CONFIG[size];
   const hasValue = value.length > 0;
+  const isDisabled = disabled || status === "disabled";
 
   const borderColor = useMemo(() => {
-    if (disabled) {
+    if (isDisabled) {
       return "var(--border-strong-100)";
     }
     if (status === "active") {
-      return "var(--border-neutral-primary)";
+      return "var(--border-primary)";
     }
     return "var(--border-strong-200)";
-  }, [status, disabled]);
+  }, [status, isDisabled]);
 
   const inputContainerStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
@@ -125,12 +126,13 @@ export function InputPreview({
       width: iconOnly ? sizeConfig.height : "100%",
       height: iconOnly ? sizeConfig.height : sizeConfig.height,
       justifyContent: iconOnly ? "center" : "flex-start",
-      cursor: disabled ? "not-allowed" : "text",
-      opacity: disabled ? 0.6 : 1,
+      cursor: isDisabled ? "not-allowed" : "text",
+      opacity: isDisabled ? 0.6 : 1,
+      transition: "border-color 0.15s ease",
     };
 
     return baseStyles;
-  }, [sizeConfig, borderColor, rounded, iconOnly, disabled]);
+  }, [sizeConfig, borderColor, rounded, iconOnly, isDisabled]);
 
   const textStyles = useMemo(() => {
     return {
@@ -139,7 +141,7 @@ export function InputPreview({
       fontFamily: "var(--font-secondary)",
       color: hasValue
         ? "var(--fg-neutral-secondary)"
-        : disabled
+        : isDisabled
         ? "var(--fg-disabled)"
         : "var(--fg-disabled)",
       fontWeight: hasValue ? 500 : 400,
@@ -147,17 +149,33 @@ export function InputPreview({
       minWidth: iconOnly ? "auto" : 0,
       minHeight: iconOnly ? "auto" : 0,
     } as React.CSSProperties;
-  }, [sizeConfig, hasValue, disabled, iconOnly]);
+  }, [sizeConfig, hasValue, isDisabled, iconOnly]);
 
   const labelStyles = useMemo(() => {
     return {
       fontSize: sizeConfig.labelFontSize,
       lineHeight: sizeConfig.labelLineHeight,
       fontFamily: "var(--font-secondary)",
-      color: "var(--fg-neutral)",
+      color: isDisabled ? "var(--fg-disabled)" : "var(--fg-neutral)",
       marginBottom: "var(--spacing-100)",
     } as React.CSSProperties;
-  }, [sizeConfig]);
+  }, [sizeConfig, isDisabled]);
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const hoverBorderColor = useMemo(() => {
+    if (isDisabled || status === "active") {
+      return borderColor;
+    }
+    return isHovered ? "var(--border-neutral-primary)" : borderColor;
+  }, [isDisabled, status, isHovered, borderColor]);
+
+  const containerStylesWithHover = useMemo(() => {
+    return {
+      ...inputContainerStyles,
+      border: `var(--border-width-25) solid ${hoverBorderColor}`,
+    };
+  }, [inputContainerStyles, hoverBorderColor]);
 
   const prefixStyles = useMemo(() => {
     return {
@@ -200,7 +218,11 @@ export function InputPreview({
   if (iconOnly) {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "100%" }}>
-        <div style={inputContainerStyles}>
+        <div 
+          style={containerStylesWithHover}
+          onMouseEnter={() => !isDisabled && setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {showPlaceholderIcon && (
             <div style={{ color: "var(--fg-neutral)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <SearchIcon size={sizeConfig.iconSize} />
@@ -221,14 +243,18 @@ export function InputPreview({
       {showLabel && (
         <p style={labelStyles}>{label}</p>
       )}
-      <div style={inputContainerStyles}>
+      <div 
+        style={containerStylesWithHover}
+        onMouseEnter={() => !isDisabled && setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {showStartIcon && (
           <div style={{ color: "var(--fg-neutral)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <UserPersonIcon size={sizeConfig.iconSize} />
           </div>
         )}
         {showPlaceholderIcon && !hasValue && (
-          <div style={{ color: iconOnly ? "var(--fg-neutral)" : "var(--fg-disabled)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ color: iconOnly ? "var(--fg-neutral)" : (isDisabled ? "var(--fg-disabled)" : "var(--fg-disabled)"), flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <SearchIcon size={sizeConfig.iconSize} />
           </div>
         )}

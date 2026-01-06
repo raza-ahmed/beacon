@@ -3,7 +3,7 @@
 import { Switch } from "./Switch";
 
 type InputSize = "sm" | "md" | "lg";
-type InputStatus = "default" | "active";
+type InputStatus = "default" | "active" | "disabled";
 
 interface InputControlsProps {
   label?: string;
@@ -19,7 +19,6 @@ interface InputControlsProps {
   showNumberPrefix?: boolean;
   rounded?: boolean;
   iconOnly?: boolean;
-  disabled?: boolean;
   onLabelChange?: (label: string) => void;
   onPlaceholderChange?: (placeholder: string) => void;
   onValueChange?: (value: string) => void;
@@ -33,7 +32,6 @@ interface InputControlsProps {
   onShowNumberPrefixChange?: (show: boolean) => void;
   onRoundedChange?: (rounded: boolean) => void;
   onIconOnlyChange?: (iconOnly: boolean) => void;
-  onDisabledChange?: (disabled: boolean) => void;
 }
 
 const SIZE_OPTIONS: { value: InputSize; label: string }[] = [
@@ -45,6 +43,7 @@ const SIZE_OPTIONS: { value: InputSize; label: string }[] = [
 const STATUS_OPTIONS: { value: InputStatus; label: string }[] = [
   { value: "default", label: "Default" },
   { value: "active", label: "Active" },
+  { value: "disabled", label: "Disabled" },
 ];
 
 export function InputControls({
@@ -61,7 +60,6 @@ export function InputControls({
   showNumberPrefix = false,
   rounded = false,
   iconOnly = false,
-  disabled = false,
   onLabelChange,
   onPlaceholderChange,
   onValueChange,
@@ -75,7 +73,6 @@ export function InputControls({
   onShowNumberPrefixChange,
   onRoundedChange,
   onIconOnlyChange,
-  onDisabledChange,
 }: InputControlsProps) {
   return (
     <div className="ds-input-controls">
@@ -187,11 +184,6 @@ export function InputControls({
               ariaLabel="Error"
             />
           </div>
-        </div>
-      </div>
-
-      <div className="ds-input-control-group">
-        <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Number Prefix</span>
             <Switch
@@ -201,6 +193,11 @@ export function InputControls({
               ariaLabel="Number Prefix"
             />
           </div>
+        </div>
+      </div>
+
+      <div className="ds-input-control-group">
+        <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Rounded</span>
             <Switch
@@ -210,11 +207,6 @@ export function InputControls({
               ariaLabel="Rounded"
             />
           </div>
-        </div>
-      </div>
-
-      <div className="ds-input-control-group">
-        <div className="ds-icon-fill-row">
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Icon Only</span>
             <Switch
@@ -222,15 +214,6 @@ export function InputControls({
               checked={iconOnly}
               onChange={onIconOnlyChange}
               ariaLabel="Icon Only"
-            />
-          </div>
-          <div className="ds-icon-fill-section">
-            <span className="ds-input-control-label">Disabled</span>
-            <Switch
-              id="input-disabled"
-              checked={disabled}
-              onChange={onDisabledChange}
-              ariaLabel="Disabled"
             />
           </div>
         </div>

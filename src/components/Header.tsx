@@ -16,6 +16,7 @@ import { SearchResults } from "./SearchResults";
 import { navigationData } from "./Sidebar";
 import { flattenNavigationData, searchNavigation } from "@/utils/search";
 import { getVersionString } from "@/constants/version";
+import { Input } from "beacon-ui";
 
 const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "hue-sky", label: "Hue Sky" },
@@ -142,16 +143,23 @@ export function Header({ onMenuClick }: HeaderProps) {
         <div className="ds-header__version-badge">{getVersionString("Version:")}</div>
 
         <div className="ds-header__hue-select" ref={dropdownRef}>
-          <button
-            className="ds-header__hue-trigger"
+          <div
             onClick={() => setIsHueDropdownOpen(!isHueDropdownOpen)}
-            aria-expanded={isHueDropdownOpen}
-            aria-haspopup="listbox"
+            style={{ cursor: "pointer", display: "inline-flex", width: "fit-content" }}
           >
-            <PaletteIcon size="xs" className="ds-header__hue-icon" />
-            <span>{currentHueLabel}</span>
-            <ChevronDownIcon size="xs" />
-          </button>
+            <Input
+              value={currentHueLabel}
+              readOnly
+              size="sm"
+              startIcon={<PaletteIcon size="xs" />}
+              endIcon={<ChevronDownIcon size="xs" />}
+              showLabel={false}
+              style={{ pointerEvents: "none", cursor: "pointer" }}
+              aria-expanded={isHueDropdownOpen}
+              aria-haspopup="listbox"
+              role="combobox"
+            />
+          </div>
 
           {isHueDropdownOpen && (
             <div className="ds-header__hue-dropdown" role="listbox">

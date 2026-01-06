@@ -182,6 +182,14 @@ body {
   position: relative;
 }
 
+.ds-header__hue-select > div > div {
+  width: fit-content !important;
+}
+
+.ds-header__hue-select > div > div > div {
+  width: fit-content !important;
+}
+
 .ds-header__hue-trigger {
   display: flex;
   align-items: center;
@@ -833,14 +841,14 @@ body {
 .ds-color-table {
   border-radius: var(--corner-radius-200);
   border: var(--border-width-25) solid var(--border-strong-100);
-  background-color: var(--bg-page-primary);
+  background-color: var(--bg-page-base);
   overflow: hidden;
 }
 
 .ds-color-table__header {
   padding: var(--spacing-300);
   border-bottom: var(--border-width-25) solid var(--border-strong-100);
-  background-color: var(--bg-page-base);
+  background-color: var(--bg-page-primary);
 }
 
 .ds-color-table__title {
@@ -869,7 +877,7 @@ body {
   grid-template-columns: 1fr;
   gap: var(--spacing-200);
   padding: var(--spacing-300);
-  border-top: var(--border-width-25) solid var(--border-strong-200);
+  border-top: var(--border-width-25) solid var(--border-strong-100);
 }
 
 .ds-color-table__row--head {
@@ -1369,14 +1377,14 @@ body {
 .ds-contrast__grid {
   border-radius: var(--corner-radius-200);
   border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-base);
   overflow: hidden;
 }
 
 .ds-contrast__row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacing-200);
+  gap: var(--spacing-300);
   padding: var(--spacing-300);
   border-top: var(--border-width-25) solid var(--border-strong-200);
 }
@@ -2016,8 +2024,8 @@ body {
 
 .ds-spacing-table {
   border-radius: var(--corner-radius-200);
-  border: var(--border-width-25) solid var(--border-strong-200);
-  background-color: var(--bg-page-primary);
+  border: var(--border-width-25) solid var(--border-strong-100);
+  background-color: var(--bg-page-base);
   overflow: hidden;
 }
 
@@ -2026,7 +2034,7 @@ body {
   grid-template-columns: 1.5fr 2fr 1fr 2fr 1.5fr;
   gap: var(--spacing-200);
   padding: var(--spacing-300);
-  border-top: var(--border-width-25) solid var(--border-strong-200);
+  border-top: var(--border-width-25) solid var(--border-strong-100);
   align-items: center;
 }
 
@@ -2034,8 +2042,39 @@ body {
   grid-template-columns: 1.5fr 2fr 1.5fr 1fr 1.5fr;
 }
 
+.ds-spacing-table--responsive {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.5fr) minmax(200px, 2.5fr) minmax(70px, 1fr) minmax(70px, 1fr) minmax(70px, 1fr) minmax(100px, 1.4fr);
+}
+
+.ds-spacing-table--responsive > .ds-spacing-table__row {
+  display: contents;
+}
+
+.ds-spacing-table--responsive > .ds-spacing-table__row > .ds-spacing-table__cell {
+  padding: var(--spacing-300);
+  border-top: var(--border-width-25) solid var(--border-strong-100);
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ds-spacing-table--responsive > .ds-spacing-table__row--head > .ds-spacing-table__cell {
+  border-top: none;
+  background-color: var(--bg-page-primary);
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+}
+
+.ds-spacing-table--responsive > .ds-spacing-table__row:not(.ds-spacing-table__row--head):hover > .ds-spacing-table__cell {
+  background-color: var(--bg-page-primary);
+}
+
 .ds-spacing-table__row--responsive {
-  grid-template-columns: minmax(120px, 1.5fr) minmax(200px, 2.5fr) minmax(70px, auto) minmax(70px, auto) minmax(70px, auto) minmax(100px, auto);
+  grid-template-columns: minmax(120px, 1.5fr) minmax(200px, 2.5fr) minmax(70px, 1fr) minmax(70px, 1fr) minmax(70px, 1fr) minmax(100px, 1.2fr);
 }
 
 .ds-spacing-table__row--responsive-5col {
@@ -2047,7 +2086,7 @@ body {
 }
 
 .ds-spacing-table__row--head {
-  background-color: var(--bg-page-base);
+  background-color: var(--bg-page-primary);
   border-top: none;
   font-family: var(--font-secondary);
   font-size: var(--fonts-body-small-text-size);
@@ -2178,7 +2217,7 @@ body {
 
   .ds-color-table__row--head {
     display: grid;
-    background-color: var(--bg-page-base);
+    background-color: var(--bg-page-primary);
     border-top: none;
     position: sticky;
     top: 0;
@@ -2194,16 +2233,16 @@ body {
   }
 
   .ds-contrast__row {
-    grid-template-columns: 1.3fr 1fr 1fr 0.4fr 0.32fr 0.32fr;
+    grid-template-columns: 1fr 1fr 1fr .4fr .2fr .2fr;
     align-items: start;
-    gap: var(--spacing-300);
+    gap: var(--spacing-400);
   }
 
   .ds-contrast__row--head {
     display: grid;
     background-color: var(--bg-page-primary);
     border-top: none;
-    border-bottom: var(--border-width-25) solid var(--border-strong-200);
+    border-bottom: var(--border-width-25) solid var(--border-strong-100);
   }
 
   .ds-contrast__row--head .ds-contrast__cell {
@@ -2415,9 +2454,10 @@ button:focus:not(:focus-visible) {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle, var(--util-pattern-ink-1) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, var(--util-pattern-ink-4) 1px, transparent 1px),
-    linear-gradient(var(--util-pattern-ink-4) 1px, transparent 1px);
+  linear-gradient(var(--util-pattern-ink-2) 1px, transparent 1px), 
+  linear-gradient(90deg, var(--util-pattern-ink-2) 1px, transparent 1px), 
+  linear-gradient(var(--util-pattern-ink-3) 1px, transparent 1px), 
+  linear-gradient(90deg, var(--util-pattern-ink-3) 1px, transparent 1px);
   background-size: 48px 48px;
   background-position: 24px 24px, 0 0, 0 0;
   background-repeat: repeat;
@@ -2432,14 +2472,15 @@ button:focus:not(:focus-visible) {
 .ds-chip-preview::before,
 .ds-switch-preview::before,
 .ds-radio-button-preview::before,
-.ds-avatar-preview::before {
+.ds-avatar-preview::before,
+.ds-menu-preview::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 2px 2px, var(--util-pattern-ink-1) 2px, transparent 0);
+  background-image: linear-gradient(var(--util-pattern-ink-2) 1px, transparent 1px), linear-gradient(90deg, var(--util-pattern-ink-2) 1px, transparent 1px), linear-gradient(var(--util-pattern-ink-3) 1px, transparent 1px), linear-gradient(90deg, var(--util-pattern-ink-3) 1px, transparent 1px);
   background-size: 24px 24px;
   background-repeat: repeat;
-  opacity: 0.15;
+  opacity: 0.50;
   z-index: 0;
   pointer-events: none;
 }
@@ -2451,7 +2492,8 @@ button:focus:not(:focus-visible) {
 .ds-chip-preview > *,
 .ds-switch-preview > *,
 .ds-radio-button-preview > *,
-.ds-avatar-preview > * {
+.ds-avatar-preview > *,
+.ds-menu-preview > * {
   position: relative;
   z-index: 1;
 }
@@ -2655,10 +2697,6 @@ button:focus:not(:focus-visible) {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle, var(--util-pattern-ink-1) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, var(--util-pattern-ink-4) 1px, transparent 1px),
-    linear-gradient(var(--util-pattern-ink-4) 1px, transparent 1px);
   background-size: 48px 48px;
   background-position: 24px 24px, 0 0, 0 0;
   background-repeat: repeat;
@@ -4418,7 +4456,7 @@ button:focus:not(:focus-visible) {
   font-size: var(--fonts-body-small-text-size);
   line-height: var(--fonts-body-small-line-height);
   font-weight: var(--font-weight-secondary-medium);
-  color: var(--fg-primary);
+  color: var(--fg-neutral);
   margin-bottom: var(--spacing-100);
 }
 
@@ -5085,6 +5123,7 @@ button:focus:not(:focus-visible) {
   flex: 1;
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 /* Menu preview code - standalone section below playground */
@@ -5586,7 +5625,7 @@ button:focus:not(:focus-visible) {
 .ds-animation-showcase {
   display: flex;
   flex-direction: column;
-  border: var(--border-width-25) solid var(--border-strong-200);
+  border: var(--border-width-25) solid var(--border-strong-100);
   border-radius: var(--corner-radius-400);
   overflow: hidden;
   background-color: var(--bg-page-primary);
@@ -5649,7 +5688,7 @@ button:focus:not(:focus-visible) {
 .ds-animation-showcase__preview {
   padding: var(--spacing-500);
   background-color: var(--bg-page-base);
-  border-bottom: var(--border-width-25) solid var(--border-strong-200);
+  border-bottom: var(--border-width-25) solid var(--border-strong-100);
   display: flex;
   align-items: center;
   justify-content: center;

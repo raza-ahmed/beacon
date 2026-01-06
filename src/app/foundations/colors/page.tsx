@@ -1445,11 +1445,39 @@ function ContrastSection({
         guidance: "Metadata/supporting text; verify AA for your font size.",
       },
       {
-        id: "disabled",
-        label: "Disabled content",
-        bg: "--bg-disabled",
-        fg: "--fg-on-disabled",
-        guidance: "Disabled states should still be readable where required.",
+        id: "tertiary-text",
+        label: "Tertiary text on page",
+        bg: "--bg-page-primary",
+        fg: "--fg-neutral-tertiary",
+        guidance: "Helper text, quiet labels; may not meet AA for small text.",
+      },
+      {
+        id: "primary-link",
+        label: "Primary link on page",
+        bg: "--bg-page-primary",
+        fg: "--fg-primary",
+        guidance: "Brand links and accents on primary background.",
+      },
+      {
+        id: "page-secondary-text",
+        label: "Body text on secondary page",
+        bg: "--bg-page-secondary",
+        fg: "--fg-neutral",
+        guidance: "Default reading text on secondary page background.",
+      },
+      {
+        id: "page-tertiary-text",
+        label: "Body text on tertiary page",
+        bg: "--bg-page-tertiary",
+        fg: "--fg-neutral",
+        guidance: "Default reading text on tertiary page background.",
+      },
+      {
+        id: "primary-tonal",
+        label: "Primary tonal",
+        bg: "--bg-primary-tonal",
+        fg: "--fg-primary-on-tonal",
+        guidance: "Tonal brand surfaces (banners, subtle emphasis).",
       },
       {
         id: "success-tonal",
@@ -1459,6 +1487,13 @@ function ContrastSection({
         guidance: "Tonal success surfaces (banners, callouts).",
       },
       {
+        id: "success-link",
+        label: "Success link on page",
+        bg: "--bg-page-primary",
+        fg: "--fg-success",
+        guidance: "Success foreground on primary background.",
+      },
+      {
         id: "warning-tonal",
         label: "Warning tonal",
         bg: "--bg-warning-tonal",
@@ -1466,11 +1501,88 @@ function ContrastSection({
         guidance: "Tonal warning surfaces (banners, callouts).",
       },
       {
+        id: "warning-link",
+        label: "Warning link on page",
+        bg: "--bg-page-primary",
+        fg: "--fg-warning",
+        guidance: "Warning foreground on primary background.",
+      },
+      {
         id: "critical-tonal",
         label: "Critical tonal",
         bg: "--bg-critical-tonal",
         fg: "--fg-critical-on-tonal",
         guidance: "Tonal critical surfaces (banners, callouts).",
+      },
+      {
+        id: "critical-link",
+        label: "Critical link on page",
+        bg: "--bg-page-primary",
+        fg: "--fg-critical",
+        guidance: "Critical foreground on primary background.",
+      },
+      {
+        id: "disabled",
+        label: "Disabled content",
+        bg: "--bg-disabled",
+        fg: "--fg-on-disabled",
+        guidance: "Disabled states should still be readable where required.",
+      },
+      {
+        id: "disabled-text",
+        label: "Disabled text on page",
+        bg: "--bg-page-primary",
+        fg: "--fg-disabled",
+        guidance: "Disabled text on primary background.",
+      },
+      {
+        id: "success-action",
+        label: "On-success action",
+        bg: "--bg-success",
+        fg: "--fg-on-action",
+        guidance: "Text on success action backgrounds (buttons).",
+      },
+      {
+        id: "warning-action",
+        label: "On-warning action",
+        bg: "--bg-warning",
+        fg: "--fg-on-action",
+        guidance: "Text on warning action backgrounds (buttons).",
+      },
+      {
+        id: "critical-action",
+        label: "On-critical action",
+        bg: "--bg-critical",
+        fg: "--fg-on-action",
+        guidance: "Text on critical action backgrounds (buttons).",
+      },
+      {
+        id: "primary-dark",
+        label: "On-primary dark",
+        bg: "--bg-primary-dark",
+        fg: "--fg-on-action",
+        guidance: "Text on high-contrast brand surfaces.",
+      },
+      {
+        id: "success-dark",
+        label: "On-success dark",
+        bg: "--bg-success-dark",
+        fg: "--fg-on-action",
+        guidance: "Text on high-contrast success surfaces.",
+      },
+      {
+        id: "warning-dark",
+        label: "On-warning dark",
+        bg: "--bg-warning-dark",
+        fg: "--fg-on-action",
+        guidance: "Text on high-contrast warning surfaces.",
+      },
+      {
+        id: "critical-dark",
+        label: "On-critical dark",
+        bg: "--bg-critical-dark",
+        fg: "--fg-on-action",
+        guidance: "Text on high-contrast critical surfaces.",
       },
     ];
 
@@ -1511,7 +1623,7 @@ function ContrastSection({
               <div className="ds-contrast__guidance">{r.guidance}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)", justifyContent: "space-between" }}>
                 <span className="ds-contrast__chip" style={{ backgroundColor: cssVarValue(r.bg) }} />
                 <code className="ds-contrast__code">{r.bg}</code>
                 <TokenCopyButton text={r.bg} label="var" />
@@ -1519,7 +1631,7 @@ function ContrastSection({
               <div className="ds-contrast__value">{r.bgStr || "(unavailable)"}</div>
             </div>
             <div className="ds-contrast__cell" role="cell">
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-200)", justifyContent: "space-between" }}>
                 <span className="ds-contrast__chip" style={{ backgroundColor: cssVarValue(r.fg) }} />
                 <code className="ds-contrast__code">{r.fg}</code>
                 <TokenCopyButton text={r.fg} label="var" />
@@ -1570,16 +1682,33 @@ export default function ColorsPage() {
       "--bg-primary",
       "--fg-on-action",
       "--bg-page-primary",
+      "--bg-page-secondary",
+      "--bg-page-tertiary",
       "--fg-neutral",
       "--fg-neutral-secondary",
+      "--fg-neutral-tertiary",
+      "--fg-primary",
       "--bg-disabled",
       "--fg-on-disabled",
+      "--fg-disabled",
+      "--bg-primary-tonal",
+      "--fg-primary-on-tonal",
+      "--bg-success",
       "--bg-success-tonal",
+      "--fg-success",
       "--fg-success-on-tonal",
+      "--bg-success-dark",
+      "--bg-warning",
       "--bg-warning-tonal",
+      "--fg-warning",
       "--fg-warning-on-tonal",
+      "--bg-warning-dark",
+      "--bg-critical",
       "--bg-critical-tonal",
+      "--fg-critical",
       "--fg-critical-on-tonal",
+      "--bg-critical-dark",
+      "--bg-primary-dark",
     ].forEach((v) => vars.add(v as `--${string}`));
     return Array.from(vars);
   }, [groups, palette]);
