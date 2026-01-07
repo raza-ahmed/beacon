@@ -112,6 +112,7 @@ export default function TypographyPage() {
   const tocItems: TocItem[] = useMemo(() => {
     return [
       { id: "building-blocks", label: "Building Blocks" },
+      { id: "font-configuration", label: "Font Configuration" },
       { id: "style-demos", label: "Style Demos" },
       { id: "implementation", label: "Implementation" },
       { id: "color-previews", label: "Color Previews" },
@@ -256,6 +257,209 @@ export default function TypographyPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="font-configuration" className="ds-content__section">
+          <h6 className="ds-content__section-title">Font Configuration</h6>
+          <p className="ds-content__text" style={{ marginBottom: "var(--spacing-400)" }}>
+            Beacon uses CSS variables for font families, making it easy to use the default fonts or override them with your own.
+          </p>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Default Fonts
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              The package includes <strong>IBM Plex Serif</strong> as the primary font and <strong>DM Sans</strong> as the secondary font. Import the tokens and fonts will be available automatically:
+            </p>
+            <div style={{ position: "relative" }}>
+              <CodeCopyButton
+                code={`import 'beacon-ui/tokens';`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`import 'beacon-ui/tokens';`}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Using Custom Fonts
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              To use your own fonts, first load them in your project (via Google Fonts, local files, or any provider), then override the CSS variables in your stylesheet:
+            </p>
+            <div style={{ position: "relative" }}>
+              <CodeCopyButton
+                code={`/* Load your fonts first (example using Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+/* Override Beacon's font variables */
+:root {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Open Sans', sans-serif;
+}`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`/* Load your fonts first (example using Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+/* Override Beacon's font variables */
+:root {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Open Sans', sans-serif;
+}`}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Next.js with Local Fonts
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              For Next.js projects using local fonts with <code className="ds-token-row__code">next/font</code>, set the CSS variables in your layout:
+            </p>
+            <div style={{ position: "relative" }}>
+              <CodeCopyButton
+                code={`import localFont from 'next/font/local';
+
+const myPrimaryFont = localFont({
+  src: './fonts/MyFont.woff2',
+  variable: '--font-primary',
+});
+
+const mySecondaryFont = localFont({
+  src: './fonts/MySecondaryFont.woff2',
+  variable: '--font-secondary',
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html className={\`\${myPrimaryFont.variable} \${mySecondaryFont.variable}\`}>
+      <body>{children}</body>
+    </html>
+  );
+}`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
+              <SyntaxHighlighter
+                language="tsx"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`import localFont from 'next/font/local';
+
+const myPrimaryFont = localFont({
+  src: './fonts/MyFont.woff2',
+  variable: '--font-primary',
+});
+
+const mySecondaryFont = localFont({
+  src: './fonts/MySecondaryFont.woff2',
+  variable: '--font-secondary',
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html className={\`\${myPrimaryFont.variable} \${mySecondaryFont.variable}\`}>
+      <body>{children}</body>
+    </html>
+  );
+}`}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+
+          <div>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Font Variables Reference
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              All typography utility classes reference these CSS variables, so your custom fonts will apply automatically across all components.
+            </p>
+            <div className="ds-spacing-table">
+              <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell">Variable</div>
+                <div className="ds-spacing-table__cell">Default Value</div>
+                <div className="ds-spacing-table__cell">Used By</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Variable">
+                  <code className="ds-token-row__code">--font-primary</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Default Value">
+                  IBM Plex Serif
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Used By">
+                  H1, H3 headings
+                </div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Variable">
+                  <code className="ds-token-row__code">--font-secondary</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Default Value">
+                  DM Sans
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Used By">
+                  H2, H4-H6, titles, body text
+                </div>
+              </div>
             </div>
           </div>
         </section>

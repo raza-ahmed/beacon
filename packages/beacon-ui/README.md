@@ -575,7 +575,7 @@ https://beacon.uxraza.com/
 
 ## Version
 
-Current version: **3.1.5**
+Current version: **3.4.5**
 
 ## License
 
