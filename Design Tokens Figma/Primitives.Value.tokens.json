@@ -449,13 +449,35 @@
       "$value": "512px"
     }
   },
-  "Fonts": {
-    "Inter": {
-      "Style": {
-        "Inter": {
+  "Font": {
+    "Geist_Mono": {
+      "Weight": {
+        "Regular": {
           "$type": "string",
-          "$value": "Inter"
+          "$value": "Regular"
+        },
+        "Medium": {
+          "$type": "string",
+          "$value": "Medium"
+        },
+        "Semibold": {
+          "$type": "string",
+          "$value": "SemiBold"
+        },
+        "Bold": {
+          "$type": "string",
+          "$value": "Bold"
         }
+      },
+      "Geist_Mono": {
+        "$type": "string",
+        "$value": "Geist Mono"
+      }
+    },
+    "IBM_Plex_Serif": {
+      "IBM_Plex_Serif": {
+        "$type": "string",
+        "$value": "IBM Plex Serif"
       },
       "Weight": {
         "Regular": {
@@ -468,7 +490,7 @@
         },
         "Semibold": {
           "$type": "string",
-          "$value": "Semi Bold"
+          "$value": "SemiBold"
         },
         "Bold": {
           "$type": "string",
@@ -477,11 +499,9 @@
       }
     },
     "DM_Sans": {
-      "Style": {
-        "DM_Sans": {
-          "$type": "string",
-          "$value": "DM Sans"
-        }
+      "DM_Sans": {
+        "$type": "string",
+        "$value": "DM Sans"
       },
       "Weight": {
         "Regular": {
@@ -502,34 +522,10 @@
         }
       }
     },
-    "IBM_Plex_Serif": {
-      "Style": {
-        "IBM_Plex_Serif": {
-          "$type": "string",
-          "$value": "IBM Plex Serif"
-        }
-      },
-      "Weight": {
-        "Regular": {
-          "$type": "string",
-          "$value": "Regular"
-        },
-        "Medium": {
-          "$type": "string",
-          "$value": "Medium"
-        },
-        "Semibold": {
-          "$type": "string",
-          "$value": "SemiBold"
-        }
-      }
-    },
-    "Geist_Mono": {
-      "Style": {
-        "Geist_Mono": {
-          "$type": "string",
-          "$value": "Geist Mono"
-        }
+    "Inter": {
+      "Inter": {
+        "$type": "string",
+        "$value": "Inter"
       },
       "Weight": {
         "Regular": {

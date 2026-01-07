@@ -182,11 +182,17 @@ body {
   position: relative;
 }
 
-.ds-header__hue-select > div > div {
+.ds-header__hue-input-wrapper {
+  cursor: pointer;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.ds-header__hue-input-wrapper > div {
   width: fit-content !important;
 }
 
-.ds-header__hue-select > div > div > div {
+.ds-header__hue-input-wrapper > div > div {
   width: fit-content !important;
 }
 

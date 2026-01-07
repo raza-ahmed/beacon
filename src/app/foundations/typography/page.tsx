@@ -51,6 +51,26 @@ const COLOR_PREVIEWS: ColorPreview[] = [
   { name: "Disabled", cssVar: "--fg-disabled" },
 ];
 
+// Code example for font mapping - using concatenation to avoid CSS variable linting
+const FONT_MAPPING_CODE = [
+  "/* Your font variable */",
+  "--font-inter: 'Inter', sans-serif;",
+  "",
+  "/* Token layer maps to primitive */",
+  "--fonts-inter-style-inter: var(--font-inter), sans-serif;",
+  "",
+  "/* Semantic layer sets primary/secondary per hue */",
+  "[data-hue=\"chromatic-prime\"] {",
+  "  --font-primary: var(--fonts-geist-mono-style-geist-mono);",
+  "  --font-secondary: var(--fonts-inter-style-inter);",
+  "}",
+  "",
+  "/* Typography classes use semantic variables */",
+  ".text-heading-h1 {",
+  "  font-family: var(--font-primary);",
+  "}",
+].join("\n");
+
 
 function useComputedTypography() {
   const [computed, setComputed] = useState<Record<string, string>>({});
@@ -113,6 +133,7 @@ export default function TypographyPage() {
     return [
       { id: "building-blocks", label: "Building Blocks" },
       { id: "font-configuration", label: "Font Configuration" },
+      { id: "using-custom-fonts", label: "Using Custom Fonts" },
       { id: "style-demos", label: "Style Demos" },
       { id: "implementation", label: "Implementation" },
       { id: "color-previews", label: "Color Previews" },
@@ -264,19 +285,100 @@ export default function TypographyPage() {
         <section id="font-configuration" className="ds-content__section">
           <h6 className="ds-content__section-title">Font Configuration</h6>
           <p className="ds-content__text" style={{ marginBottom: "var(--spacing-400)" }}>
-            Beacon uses CSS variables for font families, making it easy to use the default fonts or override them with your own.
+            Beacon uses a layered font system where each hue variant can have different primary and secondary fonts. You need to load all required fonts and set their CSS variables.
           </p>
 
-          <div style={{ marginBottom: "var(--spacing-500)" }}>
+          <div id="required-fonts" style={{ marginBottom: "var(--spacing-500)" }}>
             <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
-              Default Fonts
+              Required Fonts
             </h6>
             <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
-              The package includes <strong>IBM Plex Serif</strong> as the primary font and <strong>DM Sans</strong> as the secondary font. Import the tokens and fonts will be available automatically:
+              The design system uses four font families across different hue variants. Load all fonts and set their corresponding CSS variables:
+            </p>
+            <div className="ds-spacing-table" style={{ marginBottom: "var(--spacing-300)" }}>
+              <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell">Font</div>
+                <div className="ds-spacing-table__cell">CSS Variable</div>
+                <div className="ds-spacing-table__cell">Type</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Font">Inter</div>
+                <div className="ds-spacing-table__cell" data-label="CSS Variable">
+                  <code className="ds-token-row__code">--font-inter</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Type">Sans-serif</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Font">DM Sans</div>
+                <div className="ds-spacing-table__cell" data-label="CSS Variable">
+                  <code className="ds-token-row__code">--font-dm-sans</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Type">Sans-serif</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Font">IBM Plex Serif</div>
+                <div className="ds-spacing-table__cell" data-label="CSS Variable">
+                  <code className="ds-token-row__code">--font-ibm-plex-serif</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Type">Serif</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Font">Geist Mono</div>
+                <div className="ds-spacing-table__cell" data-label="CSS Variable">
+                  <code className="ds-token-row__code">--font-geist-mono</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Type">Monospace</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="nextjs-setup" style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Next.js Setup (Recommended)
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              For Next.js projects, load all fonts using <code className="ds-token-row__code">next/font/google</code> and apply their CSS variables:
             </p>
             <div style={{ position: "relative" }}>
               <CodeCopyButton
-                code={`import 'beacon-ui/tokens';`}
+                code={`import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono } from "next/font/google";
+import "beacon-ui/tokens";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-serif",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html className={\`\${dmSans.variable} \${ibmPlexSerif.variable} \${inter.variable} \${geistMono.variable}\`}>
+      <body>{children}</body>
+    </html>
+  );
+}`}
                 style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
               />
               <SyntaxHighlighter
@@ -298,27 +400,66 @@ export default function TypographyPage() {
                 }}
                 PreTag="div"
               >
-                {`import 'beacon-ui/tokens';`}
+                {`import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono } from "next/font/google";
+import "beacon-ui/tokens";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-serif",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html className={\`\${dmSans.variable} \${ibmPlexSerif.variable} \${inter.variable} \${geistMono.variable}\`}>
+      <body>{children}</body>
+    </html>
+  );
+}`}
               </SyntaxHighlighter>
             </div>
           </div>
 
-          <div style={{ marginBottom: "var(--spacing-500)" }}>
+          <div id="css-import-setup" style={{ marginBottom: "var(--spacing-500)" }}>
             <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
-              Using Custom Fonts
+              CSS Import Setup
             </h6>
             <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
-              To use your own fonts, first load them in your project (via Google Fonts, local files, or any provider), then override the CSS variables in your stylesheet:
+              For non-Next.js projects, load fonts via Google Fonts and set the CSS variables:
             </p>
             <div style={{ position: "relative" }}>
               <CodeCopyButton
-                code={`/* Load your fonts first (example using Google Fonts) */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+                code={`/* Load all required fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
 
-/* Override Beacon's font variables */
+/* Set font CSS variables */
 :root {
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Open Sans', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-ibm-plex-serif: 'IBM Plex Serif', serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-geist-mono: 'Geist Mono', monospace;
 }`}
                 style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
               />
@@ -341,13 +482,15 @@ export default function TypographyPage() {
                 }}
                 PreTag="div"
               >
-                {`/* Load your fonts first (example using Google Fonts) */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+                {`/* Load all required fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
 
-/* Override Beacon's font variables */
+/* Set font CSS variables */
 :root {
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Open Sans', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-ibm-plex-serif: 'IBM Plex Serif', serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-geist-mono: 'Geist Mono', monospace;
 }`}
               </SyntaxHighlighter>
             </div>
@@ -355,28 +498,203 @@ export default function TypographyPage() {
 
           <div style={{ marginBottom: "var(--spacing-500)" }}>
             <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
-              Next.js with Local Fonts
+              How Font Mapping Works
             </h6>
             <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
-              For Next.js projects using local fonts with <code className="ds-token-row__code">next/font</code>, set the CSS variables in your layout:
+              The token system maps your font variables to <code className="ds-token-row__code">--font-primary</code> and <code className="ds-token-row__code">--font-secondary</code> based on the active hue. Typography classes then use these semantic variables:
             </p>
             <div style={{ position: "relative" }}>
               <CodeCopyButton
-                code={`import localFont from 'next/font/local';
+                code={FONT_MAPPING_CODE}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {FONT_MAPPING_CODE}
+              </SyntaxHighlighter>
+            </div>
+          </div>
 
-const myPrimaryFont = localFont({
-  src: './fonts/MyFont.woff2',
-  variable: '--font-primary',
+          <div id="font-variables-reference" style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Font Variables Reference
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              Font families vary by hue variant. All typography utility classes reference <code className="ds-token-row__code">--font-primary</code> and <code className="ds-token-row__code">--font-secondary</code>, which are automatically set based on the active hue.
+            </p>
+            <div className="ds-spacing-table">
+              <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--four-col">
+                <div className="ds-spacing-table__cell">Hue Variant</div>
+                <div className="ds-spacing-table__cell">Primary Font</div>
+                <div className="ds-spacing-table__cell">Secondary Font</div>
+                <div className="ds-spacing-table__cell">Selector</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--four-col">
+                <div className="ds-spacing-table__cell" data-label="Hue Variant">
+                  <code className="ds-token-row__code">chromatic-prime</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Primary Font">
+                  Geist Mono
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Secondary Font">
+                  Inter
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Selector">
+                  <code className="ds-token-row__code">:root</code> (default)
+                </div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--four-col">
+                <div className="ds-spacing-table__cell" data-label="Hue Variant">
+                  <code className="ds-token-row__code">hue-sky</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Primary Font">
+                  IBM Plex Serif
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Secondary Font">
+                  DM Sans
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Selector">
+                  <code className="ds-token-row__code">[data-hue=&quot;hue-sky&quot;]</code>
+                </div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--four-col">
+                <div className="ds-spacing-table__cell" data-label="Hue Variant">
+                  <code className="ds-token-row__code">hue-indigo</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Primary Font">
+                  IBM Plex Serif
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Secondary Font">
+                  Geist Mono
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Selector">
+                  <code className="ds-token-row__code">[data-hue=&quot;hue-indigo&quot;]</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Variable Usage
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              Typography utility classes use these variables to apply fonts consistently.
+            </p>
+            <div className="ds-spacing-table">
+              <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--two-col">
+                <div className="ds-spacing-table__cell">Variable</div>
+                <div className="ds-spacing-table__cell">Used By</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--two-col">
+                <div className="ds-spacing-table__cell" data-label="Variable">
+                  <code className="ds-token-row__code">--font-primary</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Used By">
+                  H1, H2, H3 headings
+                </div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--two-col">
+                <div className="ds-spacing-table__cell" data-label="Variable">
+                  <code className="ds-token-row__code">--font-secondary</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Used By">
+                  H4-H6, titles, body text
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="using-custom-fonts" style={{ marginBottom: "var(--spacing-500)" }}>
+            <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
+              Using Custom Fonts
+            </h6>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              You can use your own fonts instead of the defaults by overriding <code className="ds-token-row__code">--font-primary</code> and <code className="ds-token-row__code">--font-secondary</code>. Typography classes reference these semantic variables, so your custom fonts will apply throughout.
+            </p>
+            <div style={{ position: "relative", marginBottom: "var(--spacing-400)" }}>
+              <CodeCopyButton
+                code={`/* 1. Load your custom font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+/* 2. Override the semantic font variables */
+:root {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Source Sans 3', sans-serif;
+}`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`/* 1. Load your custom font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+/* 2. Override the semantic font variables */
+:root {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Source Sans 3', sans-serif;
+}`}
+              </SyntaxHighlighter>
+            </div>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              For Next.js projects, load custom fonts with <code className="ds-token-row__code">next/font/google</code> and override the variables:
+            </p>
+            <div style={{ position: "relative", marginBottom: "var(--spacing-400)" }}>
+              <CodeCopyButton
+                code={`import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import "beacon-ui/tokens";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-primary",
+  display: "swap",
 });
 
-const mySecondaryFont = localFont({
-  src: './fonts/MySecondaryFont.woff2',
-  variable: '--font-secondary',
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-secondary",
+  display: "swap",
 });
 
 export default function RootLayout({ children }) {
   return (
-    <html className={\`\${myPrimaryFont.variable} \${mySecondaryFont.variable}\`}>
+    <html className={\`\${playfair.variable} \${sourceSans.variable}\`}>
       <body>{children}</body>
     </html>
   );
@@ -402,24 +720,67 @@ export default function RootLayout({ children }) {
                 }}
                 PreTag="div"
               >
-                {`import localFont from 'next/font/local';
+                {`import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import "beacon-ui/tokens";
 
-const myPrimaryFont = localFont({
-  src: './fonts/MyFont.woff2',
-  variable: '--font-primary',
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-primary",
+  display: "swap",
 });
 
-const mySecondaryFont = localFont({
-  src: './fonts/MySecondaryFont.woff2',
-  variable: '--font-secondary',
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-secondary",
+  display: "swap",
 });
 
 export default function RootLayout({ children }) {
   return (
-    <html className={\`\${myPrimaryFont.variable} \${mySecondaryFont.variable}\`}>
+    <html className={\`\${playfair.variable} \${sourceSans.variable}\`}>
       <body>{children}</body>
     </html>
   );
+}`}
+              </SyntaxHighlighter>
+            </div>
+            <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
+              To override fonts for a specific hue variant only:
+            </p>
+            <div style={{ position: "relative" }}>
+              <CodeCopyButton
+                code={`/* Override fonts only for hue-sky variant */
+[data-hue="hue-sky"] {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Source Sans 3', sans-serif;
+}`}
+                style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
+              />
+              <SyntaxHighlighter
+                language="css"
+                style={syntaxTheme}
+                customStyle={{
+                  margin: 0,
+                  padding: "var(--spacing-400)",
+                  backgroundColor: "var(--bg-page-secondary)",
+                  fontSize: "14px",
+                  borderRadius: "var(--corner-radius-200)",
+                  border: "var(--border-width-25) solid var(--border-strong-200)",
+                  overflow: "auto",
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                  },
+                }}
+                PreTag="div"
+              >
+                {`/* Override fonts only for hue-sky variant */
+[data-hue="hue-sky"] {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Source Sans 3', sans-serif;
 }`}
               </SyntaxHighlighter>
             </div>
@@ -427,40 +788,17 @@ export default function RootLayout({ children }) {
 
           <div>
             <h6 className="text-body3-regular" style={{ marginBottom: "var(--spacing-300)", fontWeight: "var(--font-weight-secondary-semibold)" }}>
-              Font Variables Reference
+              Font Weight Considerations
             </h6>
             <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
-              All typography utility classes reference these CSS variables, so your custom fonts will apply automatically across all components.
+              When using custom fonts, ensure you load the required weights. The design system uses these font weights:
             </p>
-            <div className="ds-spacing-table">
-              <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--three-col">
-                <div className="ds-spacing-table__cell">Variable</div>
-                <div className="ds-spacing-table__cell">Default Value</div>
-                <div className="ds-spacing-table__cell">Used By</div>
-              </div>
-              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
-                <div className="ds-spacing-table__cell" data-label="Variable">
-                  <code className="ds-token-row__code">--font-primary</code>
-                </div>
-                <div className="ds-spacing-table__cell" data-label="Default Value">
-                  IBM Plex Serif
-                </div>
-                <div className="ds-spacing-table__cell" data-label="Used By">
-                  H1, H3 headings
-                </div>
-              </div>
-              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
-                <div className="ds-spacing-table__cell" data-label="Variable">
-                  <code className="ds-token-row__code">--font-secondary</code>
-                </div>
-                <div className="ds-spacing-table__cell" data-label="Default Value">
-                  DM Sans
-                </div>
-                <div className="ds-spacing-table__cell" data-label="Used By">
-                  H2, H4-H6, titles, body text
-                </div>
-              </div>
-            </div>
+            <ul className="ds-content__bullet-list">
+              <li><strong>400 (Regular)</strong> - Body text default</li>
+              <li><strong>500 (Medium)</strong> - Medium emphasis, titles</li>
+              <li><strong>600 (Semibold)</strong> - Headings, strong emphasis</li>
+              <li><strong>700 (Bold)</strong> - Maximum emphasis (optional)</li>
+            </ul>
           </div>
         </section>
 

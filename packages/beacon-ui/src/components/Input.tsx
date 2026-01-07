@@ -21,6 +21,7 @@ export interface InputProps extends Omit<ComponentPropsWithRef<"input">, "size">
   rounded?: boolean;
   iconOnly?: boolean;
   borderRadius?: string;
+  fullWidth?: boolean;
 }
 
 const SIZE_CONFIG: Record<
@@ -91,6 +92,7 @@ export function Input({
   iconOnly = false,
   disabled = false,
   borderRadius,
+  fullWidth = true,
   className,
   style,
   value,
@@ -124,7 +126,7 @@ export function Input({
         paddingRight: sizeConfig.paddingX,
         paddingTop: sizeConfig.paddingY,
         paddingBottom: sizeConfig.paddingY,
-        width: iconOnly ? sizeConfig.height : "100%",
+        width: iconOnly ? sizeConfig.height : fullWidth ? "100%" : "fit-content",
         height: iconOnly ? sizeConfig.height : sizeConfig.height,
         justifyContent: iconOnly ? "center" : "flex-start",
         cursor: disabled ? "not-allowed" : "text",
@@ -133,7 +135,7 @@ export function Input({
       };
 
       return baseStyles;
-    }, [sizeConfig, borderColor, rounded, borderRadius, iconOnly, disabled]);
+    }, [sizeConfig, borderColor, rounded, borderRadius, iconOnly, disabled, fullWidth]);
 
     const labelStyles = useMemo(() => {
       return {
@@ -189,14 +191,14 @@ export function Input({
       fontFamily: "var(--font-secondary)",
       color: hasValue ? "var(--fg-neutral-secondary)" : disabled ? "var(--fg-disabled)" : "var(--fg-disabled)",
       fontWeight: hasValue ? 500 : 400,
-      flex: iconOnly ? "none" : "1 0 0",
+      flex: iconOnly || !fullWidth ? "none" : "1 0 0",
       minWidth: iconOnly ? "auto" : 0,
       minHeight: iconOnly ? "auto" : 0,
       border: "none",
       background: "transparent",
       outline: "none",
       padding: 0,
-      width: "100%",
+      width: fullWidth ? "100%" : "auto",
     };
 
     const [isHovered, setIsHovered] = useState(false);
@@ -217,7 +219,7 @@ export function Input({
 
     if (iconOnly) {
       return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: fullWidth ? "100%" : "fit-content" }}>
           <div 
             style={containerStylesWithHover}
             onMouseEnter={() => !disabled && setIsHovered(true)}
@@ -239,13 +241,13 @@ export function Input({
     }
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "100%" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: fullWidth ? "100%" : "fit-content" }}>
         {showLabel && label && (
           <label htmlFor={rest.id} style={labelStyles}>
             {label}
           </label>
         )}
-        <div 
+        <div
           style={containerStylesWithHover}
           onMouseEnter={() => !disabled && setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

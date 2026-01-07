@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, IBM_Plex_Serif } from "next/font/google";
+import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
 import "@/tokens/generated/index.css";
@@ -15,6 +15,20 @@ const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-ibm-plex-serif",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -40,7 +54,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${ibmPlexSerif.variable}`}
+      className={`${dmSans.variable} ${ibmPlexSerif.variable} ${inter.variable} ${geistMono.variable}`}
     >
       <head>
         <script

@@ -23,11 +23,11 @@
     },
     "☀ Brand": {
       "modes": {
-        "Light": [
-          "☀ Brand.Light.tokens.json"
-        ],
         "Dark": [
           "☀ Brand.Dark.tokens.json"
+        ],
+        "Light": [
+          "☀ Brand.Light.tokens.json"
         ]
       }
     },

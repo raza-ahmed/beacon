@@ -110,31 +110,46 @@
   --scale-900: 96px;
   --scale-1000: 128px;
   --scale-2000: 512px;
-  --fonts-inter-style-inter: Inter;
-  --fonts-inter-weight-regular: 400;
-  --fonts-inter-weight-medium: 500;
-  --fonts-inter-weight-semibold: 600;
-  --fonts-inter-weight-bold: 700;
-  --fonts-dm-sans-style-dm-sans: DM Sans;
-  --fonts-dm-sans-weight-regular: 400;
-  --fonts-dm-sans-weight-medium: 500;
-  --fonts-dm-sans-weight-semibold: 600;
-  --fonts-dm-sans-weight-bold: 700;
-  --fonts-ibm-plex-serif-style-ibm-plex-serif: IBM Plex Serif;
-  --fonts-ibm-plex-serif-weight-regular: 400;
-  --fonts-ibm-plex-serif-weight-medium: 500;
-  --fonts-ibm-plex-serif-weight-semibold: 600;
-  --fonts-geist-mono-style-geist-mono: Geist Mono;
+  --fonts-geist-mono-style-geist-mono: var(--font-geist-mono), monospace;
   --fonts-geist-mono-weight-regular: 400;
   --fonts-geist-mono-weight-medium: 500;
   --fonts-geist-mono-weight-semibold: 600;
   --fonts-geist-mono-weight-bold: 700;
+  --fonts-ibm-plex-serif-style-ibm-plex-serif: var(--font-ibm-plex-serif), serif;
+  --fonts-ibm-plex-serif-weight-regular: 400;
+  --fonts-ibm-plex-serif-weight-medium: 500;
+  --fonts-ibm-plex-serif-weight-semibold: 600;
+  --fonts-ibm-plex-serif-weight-bold: 700;
+  --fonts-dm-sans-style-dm-sans: var(--font-dm-sans), sans-serif;
+  --fonts-dm-sans-weight-regular: 400;
+  --fonts-dm-sans-weight-medium: 500;
+  --fonts-dm-sans-weight-semibold: 600;
+  --fonts-dm-sans-weight-bold: 700;
+  --fonts-inter-style-inter: var(--font-inter), sans-serif;
+  --fonts-inter-weight-regular: 400;
+  --fonts-inter-weight-medium: 500;
+  --fonts-inter-weight-semibold: 600;
+  --fonts-inter-weight-bold: 700;
 }
 
 /* Semantic tokens - all hue variants */
 
 /* chromatic-prime */
 :root, [data-hue="chromatic-prime"] {
+  --font-primary: var(--fonts-geist-mono-style-geist-mono);
+  --font-secondary: var(--fonts-inter-style-inter);
+  --font-weight-primary-regular: var(--fonts-geist-mono-weight-regular);
+  --font-weight-primary-medium: var(--fonts-geist-mono-weight-medium);
+  --font-weight-primary-semibold: var(--fonts-geist-mono-weight-semibold);
+  --font-weight-primary-bold: var(--fonts-geist-mono-weight-bold);
+  --font-weight-secondary-regular: var(--fonts-inter-weight-regular);
+  --font-weight-secondary-medium: var(--fonts-inter-weight-medium);
+  --font-weight-secondary-semibold: var(--fonts-inter-weight-semibold);
+  --font-weight-secondary-bold: var(--fonts-inter-weight-bold);
+  --font-weight-regular: var(--font-weight-secondary-regular);
+  --font-weight-medium: var(--font-weight-secondary-medium);
+  --font-weight-semibold: var(--font-weight-secondary-semibold);
+  --font-weight-bold: var(--font-weight-secondary-bold);
   --color-primary-100: var(--color-chromatic-100);
   --color-primary-200: var(--color-chromatic-200);
   --color-primary-300: var(--color-chromatic-300);
@@ -148,6 +163,20 @@
 
 /* hue-sky */
 [data-hue="hue-sky"] {
+  --font-primary: var(--fonts-ibm-plex-serif-style-ibm-plex-serif);
+  --font-secondary: var(--fonts-dm-sans-style-dm-sans);
+  --font-weight-primary-regular: var(--fonts-ibm-plex-serif-weight-regular);
+  --font-weight-primary-medium: var(--fonts-ibm-plex-serif-weight-medium);
+  --font-weight-primary-semibold: var(--fonts-ibm-plex-serif-weight-semibold);
+  --font-weight-primary-bold: var(--fonts-ibm-plex-serif-weight-bold);
+  --font-weight-secondary-regular: var(--fonts-dm-sans-weight-regular);
+  --font-weight-secondary-medium: var(--fonts-dm-sans-weight-medium);
+  --font-weight-secondary-semibold: var(--fonts-dm-sans-weight-semibold);
+  --font-weight-secondary-bold: var(--fonts-dm-sans-weight-bold);
+  --font-weight-regular: var(--font-weight-secondary-regular);
+  --font-weight-medium: var(--font-weight-secondary-medium);
+  --font-weight-semibold: var(--font-weight-secondary-semibold);
+  --font-weight-bold: var(--font-weight-secondary-bold);
   --color-primary-100: var(--color-blue-100);
   --color-primary-200: var(--color-blue-200);
   --color-primary-300: var(--color-blue-300);
@@ -161,6 +190,20 @@
 
 /* hue-indigo */
 [data-hue="hue-indigo"] {
+  --font-primary: var(--fonts-ibm-plex-serif-style-ibm-plex-serif);
+  --font-secondary: var(--fonts-geist-mono-style-geist-mono);
+  --font-weight-primary-regular: var(--fonts-ibm-plex-serif-weight-regular);
+  --font-weight-primary-medium: var(--fonts-ibm-plex-serif-weight-medium);
+  --font-weight-primary-semibold: var(--fonts-ibm-plex-serif-weight-semibold);
+  --font-weight-primary-bold: var(--fonts-ibm-plex-serif-weight-bold);
+  --font-weight-secondary-regular: var(--fonts-geist-mono-weight-regular);
+  --font-weight-secondary-medium: var(--fonts-geist-mono-weight-medium);
+  --font-weight-secondary-semibold: var(--fonts-geist-mono-weight-semibold);
+  --font-weight-secondary-bold: var(--fonts-geist-mono-weight-bold);
+  --font-weight-regular: var(--font-weight-secondary-regular);
+  --font-weight-medium: var(--font-weight-secondary-medium);
+  --font-weight-semibold: var(--font-weight-secondary-semibold);
+  --font-weight-bold: var(--font-weight-secondary-bold);
   --color-primary-100: var(--color-purple-100);
   --color-primary-200: var(--color-purple-200);
   --color-primary-300: var(--color-purple-300);
@@ -706,26 +749,8 @@
   --drop-shadow-500: 0px 18px 88px -4px var(--shadow-subtle), 0px 8px 28px -6px var(--shadow-subtle);
 }
 
-/* Typography tokens */
-:root {
-  /* Font families mapped from primitives */
-  --font-primary: var(--fonts-ibm-plex-serif-style-ibm-plex-serif), serif;
-  --font-secondary: var(--fonts-dm-sans-style-dm-sans), sans-serif;
-
-  /* Font weight tokens mapped from primitives */
-  --font-weight-regular: var(--fonts-dm-sans-weight-regular);
-  --font-weight-medium: var(--fonts-dm-sans-weight-medium);
-  --font-weight-semibold: var(--fonts-dm-sans-weight-semibold);
-  --font-weight-bold: var(--fonts-dm-sans-weight-bold);
-  --font-weight-primary-regular: var(--fonts-ibm-plex-serif-weight-regular);
-  --font-weight-primary-medium: var(--fonts-ibm-plex-serif-weight-medium);
-  --font-weight-primary-semibold: var(--fonts-ibm-plex-serif-weight-semibold);
-  --font-weight-primary-bold: var(--font-weight-bold);
-  --font-weight-secondary-regular: var(--fonts-dm-sans-weight-regular);
-  --font-weight-secondary-medium: var(--fonts-dm-sans-weight-medium);
-  --font-weight-secondary-semibold: var(--fonts-dm-sans-weight-semibold);
-  --font-weight-secondary-bold: var(--fonts-dm-sans-weight-bold);
-}
+/* Typography utility classes */
+/* Font variables (--font-primary, --font-secondary, weights) are defined in semantic.css per hue */
 
 /* Typography utility classes */
 .text-title-small {
@@ -742,21 +767,21 @@
 }
 .text-heading-h1 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-secondary-semibold);
+  font-weight: var(--font-weight-primary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h1-text-size);
   line-height: var(--fonts-heading-h1-line-height);
 }
 .text-heading-h2 {
-  font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-semibold);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-primary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h2-text-size);
   line-height: var(--fonts-heading-h2-line-height);
 }
 .text-heading-h3 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-secondary-semibold);
+  font-weight: var(--font-weight-primary-semibold);
   text-transform: capitalize;
   font-size: var(--fonts-heading-h3-text-size);
   line-height: var(--fonts-heading-h3-line-height);
@@ -790,7 +815,7 @@
 }
 .text-body1-medium {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-medium);
+  font-weight: var(--font-weight-secondary-regular);
   font-size: var(--fonts-body-extra-small-text-size);
   line-height: var(--fonts-body-extra-small-line-height);
 }

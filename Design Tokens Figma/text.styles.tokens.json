@@ -3,9 +3,9 @@
     "Small": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Title.Small.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Title.Small.Line Height}",
         "textTransform": "none",
@@ -15,9 +15,9 @@
     "Regular": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Title.Regular.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Title.Regular.Line Height}",
         "textTransform": "none",
@@ -29,9 +29,9 @@
     "H1": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Font.Primary}",
+        "fontFamily": "{Font.Primary.Family}",
         "fontSize": "{Fonts.Heading.H1.Text Size}",
-        "fontWeight": "{Fonts.IBM Plex Serif.Weight.Semibold}",
+        "fontWeight": "{Font.Primary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H1.Line Height}",
         "textTransform": "capitalize",
@@ -41,9 +41,9 @@
     "H2": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.IBM Plex Serif.Style.IBM Plex Serif}",
+        "fontFamily": "{Font.Primary.Family}",
         "fontSize": "{Fonts.Heading.H2.Text Size}",
-        "fontWeight": "{Fonts.IBM Plex Serif.Weight.Semibold}",
+        "fontWeight": "{Font.Primary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H2.Line Height}",
         "textTransform": "capitalize",
@@ -53,9 +53,9 @@
     "H3": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Font.Primary}",
+        "fontFamily": "{Font.Primary.Family}",
         "fontSize": "{Fonts.Heading.H3.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
+        "fontWeight": "{Font.Primary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H3.Line Height}",
         "textTransform": "capitalize",
@@ -65,9 +65,9 @@
     "H4": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Heading.H4.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
+        "fontWeight": "{Font.Secondary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H4.Line Height}",
         "textTransform": "capitalize",
@@ -77,9 +77,9 @@
     "H5": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Heading.H5.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
+        "fontWeight": "{Font.Secondary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H5.Line Height}",
         "textTransform": "capitalize",
@@ -89,9 +89,9 @@
     "H6": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Heading.H6.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Semibold}",
+        "fontWeight": "{Font.Secondary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H6.Line Height}",
         "textTransform": "capitalize",
@@ -103,9 +103,9 @@
     "Regular": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Extra Small.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Regular}",
+        "fontWeight": "{Font.Secondary.Weight.Regular}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Extra Small.Line Height}",
         "textTransform": "none",
@@ -115,9 +115,9 @@
     "Medium": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Extra Small.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Font.Secondary.Weight.Regular}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Extra Small.Line Height}",
         "textTransform": "none",
@@ -129,9 +129,9 @@
     "Regular": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Small.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Regular}",
+        "fontWeight": "{Font.Secondary.Weight.Regular}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Small.Line Height}",
         "textTransform": "none",
@@ -141,9 +141,9 @@
     "Medium": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Small.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Small.Line Height}",
         "textTransform": "none",
@@ -155,9 +155,9 @@
     "Regular": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Regular.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Regular}",
+        "fontWeight": "{Font.Secondary.Weight.Regular}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Regular.Line Height}",
         "textTransform": "none",
@@ -167,9 +167,9 @@
     "Medium": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Regular.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Regular.Line Height}",
         "textTransform": "none",
@@ -181,9 +181,9 @@
     "Regular": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Medium.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Regular}",
+        "fontWeight": "{Font.Secondary.Weight.Regular}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Medium.Line Height}",
         "textTransform": "none",
@@ -193,9 +193,9 @@
     "Medium": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{Fonts.DM Sans.Style.DM Sans}",
+        "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Medium.Text Size}",
-        "fontWeight": "{Fonts.DM Sans.Weight.Medium}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Medium.Line Height}",
         "textTransform": "none",

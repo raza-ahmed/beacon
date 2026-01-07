@@ -145,15 +145,18 @@ export function Header({ onMenuClick }: HeaderProps) {
         <div className="ds-header__hue-select" ref={dropdownRef}>
           <div
             onClick={() => setIsHueDropdownOpen(!isHueDropdownOpen)}
-            style={{ cursor: "pointer", display: "inline-flex", width: "fit-content" }}
+            className="ds-header__hue-input-wrapper"
           >
             <Input
+              id="hue-selector"
+              name="hue-selector"
               value={currentHueLabel}
               readOnly
               size="sm"
               startIcon={<PaletteIcon size="xs" />}
               endIcon={<ChevronDownIcon size="xs" />}
               showLabel={false}
+              fullWidth={false}
               style={{ pointerEvents: "none", cursor: "pointer" }}
               aria-expanded={isHueDropdownOpen}
               aria-haspopup="listbox"

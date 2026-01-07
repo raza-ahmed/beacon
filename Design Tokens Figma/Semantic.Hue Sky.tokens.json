@@ -367,12 +367,52 @@
   },
   "Font": {
     "Primary": {
-      "$type": "string",
-      "$value": "{Fonts.IBM_Plex_Serif.Style.IBM_Plex_Serif}"
+      "Family": {
+        "$type": "string",
+        "$value": "{Font.IBM_Plex_Serif.IBM_Plex_Serif}"
+      },
+      "Weight": {
+        "Regular": {
+          "$type": "string",
+          "$value": "{Font.IBM_Plex_Serif.Weight.Regular}"
+        },
+        "Medium": {
+          "$type": "string",
+          "$value": "{Font.IBM_Plex_Serif.Weight.Medium}"
+        },
+        "Semibold": {
+          "$type": "string",
+          "$value": "{Font.IBM_Plex_Serif.Weight.Semibold}"
+        },
+        "Bold": {
+          "$type": "string",
+          "$value": "{Font.IBM_Plex_Serif.Weight.Bold}"
+        }
+      }
     },
     "Secondary": {
-      "$type": "string",
-      "$value": "{Fonts.DM_Sans.Style.DM_Sans}"
+      "Family": {
+        "$type": "string",
+        "$value": "{Font.DM_Sans.DM_Sans}"
+      },
+      "Weight": {
+        "Regular": {
+          "$type": "string",
+          "$value": "{Font.DM_Sans.Weight.Regular}"
+        },
+        "Medium": {
+          "$type": "string",
+          "$value": "{Font.DM_Sans.Weight.Medium}"
+        },
+        "Semibold": {
+          "$type": "string",
+          "$value": "{Font.DM_Sans.Weight.Semibold}"
+        },
+        "Bold": {
+          "$type": "string",
+          "$value": "{Font.DM_Sans.Weight.Bold}"
+        }
+      }
     }
   },
   "Icon_Size": {

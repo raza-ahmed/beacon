@@ -182,6 +182,40 @@ function readTokenFile(filename: string): TokenFile {
 }
 
 /**
+ * Convert font weight string to numeric value
+ */
+function fontWeightToNumeric(weight: string): string {
+  const normalized = weight.toLowerCase().replace(/\s+/g, "");
+  if (normalized.includes("bold") && !normalized.includes("semi")) {
+    return "700";
+  } else if (normalized.includes("semibold")) {
+    return "600";
+  } else if (normalized.includes("medium")) {
+    return "500";
+  } else if (normalized.includes("regular") || normalized.includes("normal")) {
+    return "400";
+  }
+  return weight;
+}
+
+/**
+ * Check if Font section has per-font structure (Font.Inter.Inter, Font.Inter.Weight)
+ */
+function hasPerFontStructure(fontSection: TokenFile): boolean {
+  // Check if any direct child has both a name token and Weight subobject
+  for (const [key, value] of Object.entries(fontSection)) {
+    if (value && typeof value === "object" && !("$type" in value)) {
+      const fontObj = value as TokenFile;
+      // Check for font name token (e.g., Font.Inter.Inter) and Weight subobject
+      if (fontObj[key] && fontObj.Weight) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+/**
  * Generate CSS for primitive tokens
  */
 function generatePrimitivesCss(): string {
@@ -189,7 +223,16 @@ function generatePrimitivesCss(): string {
   const tokens = extractTokens(primitives);
   const lines: string[] = ["/* Primitive tokens - raw values */", ":root {"];
 
+  // Check Font structure type
+  const fontSection = primitives.Font as TokenFile | undefined;
+  const isPerFontStructure = fontSection && hasPerFontStructure(fontSection);
+
   for (const [tokenPath, { type, value }] of tokens) {
+    // Skip Font tokens - we'll handle them separately based on structure
+    if (tokenPath.startsWith("Font.")) {
+      continue;
+    }
+
     const cssVar = tokenPathToCssVar(tokenPath);
     let cssValue = tokenValueToCss(value, type, primitiveValues);
 
@@ -201,16 +244,7 @@ function generatePrimitivesCss(): string {
       cssVar.startsWith("--fonts-") &&
       cssVar.includes("-weight-")
     ) {
-      const normalized = value.toLowerCase().replace(/\s+/g, "");
-      if (normalized.includes("bold") && !normalized.includes("semi")) {
-        cssValue = "700";
-      } else if (normalized.includes("semibold")) {
-        cssValue = "600";
-      } else if (normalized.includes("medium")) {
-        cssValue = "500";
-      } else if (normalized.includes("regular")) {
-        cssValue = "400";
-      }
+      cssValue = fontWeightToNumeric(value);
     }
 
     // Store for later reference resolution
@@ -219,6 +253,76 @@ function generatePrimitivesCss(): string {
     }
 
     lines.push(`  ${cssVar}: ${cssValue};`);
+  }
+
+  // Font key to Next.js variable mapping
+  const fontVarMapping: Record<string, { variable: string; fallback: string }> = {
+    "Inter": { variable: "--font-inter", fallback: "sans-serif" },
+    "DM_Sans": { variable: "--font-dm-sans", fallback: "sans-serif" },
+    "IBM_Plex_Serif": { variable: "--font-ibm-plex-serif", fallback: "serif" },
+    "Geist_Mono": { variable: "--font-geist-mono", fallback: "monospace" },
+  };
+
+  // Handle Font tokens based on structure
+  if (fontSection) {
+    if (isPerFontStructure) {
+      // Per-font structure: Font.Inter.Inter, Font.Inter.Weight.Regular, etc.
+      for (const [fontKey, fontValue] of Object.entries(fontSection)) {
+        if (!fontValue || typeof fontValue !== "object" || "$type" in fontValue) continue;
+
+        const fontObj = fontValue as TokenFile;
+        const fontKeyLower = fontKey.toLowerCase().replace(/_/g, "-");
+
+        // Get font name from nested token (e.g., Font.Inter.Inter)
+        const fontNameToken = fontObj[fontKey] as Token | undefined;
+        if (fontNameToken && fontNameToken.$value) {
+          const fontNameStr = String(fontNameToken.$value);
+          const fontNameLower = fontNameStr.toLowerCase().replace(/\s+/g, "-");
+
+          // Get Next.js font variable mapping
+          const fontMapping = fontVarMapping[fontKey];
+          const fontValue = fontMapping
+            ? `var(${fontMapping.variable}), ${fontMapping.fallback}`
+            : fontNameStr;
+
+          // Generate font style variable: --fonts-inter-style-inter: var(--font-inter), sans-serif;
+          const styleVar = `--fonts-${fontKeyLower}-style-${fontNameLower}`;
+          lines.push(`  ${styleVar}: ${fontValue};`);
+          primitiveValues.set(`Font.${fontKey}.${fontKey}`, fontValue);
+        }
+
+        // Get weights from Font.Inter.Weight
+        const weightObj = fontObj.Weight as TokenFile | undefined;
+        if (weightObj) {
+          for (const [weightKey, weightValue] of Object.entries(weightObj)) {
+            if (!weightValue || typeof weightValue !== "object" || !("$value" in weightValue)) continue;
+
+            const weightToken = weightValue as Token;
+            const weightKeyLower = weightKey.toLowerCase();
+            const numericWeight = fontWeightToNumeric(String(weightToken.$value));
+
+            // Generate weight variable: --fonts-inter-weight-regular: 400;
+            const weightVar = `--fonts-${fontKeyLower}-weight-${weightKeyLower}`;
+            lines.push(`  ${weightVar}: ${numericWeight};`);
+            primitiveValues.set(`Font.${fontKey}.Weight.${weightKey}`, numericWeight);
+          }
+        }
+      }
+    } else {
+      // Shared structure: Font.Style.Inter, Font.Weight.Regular (handled by extractTokens)
+      const fontTokens = extractTokens(fontSection, "Font");
+      for (const [tokenPath, { value }] of fontTokens) {
+        const cssVar = tokenPathToCssVar(tokenPath);
+        let cssValue = String(value);
+
+        if (cssVar.includes("-weight-")) {
+          cssValue = fontWeightToNumeric(cssValue);
+        }
+
+        lines.push(`  ${cssVar}: ${cssValue};`);
+        primitiveValues.set(tokenPath, cssValue);
+      }
+    }
   }
 
   lines.push("}");
@@ -235,6 +339,87 @@ const HUE_VARIANTS = [
 ] as const;
 
 /**
+ * Resolve a font reference to CSS variable
+ * e.g., "{Font.IBM_Plex_Serif.IBM_Plex_Serif}" -> "var(--fonts-ibm-plex-serif-style-ibm-plex-serif)"
+ */
+function resolveFontReference(ref: string): string {
+  const match = ref.match(/^\{Font\.([^.]+)\.([^.]+)\}$/);
+  if (!match) return ref;
+
+  const fontKey = match[1].toLowerCase().replace(/_/g, "-");
+  const fontName = match[2].toLowerCase().replace(/_/g, "-");
+  return `var(--fonts-${fontKey}-style-${fontName})`;
+}
+
+/**
+ * Resolve a font weight reference to CSS variable
+ * e.g., "{Font.IBM_Plex_Serif.Weight.Semibold}" -> "var(--fonts-ibm-plex-serif-weight-semibold)"
+ */
+function resolveFontWeightReference(ref: string): string {
+  const match = ref.match(/^\{Font\.([^.]+)\.Weight\.([^}]+)\}$/);
+  if (!match) return ref;
+
+  const fontKey = match[1].toLowerCase().replace(/_/g, "-");
+  const weight = match[2].toLowerCase();
+  return `var(--fonts-${fontKey}-weight-${weight})`;
+}
+
+/**
+ * Generate font CSS variables from semantic Font section
+ */
+function generateFontVarsFromSemantic(fontSection: TokenFile): string[] {
+  const lines: string[] = [];
+
+  // Get Primary font config
+  const primaryFamily = (fontSection.Primary as TokenFile)?.Family as Token;
+  const primaryWeights = (fontSection.Primary as TokenFile)?.Weight as TokenFile;
+
+  // Get Secondary font config
+  const secondaryFamily = (fontSection.Secondary as TokenFile)?.Family as Token;
+  const secondaryWeights = (fontSection.Secondary as TokenFile)?.Weight as TokenFile;
+
+  if (primaryFamily?.$value) {
+    const familyRef = String(primaryFamily.$value);
+    lines.push(`  --font-primary: ${resolveFontReference(familyRef)};`);
+  }
+
+  if (secondaryFamily?.$value) {
+    const familyRef = String(secondaryFamily.$value);
+    lines.push(`  --font-secondary: ${resolveFontReference(familyRef)};`);
+  }
+
+  // Primary weights
+  if (primaryWeights) {
+    for (const [weightName, weightToken] of Object.entries(primaryWeights)) {
+      if (weightToken && typeof weightToken === "object" && "$value" in weightToken) {
+        const weightRef = String((weightToken as Token).$value);
+        lines.push(`  --font-weight-primary-${weightName.toLowerCase()}: ${resolveFontWeightReference(weightRef)};`);
+      }
+    }
+  }
+
+  // Secondary weights
+  if (secondaryWeights) {
+    for (const [weightName, weightToken] of Object.entries(secondaryWeights)) {
+      if (weightToken && typeof weightToken === "object" && "$value" in weightToken) {
+        const weightRef = String((weightToken as Token).$value);
+        lines.push(`  --font-weight-secondary-${weightName.toLowerCase()}: ${resolveFontWeightReference(weightRef)};`);
+      }
+    }
+  }
+
+  // Default weights (use secondary)
+  if (secondaryWeights) {
+    lines.push(`  --font-weight-regular: var(--font-weight-secondary-regular);`);
+    lines.push(`  --font-weight-medium: var(--font-weight-secondary-medium);`);
+    lines.push(`  --font-weight-semibold: var(--font-weight-secondary-semibold);`);
+    lines.push(`  --font-weight-bold: var(--font-weight-secondary-bold);`);
+  }
+
+  return lines;
+}
+
+/**
  * Generate CSS for all semantic token hue variants
  * Tokens that differ between hues get data-hue selectors
  * Shared tokens go in :root
@@ -244,17 +429,19 @@ function generateSemanticCss(): string {
   const hueTokens = HUE_VARIANTS.map((hue) => ({
     ...hue,
     tokens: extractTokens(readTokenFile(hue.file)),
+    rawFile: readTokenFile(hue.file),
   }));
 
   // Get the default (chromatic-prime) tokens as baseline
-  const defaultTokens = hueTokens.find((h) => h.isDefault)!.tokens;
+  const defaultHue = hueTokens.find((h) => h.isDefault)!;
+  const defaultTokens = defaultHue.tokens;
 
-  // Identify which tokens differ between hue variants
+  // Identify which tokens differ between hue variants (excluding Font)
   const differingTokenPaths = new Set<string>();
   const sharedTokenPaths = new Set<string>();
 
   for (const [tokenPath] of defaultTokens) {
-    // Skip Font tokens - handled in typography.css
+    // Skip Font tokens - handled separately
     if (tokenPath.startsWith("Font.")) continue;
 
     // Check if this token differs across hue variants
@@ -273,7 +460,7 @@ function generateSemanticCss(): string {
 
   const lines: string[] = ["/* Semantic tokens - all hue variants */", ""];
 
-  // Generate hue-specific CSS for each variant
+  // Generate hue-specific CSS for each variant (including fonts)
   for (const hue of hueTokens) {
     const selector = hue.isDefault
       ? `:root, [data-hue="${hue.name}"]`
@@ -281,6 +468,13 @@ function generateSemanticCss(): string {
 
     lines.push(`/* ${hue.name} */`);
     lines.push(`${selector} {`);
+
+    // Generate font variables for this hue
+    const fontSection = hue.rawFile.Font as TokenFile | undefined;
+    if (fontSection) {
+      const fontLines = generateFontVarsFromSemantic(fontSection);
+      lines.push(...fontLines);
+    }
 
     for (const tokenPath of differingTokenPaths) {
       const token = hue.tokens.get(tokenPath);
@@ -547,59 +741,13 @@ function getFontWeightCssVar(fontKey: string, weight: string): string {
 
 /**
  * Generate CSS for typography tokens
+ * Note: Font family and weight variables are now generated in semantic.css per hue variant
  */
 function generateTypographyCss(): string {
   const typography = readTokenFile("text.styles.tokens.json");
   const tokens = extractTokens(typography);
   const config = loadTypographyConfig();
-  const lines: string[] = ["/* Typography tokens */"];
-
-  // Generate CSS custom properties for typography
-  lines.push(":root {");
-  lines.push("  /* Font families mapped from primitives */");
-  
-  // Get primary and secondary font configurations
-  const primaryFont = config.availableFonts[config.primary.font];
-  const secondaryFont = config.availableFonts[config.secondary.font];
-  
-  if (!primaryFont || !secondaryFont) {
-    throw new Error("Primary or secondary font not found in available fonts");
-  }
-  
-  lines.push(`  --font-primary: var(${getFontCssVar(config.primary.font, config)}), ${config.primary.fallback};`);
-  lines.push(`  --font-secondary: var(${getFontCssVar(config.secondary.font, config)}), ${config.secondary.fallback};`);
-  lines.push("");
-  lines.push("  /* Font weight tokens mapped from primitives */");
-  
-  // Default weights use secondary font
-  lines.push(`  --font-weight-regular: var(${getFontWeightCssVar(config.secondary.font, "regular")});`);
-  lines.push(`  --font-weight-medium: var(${getFontWeightCssVar(config.secondary.font, "medium")});`);
-  lines.push(`  --font-weight-semibold: var(${getFontWeightCssVar(config.secondary.font, "semibold")});`);
-  lines.push(`  --font-weight-bold: var(${getFontWeightCssVar(config.secondary.font, "bold")});`);
-  
-  // Primary font weights - check if font has bold weight in primitives
-  const primitives = readTokenFile("Primitives.Value.tokens.json");
-  const fontTokens = extractTokens((primitives.Fonts as TokenFile)?.[config.primary.font] as TokenFile || {});
-  const primaryHasBold = Array.from(fontTokens.keys()).some(key => 
-    key.toLowerCase().includes("bold") && !key.toLowerCase().includes("semibold")
-  );
-  
-  lines.push(`  --font-weight-primary-regular: var(${getFontWeightCssVar(config.primary.font, "regular")});`);
-  lines.push(`  --font-weight-primary-medium: var(${getFontWeightCssVar(config.primary.font, "medium")});`);
-  lines.push(`  --font-weight-primary-semibold: var(${getFontWeightCssVar(config.primary.font, "semibold")});`);
-  if (primaryHasBold) {
-    lines.push(`  --font-weight-primary-bold: var(${getFontWeightCssVar(config.primary.font, "bold")});`);
-  } else {
-    // Fallback to bold weight if primary font doesn't have bold
-    lines.push("  --font-weight-primary-bold: var(--font-weight-bold);");
-  }
-  
-  // Secondary font weights
-  lines.push(`  --font-weight-secondary-regular: var(${getFontWeightCssVar(config.secondary.font, "regular")});`);
-  lines.push(`  --font-weight-secondary-medium: var(${getFontWeightCssVar(config.secondary.font, "medium")});`);
-  lines.push(`  --font-weight-secondary-semibold: var(${getFontWeightCssVar(config.secondary.font, "semibold")});`);
-  lines.push(`  --font-weight-secondary-bold: var(${getFontWeightCssVar(config.secondary.font, "bold")});`);
-  lines.push("}");
+  const lines: string[] = ["/* Typography utility classes */", "/* Font variables (--font-primary, --font-secondary, weights) are defined in semantic.css per hue */"];
 
   // Helper function to determine if a font reference matches primary or secondary
   function isPrimaryFont(fontRef: string, config: ReturnType<typeof loadTypographyConfig>): boolean {
