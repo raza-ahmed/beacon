@@ -16,9 +16,9 @@ import { SearchResults } from "./SearchResults";
 import { navigationData } from "./Sidebar";
 import { flattenNavigationData, searchNavigation } from "@/utils/search";
 import { getVersionString } from "@/constants/version";
-import { Input } from "beacon-ui";
+import { Select, type SelectOption } from "beacon-ui";
 
-const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
+const HUE_OPTIONS: SelectOption[] = [
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
   { value: "chromatic-prime", label: "Chromatic" },
@@ -30,15 +30,12 @@ interface HeaderProps {
 
 export function Header({ onMenuClick }: HeaderProps) {
   const { theme, hue, toggleTheme, setHue } = useTheme();
-  const [isHueDropdownOpen, setIsHueDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const currentHueLabel =
-    HUE_OPTIONS.find((opt) => opt.value === hue)?.label || "Hue Indigo";
+  const currentHueValue = hue || "hue-indigo";
 
   // Flatten navigation data once
   const searchableItems = useMemo(
@@ -54,15 +51,9 @@ export function Header({ onMenuClick }: HeaderProps) {
 
   const showSearchResults = isSearchFocused && searchQuery.length >= 2;
 
-  // Close dropdown when clicking outside
+  // Close search when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsHueDropdownOpen(false);
-      }
       // Only close search if clicking outside and not on a search result
       if (
         searchRef.current &&
@@ -142,48 +133,19 @@ export function Header({ onMenuClick }: HeaderProps) {
       <div className="ds-header__end">
         <div className="ds-header__version-badge">{getVersionString("Version:")}</div>
 
-        <div className="ds-header__hue-select" ref={dropdownRef}>
-          <div
-            onClick={() => setIsHueDropdownOpen(!isHueDropdownOpen)}
-            className="ds-header__hue-input-wrapper"
-          >
-            <Input
-              id="hue-selector"
-              name="hue-selector"
-              value={currentHueLabel}
-              readOnly
-              size="sm"
-              startIcon={<PaletteIcon size="xs" />}
-              endIcon={<ChevronDownIcon size="xs" />}
-              showLabel={false}
-              fullWidth={false}
-              style={{ pointerEvents: "none", cursor: "pointer" }}
-              aria-expanded={isHueDropdownOpen}
-              aria-haspopup="listbox"
-              role="combobox"
-            />
-          </div>
-
-          {isHueDropdownOpen && (
-            <div className="ds-header__hue-dropdown" role="listbox">
-              {HUE_OPTIONS.map((option) => (
-                <button
-                  key={option.value}
-                  className={`ds-header__hue-option ${
-                    hue === option.value ? "active" : ""
-                  }`}
-                  onClick={() => {
-                    setHue(option.value);
-                    setIsHueDropdownOpen(false);
-                  }}
-                  role="option"
-                  aria-selected={hue === option.value}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
+        <div className="ds-header__hue-select">
+          <Select
+            id="hue-selector"
+            options={HUE_OPTIONS}
+            selectedValue={currentHueValue}
+            onSelect={(value) => setHue(value as HueVariant)}
+            size="md"
+            showLabel={false}
+            showStartIcon={true}
+            showEndIcon={true}
+            startIcon={<PaletteIcon size="xs" />}
+            fullWidth={false}
+          />
         </div>
 
         <button

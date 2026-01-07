@@ -760,7 +760,7 @@ export default function InputPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input />
+                      <Input fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -803,7 +803,7 @@ export default function InputPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Email" placeholder="Enter your email" />
+                      <Input label="Email" placeholder="Enter your email" fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -852,7 +852,7 @@ export default function InputPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input placeholder="Search" placeholderIcon={<SearchIcon size="xs" />} endIcon={<ChevronDownIcon size="xs" />} />
+                      <Input placeholder="Search" placeholderIcon={<SearchIcon size="xs" />} endIcon={<ChevronDownIcon size="xs" />} fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -905,7 +905,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Email" placeholder="Enter your email" showError />
+                      <Input label="Email" placeholder="Enter your email" showError fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -956,7 +956,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Phone" placeholder="123456789" numberPrefix="+1" />
+                      <Input label="Phone" placeholder="123456789" numberPrefix="+1" fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -1007,7 +1007,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input placeholder="Search" rounded />
+                      <Input placeholder="Search" rounded fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -1056,7 +1056,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input iconOnly placeholderIcon={<SearchIcon size="xs" />} />
+                      <Input iconOnly placeholderIcon={<SearchIcon size="xs" />} fullWidth={false} />
                     </div>
                   </div>
                 </div>
@@ -1107,7 +1107,7 @@ import { SearchIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Email" placeholder="Enter your email" disabled />
+                      <Input label="Email" placeholder="Enter your email" disabled fullWidth={false} />
                     </div>
                   </div>
                 </div>

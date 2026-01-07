@@ -4,8 +4,8 @@ import { useMemo, useState, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "../icons";
 
-export type InputSize = "sm" | "md" | "lg";
-export type InputStatus = "default" | "active";
+export type InputSize = "sm" | "md" | "lg" | "xl";
+export type InputStatus = "default" | "active" | "error" | "disabled";
 
 export interface InputProps extends Omit<ComponentPropsWithRef<"input">, "size"> {
   label?: string;
@@ -75,6 +75,18 @@ const SIZE_CONFIG: Record<
     borderRadius: "var(--corner-radius-200)",
     gap: "var(--spacing-200)",
   },
+  xl: {
+    height: "56px",
+    iconSize: 24,
+    fontSize: "var(--body-regular-text-size)",
+    lineHeight: "var(--body-regular-line-height)",
+    labelFontSize: "var(--body-regular-text-size)",
+    labelLineHeight: "var(--body-regular-line-height)",
+    paddingX: "var(--spacing-450)",
+    paddingY: "var(--spacing-400)",
+    borderRadius: "var(--corner-radius-200)",
+    gap: "var(--spacing-200)",
+  },
 };
 
 export function Input({
@@ -103,16 +115,20 @@ export function Input({
     useThemeSafe(); // Ensure theme context is available
     const sizeConfig = SIZE_CONFIG[size];
     const hasValue = value != null && String(value).length > 0;
+    const isDisabled = disabled || status === "disabled";
 
     const borderColor = useMemo(() => {
-      if (disabled) {
-        return "var(--border-strong-100)";
+      if (isDisabled) {
+        return "var(--border-disabled)";
+      }
+      if (status === "error") {
+        return "var(--border-critical)";
       }
       if (status === "active") {
-        return "var(--border-primary)";
+        return "var(--border-neutral-primary)";
       }
       return "var(--border-strong-200)";
-    }, [status, disabled]);
+    }, [status, isDisabled]);
 
     const inputContainerStyles = useMemo(() => {
       const baseStyles: React.CSSProperties = {
@@ -129,36 +145,44 @@ export function Input({
         width: iconOnly ? sizeConfig.height : fullWidth ? "100%" : "fit-content",
         height: iconOnly ? sizeConfig.height : sizeConfig.height,
         justifyContent: iconOnly ? "center" : "flex-start",
-        cursor: disabled ? "not-allowed" : "text",
-        opacity: disabled ? 0.6 : 1,
+        cursor: isDisabled ? "not-allowed" : "text",
+        opacity: isDisabled ? 0.6 : 1,
         transition: "border-color 0.15s ease",
       };
 
       return baseStyles;
-    }, [sizeConfig, borderColor, rounded, borderRadius, iconOnly, disabled, fullWidth]);
+    }, [sizeConfig, borderColor, rounded, borderRadius, iconOnly, isDisabled, fullWidth]);
 
     const labelStyles = useMemo(() => {
       return {
         fontSize: sizeConfig.labelFontSize,
         lineHeight: sizeConfig.labelLineHeight,
         fontFamily: "var(--font-secondary)",
-        color: disabled ? "var(--fg-disabled)" : "var(--fg-neutral)",
+        color: isDisabled ? "var(--fg-disabled)" : "var(--fg-neutral)",
         marginBottom: "var(--spacing-100)",
       } as React.CSSProperties;
-    }, [sizeConfig, disabled]);
+    }, [sizeConfig, isDisabled]);
 
     const prefixStyles = useMemo(() => {
+      let borderColor = "var(--border-strong-200)";
+      if (isDisabled) {
+        borderColor = "var(--border-disabled)";
+      } else if (status === "error") {
+        borderColor = "var(--border-critical)";
+      } else if (status === "active") {
+        borderColor = "var(--border-strong-100)";
+      }
       return {
         fontSize: sizeConfig.fontSize,
         lineHeight: sizeConfig.lineHeight,
         fontFamily: "var(--font-secondary)",
         color: "var(--fg-neutral-tertiary)",
         paddingRight: "var(--spacing-100)",
-        borderRight: `var(--border-width-25) solid ${status === "active" ? "var(--border-strong-100)" : "var(--border-strong-200)"}`,
+        borderRight: `var(--border-width-25) solid ${borderColor}`,
         display: "flex",
         alignItems: "center",
       } as React.CSSProperties;
-    }, [sizeConfig, status]);
+    }, [sizeConfig, status, isDisabled]);
 
     const errorContainerStyles = useMemo(() => {
       return {
@@ -189,7 +213,7 @@ export function Input({
       fontSize: sizeConfig.fontSize,
       lineHeight: sizeConfig.lineHeight,
       fontFamily: "var(--font-secondary)",
-      color: hasValue ? "var(--fg-neutral-secondary)" : disabled ? "var(--fg-disabled)" : "var(--fg-disabled)",
+      color: hasValue ? "var(--fg-neutral-secondary)" : isDisabled ? "var(--fg-disabled)" : "var(--fg-disabled)",
       fontWeight: hasValue ? 500 : 400,
       flex: iconOnly || !fullWidth ? "none" : "1 0 0",
       minWidth: iconOnly ? "auto" : 0,
@@ -204,11 +228,14 @@ export function Input({
     const [isHovered, setIsHovered] = useState(false);
 
     const hoverBorderColor = useMemo(() => {
-      if (disabled || status === "active") {
+      if (isDisabled) {
+        return borderColor;
+      }
+      if (status === "active" || status === "error") {
         return borderColor;
       }
       return isHovered ? "var(--border-neutral-primary)" : borderColor;
-    }, [disabled, status, isHovered, borderColor]);
+    }, [isDisabled, status, isHovered, borderColor]);
 
     const containerStylesWithHover = useMemo(() => {
       return {
@@ -222,7 +249,7 @@ export function Input({
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: fullWidth ? "100%" : "fit-content" }}>
           <div 
             style={containerStylesWithHover}
-            onMouseEnter={() => !disabled && setIsHovered(true)}
+            onMouseEnter={() => !isDisabled && setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
             {placeholderIcon && (
@@ -249,7 +276,7 @@ export function Input({
         )}
         <div
           style={containerStylesWithHover}
-          onMouseEnter={() => !disabled && setIsHovered(true)}
+          onMouseEnter={() => !isDisabled && setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {startIcon && (
@@ -270,7 +297,7 @@ export function Input({
             type="text"
             value={value}
             placeholder={placeholder}
-            disabled={disabled}
+            disabled={isDisabled}
             className={className}
             style={{ ...inputStyles, ...style }}
             {...rest}
@@ -281,7 +308,7 @@ export function Input({
             </div>
           )}
         </div>
-        {showError && (
+        {(showError || status === "error") && (
           <div style={errorContainerStyles}>
             <div style={{ ...errorIconStyles, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <AlertTriangleErrorIcon size={16} />

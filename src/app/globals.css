@@ -165,7 +165,7 @@ body {
 }
 
 .ds-header__version-badge {
-  padding: var(--spacing-100) var(--spacing-200);
+  padding: var(--spacing-200) var(--spacing-300);
   background-color: var(--bg-primary-tonal);
   border-radius: var(--corner-radius-200);
   font-size: var(--fonts-body-small-text-size);

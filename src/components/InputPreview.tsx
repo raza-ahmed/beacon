@@ -239,7 +239,7 @@ export function InputPreview({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "fit-content" }}>
       {showLabel && (
         <p style={labelStyles}>{label}</p>
       )}
