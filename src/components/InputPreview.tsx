@@ -2,10 +2,11 @@
 
 import { useMemo, useState } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
-import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "./icons";
+import { UserPersonIcon, SearchIcon, CloseIcon, AlertTriangleErrorIcon } from "./icons";
+import type { CornerRadiusStep } from "beacon-ui";
 
-type InputSize = "sm" | "md" | "lg";
-type InputStatus = "default" | "active" | "disabled";
+type InputSize = "sm" | "md" | "lg" | "xl";
+type InputStatus = "default" | "hover" | "active" | "error" | "disabled";
 
 interface InputPreviewProps {
   label?: string;
@@ -17,14 +18,23 @@ interface InputPreviewProps {
   showStartIcon?: boolean;
   showEndIcon?: boolean;
   showPlaceholderIcon?: boolean;
-  showError?: boolean;
   showNumberPrefix?: boolean;
-  rounded?: boolean;
+  cornerRadius?: CornerRadiusStep;
   iconOnly?: boolean;
   disabled?: boolean;
   theme?: Theme;
   hue?: HueVariant;
+  width?: string;
 }
+
+const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
+  0: "var(--corner-radius-none)",
+  1: "var(--corner-radius-100)",
+  2: "var(--corner-radius-200)",
+  3: "var(--corner-radius-300)",
+  4: "var(--corner-radius-400)",
+  5: "var(--corner-radius-full)",
+};
 
 const SIZE_CONFIG: Record<
   InputSize,
@@ -77,6 +87,18 @@ const SIZE_CONFIG: Record<
     borderRadius: "var(--corner-radius-200)",
     gap: "var(--spacing-200)",
   },
+  xl: {
+    height: "56px",
+    iconSize: 24,
+    fontSize: "var(--fonts-body-regular-text-size)",
+    lineHeight: "var(--fonts-body-regular-line-height)",
+    labelFontSize: "var(--fonts-body-regular-text-size)",
+    labelLineHeight: "var(--fonts-body-regular-line-height)",
+    paddingX: "var(--spacing-450)",
+    paddingY: "var(--spacing-400)",
+    borderRadius: "var(--corner-radius-200)",
+    gap: "var(--spacing-200)",
+  },
 };
 
 export function InputPreview({
@@ -89,13 +111,13 @@ export function InputPreview({
   showStartIcon = false,
   showEndIcon = false,
   showPlaceholderIcon = false,
-  showError = false,
   showNumberPrefix = false,
-  rounded = false,
+  cornerRadius = 1,
   iconOnly = false,
   disabled = false,
   theme,
   hue,
+  width,
 }: InputPreviewProps) {
   const sizeConfig = SIZE_CONFIG[size];
   const hasValue = value.length > 0;
@@ -103,10 +125,16 @@ export function InputPreview({
 
   const borderColor = useMemo(() => {
     if (isDisabled) {
-      return "var(--border-strong-100)";
+      return "var(--border-disabled)";
+    }
+    if (status === "error") {
+      return "var(--border-critical)";
     }
     if (status === "active") {
       return "var(--border-primary)";
+    }
+    if (status === "hover") {
+      return "var(--border-neutral-primary)";
     }
     return "var(--border-strong-200)";
   }, [status, isDisabled]);
@@ -117,13 +145,13 @@ export function InputPreview({
       alignItems: "center",
       border: `var(--border-width-25) solid ${borderColor}`,
       backgroundColor: "var(--bg-page-primary)",
-      borderRadius: rounded ? "var(--corner-radius-full)" : sizeConfig.borderRadius,
+      borderRadius: CORNER_RADIUS_MAP[cornerRadius],
       gap: sizeConfig.gap,
       paddingLeft: sizeConfig.paddingX,
       paddingRight: sizeConfig.paddingX,
       paddingTop: sizeConfig.paddingY,
       paddingBottom: sizeConfig.paddingY,
-      width: iconOnly ? sizeConfig.height : "100%",
+      width: width || (iconOnly ? sizeConfig.height : "100%"),
       height: iconOnly ? sizeConfig.height : sizeConfig.height,
       justifyContent: iconOnly ? "center" : "flex-start",
       cursor: isDisabled ? "not-allowed" : "text",
@@ -132,7 +160,7 @@ export function InputPreview({
     };
 
     return baseStyles;
-  }, [sizeConfig, borderColor, rounded, iconOnly, isDisabled]);
+  }, [sizeConfig, borderColor, cornerRadius, iconOnly, isDisabled, width]);
 
   const textStyles = useMemo(() => {
     return {
@@ -140,7 +168,7 @@ export function InputPreview({
       lineHeight: sizeConfig.lineHeight,
       fontFamily: "var(--font-secondary)",
       color: hasValue
-        ? "var(--fg-neutral-secondary)"
+        ? "var(--fg-neutral)"
         : isDisabled
         ? "var(--fg-disabled)"
         : "var(--fg-disabled)",
@@ -164,7 +192,10 @@ export function InputPreview({
   const [isHovered, setIsHovered] = useState(false);
 
   const hoverBorderColor = useMemo(() => {
-    if (isDisabled || status === "active") {
+    if (isDisabled) {
+      return borderColor;
+    }
+    if (status === "active" || status === "error") {
       return borderColor;
     }
     return isHovered ? "var(--border-neutral-primary)" : borderColor;
@@ -178,13 +209,21 @@ export function InputPreview({
   }, [inputContainerStyles, hoverBorderColor]);
 
   const prefixStyles = useMemo(() => {
+    let borderColor = "var(--border-strong-200)";
+    if (status === "error") {
+      borderColor = "var(--border-critical)";
+    } else if (status === "active") {
+      borderColor = "var(--border-primary)";
+    } else if (status === "hover") {
+      borderColor = "var(--border-neutral-primary)";
+    }
     return {
       fontSize: sizeConfig.fontSize,
       lineHeight: sizeConfig.lineHeight,
       fontFamily: "var(--font-secondary)",
       color: "var(--fg-neutral-tertiary)",
       paddingRight: "var(--spacing-100)",
-      borderRight: `var(--border-width-25) solid ${status === "active" ? "var(--border-strong-100)" : "var(--border-strong-200)"}`,
+      borderRight: `var(--border-width-25) solid ${borderColor}`,
       display: "flex",
       alignItems: "center",
     } as React.CSSProperties;
@@ -239,7 +278,7 @@ export function InputPreview({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "fit-content" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: width ? "fit-content" : "100%" }}>
       {showLabel && (
         <p style={labelStyles}>{label}</p>
       )}
@@ -266,13 +305,13 @@ export function InputPreview({
         ) : (
           <p style={textStyles}>{placeholder}</p>
         )}
-        {showEndIcon && (
+        {(showEndIcon || hasValue) && (
           <div style={{ color: "var(--fg-neutral-tertiary)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <ChevronDownIcon size={sizeConfig.iconSize} />
+            <CloseIcon size={sizeConfig.iconSize} />
           </div>
         )}
       </div>
-      {showError && (
+      {status === "error" && (
         <div style={errorContainerStyles}>
           <div style={{ ...errorIconStyles, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <AlertTriangleErrorIcon size={16} />

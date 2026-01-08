@@ -141,8 +141,14 @@ export function Select({
   const displayText = selectedOption?.label || "Selected Item";
 
   const borderColor = useMemo(() => {
-    if (status === "active" || status === "hover") {
-      return "var(--border-strong-100)";
+    if (status === "disabled") {
+      return "var(--border-disabled)";
+    }
+    if (status === "active") {
+      return "var(--border-primary)";
+    }
+    if (status === "hover") {
+      return "var(--border-neutral-primary)";
     }
     return "var(--border-strong-200)";
   }, [status]);
@@ -177,7 +183,6 @@ export function Select({
       lineHeight: sizeConfig.labelLineHeight,
       fontFamily: "var(--font-secondary)",
       color: status === "disabled" ? "var(--fg-disabled)" : "var(--fg-neutral)",
-      marginBottom: "var(--spacing-100)",
     } as React.CSSProperties;
   }, [sizeConfig, status]);
 

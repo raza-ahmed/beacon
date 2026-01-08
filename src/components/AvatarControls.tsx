@@ -3,6 +3,8 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarType = "icon" | "text" | "image";
@@ -105,42 +107,38 @@ export function AvatarControls({
           <label htmlFor="avatar-type-select" className="ds-avatar-control-label">
             Type
           </label>
-          <select
+          <Select
             id="avatar-type-select"
-            className="ds-avatar-control-select"
-            value={type}
-            onChange={(e) => {
-              const newType = e.target.value as AvatarType;
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={type}
+            options={TYPE_OPTIONS as SelectOption[]}
+            onSelect={(value) => {
+              const newType = value as AvatarType;
               onTypeChange(newType);
               // If switching from image to non-image and size is xl, reset to lg
               if (newType !== "image" && size === "xl") {
                 onSizeChange("lg");
               }
             }}
-          >
-            {TYPE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+          />
         </div>
         <div className="ds-avatar-control-field">
           <label htmlFor="avatar-color-select" className="ds-avatar-control-label">
             Color
           </label>
-          <select
+          <Select
             id="avatar-color-select"
-            className="ds-avatar-control-select"
-            value={color}
-            onChange={(e) => onColorChange(e.target.value as AvatarColor)}
-          >
-            {COLOR_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={color}
+            options={COLOR_OPTIONS as SelectOption[]}
+            onSelect={(value) => onColorChange(value as AvatarColor)}
+          />
         </div>
       </div>
 
@@ -149,18 +147,16 @@ export function AvatarControls({
           <label htmlFor="avatar-variant-select" className="ds-avatar-control-label">
             Variant
           </label>
-          <select
+          <Select
             id="avatar-variant-select"
-            className="ds-avatar-control-select"
-            value={variant}
-            onChange={(e) => onVariantChange(e.target.value as AvatarVariant)}
-          >
-            {VARIANT_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={variant}
+            options={VARIANT_OPTIONS as SelectOption[]}
+            onSelect={(value) => onVariantChange(value as AvatarVariant)}
+          />
         </div>
       </div>
 
@@ -267,10 +263,10 @@ export function AvatarControls({
           <label htmlFor="avatar-initials-input" className="ds-avatar-control-label">
             Initials
           </label>
-          <input
+          <Input
             id="avatar-initials-input"
-            type="text"
-            className="ds-avatar-control-input"
+            size="md"
+            showLabel={false}
             value={initials}
             onChange={(e) => onInitialsChange(e.target.value.slice(0, 2).toUpperCase())}
             placeholder="JD"

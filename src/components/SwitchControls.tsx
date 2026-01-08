@@ -3,6 +3,8 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type SwitchStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -91,18 +93,16 @@ export function SwitchControls({
         <label htmlFor="switch-status-select" className="ds-switch-control-label">
           Status
         </label>
-        <select
+        <Select
           id="switch-status-select"
-          className="ds-switch-control-select"
-          value={status}
-          onChange={(e) => onStatusChange?.(e.target.value as SwitchStatus)}
-        >
-          {STATUS_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          size="md"
+          showLabel={false}
+          showStartIcon={false}
+          showEndIcon={true}
+          selectedValue={status}
+          options={STATUS_OPTIONS as SelectOption[]}
+          onSelect={(value) => onStatusChange?.(value as SwitchStatus)}
+        />
       </div>
 
       <div className="ds-switch-control-group ds-switch-control-group--row">
@@ -143,10 +143,10 @@ export function SwitchControls({
           <label htmlFor="switch-label-input" className="ds-switch-control-label">
             Label Text
           </label>
-          <input
+          <Input
             id="switch-label-input"
-            type="text"
-            className="ds-switch-control-input"
+            size="md"
+            showLabel={false}
             value={label}
             onChange={(e) => onLabelChange?.(e.target.value)}
             placeholder="Enter label text"

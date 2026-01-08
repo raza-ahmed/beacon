@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState, ComponentPropsWithRef } from "react";
+import { useMemo, useState, useCallback, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
-import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "../icons";
+import { UserPersonIcon, SearchIcon, AlertTriangleErrorIcon, CloseIcon } from "../icons";
 
 export type InputSize = "sm" | "md" | "lg" | "xl";
-export type InputStatus = "default" | "active" | "error" | "disabled";
+export type InputStatus = "default" | "hover" | "active" | "error" | "disabled";
 
 export interface InputProps extends Omit<ComponentPropsWithRef<"input">, "size"> {
   label?: string;
@@ -125,6 +125,9 @@ export function Input({
         return "var(--border-critical)";
       }
       if (status === "active") {
+        return "var(--border-primary)";
+      }
+      if (status === "hover") {
         return "var(--border-neutral-primary)";
       }
       return "var(--border-strong-200)";
@@ -147,7 +150,8 @@ export function Input({
         justifyContent: iconOnly ? "center" : "flex-start",
         cursor: isDisabled ? "not-allowed" : "text",
         opacity: isDisabled ? 0.6 : 1,
-        transition: "border-color 0.15s ease",
+        transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+        position: "relative" as const,
       };
 
       return baseStyles;
@@ -159,7 +163,6 @@ export function Input({
         lineHeight: sizeConfig.labelLineHeight,
         fontFamily: "var(--font-secondary)",
         color: isDisabled ? "var(--fg-disabled)" : "var(--fg-neutral)",
-        marginBottom: "var(--spacing-100)",
       } as React.CSSProperties;
     }, [sizeConfig, isDisabled]);
 
@@ -170,7 +173,9 @@ export function Input({
       } else if (status === "error") {
         borderColor = "var(--border-critical)";
       } else if (status === "active") {
-        borderColor = "var(--border-strong-100)";
+        borderColor = "var(--border-primary)";
+      } else if (status === "hover") {
+        borderColor = "var(--border-neutral-primary)";
       }
       return {
         fontSize: sizeConfig.fontSize,
@@ -213,7 +218,7 @@ export function Input({
       fontSize: sizeConfig.fontSize,
       lineHeight: sizeConfig.lineHeight,
       fontFamily: "var(--font-secondary)",
-      color: hasValue ? "var(--fg-neutral-secondary)" : isDisabled ? "var(--fg-disabled)" : "var(--fg-disabled)",
+      color: isDisabled ? "var(--fg-disabled)" : "var(--fg-neutral)",
       fontWeight: hasValue ? 500 : 400,
       flex: iconOnly || !fullWidth ? "none" : "1 0 0",
       minWidth: iconOnly ? "auto" : 0,
@@ -223,26 +228,75 @@ export function Input({
       outline: "none",
       padding: 0,
       width: fullWidth ? "100%" : "auto",
+      caretColor: isDisabled ? "var(--fg-disabled)" : "var(--fg-primary)",
     };
 
     const [isHovered, setIsHovered] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleFocus = useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        if (!isDisabled) {
+          setIsFocused(true);
+        }
+        rest.onFocus?.(e);
+      },
+      [isDisabled, rest]
+    );
+
+    const handleBlur = useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        setIsFocused(false);
+        rest.onBlur?.(e);
+      },
+      [rest]
+    );
+
+    const handleClear = useCallback(
+      (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!isDisabled && rest.onChange) {
+          const syntheticEvent = {
+            target: { value: "" },
+          } as React.ChangeEvent<HTMLInputElement>;
+          rest.onChange(syntheticEvent);
+        }
+      },
+      [isDisabled, rest]
+    );
+
+    const effectiveStatus = useMemo(() => {
+      if (isDisabled) return status;
+      if (status === "error") return status;
+      if (isFocused) return "active";
+      return status;
+    }, [status, isDisabled, isFocused]);
 
     const hoverBorderColor = useMemo(() => {
       if (isDisabled) {
         return borderColor;
       }
-      if (status === "active" || status === "error") {
+      if (status === "error") {
+        return borderColor;
+      }
+      if (isFocused || status === "active") {
+        return "var(--border-primary)";
+      }
+      if (status === "hover") {
         return borderColor;
       }
       return isHovered ? "var(--border-neutral-primary)" : borderColor;
-    }, [isDisabled, status, isHovered, borderColor]);
+    }, [isDisabled, status, isHovered, isFocused, borderColor]);
 
     const containerStylesWithHover = useMemo(() => {
       return {
         ...inputContainerStyles,
         border: `var(--border-width-25) solid ${hoverBorderColor}`,
+        ...(isFocused && !isDisabled && status !== "error" ? {
+          boxShadow: `0 0 0 2px rgba(5, 109, 255, 0.2)`,
+        } : {}),
       };
-    }, [inputContainerStyles, hoverBorderColor]);
+    }, [inputContainerStyles, hoverBorderColor, isFocused, isDisabled, status]);
 
     if (iconOnly) {
       return (
@@ -298,17 +352,68 @@ export function Input({
             value={value}
             placeholder={placeholder}
             disabled={isDisabled}
+            readOnly={value != null && !rest.onChange}
             className={className}
             style={{ ...inputStyles, ...style }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             {...rest}
           />
-          {endIcon && (
-            <div style={{ color: "var(--fg-neutral-tertiary)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {endIcon}
+          <style>{`
+            input[type="text"]::placeholder {
+              color: var(--fg-disabled) !important;
+              opacity: 1;
+            }
+            input[type="text"]:disabled::placeholder {
+              color: var(--fg-disabled) !important;
+              opacity: 1;
+            }
+            input[type="text"]:not(:placeholder-shown) {
+              color: var(--fg-neutral) !important;
+            }
+            input[type="text"]:disabled:not(:placeholder-shown) {
+              color: var(--fg-disabled) !important;
+            }
+            input[type="text"]:placeholder-shown:not(:disabled) {
+              color: transparent !important;
+            }
+            input[type="text"]:not(:disabled) {
+              caret-color: var(--fg-primary) !important;
+            }
+            input[type="text"]:disabled {
+              caret-color: var(--fg-disabled) !important;
+            }
+          `}</style>
+          {(endIcon || hasValue) && (
+            <div 
+              onClick={!endIcon && hasValue && rest.onChange ? handleClear : undefined}
+              style={{ 
+                color: "var(--fg-neutral-tertiary)", 
+                flexShrink: 0, 
+                display: "flex", 
+                alignItems: "center", 
+                justifyContent: "center",
+                cursor: !endIcon && hasValue && rest.onChange ? "pointer" : "default",
+                transition: "color 0.15s ease, transform 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                if (!endIcon && hasValue && rest.onChange) {
+                  e.currentTarget.style.color = "var(--fg-neutral)";
+                  e.currentTarget.style.transform = "scale(1.1)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!endIcon && hasValue && rest.onChange) {
+                  e.currentTarget.style.color = "var(--fg-neutral-tertiary)";
+                  e.currentTarget.style.transform = "scale(1)";
+                }
+              }}
+            >
+              {endIcon || <CloseIcon size={sizeConfig.iconSize} />}
             </div>
           )}
         </div>
-        {(showError || status === "error") && (
+        {status === "error" && (
           <div style={errorContainerStyles}>
             <div style={{ ...errorIconStyles, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <AlertTriangleErrorIcon size={16} />

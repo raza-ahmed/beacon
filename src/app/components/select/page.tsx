@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { PageLayout, type TocItem } from "@/components";
 import { useTheme } from "@/providers/ThemeProvider";
-import { Select, type SelectOption, type CornerRadiusStep } from "beacon-ui";
+import { Select, type SelectOption, type CornerRadiusStep, type SelectStatus } from "beacon-ui";
 import { UserPersonIcon, HomeIcon } from "@/components/icons/index";
 import { SelectControls } from "@/components/SelectControls";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -11,7 +11,6 @@ import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type SelectSize = "sm" | "md" | "lg" | "xl";
-type SelectStatus = "default" | "hover" | "active";
 
 const DEFAULT_OPTIONS: SelectOption[] = [
   { value: "1", label: "Option #1", icon: <HomeIcon size="xs" /> },
@@ -51,6 +50,7 @@ const STATUS_LABELS: Record<SelectStatus, string> = {
   default: "default",
   hover: "hover",
   active: "active",
+  disabled: "disabled",
 };
 
 function generateSelectCode(config: SelectConfig): string {
@@ -123,7 +123,6 @@ export default function SelectPage() {
     return [
       { id: "overview", label: "Overview" },
       { id: "playground", label: "Interactive Playground" },
-      { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
       { id: "examples", label: "Usage Examples" },
@@ -195,6 +194,7 @@ export default function SelectPage() {
                   startIcon={config.showStartIcon ? <UserPersonIcon size="xs" /> : undefined}
                   cornerRadius={config.cornerRadius}
                   fullWidth={false}
+                  style={{ width: "232px" }}
                 />
               </div>
               <div className="ds-input-preview-code">
@@ -223,129 +223,6 @@ export default function SelectPage() {
                 >
                   {generateSelectCode(config)}
                 </SyntaxHighlighter>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="variants" className="ds-content__section">
-          <h6 className="ds-content__section-title">Variants & States</h6>
-          <p className="ds-content__text">
-            Select fields come in different sizes and states to fit various use cases.
-          </p>
-          <div className="ds-input-variants-grid">
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Default</h6>
-              <p className="ds-input-variant-card__desc">
-                Standard state with default border and placeholder text.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="md"
-                  fullWidth={false}
-                />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">With Label</h6>
-              <p className="ds-input-variant-card__desc">
-                Select field with a label above it for better context.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="md"
-                  showLabel={true}
-                  fullWidth={false}
-                />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">With Icons</h6>
-              <p className="ds-input-variant-card__desc">
-                Select field with start icon for additional context.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="md"
-                  startIcon={<UserPersonIcon size="xs" />}
-                  fullWidth={false}
-                />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Small</h6>
-              <p className="ds-input-variant-card__desc">
-                Compact size (28px) for dense interfaces or when space is limited.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="sm"
-                  fullWidth={false}
-                />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Medium</h6>
-              <p className="ds-input-variant-card__desc">
-                Default size (36px) suitable for most use cases.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="md"
-                  fullWidth={false}
-                />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Large</h6>
-              <p className="ds-input-variant-card__desc">
-                Larger size (48px) for improved visibility and accessibility.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="lg"
-                  fullWidth={false}
-                />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Extra Large</h6>
-              <p className="ds-input-variant-card__desc">
-                Largest size (56px) for maximum visibility.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <Select
-                  label="Select Label"
-                  options={DEFAULT_OPTIONS}
-                  selectedValue={config.selectedValue}
-                  onSelect={(value) => updateConfig({ selectedValue: value })}
-                  size="xl"
-                  fullWidth={false}
-                />
               </div>
             </div>
           </div>
@@ -455,6 +332,7 @@ export default function SelectPage() {
                         selectedValue={config.selectedValue}
                         onSelect={(value) => updateConfig({ selectedValue: value })}
                         fullWidth={false}
+                        style={{ width: "232px" }}
                       />
                     </div>
                   </div>
@@ -525,6 +403,7 @@ const options = [
                         onSelect={(value) => updateConfig({ selectedValue: value })}
                         startIcon={<UserPersonIcon size="xs" />}
                         fullWidth={false}
+                        style={{ width: "232px" }}
                       />
                     </div>
                   </div>

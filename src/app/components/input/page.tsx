@@ -7,13 +7,13 @@ import type { HueVariant } from "@/tokens/types";
 import { InputPreview } from "@/components/InputPreview";
 import { InputControls } from "@/components/InputControls";
 import { UserPersonIcon, SearchIcon, ChevronDownIcon, AlertTriangleErrorIcon } from "@/components/icons";
-import { Input } from "beacon-ui";
+import { Input, type CornerRadiusStep, type InputStatus as BeaconInputStatus } from "beacon-ui";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { CodeCopyButton } from "@/components/CodeCopyButton";
 
-type InputSize = "sm" | "md" | "lg";
-type InputStatus = "default" | "active" | "disabled";
+type InputSize = "sm" | "md" | "lg" | "xl";
+type InputStatus = "default" | "hover" | "active" | "error" | "disabled";
 
 interface InputConfig {
   label: string;
@@ -25,21 +25,32 @@ interface InputConfig {
   showStartIcon: boolean;
   showEndIcon: boolean;
   showPlaceholderIcon: boolean;
-  showError: boolean;
   showNumberPrefix: boolean;
-  rounded: boolean;
+  cornerRadius: CornerRadiusStep;
   iconOnly: boolean;
 }
+
+const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
+  0: "var(--corner-radius-none)",
+  1: "var(--corner-radius-100)",
+  2: "var(--corner-radius-200)",
+  3: "var(--corner-radius-300)",
+  4: "var(--corner-radius-400)",
+  5: "var(--corner-radius-full)",
+};
 
 const SIZE_LABELS: Record<InputSize, string> = {
   sm: "sm",
   md: "md",
   lg: "lg",
+  xl: "xl",
 };
 
 const STATUS_LABELS: Record<InputStatus, string> = {
   default: "default",
+  hover: "hover",
   active: "active",
+  error: "error",
   disabled: "disabled",
 };
 
@@ -82,24 +93,24 @@ function generateInputCode(config: InputConfig): string {
     props.push(`showPlaceholderIcon`);
   }
 
-  if (config.showError) {
-    props.push(`showError`);
-  }
-
   if (config.showNumberPrefix) {
     props.push(`showNumberPrefix`);
   }
 
-  if (config.rounded) {
-    props.push(`rounded`);
+  if (config.cornerRadius !== 1) {
+    if (config.cornerRadius === 5) {
+      props.push(`rounded`);
+    } else {
+      props.push(`borderRadius="${CORNER_RADIUS_MAP[config.cornerRadius]}"`);
+    }
   }
 
   if (config.iconOnly) {
     props.push(`iconOnly`);
   }
 
-  if (config.status === "disabled") {
-    props.push(`status="disabled"`);
+  if (config.status !== "default") {
+    props.push(`status="${STATUS_LABELS[config.status]}"`);
   }
 
   if (props.length === 0) {
@@ -125,9 +136,8 @@ export default function InputPage() {
     showStartIcon: false,
     showEndIcon: false,
     showPlaceholderIcon: false,
-    showError: false,
     showNumberPrefix: false,
-    rounded: false,
+    cornerRadius: 1,
     iconOnly: false,
   });
 
@@ -138,7 +148,6 @@ export default function InputPage() {
       { id: "overview", label: "Overview" },
       { id: "playground", label: "Interactive Playground" },
       { id: "anatomy", label: "Anatomy" },
-      { id: "variants", label: "Variants & States" },
       { id: "guidelines", label: "Usage Guidelines" },
       { id: "api", label: "API Reference" },
       { id: "examples", label: "Usage Examples" },
@@ -186,9 +195,8 @@ export default function InputPage() {
               showStartIcon={config.showStartIcon}
               showEndIcon={config.showEndIcon}
               showPlaceholderIcon={config.showPlaceholderIcon}
-              showError={config.showError}
               showNumberPrefix={config.showNumberPrefix}
-              rounded={config.rounded}
+              cornerRadius={config.cornerRadius}
               iconOnly={config.iconOnly}
               onLabelChange={(label) => updateConfig({ label })}
               onPlaceholderChange={(placeholder) => updateConfig({ placeholder })}
@@ -199,14 +207,13 @@ export default function InputPage() {
               onShowStartIconChange={(show) => updateConfig({ showStartIcon: show })}
               onShowEndIconChange={(show) => updateConfig({ showEndIcon: show })}
               onShowPlaceholderIconChange={(show) => updateConfig({ showPlaceholderIcon: show })}
-              onShowErrorChange={(show) => updateConfig({ showError: show })}
               onShowNumberPrefixChange={(show) => updateConfig({ showNumberPrefix: show })}
-              onRoundedChange={(rounded) => updateConfig({ rounded })}
+              onCornerRadiusChange={(cornerRadius) => updateConfig({ cornerRadius })}
               onIconOnlyChange={(iconOnly) => updateConfig({ iconOnly })}
             />
             <div className="ds-input-playground-divider" />
             <div className="ds-input-preview-section">
-              <div className="ds-input-preview">
+              <div className="ds-input-preview" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <InputPreview
                   label={config.label}
                   placeholder={config.placeholder}
@@ -217,13 +224,13 @@ export default function InputPage() {
                   showStartIcon={config.showStartIcon}
                   showEndIcon={config.showEndIcon}
                   showPlaceholderIcon={config.showPlaceholderIcon}
-                  showError={config.showError}
                   showNumberPrefix={config.showNumberPrefix}
-                  rounded={config.rounded}
+                  cornerRadius={config.cornerRadius}
                   iconOnly={config.iconOnly}
                   disabled={config.status === "disabled"}
                   theme={theme}
                   hue={hue}
+                  width="232px"
                 />
               </div>
               <div className="ds-input-preview-code">
@@ -310,123 +317,6 @@ export default function InputPage() {
           </div>
         </section>
 
-        <section id="variants" className="ds-content__section">
-          <h6 className="ds-content__section-title">Variants & States</h6>
-          <p className="ds-content__text">
-            Input fields come in different sizes and states to fit various use cases.
-          </p>
-          <div className="ds-input-variants-grid">
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Default</h6>
-              <p className="ds-input-variant-card__desc">
-                Standard state with default border and placeholder text.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" status="default" />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Active</h6>
-              <p className="ds-input-variant-card__desc">
-                Focused state with different border color indicating active input.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" status="active" />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">With Label</h6>
-              <p className="ds-input-variant-card__desc">
-                Input field with a label above it for better context.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview label="Label" placeholder="Placeholder" size="md" showLabel={true} />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">With Icons</h6>
-              <p className="ds-input-variant-card__desc">
-                Input field with start and end icons for additional context or actions.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" showStartIcon={true} showEndIcon={true} />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">With Error</h6>
-              <p className="ds-input-variant-card__desc">
-                Error state with icon and message indicating validation failure.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" showError={true} />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">With Prefix</h6>
-              <p className="ds-input-variant-card__desc">
-                Input field with number prefix like country code for phone numbers.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" showNumberPrefix={true} />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Rounded</h6>
-              <p className="ds-input-variant-card__desc">
-                Fully rounded (pill-shaped) input field for modern designs.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" rounded={true} />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Icon Only</h6>
-              <p className="ds-input-variant-card__desc">
-                Circular/square button variant with just an icon, useful for search buttons.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview size="md" iconOnly={true} showPlaceholderIcon={true} />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Disabled</h6>
-              <p className="ds-input-variant-card__desc">
-                Disabled state prevents interaction and applies muted styling.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" status="disabled" />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Small</h6>
-              <p className="ds-input-variant-card__desc">
-                Compact size (28px) for dense interfaces or when space is limited.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="sm" />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Medium</h6>
-              <p className="ds-input-variant-card__desc">
-                Default size (36px) suitable for most use cases.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="md" />
-              </div>
-            </div>
-            <div className="ds-input-variant-card">
-              <h6 className="ds-input-variant-card__title">Large</h6>
-              <p className="ds-input-variant-card__desc">
-                Larger size (48px) for improved visibility and accessibility.
-              </p>
-              <div className="ds-input-variant-card__preview">
-                <InputPreview placeholder="Placeholder" size="lg" />
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section id="guidelines" className="ds-content__section">
           <h6 className="ds-content__section-title">Usage Guidelines</h6>
           <div className="ds-do-dont">
@@ -483,17 +373,16 @@ export default function InputPage() {
   label?: string;
   placeholder?: string;
   value?: string;
-  size?: "sm" | "md" | "lg";
-  status?: "default" | "active" | "disabled";
+  size?: "sm" | "md" | "lg" | "xl";
+  status?: "default" | "hover" | "active" | "error" | "disabled";
   showLabel?: boolean;
   showStartIcon?: boolean;
   showEndIcon?: boolean;
   showPlaceholderIcon?: boolean;
-  showError?: boolean;
   showNumberPrefix?: boolean;
-  rounded?: boolean;
   iconOnly?: boolean;
   borderRadius?: string;
+  rounded?: boolean;
   onChange?: (value: string) => void;
 }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
@@ -520,17 +409,16 @@ export default function InputPage() {
   label?: string;
   placeholder?: string;
   value?: string;
-  size?: "sm" | "md" | "lg";
-  status?: "default" | "active" | "disabled";
+  size?: "sm" | "md" | "lg" | "xl";
+  status?: "default" | "hover" | "active" | "error" | "disabled";
   showLabel?: boolean;
   showStartIcon?: boolean;
   showEndIcon?: boolean;
   showPlaceholderIcon?: boolean;
-  showError?: boolean;
   showNumberPrefix?: boolean;
-  rounded?: boolean;
   iconOnly?: boolean;
   borderRadius?: string;
+  rounded?: boolean;
   onChange?: (value: string) => void;
 }`}
                 </SyntaxHighlighter>
@@ -586,13 +474,13 @@ export default function InputPage() {
                     <code>size</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>"sm" | "md" | "lg"</code>
+                    <code>"sm" | "md" | "lg" | "xl"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
                     <code>"md"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Input field size: sm (28px), md (36px), lg (48px).
+                    Input field size: sm (28px), md (36px), lg (48px), xl (56px).
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -600,13 +488,13 @@ export default function InputPage() {
                     <code>status</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>"default" | "active" | "disabled"</code>
+                    <code>"default" | "hover" | "active" | "error" | "disabled"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
                     <code>"default"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Visual state of the input field: default, active (focused), or disabled.
+                    Visual state of the input field: default, hover, active (focused), error, or disabled.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -667,20 +555,6 @@ export default function InputPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
-                    <code>showError</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>boolean</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
-                    <code>false</code>
-                  </div>
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Whether to display an error icon and message below the input field.
-                  </div>
-                </div>
-                <div className="ds-api-reference__props-row">
-                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
                     <code>showNumberPrefix</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
@@ -695,6 +569,18 @@ export default function InputPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>borderRadius</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>string</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">—</div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Custom border radius value. Overrides the default border radius for the size.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
                     <code>rounded</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
@@ -704,7 +590,7 @@ export default function InputPage() {
                     <code>false</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Whether to use fully rounded (pill-shaped) corners.
+                    Whether to use fully rounded (pill-shaped) corners. Shorthand for borderRadius="var(--corner-radius-full)".
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -760,7 +646,7 @@ export default function InputPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input fullWidth={false} />
+                      <Input placeholder="Placeholder" fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -769,7 +655,9 @@ export default function InputPage() {
                     <CodeCopyButton
                       code={`import { Input } from 'beacon-ui';
 
-<Input />`}
+<Input 
+  placeholder="Placeholder"
+/>`}
                     />
                     <SyntaxHighlighter
                       language="tsx"
@@ -791,7 +679,9 @@ export default function InputPage() {
                     >
                       {`import { Input } from 'beacon-ui';
 
-<Input />`}
+<Input 
+  placeholder="Placeholder"
+/>`}
                     </SyntaxHighlighter>
                   </div>
                 </div>
@@ -803,7 +693,7 @@ export default function InputPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Email" placeholder="Enter your email" fullWidth={false} />
+                      <Input label="Email" placeholder="Enter your email" fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -852,7 +742,7 @@ export default function InputPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input placeholder="Search" placeholderIcon={<SearchIcon size="xs" />} endIcon={<ChevronDownIcon size="xs" />} fullWidth={false} />
+                      <Input placeholder="Search" defaultValue="Search query" placeholderIcon={<SearchIcon size="xs" />} startIcon={<UserPersonIcon size="xs" />} fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -860,12 +750,13 @@ export default function InputPage() {
                   <div style={{ position: "relative" }}>
                     <CodeCopyButton
                       code={`import { Input } from 'beacon-ui';
-import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
+import { SearchIcon, UserPersonIcon } from 'beacon-icons';
 
 <Input 
   placeholder="Search"
+  defaultValue="Search query"
   placeholderIcon={<SearchIcon size="xs" />}
-  endIcon={<ChevronDownIcon size="xs" />}
+  startIcon={<UserPersonIcon size="xs" />}
 />`}
                     />
                     <SyntaxHighlighter
@@ -887,12 +778,119 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                       PreTag="div"
                     >
                       {`import { Input } from 'beacon-ui';
-import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
+import { SearchIcon, UserPersonIcon } from 'beacon-icons';
 
 <Input 
   placeholder="Search"
+  defaultValue="Search query"
   placeholderIcon={<SearchIcon size="xs" />}
-  endIcon={<ChevronDownIcon size="xs" />}
+  startIcon={<UserPersonIcon size="xs" />}
+/>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Input with Active State</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input label="Email" placeholder="Enter your email" defaultValue="user@example.com" status="active" fullWidth={false} style={{ width: "232px" }} />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <CodeCopyButton
+                      code={`import { Input } from 'beacon-ui';
+
+<Input 
+  label="Email"
+  placeholder="Enter your email"
+  defaultValue="user@example.com"
+  status="active"
+/>`}
+                    />
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
+  label="Email"
+  placeholder="Enter your email"
+  defaultValue="user@example.com"
+  status="active"
+/>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Input with Hover State</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas">
+                      <Input label="Email" placeholder="Enter your email" defaultValue="user@example.com" status={"hover" as BeaconInputStatus} fullWidth={false} style={{ width: "232px" }} />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <CodeCopyButton
+                      code={`import { Input } from 'beacon-ui';
+
+<Input 
+  label="Email"
+  placeholder="Enter your email"
+  defaultValue="user@example.com"
+  status="hover"
+/>`}
+                    />
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Input } from 'beacon-ui';
+
+<Input 
+  label="Email"
+  placeholder="Enter your email"
+  defaultValue="user@example.com"
+  status="hover"
 />`}
                     </SyntaxHighlighter>
                   </div>
@@ -905,7 +903,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Email" placeholder="Enter your email" showError fullWidth={false} />
+                      <Input label="Email" placeholder="Enter your email" status="error" fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -917,7 +915,8 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
 <Input 
   label="Email"
   placeholder="Enter your email"
-  showError
+  defaultValue="invalid@email"
+  status="error"
 />`}
                     />
                     <SyntaxHighlighter
@@ -943,7 +942,8 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
 <Input 
   label="Email"
   placeholder="Enter your email"
-  showError
+  defaultValue="invalid@email"
+  status="error"
 />`}
                     </SyntaxHighlighter>
                   </div>
@@ -956,7 +956,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Phone" placeholder="123456789" numberPrefix="+1" fullWidth={false} />
+                      <Input label="Phone" placeholder="123456789" numberPrefix="+1" fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -968,6 +968,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
 <Input 
   label="Phone"
   placeholder="123456789"
+  defaultValue="123456789"
   numberPrefix="+1"
 />`}
                     />
@@ -994,6 +995,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
 <Input 
   label="Phone"
   placeholder="123456789"
+  defaultValue="123456789"
   numberPrefix="+1"
 />`}
                     </SyntaxHighlighter>
@@ -1007,7 +1009,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input placeholder="Search" rounded fullWidth={false} />
+                      <Input placeholder="Search" borderRadius="var(--corner-radius-full)" fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -1018,7 +1020,8 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
 
 <Input 
   placeholder="Search"
-  rounded
+  defaultValue="Search query"
+  borderRadius="var(--corner-radius-full)"
 />`}
                     />
                     <SyntaxHighlighter
@@ -1043,7 +1046,8 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
 
 <Input 
   placeholder="Search"
-  rounded
+  defaultValue="Search query"
+  borderRadius="var(--corner-radius-full)"
 />`}
                     </SyntaxHighlighter>
                   </div>
@@ -1056,7 +1060,7 @@ import { SearchIcon, ChevronDownIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input iconOnly placeholderIcon={<SearchIcon size="xs" />} fullWidth={false} />
+                      <Input iconOnly placeholderIcon={<SearchIcon size="xs" />} fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -1107,7 +1111,7 @@ import { SearchIcon } from 'beacon-icons';
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Input label="Email" placeholder="Enter your email" disabled fullWidth={false} />
+                      <Input label="Email" placeholder="Enter your email" status="disabled" fullWidth={false} style={{ width: "232px" }} />
                     </div>
                   </div>
                 </div>
@@ -1145,7 +1149,7 @@ import { SearchIcon } from 'beacon-icons';
 <Input 
   label="Email"
   placeholder="Enter your email"
-  disabled
+  status="disabled"
 />`}
                     </SyntaxHighlighter>
                   </div>

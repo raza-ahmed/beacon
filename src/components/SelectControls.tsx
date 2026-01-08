@@ -1,6 +1,7 @@
 "use client";
 
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
 import type { SelectOption, CornerRadiusStep, SelectStatus } from "beacon-ui";
 
 type SelectSize = "sm" | "md" | "lg" | "xl";
@@ -68,35 +69,31 @@ export function SelectControls({
           <label htmlFor="select-size-select" className="ds-input-control-label">
             Size
           </label>
-          <select
+          <Select
             id="select-size-select"
-            className="ds-input-control-select"
-            value={size}
-            onChange={(e) => onSizeChange?.(e.target.value as SelectSize)}
-          >
-            {SIZE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={size}
+            options={SIZE_OPTIONS as SelectOption[]}
+            onSelect={(value) => onSizeChange?.(value as SelectSize)}
+          />
         </div>
         <div className="ds-input-control-field">
           <label htmlFor="select-status-select" className="ds-input-control-label">
             Status
           </label>
-          <select
+          <Select
             id="select-status-select"
-            className="ds-input-control-select"
-            value={status}
-            onChange={(e) => onStatusChange?.(e.target.value as SelectStatus)}
-          >
-            {STATUS_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={status}
+            options={STATUS_OPTIONS as SelectOption[]}
+            onSelect={(value) => onStatusChange?.(value as SelectStatus)}
+          />
         </div>
       </div>
 
@@ -104,10 +101,10 @@ export function SelectControls({
         <label htmlFor="select-label-input" className="ds-input-control-label">
           Label
         </label>
-        <input
+        <Input
           id="select-label-input"
-          type="text"
-          className="ds-input-control-input"
+          size="md"
+          showLabel={false}
           value={label}
           onChange={(e) => onLabelChange?.(e.target.value)}
           placeholder="Enter label text"
@@ -118,19 +115,16 @@ export function SelectControls({
         <label htmlFor="select-selected-value-select" className="ds-input-control-label">
           Selected Value
         </label>
-        <select
+        <Select
           id="select-selected-value-select"
-          className="ds-input-control-select"
-          value={selectedValue}
-          onChange={(e) => onSelectedValueChange?.(e.target.value)}
-        >
-          <option value="">None</option>
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          size="md"
+          showLabel={false}
+          showStartIcon={false}
+          showEndIcon={true}
+          selectedValue={selectedValue}
+          options={[{ value: "", label: "None" }, ...options]}
+          onSelect={(value) => onSelectedValueChange?.(value)}
+        />
       </div>
 
       <div className="ds-input-control-group">

@@ -3,6 +3,8 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type TabItemState = "Default" | "Active" | "Hover" | "Disabled";
 type TabItemSize = "Small" | "Medium";
@@ -137,35 +139,31 @@ export function TabItemControls({
           <label htmlFor="tabitem-state-select" className="ds-chip-control-label">
             State
           </label>
-          <select
+          <Select
             id="tabitem-state-select"
-            className="ds-chip-control-select"
-            value={state}
-            onChange={(e) => onStateChange?.(e.target.value as TabItemState)}
-          >
-            {STATE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={state}
+            options={STATE_OPTIONS as SelectOption[]}
+            onSelect={(value) => onStateChange?.(value as TabItemState)}
+          />
         </div>
         <div className="ds-chip-control-field">
           <label htmlFor="tabitem-size-select" className="ds-chip-control-label">
             Size
           </label>
-          <select
+          <Select
             id="tabitem-size-select"
-            className="ds-chip-control-select"
-            value={size}
-            onChange={(e) => onSizeChange?.(e.target.value as TabItemSize)}
-          >
-            {SIZE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={size}
+            options={SIZE_OPTIONS as SelectOption[]}
+            onSelect={(value) => onSizeChange?.(value as TabItemSize)}
+          />
         </div>
       </div>
 
@@ -174,35 +172,31 @@ export function TabItemControls({
           <label htmlFor="tabitem-style-select" className="ds-chip-control-label">
             Style
           </label>
-          <select
+          <Select
             id="tabitem-style-select"
-            className="ds-chip-control-select"
-            value={style}
-            onChange={(e) => onStyleChange?.(e.target.value as TabItemStyle)}
-          >
-            {STYLE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={style}
+            options={STYLE_OPTIONS as SelectOption[]}
+            onSelect={(value) => onStyleChange?.(value as TabItemStyle)}
+          />
         </div>
         <div className="ds-chip-control-field">
           <label htmlFor="tabitem-placement-select" className="ds-chip-control-label">
             Placement
           </label>
-          <select
+          <Select
             id="tabitem-placement-select"
-            className="ds-chip-control-select"
-            value={placement}
-            onChange={(e) => onPlacementChange?.(e.target.value as TabItemPlacement)}
-          >
-            {PLACEMENT_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={placement}
+            options={PLACEMENT_OPTIONS as SelectOption[]}
+            onSelect={(value) => onPlacementChange?.(value as TabItemPlacement)}
+          />
         </div>
       </div>
 
@@ -248,10 +242,10 @@ export function TabItemControls({
           <label htmlFor="tabitem-name-input" className="ds-chip-control-label">
             Tab Name
           </label>
-          <input
+          <Input
             id="tabitem-name-input"
-            type="text"
-            className="ds-chip-control-input"
+            size="md"
+            showLabel={false}
             value={tabName}
             onChange={(e) => onTabNameChange?.(e.target.value)}
             placeholder="Enter tab name"

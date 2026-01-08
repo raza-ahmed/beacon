@@ -3,6 +3,8 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type ChipSize = "sm" | "md" | "lg";
 type ChipColor = "primary" | "neutral" | "success" | "critical" | "warning";
@@ -99,35 +101,31 @@ export function ChipControls({
           <label htmlFor="chip-size-select" className="ds-chip-control-label">
             Size
           </label>
-          <select
+          <Select
             id="chip-size-select"
-            className="ds-chip-control-select"
-            value={size}
-            onChange={(e) => onSizeChange?.(e.target.value as ChipSize)}
-          >
-            {SIZE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={size}
+            options={SIZE_OPTIONS as SelectOption[]}
+            onSelect={(value) => onSizeChange?.(value as ChipSize)}
+          />
         </div>
         <div className="ds-chip-control-field">
           <label htmlFor="chip-color-select" className="ds-chip-control-label">
             Color Variant
           </label>
-          <select
+          <Select
             id="chip-color-select"
-            className="ds-chip-control-select"
-            value={color}
-            onChange={(e) => onColorChange?.(e.target.value as ChipColor)}
-          >
-            {COLOR_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={color}
+            options={COLOR_OPTIONS as SelectOption[]}
+            onSelect={(value) => onColorChange?.(value as ChipColor)}
+          />
         </div>
       </div>
 
@@ -158,10 +156,10 @@ export function ChipControls({
         <label htmlFor="chip-label-input" className="ds-chip-control-label">
           Label
         </label>
-        <input
+        <Input
           id="chip-label-input"
-          type="text"
-          className="ds-chip-control-input"
+          size="md"
+          showLabel={false}
           value={label}
           onChange={(e) => onLabelChange?.(e.target.value)}
           placeholder="Enter label text"

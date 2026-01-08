@@ -6,6 +6,8 @@ import { CheckIcon } from "./icons";
 import { SearchIcon, ChevronDownIcon } from "beacon-icons";
 import { Switch } from "./Switch";
 import { Checkbox } from "./Checkbox";
+import { Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -113,33 +115,29 @@ export function ButtonControls({
       <div className="ds-button-control-group ds-button-control-group--row">
         <div className="ds-button-control-field">
           <label htmlFor="button-variant-select" className="ds-button-control-label">Variant</label>
-          <select
+          <Select
             id="button-variant-select"
-            className="ds-button-control-select"
-            value={variant}
-            onChange={(e) => onVariantChange(e.target.value as ButtonVariant)}
-          >
-            {VARIANT_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={variant}
+            options={VARIANT_OPTIONS as SelectOption[]}
+            onSelect={(value) => onVariantChange(value as ButtonVariant)}
+          />
         </div>
         <div className="ds-button-control-field">
           <label htmlFor="button-state-select" className="ds-button-control-label">State</label>
-          <select
+          <Select
             id="button-state-select"
-            className="ds-button-control-select"
-            value={state}
-            onChange={(e) => onStateChange(e.target.value as ButtonState)}
-          >
-            {STATE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={state}
+            options={STATE_OPTIONS as SelectOption[]}
+            onSelect={(value) => onStateChange(value as ButtonState)}
+          />
         </div>
       </div>
 

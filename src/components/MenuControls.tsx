@@ -3,6 +3,8 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon, DeleteBinIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type MenuVariant = "desktop" | "tablet-open" | "tablet-closed" | "mobile-open" | "mobile-closed" | "close-menu";
 
@@ -127,18 +129,16 @@ export function MenuControls({
         <label htmlFor="menu-variant-select" className="ds-menu-control-label">
           Variant
         </label>
-        <select
+        <Select
           id="menu-variant-select"
-          className="ds-menu-control-select"
-          value={variant}
-          onChange={(e) => onVariantChange?.(e.target.value as MenuVariant)}
-        >
-          {VARIANT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          size="md"
+          showLabel={false}
+          showStartIcon={false}
+          showEndIcon={true}
+          selectedValue={variant}
+          options={VARIANT_OPTIONS as SelectOption[]}
+          onSelect={(value) => onVariantChange?.(value as MenuVariant)}
+        />
       </div>
 
       {/* Avatar Image URL input */}
@@ -146,10 +146,10 @@ export function MenuControls({
         <label htmlFor="menu-avatar-image-url" className="ds-menu-control-label">
           Avatar Image URL
         </label>
-        <input
+        <Input
           id="menu-avatar-image-url"
-          type="text"
-          className="ds-menu-control-input"
+          size="md"
+          showLabel={false}
           value={avatarImageUrl}
           onChange={(e) => onAvatarImageUrlChange?.(e.target.value)}
           placeholder="Optional avatar image URL"
@@ -202,9 +202,9 @@ export function MenuControls({
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-200)" }}>
           {menuItems.map((item) => (
             <div key={item.id} style={{ display: "flex", gap: "var(--spacing-200)", alignItems: "center" }}>
-              <input
-                type="text"
-                className="ds-menu-control-input"
+              <Input
+                size="md"
+                showLabel={false}
                 value={item.label}
                 onChange={(e) => handleMenuItemLabelChange(item.id, e.target.value)}
                 placeholder="Menu item label"

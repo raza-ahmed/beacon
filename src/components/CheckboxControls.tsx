@@ -3,6 +3,8 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
+import { Input, Select } from "beacon-ui";
+import type { SelectOption } from "beacon-ui";
 
 type CheckboxStatus = "default" | "hovered" | "focused" | "pressed" | "disabled";
 
@@ -89,18 +91,16 @@ export function CheckboxControls({
         <label htmlFor="checkbox-status-select" className="ds-checkbox-control-label">
           Status
         </label>
-        <select
+        <Select
           id="checkbox-status-select"
-          className="ds-checkbox-control-select"
-          value={status}
-          onChange={(e) => onStatusChange?.(e.target.value as CheckboxStatus)}
-        >
-          {STATUS_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          size="md"
+          showLabel={false}
+          showStartIcon={false}
+          showEndIcon={true}
+          selectedValue={status}
+          options={STATUS_OPTIONS as SelectOption[]}
+          onSelect={(value) => onStatusChange?.(value as CheckboxStatus)}
+        />
       </div>
 
       {/* Checked and Label toggles side by side */}
@@ -131,10 +131,10 @@ export function CheckboxControls({
           <label htmlFor="checkbox-label-input" className="ds-checkbox-control-label">
             Label Text
           </label>
-          <input
+          <Input
             id="checkbox-label-input"
-            type="text"
-            className="ds-checkbox-control-input"
+            size="md"
+            showLabel={false}
             value={label}
             onChange={(e) => onLabelChange?.(e.target.value)}
             placeholder="Enter label text"

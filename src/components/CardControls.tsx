@@ -4,7 +4,8 @@ import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { type PatternType, PATTERN_CONFIGS } from "@/utils/patternPaths";
 import { Switch } from "./Switch";
-import type { CornerRadiusStep } from "beacon-ui";
+import { Input, Select } from "beacon-ui";
+import type { CornerRadiusStep, SelectOption } from "beacon-ui";
 
 // Filter out legacy patterns and default for the dropdown
 const CSS_PATTERNS = Object.keys(PATTERN_CONFIGS).filter(
@@ -158,63 +159,56 @@ export function CardControls({
 
       <div className="ds-card-control-group">
         <label htmlFor="card-status-select" className="ds-card-control-label">
-                Status
-              </label>
-              <select
+          Status
+        </label>
+        <Select
           id="card-status-select"
-                className="ds-card-control-select"
-                value={status}
-          onChange={(e) => onStatusChange?.(e.target.value as CardStatus)}
-              >
-          {STATUS_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-          </div>
+          size="md"
+          showLabel={false}
+          showStartIcon={false}
+          showEndIcon={true}
+          selectedValue={status}
+          options={STATUS_OPTIONS as SelectOption[]}
+          onSelect={(value) => onStatusChange?.(value as CardStatus)}
+        />
+      </div>
 
-          <div className="ds-card-control-group">
-            <div className="ds-icon-fill-row">
-              <div className="ds-icon-fill-section">
+      <div className="ds-card-control-group">
+        <div className="ds-icon-fill-row">
+          <div className="ds-icon-fill-section">
             <label htmlFor="card-shadow-select" className="ds-card-control-label">
               Shadow
             </label>
-            <select
+            <Select
               id="card-shadow-select"
-              className="ds-card-control-select"
-              value={shadow || ""}
-              onChange={(e) => onShadowChange?.(e.target.value ? (e.target.value as CardShadow) : undefined)}
-            >
-              <option value="">None</option>
-              {SHADOW_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+              size="md"
+              showLabel={false}
+              showStartIcon={false}
+              showEndIcon={true}
+              selectedValue={shadow || ""}
+              options={[{ value: "", label: "None" }, ...SHADOW_OPTIONS] as SelectOption[]}
+              onSelect={(value) => onShadowChange?.(value ? (value as CardShadow) : undefined)}
+            />
           </div>
           <div className="ds-icon-fill-section">
             <label htmlFor="card-padding-select" className="ds-card-control-label">
               Padding
             </label>
-            <select
+            <Select
               id="card-padding-select"
-              className="ds-card-control-select"
-              value={padding}
-              onChange={(e) => {
-                const value = parseInt(e.target.value, 10);
-                if (!isNaN(value)) {
-                  onPaddingChange?.(value);
+              size="md"
+              showLabel={false}
+              showStartIcon={false}
+              showEndIcon={true}
+              selectedValue={String(padding)}
+              options={PADDING_OPTIONS.map(opt => ({ value: String(opt.value), label: opt.label })) as SelectOption[]}
+              onSelect={(value) => {
+                const numValue = parseInt(value, 10);
+                if (!isNaN(numValue)) {
+                  onPaddingChange?.(numValue);
                 }
               }}
-            >
-              {PADDING_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
       </div>
@@ -280,25 +274,24 @@ export function CardControls({
 
           {showBgPattern && (
             <div className="ds-card-control-group">
-          <label htmlFor="card-pattern-type-select" className="ds-card-control-label">
+              <label htmlFor="card-pattern-type-select" className="ds-card-control-label">
                 Pattern Type
               </label>
-              <select
-            id="card-pattern-type-select"
-                className="ds-card-control-select"
-                value={patternType}
-                onChange={(e) => onPatternTypeChange?.(e.target.value as PatternType)}
-              >
-                {Object.entries(PATTERN_GROUPS).map(([category, patterns]) => (
-                  <optgroup key={category} label={category}>
-                    {patterns.map((pattern) => (
-                      <option key={pattern} value={pattern}>
-                        {formatPatternName(pattern)}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
+              <Select
+                id="card-pattern-type-select"
+                size="md"
+                showLabel={false}
+                showStartIcon={false}
+                showEndIcon={true}
+                selectedValue={patternType}
+                options={Object.entries(PATTERN_GROUPS).flatMap(([category, patterns]) =>
+                  patterns.map((pattern) => ({
+                    value: pattern,
+                    label: `${category}: ${formatPatternName(pattern)}`,
+                  }))
+                ) as SelectOption[]}
+                onSelect={(value) => onPatternTypeChange?.(value as PatternType)}
+              />
             </div>
           )}
 
@@ -320,10 +313,10 @@ export function CardControls({
         <label htmlFor="card-height-input" className="ds-card-control-label">
           Height (optional)
         </label>
-        <input
+        <Input
           id="card-height-input"
-          type="text"
-          className="ds-card-control-input"
+          size="md"
+          showLabel={false}
           value={height || ""}
           onChange={(e) => {
             const value = e.target.value;
