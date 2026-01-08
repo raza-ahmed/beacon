@@ -16,7 +16,8 @@
     "lint": "next lint",
     "validate:css-vars": "npx tsx scripts/validate-css-vars.ts",
     "watch:docs": "tsx scripts/watch-docs.ts",
-    "check:docs": "tsx scripts/check-docs-sync.ts"
+    "check:docs": "tsx scripts/check-docs-sync.ts",
+    "deploy": "npx tsx scripts/deploy.ts"
   },
   "dependencies": {
     "beacon-icons": "file:./packages/beacon-icons",
@@ -33,6 +34,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "basic-ftp": "^5.1.0",
     "chokidar": "^4.0.3",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.1",

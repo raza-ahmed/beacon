@@ -22,6 +22,26 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.4.8",
+    "date": "2026-01-08",
+    "added": [
+      {
+        "description": "Slider component for selecting single values or ranges with support for tooltips, step indicators, and customizable labels"
+      },
+      {
+        "description": "Slider supports both single value and range modes with configurable min, max, and step values"
+      },
+      {
+        "description": "Slider component includes status states (default, hover, active, disabled) and keyboard navigation support"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Input and Select components updated with improved styling consistency and enhanced functionality"
+      }
+    ]
+  },
+  {
     "version": "3.4.5",
     "date": "2026-01-06",
     "added": [

@@ -73,3 +73,6 @@ next-env.d.ts
 
 # Generated tokens (can be regenerated)
 src/tokens/generated/
+
+# Deployment configuration (contains sensitive credentials)
+deploy.config.json

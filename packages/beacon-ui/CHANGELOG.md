@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.8] - 2026-01-08
+
+### Added
+- Slider component for selecting single values or ranges with support for tooltips, step indicators, and customizable labels
+- Slider supports both single value and range modes with configurable min, max, and step values
+- Slider component includes status states (default, hover, active, disabled) and keyboard navigation support
+
+### Changed
+- Input and Select components updated with improved styling consistency and enhanced functionality
+
 ## [3.4.5] - 2026-01-06
 
 ### Added
