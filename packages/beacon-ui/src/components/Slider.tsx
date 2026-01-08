@@ -16,6 +16,7 @@ export interface SliderProps extends Omit<ComponentPropsWithRef<"div">, "onChang
   showTooltip?: boolean;
   showSteps?: boolean;
   stepCount?: number;
+  stepLabels?: string[];
   showLabel?: boolean;
   label?: string;
   status?: SliderStatus;
@@ -37,6 +38,7 @@ export function Slider({
   showTooltip = false,
   showSteps = false,
   stepCount = 10,
+  stepLabels,
   showLabel = true,
   label = "Slider",
   status: statusProp,
@@ -60,7 +62,7 @@ export function Slider({
 
   const currentRangeValue = range ? (rangeValue ?? [20, 80]) : null;
   const currentSingleValue = range ? null : value;
-  const startValue = range ? (currentRangeValue?.[0] ?? 20) : min;
+  const startValue = range ? (currentRangeValue?.[0] ?? 20) : (currentSingleValue ?? 60);
   const endValue = range ? (currentRangeValue?.[1] ?? 80) : (currentSingleValue ?? 60);
 
   const handleMouseEnter = useCallback(
@@ -304,6 +306,20 @@ export function Slider({
     } as React.CSSProperties;
   }, [status]);
 
+  const getTooltipText = useCallback(
+    (val: number): string => {
+      if (stepLabels && stepLabels.length > 0) {
+        const stepIndex = Math.round((val - min) / step);
+        const clampedIndex = Math.max(0, Math.min(stepIndex, stepLabels.length - 1));
+        return stepLabels[clampedIndex] ?? String(val);
+      }
+      return String(val);
+    },
+    [stepLabels, min, step]
+  );
+
+  const { id, ...restProps } = rest;
+
   return (
     <div
       className={className}
@@ -318,13 +334,23 @@ export function Slider({
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      {...rest}
+      {...restProps}
     >
       {showLabel && (
         <p style={labelStyles}>{label}</p>
       )}
       <div
         ref={trackRef}
+        id={id}
+        role={range ? "group" : "slider"}
+        aria-labelledby={id ? `${id}-label` : undefined}
+        aria-label={id ? undefined : (range ? (restProps["aria-label"] || label) : undefined)}
+        aria-orientation={range ? "horizontal" : "horizontal"}
+        aria-valuemin={range ? undefined : min}
+        aria-valuemax={range ? undefined : max}
+        aria-valuenow={range ? undefined : (currentSingleValue ?? 60)}
+        aria-valuetext={range ? undefined : getTooltipText(currentSingleValue ?? 60)}
+        tabIndex={isDisabled ? -1 : 0}
         style={{
           position: "relative",
           paddingTop: "2px",
@@ -345,38 +371,51 @@ export function Slider({
                 right: 0,
                 bottom: 0,
                 display: "flex",
-                justifyContent: "space-between",
                 alignItems: "center",
-                paddingLeft: "4px",
-                paddingRight: "4px",
                 pointerEvents: "none",
               }}
             >
-              {Array.from({ length: stepCount + 1 }).map((_, index) => (
-                <div
-                  key={index}
-                  style={{
-                    width: `${STEP_DOT_SIZE}px`,
-                    height: `${STEP_DOT_SIZE}px`,
-                    borderRadius: "var(--corner-radius-full)",
-                    backgroundColor: "var(--border-strong-200)",
-                  }}
-                />
-              ))}
+              {Array.from({ length: stepCount + 1 }).map((_, index) => {
+                const stepPercentage = stepCount > 0 ? (index / stepCount) * 100 : 0;
+                const isFirst = index === 0;
+                const isLast = index === stepCount;
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      position: "absolute",
+                      left: `${stepPercentage}%`,
+                      transform: isFirst ? "translateX(4px)" : isLast ? "translateX(calc(-100% - 4px))" : "translateX(-50%)",
+                      width: `${STEP_DOT_SIZE}px`,
+                      height: `${STEP_DOT_SIZE}px`,
+                      borderRadius: "var(--corner-radius-full)",
+                      backgroundColor: "var(--border-strong-200)",
+                    }}
+                  />
+                );
+              })}
             </div>
           )}
           {range ? (
             <>
               <div
+                role="slider"
+                aria-valuemin={min}
+                aria-valuemax={max}
+                aria-valuenow={startValue}
+                aria-valuetext={getTooltipText(startValue)}
+                aria-labelledby={id ? `${id}-label` : undefined}
+                aria-label={id ? undefined : `${restProps["aria-label"] || label} start`}
+                tabIndex={isDisabled ? -1 : 0}
                 style={{
                   ...thumbStyles,
                   left: `${startPercentage}%`,
                 }}
                 onMouseDown={handleThumbMouseDown("start")}
               >
-                {showTooltip && status === "active" && (
+                {showTooltip && (status === "active" || status === "hover") && (
                   <div style={{ ...tooltipStyles, left: "50%" }}>
-                    <p style={{ margin: 0, textAlign: "center" }}>{startValue}</p>
+                    <p style={{ margin: 0, textAlign: "center" }}>{getTooltipText(startValue)}</p>
                     <div
                       style={{
                         position: "absolute",
@@ -394,15 +433,23 @@ export function Slider({
                 )}
               </div>
               <div
+                role="slider"
+                aria-valuemin={min}
+                aria-valuemax={max}
+                aria-valuenow={endValue}
+                aria-valuetext={getTooltipText(endValue)}
+                aria-labelledby={id ? `${id}-label` : undefined}
+                aria-label={id ? undefined : `${restProps["aria-label"] || label} end`}
+                tabIndex={isDisabled ? -1 : 0}
                 style={{
                   ...thumbStyles,
                   left: `${endPercentage}%`,
                 }}
                 onMouseDown={handleThumbMouseDown("end")}
               >
-                {showTooltip && status === "active" && (
+                {showTooltip && (status === "active" || status === "hover") && (
                   <div style={{ ...tooltipStyles, left: "50%" }}>
-                    <p style={{ margin: 0, textAlign: "center" }}>{endValue}</p>
+                    <p style={{ margin: 0, textAlign: "center" }}>{getTooltipText(endValue)}</p>
                     <div
                       style={{
                         position: "absolute",
@@ -422,15 +469,18 @@ export function Slider({
             </>
           ) : (
             <div
+              role="none"
+              aria-hidden="true"
+              tabIndex={-1}
               style={{
                 ...thumbStyles,
                 left: `${startPercentage}%`,
               }}
               onMouseDown={handleThumbMouseDown("end")}
             >
-              {showTooltip && status === "active" && (
+              {showTooltip && (status === "active" || status === "hover") && (
                 <div style={{ ...tooltipStyles, left: "50%" }}>
-                  <p style={{ margin: 0, textAlign: "center" }}>{currentSingleValue ?? 60}</p>
+                  <p style={{ margin: 0, textAlign: "center" }}>{getTooltipText(currentSingleValue ?? 60)}</p>
                   <div
                     style={{
                       position: "absolute",

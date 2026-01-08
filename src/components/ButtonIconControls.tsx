@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
-import { Select } from "beacon-ui";
+import { Select, Slider } from "beacon-ui";
 import type { SelectOption } from "beacon-ui";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
@@ -152,78 +152,40 @@ export function ButtonIconControls({
       </div>
 
       <div className="ds-button-control-group">
-        <label htmlFor="button-icon-size-slider" className="ds-button-control-label">Size</label>
-        <div className="ds-step-slider">
-          <div
-            className="ds-step-slider__track"
-            style={{
-              ["--active-width" as string]: `${((sizeIndex + 0.5) / SIZE_OPTIONS.length) * 100}%`,
-            }}
-          >
-            {SIZE_OPTIONS.map((opt, index) => (
-              <div
-                key={opt.value}
-                className={`ds-step-slider__step ${index === sizeIndex ? "ds-step-slider__step--active" : ""}`}
-              />
-            ))}
-          </div>
-          <input
-            id="button-icon-size-slider"
-            type="range"
-            min="0"
-            max={SIZE_OPTIONS.length - 1}
-            value={sizeIndex}
-            onChange={(e) => {
-              const newIndex = Number.parseInt(e.target.value, 10);
-              onSizeChange(SIZE_OPTIONS[newIndex].value);
-            }}
-            className="ds-step-slider__input"
-            aria-label="Button icon size"
-          />
-          <div className="ds-step-slider__labels">
-            {SIZE_OPTIONS.map((opt) => (
-              <span key={opt.value} className="ds-step-slider__label">
-                {opt.label}
-              </span>
-            ))}
-          </div>
-        </div>
+        <label id="button-icon-size-slider-label" className="ds-button-control-label">Size</label>
+        <Slider
+          id="button-icon-size-slider"
+          min={0}
+          max={SIZE_OPTIONS.length - 1}
+          step={1}
+          value={sizeIndex}
+          stepCount={SIZE_OPTIONS.length - 1}
+          showSteps={true}
+          showTooltip={true}
+          showLabel={false}
+          stepLabels={SIZE_OPTIONS.map((opt) => opt.label)}
+          onChange={(value) => {
+            const newIndex = value as number;
+            onSizeChange(SIZE_OPTIONS[newIndex].value);
+          }}
+        />
       </div>
 
       <div className="ds-button-control-group">
-        <label htmlFor="button-icon-radius-slider" className="ds-button-control-label">Radius</label>
-        <div className="ds-step-slider">
-          <div
-            className="ds-step-slider__track"
-            style={{
-              ["--active-width" as string]: `${((cornerRadius + 0.5) / 6) * 100}%`,
-            }}
-          >
-            {[0, 1, 2, 3, 4, 5].map((step) => (
-              <div
-                key={step}
-                className={`ds-step-slider__step ${step === cornerRadius ? "ds-step-slider__step--active" : ""}`}
-              />
-            ))}
-          </div>
-          <input
-            id="button-icon-radius-slider"
-            type="range"
-            min="0"
-            max="5"
-            value={cornerRadius}
-            onChange={(e) => onCornerRadiusChange(Number.parseInt(e.target.value, 10) as CornerRadiusStep)}
-            className="ds-step-slider__input"
-            aria-label="Corner radius"
-          />
-          <div className="ds-step-slider__labels">
-            {CORNER_RADIUS_LABELS.map((label, index) => (
-              <span key={index} className="ds-step-slider__label">
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
+        <label id="button-icon-radius-slider-label" className="ds-button-control-label">Radius</label>
+        <Slider
+          id="button-icon-radius-slider"
+          min={0}
+          max={5}
+          step={1}
+          value={cornerRadius}
+          stepCount={5}
+          showSteps={true}
+          showTooltip={true}
+          showLabel={false}
+          stepLabels={CORNER_RADIUS_LABELS}
+          onChange={(value) => onCornerRadiusChange(value as CornerRadiusStep)}
+        />
       </div>
     </div>
   );

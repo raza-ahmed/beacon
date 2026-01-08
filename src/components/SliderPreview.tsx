@@ -172,24 +172,29 @@ export function SliderPreview({
                 right: 0,
                 bottom: 0,
                 display: "flex",
-                justifyContent: "space-between",
                 alignItems: "center",
-                paddingLeft: "4px",
-                paddingRight: "4px",
                 pointerEvents: "none",
               }}
             >
-              {Array.from({ length: 11 }).map((_, index) => (
-                <div
-                  key={index}
-                  style={{
-                    width: "4px",
-                    height: "4px",
-                    borderRadius: "var(--corner-radius-full)",
-                    backgroundColor: "var(--border-strong-200)",
-                  }}
-                />
-              ))}
+              {Array.from({ length: 11 }).map((_, index) => {
+                const stepPercentage = (index / 10) * 100;
+                const isFirst = index === 0;
+                const isLast = index === 10;
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      position: "absolute",
+                      left: `${stepPercentage}%`,
+                      transform: isFirst ? "translateX(4px)" : isLast ? "translateX(calc(-100% - 4px))" : "translateX(-50%)",
+                      width: "4px",
+                      height: "4px",
+                      borderRadius: "var(--corner-radius-full)",
+                      backgroundColor: "var(--border-strong-200)",
+                    }}
+                  />
+                );
+              })}
             </div>
           )}
           {range ? (
@@ -202,7 +207,7 @@ export function SliderPreview({
                   transform: "translateX(-50%)",
                 }}
               >
-                {showTooltip && (
+                {showTooltip && (status === "active" || status === "hover") && (
                   <div style={{ ...tooltipStyles, left: "50%" }}>
                     <p style={{ margin: 0, textAlign: "center" }}>{rangeValue[0]}</p>
                     <div
@@ -229,7 +234,7 @@ export function SliderPreview({
                   transform: "translateX(-50%)",
                 }}
               >
-                {showTooltip && (
+                {showTooltip && (status === "active" || status === "hover") && (
                   <div style={{ ...tooltipStyles, left: "50%" }}>
                     <p style={{ margin: 0, textAlign: "center" }}>{rangeValue[1]}</p>
                     <div
@@ -258,7 +263,7 @@ export function SliderPreview({
                 transform: "translateX(-50%)",
               }}
             >
-              {showTooltip && status === "active" && (
+              {showTooltip && (status === "active" || status === "hover") && (
                 <div style={{ ...tooltipStyles, left: "50%" }}>
                   <p style={{ margin: 0, textAlign: "center" }}>{value}</p>
                   <div

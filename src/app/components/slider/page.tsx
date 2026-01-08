@@ -200,10 +200,15 @@ export default function SliderPage() {
                 <div style={{ position: "relative", width: "100%", paddingTop: "2px", paddingBottom: "2px", height: "8px" }}>
                   <div style={{ position: "relative", width: "100%", height: "8px", backgroundColor: "var(--bg-page-tertiary)", borderRadius: "var(--corner-radius-full)" }}>
                     <div style={{ position: "absolute", left: "0%", width: "60%", height: "100%", backgroundColor: "var(--bg-primary)", borderRadius: "var(--corner-radius-full)" }} />
-                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: "4px", paddingRight: "4px", pointerEvents: "none" }}>
-                      {Array.from({ length: 11 }).map((_, i) => (
-                        <div key={i} style={{ width: "4px", height: "4px", borderRadius: "var(--corner-radius-full)", backgroundColor: "var(--border-strong-200)" }} />
-                      ))}
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", pointerEvents: "none" }}>
+                      {Array.from({ length: 11 }).map((_, i) => {
+                        const stepPercentage = (i / 10) * 100;
+                        const isFirst = i === 0;
+                        const isLast = i === 10;
+                        return (
+                          <div key={i} style={{ position: "absolute", left: `${stepPercentage}%`, transform: isFirst ? "translateX(4px)" : isLast ? "translateX(calc(-100% - 4px))" : "translateX(-50%)", width: "4px", height: "4px", borderRadius: "var(--corner-radius-full)", backgroundColor: "var(--border-strong-200)" }} />
+                        );
+                      })}
                     </div>
                     <div style={{ position: "absolute", left: "60%", bottom: "-4px", width: "16px", height: "16px", borderRadius: "var(--corner-radius-full)", backgroundColor: "var(--fg-on-action)", border: "2px solid var(--bg-primary)", boxShadow: "var(--shadow-subtle)", transform: "translateX(-50%)" }} />
                   </div>

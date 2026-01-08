@@ -4,7 +4,7 @@ import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { type PatternType, PATTERN_CONFIGS } from "@/utils/patternPaths";
 import { Switch } from "./Switch";
-import { Input, Select } from "beacon-ui";
+import { Input, Select, Slider } from "beacon-ui";
 import type { CornerRadiusStep, SelectOption } from "beacon-ui";
 
 // Filter out legacy patterns and default for the dropdown
@@ -214,40 +214,21 @@ export function CardControls({
       </div>
 
       <div className="ds-card-control-group">
-        <label htmlFor="card-radius-slider" className="ds-card-control-label">Corner Radius</label>
-        <div className="ds-step-slider">
-          <div
-            className="ds-step-slider__track"
-            style={{
-              ["--active-width" as string]: `${((cornerRadius + 0.5) / 6) * 100}%`,
-            }}
-          >
-            {[0, 1, 2, 3, 4, 5].map((step) => (
-              <div
-                key={step}
-                className={`ds-step-slider__step ${step === cornerRadius ? "ds-step-slider__step--active" : ""}`}
-              />
-            ))}
-          </div>
-          <input
-            id="card-radius-slider"
-            type="range"
-            min="0"
-            max="5"
-            value={cornerRadius}
-            onChange={(e) => onCornerRadiusChange?.(Number.parseInt(e.target.value, 10) as CornerRadiusStep)}
-            className="ds-step-slider__input"
-            aria-label="Corner radius"
-          />
-          <div className="ds-step-slider__labels">
-            {CORNER_RADIUS_LABELS.map((label, index) => (
-              <span key={index} className="ds-step-slider__label">
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
-          </div>
+        <label id="card-radius-slider-label" className="ds-card-control-label">Corner Radius</label>
+        <Slider
+          id="card-radius-slider"
+          min={0}
+          max={5}
+          step={1}
+          value={cornerRadius}
+          stepCount={5}
+          showSteps={true}
+          showTooltip={true}
+          showLabel={false}
+          stepLabels={CORNER_RADIUS_LABELS}
+          onChange={(value) => onCornerRadiusChange?.(value as CornerRadiusStep)}
+        />
+      </div>
 
           <div className="ds-card-control-group">
             <div className="ds-icon-fill-row">

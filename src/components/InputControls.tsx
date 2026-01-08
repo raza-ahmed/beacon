@@ -1,7 +1,7 @@
 "use client";
 
 import { Switch } from "./Switch";
-import { Input, Select } from "beacon-ui";
+import { Input, Select, Slider } from "beacon-ui";
 import type { CornerRadiusStep, SelectOption } from "beacon-ui";
 
 type InputSize = "sm" | "md" | "lg" | "xl";
@@ -224,40 +224,20 @@ export function InputControls({
       </div>
 
       <div className="ds-input-control-group">
-        <label htmlFor="input-radius-slider" className="ds-input-control-label">Corner Radius</label>
-        <div className="ds-step-slider">
-          <div
-            className="ds-step-slider__track"
-            style={{
-              ["--active-width" as string]: `${(cornerRadius / 5) * 100}%`,
-            }}
-          >
-            {[0, 1, 2, 3, 4, 5].map((step) => (
-              <div
-                key={step}
-                className={`ds-step-slider__step ${step === cornerRadius ? "ds-step-slider__step--active" : ""}`}
-              />
-            ))}
-          </div>
-          <input
-            id="input-radius-slider"
-            type="range"
-            min="0"
-            max="5"
-            step="1"
-            value={cornerRadius}
-            onChange={(e) => onCornerRadiusChange?.(Number.parseInt(e.target.value, 10) as CornerRadiusStep)}
-            className="ds-step-slider__input"
-            aria-label="Corner radius"
-          />
-          <div className="ds-step-slider__labels">
-            {CORNER_RADIUS_LABELS.map((label, index) => (
-              <span key={index} className="ds-step-slider__label">
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
+        <label id="input-radius-slider-label" className="ds-input-control-label">Corner Radius</label>
+        <Slider
+          id="input-radius-slider"
+          min={0}
+          max={5}
+          step={1}
+          value={cornerRadius}
+          stepCount={5}
+          showSteps={true}
+          showTooltip={true}
+          showLabel={false}
+          stepLabels={CORNER_RADIUS_LABELS}
+          onChange={(value) => onCornerRadiusChange?.(value as CornerRadiusStep)}
+        />
       </div>
     </div>
   );

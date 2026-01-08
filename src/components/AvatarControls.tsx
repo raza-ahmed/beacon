@@ -3,7 +3,7 @@
 import type { Theme, HueVariant } from "@/tokens/types";
 import { CheckIcon } from "./icons";
 import { Switch } from "./Switch";
-import { Input, Select } from "beacon-ui";
+import { Input, Select, Slider } from "beacon-ui";
 import type { SelectOption } from "beacon-ui";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
@@ -32,20 +32,14 @@ interface AvatarControlsProps {
   onInitialsChange: (initials: string) => void;
 }
 
-// Size options vary by type
+// Size options - all types support all 4 sizes
 const getSizeOptions = (type: AvatarType): { value: AvatarSize; label: string }[] => {
-  const baseSizes = [
+  return [
     { value: "sm" as AvatarSize, label: "Small" },
     { value: "md" as AvatarSize, label: "Medium" },
     { value: "lg" as AvatarSize, label: "Large" },
+    { value: "xl" as AvatarSize, label: "Extra Large" },
   ];
-  
-  // Only image type has extra large option
-  if (type === "image") {
-    return [...baseSizes, { value: "xl" as AvatarSize, label: "Extra Large" }];
-  }
-  
-  return baseSizes;
 };
 
 const TYPE_OPTIONS: { value: AvatarType; label: string }[] = [
@@ -97,9 +91,6 @@ export function AvatarControls({
   const sizeIndex = sizeOptions.findIndex((opt) => opt.value === size);
   const currentSizeIndex = sizeIndex >= 0 ? sizeIndex : 0;
 
-  // If current size is xl but type doesn't support it, reset to lg
-  const effectiveSize = sizeOptions.find((opt) => opt.value === size)?.value || sizeOptions[0].value;
-
   return (
     <div className="ds-avatar-controls">
       <div className="ds-avatar-control-group ds-avatar-control-group--row">
@@ -118,10 +109,6 @@ export function AvatarControls({
             onSelect={(value) => {
               const newType = value as AvatarType;
               onTypeChange(newType);
-              // If switching from image to non-image and size is xl, reset to lg
-              if (newType !== "image" && size === "xl") {
-                onSizeChange("lg");
-              }
             }}
           />
         </div>
@@ -193,46 +180,25 @@ export function AvatarControls({
       </div>
 
       <div className="ds-avatar-control-group">
-        <label htmlFor="avatar-size-slider" className="ds-avatar-control-label">
+        <label id="avatar-size-slider-label" className="ds-avatar-control-label">
           Size
         </label>
-        <div className="ds-step-slider">
-          <div
-            className="ds-step-slider__track"
-            style={{
-              ["--active-width" as string]: `${((currentSizeIndex + 0.5) / sizeOptions.length) * 100}%`,
-            }}
-          >
-            {sizeOptions.map((opt, index) => (
-              <div
-                key={opt.value}
-                className={`ds-step-slider__step ${
-                  index === currentSizeIndex ? "ds-step-slider__step--active" : ""
-                }`}
-              />
-            ))}
-          </div>
-          <input
-            id="avatar-size-slider"
-            type="range"
-            min="0"
-            max={sizeOptions.length - 1}
-            value={currentSizeIndex}
-            onChange={(e) => {
-              const newIndex = Number.parseInt(e.target.value, 10);
-              onSizeChange(sizeOptions[newIndex].value);
-            }}
-            className="ds-step-slider__input"
-            aria-label="Avatar size"
-          />
-          <div className="ds-step-slider__labels">
-            {sizeOptions.map((opt) => (
-              <span key={opt.value} className="ds-step-slider__label">
-                {opt.label}
-              </span>
-            ))}
-          </div>
-        </div>
+        <Slider
+          id="avatar-size-slider"
+          min={0}
+          max={sizeOptions.length - 1}
+          step={1}
+          value={currentSizeIndex}
+          stepCount={sizeOptions.length - 1}
+          showSteps={true}
+          showTooltip={true}
+          showLabel={false}
+          stepLabels={sizeOptions.map((opt) => opt.label)}
+          onChange={(value) => {
+            const newIndex = value as number;
+            onSizeChange(sizeOptions[newIndex].value);
+          }}
+        />
       </div>
 
       <div className="ds-avatar-control-group">

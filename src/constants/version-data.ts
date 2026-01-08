@@ -22,57 +22,6 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
-    "version": "3.4.7",
-    "date": "2026-01-07",
-    "added": [
-      {
-        "description": "Custom fonts documentation - guide for using your own fonts from Google Fonts or other sources"
-      },
-      {
-        "description": "Font configuration section with per-hue font system explanation and variable reference"
-      },
-      {
-        "description": "Next.js and CSS setup examples for loading required fonts"
-      }
-    ],
-    "changed": [
-      {
-        "description": "Typography page navigation reorganized for better content discoverability"
-      },
-      {
-        "description": "Font system now uses layered architecture with per-hue primary and secondary font configuration"
-      }
-    ],
-    "fixed": [
-      {
-        "description": "Inter and Geist Mono fonts now render correctly across all hue variants"
-      }
-    ]
-  },
-  {
-    "version": "3.4.6",
-    "date": "2026-01-07",
-    "changed": [
-      {
-        "description": "Typography token structure updated to per-font weights (Font.Inter.Weight instead of shared Font.Weight)"
-      },
-      {
-        "description": "Semantic layer now generates font variables per hue variant for theme-aware font switching"
-      }
-    ],
-    "fixed": [
-      {
-        "description": "Tab component pill variant background color now displays correctly in all states"
-      },
-      {
-        "description": "Input field spacing and preview alignment issues resolved"
-      },
-      {
-        "description": "Error primitives color values corrected for better visibility"
-      }
-    ]
-  },
-  {
     "version": "3.4.5",
     "date": "2026-01-06",
     "added": [
