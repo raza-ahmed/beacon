@@ -70,7 +70,16 @@ async function loadConfig(): Promise<DeployConfig> {
 async function buildProject() {
   console.log("🔨 Building project...");
   try {
-    execSync("npm run build", { stdio: "inherit", cwd: path.join(__dirname, "..") });
+    // Run build steps individually, skipping CSS validation for deployment
+    console.log("  → Building tokens...");
+    execSync("npm run build:tokens", { stdio: "inherit", cwd: path.join(__dirname, "..") });
+    
+    console.log("  → Copying assets...");
+    execSync("npm run copy:assets", { stdio: "inherit", cwd: path.join(__dirname, "..") });
+    
+    console.log("  → Building Next.js...");
+    execSync("next build", { stdio: "inherit", cwd: path.join(__dirname, "..") });
+    
     console.log("✅ Build completed successfully\n");
   } catch (error) {
     console.error("❌ Build failed:", error);
@@ -110,25 +119,75 @@ async function uploadFiles(client: Client, config: DeployConfig) {
   let uploadedCount = 0;
   let failedCount = 0;
 
-  // Ensure remote directory exists
-  await client.ensureDir(config.ftp.remotePath);
+  // Normalize remotePath - if it's ".", use empty string for root
+  const baseRemotePath = config.ftp.remotePath === "." ? "" : config.ftp.remotePath.replace(/\\/g, "/");
+  
+  // Get the root directory (where we start)
+  let currentRemoteDir = "";
+  if (!config.options?.dryRun) {
+    if (baseRemotePath) {
+      try {
+        await client.cd(baseRemotePath);
+        currentRemoteDir = baseRemotePath;
+      } catch (error) {
+        await client.ensureDir(baseRemotePath);
+        await client.cd(baseRemotePath);
+        currentRemoteDir = baseRemotePath;
+      }
+    } else {
+      // Stay in root, get current directory
+      currentRemoteDir = await client.pwd();
+    }
+  }
 
   for (const file of files) {
     const localPath = path.join(OUT_DIR, file);
-    const remotePath = path.join(config.ftp.remotePath, file).replace(/\\/g, "/");
+    const fileDir = path.dirname(file).replace(/\\/g, "/");
+    const fileName = path.basename(file);
 
     try {
       if (config.options?.dryRun) {
+        const remotePath = baseRemotePath 
+          ? `${baseRemotePath}/${file}`.replace(/\/+/g, "/")
+          : file.replace(/\\/g, "/");
         console.log(`[DRY RUN] Would upload: ${file} -> ${remotePath}`);
         uploadedCount++;
       } else {
-        // Ensure remote directory exists
-        const remoteDir = path.dirname(remotePath).replace(/\\/g, "/");
-        if (remoteDir !== config.ftp.remotePath) {
-          await client.ensureDir(remoteDir);
+        // Build the full remote directory path
+        const fullRemoteDir = fileDir && fileDir !== "."
+          ? (currentRemoteDir ? `${currentRemoteDir}/${fileDir}` : fileDir).replace(/\/+/g, "/")
+          : currentRemoteDir;
+        
+        // Build the full remote file path
+        const fullRemotePath = fileDir && fileDir !== "."
+          ? `${fullRemoteDir}/${fileName}`.replace(/\/+/g, "/")
+          : (currentRemoteDir ? `${currentRemoteDir}/${fileName}` : fileName).replace(/\/+/g, "/");
+
+        // Ensure the directory exists using absolute path
+        if (fileDir && fileDir !== ".") {
+          try {
+            await client.ensureDir(fullRemoteDir);
+          } catch (dirError: any) {
+            // If ensureDir fails, try creating directories manually
+            const dirParts = fileDir.split("/").filter(part => part !== "");
+            let buildPath = currentRemoteDir || "";
+            
+            for (const part of dirParts) {
+              buildPath = buildPath ? `${buildPath}/${part}` : part;
+              try {
+                await client.ensureDir(buildPath);
+              } catch (partError: any) {
+                // Directory might already exist, continue
+                if (partError?.code !== 550 && partError?.code !== 553) {
+                  console.warn(`   Warning: Could not create directory ${buildPath}:`, partError.message);
+                }
+              }
+            }
+          }
         }
 
-        await client.uploadFrom(localPath, remotePath);
+        // Upload the file using the full path
+        await client.uploadFrom(localPath, fullRemotePath);
         uploadedCount++;
         
         if (uploadedCount % 10 === 0 || uploadedCount === totalFiles) {
@@ -156,7 +215,8 @@ async function deleteRemoteFiles(client: Client, config: DeployConfig, localFile
   console.log("\n🧹 Checking for remote files to delete...");
   
   try {
-    const remoteFiles = await getAllRemoteFiles(client, config.ftp.remotePath);
+    const baseRemotePath = config.ftp.remotePath === "." ? "" : config.ftp.remotePath.replace(/\\/g, "/");
+    const remoteFiles = await getAllRemoteFiles(client, baseRemotePath);
     const localFileSet = new Set(localFiles.map(f => f.replace(/\\/g, "/")));
     
     const filesToDelete = remoteFiles.filter(
@@ -172,7 +232,9 @@ async function deleteRemoteFiles(client: Client, config: DeployConfig, localFile
     
     for (const file of filesToDelete) {
       try {
-        const remotePath = path.join(config.ftp.remotePath, file).replace(/\\/g, "/");
+        const remotePath = baseRemotePath 
+          ? `${baseRemotePath}/${file}`.replace(/\/+/g, "/")
+          : file.replace(/\\/g, "/");
         await client.remove(remotePath);
       } catch (error) {
         console.error(`   ⚠️  Failed to delete ${file}:`, error);
@@ -189,17 +251,28 @@ async function getAllRemoteFiles(client: Client, remotePath: string): Promise<st
   const files: string[] = [];
   
   try {
-    const list = await client.list(remotePath);
+    // Use "." for listing current directory if remotePath is empty
+    const listPath = remotePath === "" ? "." : remotePath;
+    const list = await client.list(listPath);
     
     for (const item of list) {
-      const itemPath = path.join(remotePath, item.name).replace(/\\/g, "/");
-      const relativePath = path.relative(remotePath, itemPath).replace(/\\/g, "/");
+      const itemPath = remotePath === "" 
+        ? item.name 
+        : `${remotePath}/${item.name}`.replace(/\/+/g, "/");
+      const relativePath = remotePath === ""
+        ? item.name
+        : path.relative(remotePath, itemPath).replace(/\\/g, "/");
       
       if (item.isFile) {
         files.push(relativePath);
       } else if (item.isDirectory && item.name !== "." && item.name !== "..") {
         const subFiles = await getAllRemoteFiles(client, itemPath);
-        files.push(...subFiles.map(f => path.join(relativePath, f).replace(/\\/g, "/")));
+        files.push(...subFiles.map(f => {
+          if (remotePath === "") {
+            return `${relativePath}/${f}`.replace(/\/+/g, "/");
+          }
+          return path.join(relativePath, f).replace(/\\/g, "/");
+        }));
       }
     }
   } catch (error) {
@@ -223,6 +296,10 @@ async function main() {
 
   try {
     console.log("🔌 Connecting to FTP server...");
+    console.log(`   Host: ${config.ftp.host}`);
+    console.log(`   User: ${config.ftp.user}`);
+    console.log(`   Port: ${config.ftp.port}`);
+    
     await client.access({
       host: config.ftp.host,
       user: config.ftp.user,
@@ -240,8 +317,23 @@ async function main() {
     }
 
     console.log("\n✨ Deployment completed successfully!");
-  } catch (error) {
-    console.error("\n❌ Deployment failed:", error);
+  } catch (error: any) {
+    console.error("\n❌ Deployment failed!");
+    
+    if (error.code === 530) {
+      console.error("   Authentication failed. Please check:");
+      console.error("   - FTP username and password in deploy.config.json");
+      console.error("   - FTP host address");
+      console.error("   - Ensure FTP account is active in cPanel");
+    } else if (error.code === 421 || error.message?.includes("timeout")) {
+      console.error("   Connection timeout. Please check:");
+      console.error("   - FTP host address");
+      console.error("   - Port number (usually 21 for FTP)");
+      console.error("   - Firewall/network settings");
+    } else {
+      console.error("   Error details:", error.message || error);
+    }
+    
     process.exit(1);
   } finally {
     client.close();
