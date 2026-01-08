@@ -11,6 +11,7 @@ export { Chip } from "./components/Chip";
 export { Menu, type MenuItem as MenuItemData } from "./components/Menu";
 export { MenuItem, type MenuItemProps, type MenuItemState } from "./components/MenuItem";
 export { RadioButton } from "./components/RadioButton";
+export { Slider } from "./components/Slider";
 
 // Component Props Types
 export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState, ButtonColor } from "./components/Button";
@@ -24,6 +25,7 @@ export type { AvatarProps, AvatarSize, AvatarType, AvatarColor, AvatarVariant } 
 export type { ChipProps, ChipSize, ChipColor } from "./components/Chip";
 export type { MenuProps } from "./components/Menu";
 export type { RadioButtonProps, RadioButtonStatus } from "./components/RadioButton";
+export type { SliderProps, SliderStatus } from "./components/Slider";
 
 // Providers
 export { ThemeProvider, useTheme, useThemeSafe } from "./providers/ThemeProvider";
