@@ -93,6 +93,10 @@ import {
   DotCirclePointIcon,
   DotCirclePointFilledIcon,
   ArrowDownFallSlotIcon,
+  QuoteUpIcon,
+  QuoteDowncon,
+  QuoteUpFilledIcon,
+  QuoteDownFilledIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -192,6 +196,10 @@ const ALL_ICONS: IconItem[] = [
   { name: "DotCirclePointIcon", component: DotCirclePointIcon },
   { name: "DotCirclePointFilledIcon", component: DotCirclePointFilledIcon },
   { name: "ArrowDownFallSlotIcon", component: ArrowDownFallSlotIcon },
+  { name: "QuoteUpIcon", component: QuoteUpIcon },
+  { name: "QuoteDowncon", component: QuoteDowncon },
+  { name: "QuoteUpFilledIcon", component: QuoteUpFilledIcon },
+  { name: "QuoteDownFilledIcon", component: QuoteDownFilledIcon },
 ];
 
 async function copyToClipboard(text: string) {
