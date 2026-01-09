@@ -151,7 +151,7 @@ export function InputPreview({
       paddingRight: sizeConfig.paddingX,
       paddingTop: sizeConfig.paddingY,
       paddingBottom: sizeConfig.paddingY,
-      width: width || (iconOnly ? sizeConfig.height : "100%"),
+      width: iconOnly ? (width || sizeConfig.height) : (width || "100%"),
       height: iconOnly ? sizeConfig.height : sizeConfig.height,
       justifyContent: iconOnly ? "center" : "flex-start",
       cursor: isDisabled ? "not-allowed" : "text",
@@ -256,22 +256,22 @@ export function InputPreview({
 
   if (iconOnly) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "100%" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-100)", width: "fit-content" }}>
         <div 
           style={containerStylesWithHover}
           onMouseEnter={() => !isDisabled && setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {showPlaceholderIcon && (
-            <div style={{ color: "var(--fg-neutral)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {/* When iconOnly is true, always show an icon (prefer placeholder icon, fallback to start icon, or default to search icon) */}
+          <div style={{ color: "var(--fg-neutral)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {showPlaceholderIcon ? (
               <SearchIcon size={sizeConfig.iconSize} />
-            </div>
-          )}
-          {showStartIcon && !showPlaceholderIcon && (
-            <div style={{ color: "var(--fg-neutral)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            ) : showStartIcon ? (
               <UserPersonIcon size={sizeConfig.iconSize} />
-            </div>
-          )}
+            ) : (
+              <SearchIcon size={sizeConfig.iconSize} />
+            )}
+          </div>
         </div>
       </div>
     );

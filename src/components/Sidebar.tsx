@@ -61,6 +61,7 @@ export const navigationData: NavSection[] = [
       { label: "Slider", href: "/components/slider" },
       { label: "Radio Button", href: "/components/radio-button" },
       { label: "Switch", href: "/components/switch" },
+      { label: "Toast", href: "/components/toast" },
       { label: "Tabs", href: "/components/tabs" },
     ],
   },

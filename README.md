@@ -50,13 +50,13 @@ function App() {
 
 **beacon-ui** (Components & Tokens)
 - **Package Name**: `beacon-ui`
-- **Version**: 3.4.8
+- **Version**: 3.5.0
 - **NPM**: https://www.npmjs.com/package/beacon-ui
 - **Documentation**: https://beacon.uxraza.com/
 
 **beacon-icons** (Icon Components)
 - **Package Name**: `beacon-icons`
-- **Version**: 3.4.8
+- **Version**: 3.5.0
 - **NPM**: https://www.npmjs.com/package/beacon-icons
 
 ### Included Components
@@ -257,7 +257,7 @@ The design system follows semantic versioning:
 - **MINOR**: New features (backward compatible)
 - **PATCH**: Bug fixes (backward compatible)
 
-Current version: **3.4.8**
+Current version: **3.5.0**
 
 ---
 

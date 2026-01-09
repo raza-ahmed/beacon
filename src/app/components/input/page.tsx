@@ -230,7 +230,7 @@ export default function InputPage() {
                   disabled={config.status === "disabled"}
                   theme={theme}
                   hue={hue}
-                  width="232px"
+                  width={config.iconOnly ? undefined : "232px"}
                 />
               </div>
               <div className="ds-input-preview-code">

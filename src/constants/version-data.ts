@@ -22,6 +22,61 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.0",
+    "date": "2026-01-09",
+    "added": [
+      {
+        "description": "Toast component with support for default, success, error, and warning variants"
+      },
+      {
+        "description": "Toast component includes action buttons, dismiss controls, and configurable icons"
+      },
+      {
+        "description": "Toast component supports border styling via `showBorder` prop"
+      },
+      {
+        "description": "Tab and TabItem components for navigation and content organization"
+      },
+      {
+        "description": "Tab component supports segmented control patterns with consistent styling"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Toast component updated with improved typography (regular font size) and padding (8px vertical, 12px horizontal)"
+      },
+      {
+        "description": "Toast component height now calculated dynamically from padding and line height instead of fixed height"
+      },
+      {
+        "description": "Select component dropdown items now have size-specific styling:"
+      },
+      {
+        "description": "Small/Medium: 16px icons, extra-small/small font sizes, 8px/12px padding"
+      },
+      {
+        "description": "Large/XL: 20px icons, regular font size, 12px/16px padding"
+      },
+      {
+        "description": "Input component iconOnly mode now maintains square dimensions (width equals height) for all size variants"
+      },
+      {
+        "description": "Slider component enhanced with desktop hover preview tooltip showing value at cursor position"
+      },
+      {
+        "description": "Slider component enhanced with mobile long-press preview (500ms) showing value before setting"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Select component dropdown items now correctly match design specifications for each size variant"
+      },
+      {
+        "description": "Input component iconOnly mode now properly sizes to square dimensions matching component guidelines"
+      }
+    ]
+  },
+  {
     "version": "3.4.8",
     "date": "2026-01-08",
     "added": [

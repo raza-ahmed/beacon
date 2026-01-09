@@ -2376,6 +2376,43 @@ button:focus:not(:focus-visible) {
   align-items: stretch;
 }
 
+/* ============================================
+   TOAST PLAYGROUND
+   ============================================ */
+
+.ds-toast-playground {
+  display: grid;
+  grid-template-columns: 364px auto 1fr;
+  margin-top: var(--spacing-400);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-100);
+  background-color: var(--bg-page-primary);
+  overflow: hidden;
+  min-height: 448px;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .ds-toast-playground {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .ds-toast-preview-section {
+    order: 2;
+  }
+
+  .ds-toast-preview {
+    min-height: 200px;
+    border-top: 1px solid var(--border-strong-200);
+  }
+
+  .ds-toast-preview-code {
+    max-height: 200px;
+  }
+}
+
 @media (max-width: 768px) {
   .ds-button-playground {
     grid-template-columns: 1fr;
@@ -2403,7 +2440,8 @@ button:focus:not(:focus-visible) {
 .ds-input-preview-section,
 .ds-chip-preview-section,
 .ds-switch-preview-section,
-.ds-radio-button-preview-section {
+.ds-radio-button-preview-section,
+.ds-toast-preview-section {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-page-base);
@@ -2426,7 +2464,8 @@ button:focus:not(:focus-visible) {
 .ds-chip-preview,
 .ds-switch-preview,
 .ds-radio-button-preview,
-.ds-avatar-preview {
+.ds-avatar-preview,
+.ds-toast-preview {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2479,7 +2518,8 @@ button:focus:not(:focus-visible) {
 .ds-switch-preview::before,
 .ds-radio-button-preview::before,
 .ds-avatar-preview::before,
-.ds-menu-preview::before {
+.ds-menu-preview::before,
+.ds-toast-preview::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -2499,7 +2539,8 @@ button:focus:not(:focus-visible) {
 .ds-switch-preview > *,
 .ds-radio-button-preview > *,
 .ds-avatar-preview > *,
-.ds-menu-preview > * {
+.ds-menu-preview > *,
+.ds-toast-preview > * {
   position: relative;
   z-index: 1;
 }
@@ -2512,7 +2553,8 @@ button:focus:not(:focus-visible) {
 .ds-input-preview-code,
 .ds-chip-preview-code,
 .ds-switch-preview-code,
-.ds-radio-button-preview-code {
+.ds-radio-button-preview-code,
+.ds-toast-preview-code {
   flex: 0 0 50%;
   height: 50%;
   max-height: 50%;
@@ -2635,14 +2677,16 @@ button:focus:not(:focus-visible) {
 .ds-chip-playground-divider,
 .ds-switch-playground-divider,
 .ds-radio-button-playground-divider,
-.ds-menu-playground-divider {
+.ds-menu-playground-divider,
+.ds-toast-playground-divider {
   width: var(--border-width-25);
   background-color: var(--border-strong-100);
 }
 
 /* Base preview container - shared between button and card */
 .ds-button-preview-container,
-.ds-card-preview-container {
+.ds-card-preview-container,
+.ds-toast-preview-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -2655,7 +2699,8 @@ button:focus:not(:focus-visible) {
 
 /* Base preview canvas - shared between button and card */
 .ds-button-preview-canvas,
-.ds-card-preview-canvas {
+.ds-card-preview-canvas,
+.ds-toast-preview-canvas {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2787,10 +2832,12 @@ button:focus:not(:focus-visible) {
 .ds-chip-control-group,
 .ds-switch-control-group,
 .ds-radio-button-control-group,
-.ds-menu-control-group {
+.ds-menu-control-group,
+.ds-toast-control-group {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
+  overflow: visible;
 }
 
 .ds-button-control-group--row,
@@ -2801,7 +2848,8 @@ button:focus:not(:focus-visible) {
 .ds-switch-control-group--row,
 .ds-chip-control-group--row,
 .ds-radio-button-control-group--row,
-.ds-menu-control-group--row {
+.ds-menu-control-group--row,
+.ds-toast-control-group--row {
   flex-direction: row;
   gap: var(--spacing-300);
 }
@@ -2813,11 +2861,13 @@ button:focus:not(:focus-visible) {
 .ds-input-control-field,
 .ds-chip-control-field,
 .ds-radio-button-control-field,
-.ds-menu-control-field {
+.ds-menu-control-field,
+.ds-toast-control-field {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
   flex: 1;
+  overflow: visible;
 }
 
 .ds-button-control-label,
@@ -2828,7 +2878,8 @@ button:focus:not(:focus-visible) {
 .ds-chip-control-label,
 .ds-switch-control-label,
 .ds-radio-button-control-label,
-.ds-menu-control-label {
+.ds-menu-control-label,
+.ds-toast-control-label {
   font-family: var(--font-secondary);
   font-size: var(--fonts-body-small-text-size);
   line-height: var(--fonts-body-small-line-height);
@@ -3389,6 +3440,7 @@ button:focus:not(:focus-visible) {
   padding: var(--spacing-300);
   background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
+  margin-top: auto;
 }
 
 .ds-button-preview-filled {
@@ -3638,6 +3690,7 @@ button:focus:not(:focus-visible) {
   gap: var(--spacing-300);
   padding: var(--spacing-400);
   min-height: 100px;
+  margin-top: auto;
 }
 
 .ds-avatar-preview-icon {
@@ -3817,6 +3870,7 @@ button:focus:not(:focus-visible) {
   background-color: var(--bg-page-primary);
   border-radius: var(--corner-radius-200);
   min-height: 120px;
+  margin-top: auto;
 }
 
 .ds-card-anatomy-diagram {
@@ -4252,6 +4306,7 @@ button:focus:not(:focus-visible) {
   background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
   min-height: 60px;
+  margin-top: auto;
 }
 
 .ds-checkbox-anatomy-diagram {
@@ -4548,6 +4603,17 @@ button:focus:not(:focus-visible) {
   max-height: 100%;
 }
 
+.ds-toast-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  padding: var(--spacing-400);
+  overflow-y: auto;
+  max-height: 100%;
+  background-color: var(--bg-page-primary);
+  align-self: stretch;
+}
+
 /* Chip control group, field, and label use base styles defined above */
 
 /* Chip control select uses base styles defined above */
@@ -4686,6 +4752,146 @@ button:focus:not(:focus-visible) {
   background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
   min-height: 80px;
+  margin-top: auto;
+}
+
+/* ============================================
+   TOAST COMPONENT
+   ============================================ */
+
+.ds-toast-variants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+}
+
+.ds-toast-variant-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  background-color: var(--bg-page-primary);
+  border-radius: var(--corner-radius-300);
+}
+
+.ds-toast-variant-card__title {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+  margin: 0;
+}
+
+.ds-toast-variant-card__desc {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  color: var(--fg-neutral-secondary);
+  margin: 0;
+}
+
+.ds-toast-variant-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-300);
+  background-color: var(--bg-page-base);
+  border-radius: var(--corner-radius-200);
+  min-height: 80px;
+  margin-top: auto;
+}
+
+.ds-toast-anatomy-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+  padding: var(--spacing-500);
+  border-radius: var(--corner-radius-300);
+}
+
+.ds-toast-anatomy-diagram__toast {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--spacing-300);
+}
+
+.ds-toast-anatomy-diagram__container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  padding: var(--spacing-200) var(--spacing-500);
+  background-color: var(--bg-page-secondary);
+  border-radius: var(--corner-radius-200);
+  box-shadow: var(--drop-shadow-200);
+  min-height: 52px;
+}
+
+.ds-toast-anatomy-diagram__icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--fg-neutral-tertiary);
+  border-radius: var(--corner-radius-full);
+  flex-shrink: 0;
+}
+
+.ds-toast-anatomy-diagram__message {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
+  color: var(--fg-neutral);
+  flex: 1;
+}
+
+.ds-toast-anatomy-diagram__action {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-primary);
+  padding: var(--spacing-200) var(--spacing-300);
+  border-radius: var(--corner-radius-100);
+}
+
+.ds-toast-anatomy-diagram__close {
+  width: 24px;
+  height: 24px;
+  background-color: var(--fg-neutral-tertiary);
+  border-radius: var(--corner-radius-100);
+  flex-shrink: 0;
+}
+
+.ds-toast-anatomy-diagram__labels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-300);
+}
+
+.ds-toast-anatomy-diagram__label-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+}
+
+.ds-toast-anatomy-diagram__label-name {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  font-weight: var(--font-weight-secondary-medium);
+  color: var(--fg-neutral);
+}
+
+.ds-toast-anatomy-diagram__label-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-line-height);
+  color: var(--fg-neutral-secondary);
+  background-color: var(--bg-page-primary);
+  padding: var(--spacing-50) var(--spacing-100);
+  border-radius: var(--corner-radius-100);
 }
 
 /* ============================================
@@ -4848,6 +5054,7 @@ button:focus:not(:focus-visible) {
   background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
   min-height: 80px;
+  margin-top: auto;
 }
 
 /* ============================================
@@ -5322,6 +5529,7 @@ button:focus:not(:focus-visible) {
   box-sizing: border-box;
   overflow-x: auto;
   overflow-y: hidden;
+  margin-top: auto;
 }
 
 @media (max-width: 768px) {
@@ -5356,6 +5564,7 @@ button:focus:not(:focus-visible) {
   background-color: var(--bg-page-base);
   border-radius: var(--corner-radius-200);
   min-height: 80px;
+  margin-top: auto;
 }
 
 /* ============================================

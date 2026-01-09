@@ -113,104 +113,7 @@ export function InputControls({
       </div>
 
       <div className="ds-input-control-group">
-        <label htmlFor="input-label-input" className="ds-input-control-label">
-          Label
-        </label>
-        <Input
-          id="input-label-input"
-          size="md"
-          showLabel={false}
-          value={label}
-          onChange={(e) => onLabelChange?.(e.target.value)}
-          placeholder="Enter label text"
-        />
-      </div>
-
-      <div className="ds-input-control-group">
-        <label htmlFor="input-placeholder-input" className="ds-input-control-label">
-          Placeholder
-        </label>
-        <Input
-          id="input-placeholder-input"
-          size="md"
-          showLabel={false}
-          value={placeholder}
-          onChange={(e) => onPlaceholderChange?.(e.target.value)}
-          placeholder="Enter placeholder text"
-        />
-      </div>
-
-      <div className="ds-input-control-group">
-        <label htmlFor="input-value-input" className="ds-input-control-label">
-          Value
-        </label>
-        <Input
-          id="input-value-input"
-          size="md"
-          showLabel={false}
-          value={value}
-          onChange={(e) => onValueChange?.(e.target.value)}
-          placeholder="Enter value text"
-        />
-      </div>
-
-      <div className="ds-input-control-group">
         <div className="ds-icon-fill-row">
-          <div className="ds-icon-fill-section">
-            <span className="ds-input-control-label">Show Label</span>
-            <Switch
-              id="input-show-label"
-              checked={showLabel}
-              onChange={onShowLabelChange}
-              ariaLabel="Show Label"
-            />
-          </div>
-          <div className="ds-icon-fill-section">
-            <span className="ds-input-control-label">Start Icon</span>
-            <Switch
-              id="input-show-start-icon"
-              checked={showStartIcon}
-              onChange={onShowStartIconChange}
-              ariaLabel="Start Icon"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="ds-input-control-group">
-        <div className="ds-icon-fill-row">
-          <div className="ds-icon-fill-section">
-            <span className="ds-input-control-label">End Icon</span>
-            <Switch
-              id="input-show-end-icon"
-              checked={showEndIcon}
-              onChange={onShowEndIconChange}
-              ariaLabel="End Icon"
-            />
-          </div>
-          <div className="ds-icon-fill-section">
-            <span className="ds-input-control-label">Placeholder Icon</span>
-            <Switch
-              id="input-show-placeholder-icon"
-              checked={showPlaceholderIcon}
-              onChange={onShowPlaceholderIconChange}
-              ariaLabel="Placeholder Icon"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="ds-input-control-group">
-        <div className="ds-icon-fill-row">
-          <div className="ds-icon-fill-section">
-            <span className="ds-input-control-label">Number Prefix</span>
-            <Switch
-              id="input-show-number-prefix"
-              checked={showNumberPrefix}
-              onChange={onShowNumberPrefixChange}
-              ariaLabel="Number Prefix"
-            />
-          </div>
           <div className="ds-icon-fill-section">
             <span className="ds-input-control-label">Icon Only</span>
             <Switch
@@ -222,6 +125,112 @@ export function InputControls({
           </div>
         </div>
       </div>
+
+      {!iconOnly && (
+        <>
+          <div className="ds-input-control-group">
+            <label htmlFor="input-label-input" className="ds-input-control-label">
+              Label
+            </label>
+            <Input
+              id="input-label-input"
+              size="md"
+              showLabel={false}
+              value={label}
+              onChange={(e) => onLabelChange?.(e.target.value)}
+              placeholder="Enter label text"
+            />
+          </div>
+
+          <div className="ds-input-control-group">
+            <label htmlFor="input-placeholder-input" className="ds-input-control-label">
+              Placeholder
+            </label>
+            <Input
+              id="input-placeholder-input"
+              size="md"
+              showLabel={false}
+              value={placeholder}
+              onChange={(e) => onPlaceholderChange?.(e.target.value)}
+              placeholder="Enter placeholder text"
+            />
+          </div>
+
+          <div className="ds-input-control-group">
+            <label htmlFor="input-value-input" className="ds-input-control-label">
+              Value
+            </label>
+            <Input
+              id="input-value-input"
+              size="md"
+              showLabel={false}
+              value={value}
+              onChange={(e) => onValueChange?.(e.target.value)}
+              placeholder="Enter value text"
+            />
+          </div>
+
+          <div className="ds-input-control-group">
+            <div className="ds-icon-fill-row">
+              <div className="ds-icon-fill-section">
+                <span className="ds-input-control-label">Show Label</span>
+                <Switch
+                  id="input-show-label"
+                  checked={showLabel}
+                  onChange={onShowLabelChange}
+                  ariaLabel="Show Label"
+                />
+              </div>
+              <div className="ds-icon-fill-section">
+                <span className="ds-input-control-label">Start Icon</span>
+                <Switch
+                  id="input-show-start-icon"
+                  checked={showStartIcon}
+                  onChange={onShowStartIconChange}
+                  ariaLabel="Start Icon"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="ds-input-control-group">
+            <div className="ds-icon-fill-row">
+              <div className="ds-icon-fill-section">
+                <span className="ds-input-control-label">End Icon</span>
+                <Switch
+                  id="input-show-end-icon"
+                  checked={showEndIcon}
+                  onChange={onShowEndIconChange}
+                  ariaLabel="End Icon"
+                />
+              </div>
+              <div className="ds-icon-fill-section">
+                <span className="ds-input-control-label">Placeholder Icon</span>
+                <Switch
+                  id="input-show-placeholder-icon"
+                  checked={showPlaceholderIcon}
+                  onChange={onShowPlaceholderIconChange}
+                  ariaLabel="Placeholder Icon"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="ds-input-control-group">
+            <div className="ds-icon-fill-row">
+              <div className="ds-icon-fill-section">
+                <span className="ds-input-control-label">Number Prefix</span>
+                <Switch
+                  id="input-show-number-prefix"
+                  checked={showNumberPrefix}
+                  onChange={onShowNumberPrefixChange}
+                  ariaLabel="Number Prefix"
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="ds-input-control-group">
         <label id="input-radius-slider-label" className="ds-input-control-label">Corner Radius</label>

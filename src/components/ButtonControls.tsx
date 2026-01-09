@@ -6,7 +6,7 @@ import { CheckIcon } from "./icons";
 import { SearchIcon, ChevronDownIcon } from "beacon-icons";
 import { Switch } from "./Switch";
 import { Checkbox } from "./Checkbox";
-import { Select, Slider } from "beacon-ui";
+import { Select, Slider, Tab, TabItem } from "beacon-ui";
 import type { SelectOption } from "beacon-ui";
 
 type ButtonVariant = "filled" | "tonal" | "outline" | "link";
@@ -246,20 +246,17 @@ export function ButtonControls({
       {fillContainer && (startIcon || endIcon) && (
         <div className="ds-button-control-group">
           <span className="ds-button-control-label">Justify</span>
-          <div className="ds-segmented-control" role="group" aria-label="Justify content">
+          <Tab>
             {JUSTIFY_OPTIONS.map((opt) => (
-              <button
+              <TabItem
                 key={opt.value}
-                type="button"
-                className={`ds-segmented-control__button ${justifyContent === opt.value ? "ds-segmented-control__button--active" : ""}`}
+                tabName={opt.label}
+                state={justifyContent === opt.value ? "active" : "default"}
                 onClick={() => onJustifyContentChange(opt.value)}
                 aria-label={opt.label}
-                aria-pressed={justifyContent === opt.value}
-              >
-                {opt.label}
-              </button>
+              />
             ))}
-          </div>
+          </Tab>
         </div>
       )}
     </div>
