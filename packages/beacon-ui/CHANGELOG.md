@@ -28,6 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Select component dropdown items now correctly match design specifications for each size variant
 - Input component iconOnly mode now properly sizes to square dimensions matching component guidelines
 
+## [3.5.1] - 2026-01-09
+
+### Changed
+- Updated design token variables across the system
+
 ## [3.4.8] - 2026-01-08
 
 ### Added

@@ -82,6 +82,11 @@
   --util-overlay-light: var(--color-alpha-neutral-black-300);
   --util-overlay-medium: var(--color-alpha-neutral-black-500);
   --util-overlay-strong: var(--color-alpha-neutral-black-700);
+  --util-bright-alpha-100: var(--color-alpha-neutral-white-100);
+  --util-bright-alpha-200: var(--color-alpha-neutral-white-200);
+  --util-bright-alpha-300: var(--color-alpha-neutral-white-300);
+  --util-bright-alpha-400: var(--color-alpha-neutral-white-400);
+  --util-brigh-alpha-500: var(--color-alpha-neutral-white-500);
   --shadow-none: var(--color-alpha-neutral-black-0);
   --shadow-subtle: var(--color-alpha-neutral-black-100);
   --shadow-normal: var(--color-alpha-neutral-black-200);

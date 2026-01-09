@@ -335,6 +335,26 @@
     "Overlay_Strong": {
       "$type": "color",
       "$value": "{Color.Alpha-Neutral.Black-700}"
+    },
+    "Bright_Alpha_100": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.White-100}"
+    },
+    "Bright_Alpha_200": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.White-200}"
+    },
+    "Bright_Alpha_300": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.White-300}"
+    },
+    "Bright_Alpha_400": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.White-400}"
+    },
+    "Brigh_Alpha_500": {
+      "$type": "color",
+      "$value": "{Color.Alpha-Neutral.White-500}"
     }
   },
   "Shadow": {

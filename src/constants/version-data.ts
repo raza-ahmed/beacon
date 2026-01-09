@@ -77,6 +77,15 @@ const versionData: VersionEntry[] = [
     ]
   },
   {
+    "version": "3.5.1",
+    "date": "2026-01-09",
+    "changed": [
+      {
+        "description": "Updated design token variables across the system"
+      }
+    ]
+  },
+  {
     "version": "3.4.8",
     "date": "2026-01-08",
     "added": [
