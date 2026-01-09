@@ -301,6 +301,9 @@ export default function IconsPage() {
           <p className="ds-content__text">
             Icons support multiple size options including token-based sizes (<code>xs</code>, <code>sm</code>, <code>rg</code>, <code>md</code>, <code>lg</code>, <code>xl</code>, <code>2xl</code>) and numeric pixel values.
           </p>
+          <p className="ds-content__text">
+            All icons support a <code>color</code> prop for custom color override while defaulting to <code>currentColor</code> for easy theming.
+          </p>
         </section>
 
         <section id="search" className="ds-content__section">

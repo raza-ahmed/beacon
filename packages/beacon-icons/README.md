@@ -1,6 +1,6 @@
 # Beacon Icons
 
-Icon component library for Beacon Design System. A collection of 90+ SVG icons built as React components.
+Icon component library for Beacon Design System. A collection of 94+ SVG icons built as React components.
 
 ## Installation
 
@@ -30,6 +30,7 @@ function MyComponent() {
 interface IconProps {
   size?: number | "xs" | "sm" | "rg" | "md" | "lg" | "xl" | "2xl";
   className?: string;
+  color?: string;
 }
 ```
 
@@ -106,6 +107,14 @@ Icons use `currentColor` by default, so they inherit the text color:
 </div>
 ```
 
+You can also override the color directly using the `color` prop:
+
+```tsx
+<SearchIcon size="md" color="#ff0000" />
+<SearchIcon size="md" color="var(--fg-primary)" />
+<SearchIcon size="md" color="rgb(255, 0, 0)" />
+```
+
 Or use className for custom styling:
 
 ```tsx
@@ -114,7 +123,7 @@ Or use className for custom styling:
 
 ## Version
 
-Current version: **3.1.4**
+Current version: **3.1.6**
 
 ## License
 
