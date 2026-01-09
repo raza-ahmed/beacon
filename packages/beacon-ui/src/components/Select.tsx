@@ -263,37 +263,67 @@ export function Select({
         ? CORNER_RADIUS_MAP[cornerRadius] 
         : sizeConfig.borderRadius,
       overflow: "hidden",
-      zIndex: 1000,
+      zIndex: 9999,
     };
 
     return baseStyles;
   }, [isOpen, status, sizeConfig, cornerRadius]);
 
   const getOptionStyles = (isSelected: boolean, isHovered: boolean, isLast: boolean, isFirst: boolean): React.CSSProperties => {
-    const borderRadius = cornerRadius !== undefined 
-      ? CORNER_RADIUS_MAP[cornerRadius] 
-      : sizeConfig.borderRadius;
+    // Border radius for dropdown items: use corner-radius-200 for lg/xl, otherwise use sizeConfig.borderRadius
+    const itemBorderRadius = (size === "lg" || size === "xl") 
+      ? "var(--corner-radius-200)" 
+      : (cornerRadius !== undefined ? CORNER_RADIUS_MAP[cornerRadius] : sizeConfig.borderRadius);
+
+    // Padding based on size
+    let padding: string;
+    if (size === "sm") {
+      padding = "var(--spacing-200)"; // 8px all around
+    } else if (size === "md") {
+      padding = "var(--spacing-300) var(--spacing-200)"; // 12px vertical, 8px horizontal
+    } else {
+      // lg and xl
+      padding = "var(--spacing-400) var(--spacing-300)"; // 16px vertical, 12px horizontal
+    }
+
+    // Gap based on size
+    const gap = size === "sm" ? "var(--spacing-100)" : "var(--spacing-200)";
+
+    // Font size and line height based on size
+    let fontSize: string;
+    let lineHeight: string;
+    if (size === "sm") {
+      fontSize = "var(--fonts-body-extra-small-text-size)";
+      lineHeight = "var(--fonts-body-extra-small-line-height)";
+    } else if (size === "md") {
+      fontSize = "var(--fonts-body-small-text-size)";
+      lineHeight = "var(--fonts-body-small-line-height)";
+    } else {
+      // lg and xl
+      fontSize = "var(--fonts-body-regular-text-size)";
+      lineHeight = "var(--fonts-body-regular-line-height)";
+    }
 
     const baseStyles: React.CSSProperties = {
       display: "flex",
       alignItems: "center",
-      gap: size === "sm" || size === "md" ? "var(--spacing-100)" : "var(--spacing-200)",
-      padding: size === "sm" || size === "md" ? "var(--spacing-200)" : "var(--spacing-200) var(--spacing-200) var(--spacing-300) var(--spacing-200)",
+      gap,
+      padding,
       cursor: "pointer",
       border: "none",
       borderTop: isFirst ? "var(--border-width-25) solid var(--border-strong-100)" : "none",
       borderLeft: "var(--border-width-25) solid var(--border-strong-100)",
       borderRight: "var(--border-width-25) solid var(--border-strong-100)",
       borderBottom: isLast ? "var(--border-width-25) solid var(--border-strong-100)" : "var(--border-width-25) solid var(--border-strong-100)",
-      borderTopLeftRadius: isFirst ? borderRadius : 0,
-      borderTopRightRadius: isFirst ? borderRadius : 0,
-      borderBottomLeftRadius: isLast ? borderRadius : 0,
-      borderBottomRightRadius: isLast ? borderRadius : 0,
+      borderTopLeftRadius: isFirst ? itemBorderRadius : 0,
+      borderTopRightRadius: isFirst ? itemBorderRadius : 0,
+      borderBottomLeftRadius: isLast ? itemBorderRadius : 0,
+      borderBottomRightRadius: isLast ? itemBorderRadius : 0,
       backgroundColor: isSelected ? "var(--bg-primary-tonal)" : "var(--bg-page-primary)",
       color: isSelected ? "var(--fg-primary-on-tonal)" : "var(--fg-neutral-tertiary)",
       fontFamily: "var(--font-secondary)",
-      fontSize: size === "sm" || size === "md" ? "var(--body-extra-small-text-size)" : size === "lg" ? "var(--body-small-text-size)" : "var(--body-regular-text-size)",
-      lineHeight: size === "sm" || size === "md" ? "var(--body-extra-small-line-height)" : size === "lg" ? "var(--body-small-line-height)" : "var(--body-regular-line-height)",
+      fontSize,
+      lineHeight,
       transition: "background-color 0.15s ease, color 0.15s ease",
     };
 
@@ -316,6 +346,7 @@ export function Select({
         gap: "var(--spacing-100)",
         width: fullWidth ? "100%" : "fit-content",
         position: "relative",
+        overflow: "visible",
       }}
     >
       {showLabel && label && (
@@ -392,7 +423,10 @@ export function Select({
                 type="button"
                 role="option"
                 aria-selected={isSelected}
-                style={getOptionStyles(isSelected, isHovered, isLast, isFirst)}
+                style={{
+                  ...getOptionStyles(isSelected, isHovered, isLast, isFirst),
+                  touchAction: "manipulation", // Allow touch scrolling while still enabling taps
+                }}
                 onClick={() => handleOptionClick(option.value)}
                 onMouseEnter={() => setHoveredOptionIndex(index)}
                 onMouseLeave={() => setHoveredOptionIndex(null)}
@@ -403,10 +437,8 @@ export function Select({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      ...(typeof sizeConfig.iconSize === "number" 
-                        ? { width: `${sizeConfig.iconSize}px`, height: `${sizeConfig.iconSize}px` }
-                        : { width: `var(--icon-size-${sizeConfig.iconSize})`, height: `var(--icon-size-${sizeConfig.iconSize})` }
-                      ),
+                      width: size === "sm" || size === "md" ? "16px" : "20px",
+                      height: size === "sm" || size === "md" ? "16px" : "20px",
                       flexShrink: 0,
                       color: isSelected ? "var(--fg-primary-on-tonal)" : "var(--fg-neutral-tertiary)",
                     }}
@@ -421,15 +453,13 @@ export function Select({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      ...(typeof sizeConfig.iconSize === "number" 
-                        ? { width: `${sizeConfig.iconSize}px`, height: `${sizeConfig.iconSize}px` }
-                        : { width: `var(--icon-size-${sizeConfig.iconSize})`, height: `var(--icon-size-${sizeConfig.iconSize})` }
-                      ),
+                      width: size === "sm" || size === "md" ? "16px" : "20px",
+                      height: size === "sm" || size === "md" ? "16px" : "20px",
                       flexShrink: 0,
                       color: "var(--fg-primary-on-tonal)",
                     }}
                   >
-                    <CheckIcon size={sizeConfig.iconSize} />
+                    <CheckIcon size={size === "sm" || size === "md" ? 16 : 20} />
                   </div>
                 )}
               </button>

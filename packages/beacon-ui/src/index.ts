@@ -12,6 +12,9 @@ export { Menu, type MenuItem as MenuItemData } from "./components/Menu";
 export { MenuItem, type MenuItemProps, type MenuItemState } from "./components/MenuItem";
 export { RadioButton } from "./components/RadioButton";
 export { Slider } from "./components/Slider";
+export { Toast } from "./components/Toast";
+export { Tab } from "./components/Tab";
+export { TabItem } from "./components/TabItem";
 
 // Component Props Types
 export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState, ButtonColor } from "./components/Button";
@@ -26,6 +29,9 @@ export type { ChipProps, ChipSize, ChipColor } from "./components/Chip";
 export type { MenuProps } from "./components/Menu";
 export type { RadioButtonProps, RadioButtonStatus } from "./components/RadioButton";
 export type { SliderProps, SliderStatus } from "./components/Slider";
+export type { ToastProps, ToastVariant } from "./components/Toast";
+export type { TabProps } from "./components/Tab";
+export type { TabItemProps, TabItemState, TabItemSize, TabItemStyle } from "./components/TabItem";
 
 // Providers
 export { ThemeProvider, useTheme, useThemeSafe } from "./providers/ThemeProvider";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useRef, ComponentPropsWithRef } from "react";
+import { useState, useCallback, useMemo, useRef, useEffect, ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 
 export type SliderStatus = "default" | "hover" | "active" | "disabled";
@@ -55,6 +55,12 @@ export function Slider({
   const [internalStatus, setInternalStatus] = useState<SliderStatus>("default");
   const [isDragging, setIsDragging] = useState(false);
   const [activeThumb, setActiveThumb] = useState<"start" | "end" | null>(null);
+  const [previewValue, setPreviewValue] = useState<number | null>(null);
+  const [previewPosition, setPreviewPosition] = useState<number | null>(null);
+  const [isLongPressing, setIsLongPressing] = useState(false);
+  const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartPositionRef = useRef<number | null>(null);
+  const isLongPressActiveRef = useRef<boolean>(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const status = statusProp ?? internalStatus;
@@ -116,6 +122,13 @@ export function Slider({
     [min, max, step, value]
   );
 
+  const getValueFromTouchPosition = useCallback(
+    (clientX: number): number => {
+      return getValueFromPosition(clientX);
+    },
+    [getValueFromPosition]
+  );
+
   const handleTrackClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (isDisabled) return;
@@ -136,12 +149,140 @@ export function Slider({
     [isDisabled, getValueFromPosition, range, currentRangeValue, onChange]
   );
 
+  const handleTrackMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (isDisabled || !showTooltip || isDragging) return;
+      const newValue = getValueFromPosition(e.clientX);
+      const rect = trackRef.current?.getBoundingClientRect();
+      if (rect) {
+        const percentage = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        setPreviewValue(newValue);
+        setPreviewPosition(percentage * 100);
+      }
+    },
+    [isDisabled, showTooltip, isDragging, getValueFromPosition]
+  );
+
+  const handleTrackMouseLeave = useCallback(() => {
+    setPreviewValue(null);
+    setPreviewPosition(null);
+  }, []);
+
+  const handleTrackTouchStart = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (isDisabled) return;
+      const touch = e.touches[0];
+      if (!touch) return;
+      
+      touchStartPositionRef.current = touch.clientX;
+      setIsLongPressing(false);
+      
+      // Clear any existing timer
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+      }
+
+      // Set up long-press timer
+      isLongPressActiveRef.current = false;
+      longPressTimerRef.current = setTimeout(() => {
+        if (touchStartPositionRef.current !== null && showTooltip) {
+          isLongPressActiveRef.current = true;
+          setIsLongPressing(true);
+          const newValue = getValueFromTouchPosition(touchStartPositionRef.current);
+          const rect = trackRef.current?.getBoundingClientRect();
+          if (rect) {
+            const percentage = Math.max(0, Math.min(1, (touchStartPositionRef.current - rect.left) / rect.width));
+            setPreviewValue(newValue);
+            setPreviewPosition(percentage * 100);
+          }
+        }
+      }, 500); // 500ms for long-press
+
+      // Handle immediate touch (for quick taps)
+      const handleTouchEnd = (endEvent: TouchEvent) => {
+        const wasLongPress = isLongPressActiveRef.current;
+        
+        if (longPressTimerRef.current) {
+          clearTimeout(longPressTimerRef.current);
+          longPressTimerRef.current = null;
+        }
+
+        if (wasLongPress) {
+          // Long-press was active, set the value
+          endEvent.preventDefault();
+          if (touchStartPositionRef.current !== null) {
+            const newValue = getValueFromTouchPosition(touchStartPositionRef.current);
+            if (range && currentRangeValue) {
+              const [start, end] = currentRangeValue;
+              const distToStart = Math.abs(newValue - start);
+              const distToEnd = Math.abs(newValue - end);
+              if (distToStart < distToEnd) {
+                onChange?.([newValue, end]);
+              } else {
+                onChange?.([start, newValue]);
+              }
+            } else {
+              onChange?.(newValue);
+            }
+          }
+          setIsLongPressing(false);
+          isLongPressActiveRef.current = false;
+          setPreviewValue(null);
+          setPreviewPosition(null);
+        } else {
+          // Quick tap, set value immediately
+          const endTouch = endEvent.changedTouches[0];
+          if (endTouch) {
+            const newValue = getValueFromTouchPosition(endTouch.clientX);
+            if (range && currentRangeValue) {
+              const [start, end] = currentRangeValue;
+              const distToStart = Math.abs(newValue - start);
+              const distToEnd = Math.abs(newValue - end);
+              if (distToStart < distToEnd) {
+                onChange?.([newValue, end]);
+              } else {
+                onChange?.([start, newValue]);
+              }
+            } else {
+              onChange?.(newValue);
+            }
+          }
+        }
+
+        touchStartPositionRef.current = null;
+        document.removeEventListener("touchend", handleTouchEnd);
+        document.removeEventListener("touchcancel", handleTouchEnd);
+        document.removeEventListener("touchmove", handleTouchMove);
+      };
+
+      const handleTouchMove = (moveEvent: TouchEvent) => {
+        // If user moves finger, cancel long-press
+        if (longPressTimerRef.current) {
+          clearTimeout(longPressTimerRef.current);
+          longPressTimerRef.current = null;
+        }
+        setIsLongPressing(false);
+        isLongPressActiveRef.current = false;
+        setPreviewValue(null);
+        setPreviewPosition(null);
+        touchStartPositionRef.current = null;
+      };
+
+      document.addEventListener("touchend", handleTouchEnd);
+      document.addEventListener("touchcancel", handleTouchEnd);
+      document.addEventListener("touchmove", handleTouchMove, { passive: true });
+    },
+    [isDisabled, showTooltip, getValueFromTouchPosition, range, currentRangeValue, onChange, isLongPressing]
+  );
+
   const handleThumbMouseDown = useCallback(
     (thumb: "start" | "end") => (e: React.MouseEvent<HTMLDivElement>) => {
       if (isDisabled) return;
       e.preventDefault();
       setIsDragging(true);
       setActiveThumb(thumb);
+      setPreviewValue(null);
+      setPreviewPosition(null);
       if (!statusProp) {
         setInternalStatus("active");
       }
@@ -176,6 +317,60 @@ export function Slider({
       document.addEventListener("mouseup", handleMouseUp);
     },
     [isDisabled, statusProp, getValueFromPosition, range, currentRangeValue, onChange]
+  );
+
+  const handleThumbTouchStart = useCallback(
+    (thumb: "start" | "end") => (e: React.TouchEvent<HTMLDivElement>) => {
+      if (isDisabled) return;
+      e.preventDefault();
+      setIsDragging(true);
+      setActiveThumb(thumb);
+      setPreviewValue(null);
+      setPreviewPosition(null);
+      setIsLongPressing(false);
+      isLongPressActiveRef.current = false;
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+        longPressTimerRef.current = null;
+      }
+      if (!statusProp) {
+        setInternalStatus("active");
+      }
+
+      const handleTouchMove = (moveEvent: TouchEvent) => {
+        if (moveEvent.touches.length === 0) return;
+        const touch = moveEvent.touches[0];
+        const newValue = getValueFromTouchPosition(touch.clientX);
+        if (range && currentRangeValue) {
+          const [start, end] = currentRangeValue;
+          if (thumb === "start") {
+            const clampedValue = Math.min(newValue, end);
+            onChange?.([clampedValue, end]);
+          } else {
+            const clampedValue = Math.max(newValue, start);
+            onChange?.([start, clampedValue]);
+          }
+        } else {
+          onChange?.(newValue);
+        }
+      };
+
+      const handleTouchEnd = () => {
+        setIsDragging(false);
+        setActiveThumb(null);
+        if (!statusProp) {
+          setInternalStatus("default");
+        }
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
+        document.removeEventListener("touchcancel", handleTouchEnd);
+      };
+
+      document.addEventListener("touchmove", handleTouchMove, { passive: false });
+      document.addEventListener("touchend", handleTouchEnd);
+      document.addEventListener("touchcancel", handleTouchEnd);
+    },
+    [isDisabled, statusProp, getValueFromTouchPosition, range, currentRangeValue, onChange]
   );
 
   const startPercentage = useMemo(() => {
@@ -318,6 +513,15 @@ export function Slider({
     [stepLabels, min, step]
   );
 
+  // Cleanup long-press timer on unmount
+  useEffect(() => {
+    return () => {
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+      }
+    };
+  }, []);
+
   const { id, ...restProps } = rest;
 
   return (
@@ -357,11 +561,39 @@ export function Slider({
           paddingBottom: "2px",
           height: "8px",
           overflow: "visible",
+          touchAction: "none", // Prevent default touch behaviors for better dragging
         }}
         onClick={handleTrackClick}
+        onTouchStart={handleTrackTouchStart}
+        onMouseMove={handleTrackMouseMove}
+        onMouseLeave={handleTrackMouseLeave}
       >
         <div style={trackStyles}>
           <div style={selectionStyles} />
+          {/* Preview tooltip for hover/long-press */}
+          {showTooltip && previewValue !== null && previewPosition !== null && !isDragging && (
+            <div
+              style={{
+                ...tooltipStyles,
+                left: `${previewPosition}%`,
+              }}
+            >
+              <p style={{ margin: 0, textAlign: "center" }}>{getTooltipText(previewValue)}</p>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "-6px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: 0,
+                  height: 0,
+                  borderLeft: "6px solid transparent",
+                  borderRight: "6px solid transparent",
+                  borderTop: "6px solid var(--bg-page-tertiary)",
+                }}
+              />
+            </div>
+          )}
           {showSteps && (
             <div
               style={{
@@ -410,8 +642,10 @@ export function Slider({
                 style={{
                   ...thumbStyles,
                   left: `${startPercentage}%`,
+                  touchAction: "none", // Prevent default touch behaviors for better dragging
                 }}
                 onMouseDown={handleThumbMouseDown("start")}
+                onTouchStart={handleThumbTouchStart("start")}
               >
                 {showTooltip && (status === "active" || status === "hover") && (
                   <div style={{ ...tooltipStyles, left: "50%" }}>
@@ -444,8 +678,10 @@ export function Slider({
                 style={{
                   ...thumbStyles,
                   left: `${endPercentage}%`,
+                  touchAction: "none", // Prevent default touch behaviors for better dragging
                 }}
                 onMouseDown={handleThumbMouseDown("end")}
+                onTouchStart={handleThumbTouchStart("end")}
               >
                 {showTooltip && (status === "active" || status === "hover") && (
                   <div style={{ ...tooltipStyles, left: "50%" }}>
@@ -475,8 +711,10 @@ export function Slider({
               style={{
                 ...thumbStyles,
                 left: `${startPercentage}%`,
+                touchAction: "none", // Prevent default touch behaviors for better dragging
               }}
               onMouseDown={handleThumbMouseDown("end")}
+              onTouchStart={handleThumbTouchStart("end")}
             >
               {showTooltip && (status === "active" || status === "hover") && (
                 <div style={{ ...tooltipStyles, left: "50%" }}>

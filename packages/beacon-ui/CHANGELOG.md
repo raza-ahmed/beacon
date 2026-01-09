@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-01-09
+
+### Added
+- Toast component with support for default, success, error, and warning variants
+- Toast component includes action buttons, dismiss controls, and configurable icons
+- Toast component supports border styling via `showBorder` prop
+- Tab and TabItem components for navigation and content organization
+- Tab component supports segmented control patterns with consistent styling
+
+### Changed
+- Toast component updated with improved typography (regular font size) and padding (8px vertical, 12px horizontal)
+- Toast component height now calculated dynamically from padding and line height instead of fixed height
+- Select component dropdown items now have size-specific styling:
+  - Small/Medium: 16px icons, extra-small/small font sizes, 8px/12px padding
+  - Large/XL: 20px icons, regular font size, 12px/16px padding
+- Input component iconOnly mode now maintains square dimensions (width equals height) for all size variants
+- Slider component enhanced with desktop hover preview tooltip showing value at cursor position
+- Slider component enhanced with mobile long-press preview (500ms) showing value before setting
+
+### Fixed
+- Select component dropdown items now correctly match design specifications for each size variant
+- Input component iconOnly mode now properly sizes to square dimensions matching component guidelines
+
 ## [3.4.8] - 2026-01-08
 
 ### Added

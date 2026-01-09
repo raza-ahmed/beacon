@@ -293,7 +293,9 @@ export function Button({
         } else if (variant === "tonal") {
           stateStyles.backgroundColor = `var(${bgTonalHoverToken})`;
         } else if (variant === "outline") {
-          stateStyles.borderColor = `var(${borderHoverToken})`;
+          stateStyles.backgroundColor = "var(--bg-primary)";
+          stateStyles.color = "var(--fg-on-action)";
+          stateStyles.borderColor = "var(--bg-primary)";
         } else if (variant === "link") {
           stateStyles.color = `var(${fgHoverToken})`;
         }
