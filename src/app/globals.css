@@ -6003,8 +6003,7 @@ button:focus:not(:focus-visible) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-200);
-  padding: var(--spacing-400);
+  padding: var(--spacing-200);
   background-color: var(--bg-page-primary);
   border: var(--border-width-25) solid var(--border-strong-100);
   border-radius: var(--corner-radius-300);
@@ -6028,8 +6027,8 @@ button:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   color: var(--fg-neutral);
   flex-shrink: 0;
 }
@@ -6044,8 +6043,8 @@ button:focus:not(:focus-visible) {
 
 .ds-icon-card__name code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: var(--fonts-body-small-text-size);
-  line-height: var(--fonts-body-small-line-height);
+  font-size: var(--fonts-body-extra-small-text-size);
+  line-height: var(--fonts-body-extra-small-paragraph-spacing);
   color: var(--fg-neutral);
   background: transparent;
   padding: 0;
