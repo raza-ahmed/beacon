@@ -6,7 +6,7 @@ import { useTheme } from "@/providers/ThemeProvider";
 import type { HueVariant } from "@/tokens/types";
 import { AvatarPreview } from "@/components/AvatarPreview";
 import { AvatarControls } from "@/components/AvatarControls";
-import { UserPersonIcon } from "@/components/icons";
+import { UserPersonIcon, UserCircleIcon, SettingsGearIcon } from "@/components/icons";
 import { Avatar } from "beacon-ui";
 import { getAvatarImage } from "@/utils/imagePaths";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -418,6 +418,7 @@ export default function AvatarPage() {
   hasStroke?: boolean;
   initials?: string;
   imageUrl?: string;
+  icon?: ComponentType<IconProps>;
   alt?: string;
 }`}
                 </SyntaxHighlighter>
@@ -538,6 +539,18 @@ export default function AvatarPage() {
                 </div>
                 <div className="ds-api-reference__props-row">
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>icon</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>ComponentType&lt;IconProps&gt;</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">—</div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Custom icon component for icon type avatars. Defaults to UserPersonIcon if not provided.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
                     <code>alt</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
@@ -595,6 +608,54 @@ export default function AvatarPage() {
                       {`import { Avatar } from 'beacon-ui';
 
 <Avatar />`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Custom Icon</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div className="ds-card-example-canvas" style={{ display: "flex", gap: "var(--spacing-300)", alignItems: "center" }}>
+                      <Avatar type="icon" icon={UserCircleIcon} />
+                      <Avatar type="icon" icon={SettingsGearIcon} color="success" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <CodeCopyButton
+                      code={`import { Avatar } from 'beacon-ui';
+import { UserCircleIcon, SettingsGearIcon } from '@/components/icons';
+
+<Avatar type="icon" icon={UserCircleIcon} />
+<Avatar type="icon" icon={SettingsGearIcon} color="success" />`}
+                    />
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {`import { Avatar } from 'beacon-ui';
+import { UserCircleIcon, SettingsGearIcon } from '@/components/icons';
+
+<Avatar type="icon" icon={UserCircleIcon} />
+<Avatar type="icon" icon={SettingsGearIcon} color="success" />`}
                     </SyntaxHighlighter>
                   </div>
                 </div>

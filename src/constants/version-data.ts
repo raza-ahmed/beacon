@@ -77,6 +77,26 @@ const versionData: VersionEntry[] = [
     ]
   },
   {
+    "version": "3.5.2",
+    "date": "2026-01-09",
+    "added": [
+      {
+        "description": "Avatar component now supports custom icon swapping via `icon` prop when `type=\"icon\"`"
+      },
+      {
+        "description": "Added `IconProps` and `IconSize` type exports for icon component compatibility"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Avatar component icon rendering now accepts any icon component that matches the `IconProps` interface"
+      },
+      {
+        "description": "Default icon remains `UserPersonIcon` when no custom icon is provided (backward compatible)"
+      }
+    ]
+  },
+  {
     "version": "3.5.1",
     "date": "2026-01-09",
     "changed": [

@@ -28,6 +28,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Select component dropdown items now correctly match design specifications for each size variant
 - Input component iconOnly mode now properly sizes to square dimensions matching component guidelines
 
+## [3.5.2] - 2026-01-09
+
+### Added
+- Avatar component now supports custom icon swapping via `icon` prop when `type="icon"`
+- Added `IconProps` and `IconSize` type exports for icon component compatibility
+
+### Changed
+- Avatar component icon rendering now accepts any icon component that matches the `IconProps` interface
+- Default icon remains `UserPersonIcon` when no custom icon is provided (backward compatible)
+
 ## [3.5.1] - 2026-01-09
 
 ### Changed

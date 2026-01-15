@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, ComponentPropsWithRef } from "react";
+import { useMemo, useState, ComponentPropsWithRef, ComponentType } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { UserPersonIcon } from "../icons";
 
@@ -8,6 +8,14 @@ export type AvatarSize = "sm" | "md" | "lg" | "xl";
 export type AvatarType = "icon" | "text" | "image";
 export type AvatarColor = "primary" | "neutral" | "success" | "critical" | "warning";
 export type AvatarVariant = "solid" | "faded";
+
+export type IconSize = "xs" | "sm" | "rg" | "rm" | "md" | "lg" | "xl" | "2xl";
+
+export interface IconProps {
+  size?: number | IconSize;
+  className?: string;
+  color?: string;
+}
 
 export interface AvatarProps extends ComponentPropsWithRef<"div"> {
   size?: AvatarSize;
@@ -18,6 +26,7 @@ export interface AvatarProps extends ComponentPropsWithRef<"div"> {
   hasStroke?: boolean;
   initials?: string;
   imageUrl?: string;
+  icon?: ComponentType<Partial<IconProps> & { size?: number | string | IconSize }>;
 }
 
 // Avatar container sizes
@@ -51,6 +60,7 @@ export function Avatar({
   hasStroke = false,
   initials = "JD",
   imageUrl,
+  icon: IconComponent,
   className,
   style,
   ref,
@@ -221,6 +231,7 @@ export function Avatar({
       // Icon type: no xl size
       const iconSize = size === "xl" ? "lg" : size;
       const iconConfig = ICON_SIZE_CONFIG[iconSize as Exclude<AvatarSize, "xl">];
+      const Icon = IconComponent || UserPersonIcon;
       
       return (
         <div
@@ -230,7 +241,7 @@ export function Avatar({
             justifyContent: "center",
           }}
         >
-          <UserPersonIcon size={iconConfig.size} />
+          <Icon size={iconConfig.size} />
         </div>
       );
     };
