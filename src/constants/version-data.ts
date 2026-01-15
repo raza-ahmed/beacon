@@ -22,6 +22,68 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.4",
+    "date": "2026-01-15",
+    "changed": [
+      {
+        "description": "Avatar component neutral color variant text/icon color updated:"
+      },
+      {
+        "description": "Solid variant: Changed from `--fg-on-action` to `--fg-neutral`"
+      },
+      {
+        "description": "Faded variant: Changed from `--fg-neutral` to `--fg-neutral-secondary`"
+      }
+    ]
+  },
+  {
+    "version": "3.5.3",
+    "date": "2026-01-15",
+    "fixed": [
+      {
+        "description": "Avatar component neutral color variant now uses brand colors instead of semantic colors"
+      },
+      {
+        "description": "Solid variant: Changed from `--color-neutral-500` to `--bg-page-tertiary`"
+      },
+      {
+        "description": "Faded variant: Changed from `--color-neutral-200` to `--bg-page-secondary`"
+      },
+      {
+        "description": "All components now consistently use brand color tokens instead of direct semantic color values"
+      }
+    ]
+  },
+  {
+    "version": "3.5.2",
+    "date": "2026-01-09",
+    "added": [
+      {
+        "description": "Avatar component now supports custom icon swapping via `icon` prop when `type=\"icon\"`"
+      },
+      {
+        "description": "Added `IconProps` and `IconSize` type exports for icon component compatibility"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Avatar component icon rendering now accepts any icon component that matches the `IconProps` interface"
+      },
+      {
+        "description": "Default icon remains `UserPersonIcon` when no custom icon is provided (backward compatible)"
+      }
+    ]
+  },
+  {
+    "version": "3.5.1",
+    "date": "2026-01-09",
+    "changed": [
+      {
+        "description": "Updated design token variables across the system"
+      }
+    ]
+  },
+  {
     "version": "3.5.0",
     "date": "2026-01-09",
     "added": [
@@ -65,6 +127,9 @@ const versionData: VersionEntry[] = [
       },
       {
         "description": "Slider component enhanced with mobile long-press preview (500ms) showing value before setting"
+      },
+      {
+        "description": "Updated design token variables across the system"
       }
     ],
     "fixed": [
@@ -73,35 +138,6 @@ const versionData: VersionEntry[] = [
       },
       {
         "description": "Input component iconOnly mode now properly sizes to square dimensions matching component guidelines"
-      }
-    ]
-  },
-  {
-    "version": "3.5.2",
-    "date": "2026-01-09",
-    "added": [
-      {
-        "description": "Avatar component now supports custom icon swapping via `icon` prop when `type=\"icon\"`"
-      },
-      {
-        "description": "Added `IconProps` and `IconSize` type exports for icon component compatibility"
-      }
-    ],
-    "changed": [
-      {
-        "description": "Avatar component icon rendering now accepts any icon component that matches the `IconProps` interface"
-      },
-      {
-        "description": "Default icon remains `UserPersonIcon` when no custom icon is provided (backward compatible)"
-      }
-    ]
-  },
-  {
-    "version": "3.5.1",
-    "date": "2026-01-09",
-    "changed": [
-      {
-        "description": "Updated design token variables across the system"
       }
     ]
   },

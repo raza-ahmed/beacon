@@ -145,7 +145,8 @@ export function Avatar({
             backgroundColor = "var(--bg-primary)";
             break;
           case "neutral":
-            backgroundColor = "var(--color-neutral-500)";
+            backgroundColor = "var(--bg-page-tertiary)";
+            textColor = "var(--fg-neutral)";
             break;
           case "success":
             backgroundColor = "var(--bg-success)";
@@ -165,8 +166,8 @@ export function Avatar({
             textColor = "var(--fg-primary-on-tonal)";
             break;
           case "neutral":
-            backgroundColor = "var(--color-neutral-200)";
-            textColor = "var(--fg-neutral)";
+            backgroundColor = "var(--bg-page-secondary)";
+            textColor = "var(--fg-neutral-secondary)";
             break;
           case "success":
             backgroundColor = "var(--bg-success-tonal)";

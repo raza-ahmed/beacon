@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.4] - 2026-01-15
+
+### Changed
+- Avatar component neutral color variant text/icon color updated:
+  - Solid variant: Changed from `--fg-on-action` to `--fg-neutral`
+  - Faded variant: Changed from `--fg-neutral` to `--fg-neutral-secondary`
+
+## [3.5.3] - 2026-01-15
+
+### Fixed
+- Avatar component neutral color variant now uses brand colors instead of semantic colors
+  - Solid variant: Changed from `--color-neutral-500` to `--bg-page-tertiary`
+  - Faded variant: Changed from `--color-neutral-200` to `--bg-page-secondary`
+- All components now consistently use brand color tokens instead of direct semantic color values
+
+## [3.5.2] - 2026-01-09
+
+### Added
+- Avatar component now supports custom icon swapping via `icon` prop when `type="icon"`
+- Added `IconProps` and `IconSize` type exports for icon component compatibility
+
+### Changed
+- Avatar component icon rendering now accepts any icon component that matches the `IconProps` interface
+- Default icon remains `UserPersonIcon` when no custom icon is provided (backward compatible)
+
+## [3.5.1] - 2026-01-09
+
+### Changed
+- Updated design token variables across the system
+
 ## [3.5.0] - 2026-01-09
 
 ### Added
@@ -27,18 +57,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Select component dropdown items now correctly match design specifications for each size variant
 - Input component iconOnly mode now properly sizes to square dimensions matching component guidelines
-
-## [3.5.2] - 2026-01-09
-
-### Added
-- Avatar component now supports custom icon swapping via `icon` prop when `type="icon"`
-- Added `IconProps` and `IconSize` type exports for icon component compatibility
-
-### Changed
-- Avatar component icon rendering now accepts any icon component that matches the `IconProps` interface
-- Default icon remains `UserPersonIcon` when no custom icon is provided (backward compatible)
-
-## [3.5.1] - 2026-01-09
 
 ### Changed
 - Updated design token variables across the system
