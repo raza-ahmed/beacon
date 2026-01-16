@@ -2678,7 +2678,8 @@ button:focus:not(:focus-visible) {
 .ds-switch-playground-divider,
 .ds-radio-button-playground-divider,
 .ds-menu-playground-divider,
-.ds-toast-playground-divider {
+.ds-toast-playground-divider,
+.ds-divider-playground-divider {
   width: var(--border-width-25);
   background-color: var(--border-strong-100);
 }
@@ -2833,7 +2834,8 @@ button:focus:not(:focus-visible) {
 .ds-switch-control-group,
 .ds-radio-button-control-group,
 .ds-menu-control-group,
-.ds-toast-control-group {
+.ds-toast-control-group,
+.ds-divider-control-group {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -2849,7 +2851,8 @@ button:focus:not(:focus-visible) {
 .ds-chip-control-group--row,
 .ds-radio-button-control-group--row,
 .ds-menu-control-group--row,
-.ds-toast-control-group--row {
+.ds-toast-control-group--row,
+.ds-divider-control-group--row {
   flex-direction: row;
   gap: var(--spacing-300);
 }
@@ -2862,7 +2865,8 @@ button:focus:not(:focus-visible) {
 .ds-chip-control-field,
 .ds-radio-button-control-field,
 .ds-menu-control-field,
-.ds-toast-control-field {
+.ds-toast-control-field,
+.ds-divider-control-field {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -2879,7 +2883,8 @@ button:focus:not(:focus-visible) {
 .ds-switch-control-label,
 .ds-radio-button-control-label,
 .ds-menu-control-label,
-.ds-toast-control-label {
+.ds-toast-control-label,
+.ds-divider-control-label {
   font-family: var(--font-secondary);
   font-size: var(--fonts-body-small-text-size);
   line-height: var(--fonts-body-small-line-height);
@@ -3381,6 +3386,12 @@ button:focus:not(:focus-visible) {
   border-radius: 0;
 }
 
+.ds-anatomy-diagram__divider .ds-anatomy-diagram__container {
+  background-color: transparent;
+  border: none;
+  padding: var(--spacing-200) 0;
+}
+
 .ds-anatomy-diagram__content {
   width: 48px;
   height: 48px;
@@ -3748,6 +3759,146 @@ button:focus:not(:focus-visible) {
   height: 48px;
   border-radius: 8px;
   background-color: var(--bg-primary);
+}
+
+/* ============================================
+   DIVIDER COMPONENT
+   ============================================ */
+
+.ds-divider-playground {
+  display: grid;
+  grid-template-columns: 380px auto 1fr;
+  margin-top: var(--spacing-400);
+  border-radius: var(--corner-radius-300);
+  border: var(--border-width-25) solid var(--border-strong-100);
+  overflow: hidden;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .ds-divider-playground {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .ds-divider-preview-section {
+    order: 2;
+  }
+
+  .ds-divider-preview {
+    min-height: 150px;
+  }
+
+  .ds-divider-preview-code {
+    max-height: 150px;
+  }
+}
+
+.ds-divider-preview-section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page-base);
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.ds-divider-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-500);
+  border-bottom: var(--border-width-25) solid var(--border-strong-100);
+  flex: 0 0 50%;
+  height: 50%;
+  min-height: 0;
+  max-height: 50%;
+  overflow: hidden;
+}
+
+.ds-divider-preview-code {
+  flex: 0 0 50%;
+  height: 50%;
+  min-height: 0;
+  max-height: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page-secondary);
+  overflow: hidden;
+}
+
+.ds-divider-preview-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ds-divider-preview-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ds-divider-preview-divider {
+  font-family: var(--font-secondary);
+}
+
+.ds-divider-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-450);
+  padding: var(--spacing-400);
+  background-color: var(--bg-page-primary);
+  align-self: stretch;
+}
+
+/* Divider control group, field, and label use base styles defined above */
+
+.ds-divider-variants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-400);
+  margin-top: var(--spacing-400);
+}
+
+.ds-divider-variant-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  border-radius: var(--corner-radius-300);
+  background-color: var(--bg-page-primary);
+}
+
+.ds-divider-variant-card__title {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-regular-text-size);
+  line-height: var(--fonts-body-regular-line-height);
+  font-weight: var(--font-weight-secondary-semibold);
+  color: var(--fg-neutral);
+  margin: 0;
+}
+
+.ds-divider-variant-card__desc {
+  font-family: var(--font-secondary);
+  font-size: var(--fonts-body-small-text-size);
+  line-height: var(--fonts-body-small-line-height);
+  color: var(--fg-neutral-secondary);
+  margin: 0;
+}
+
+.ds-divider-variant-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  min-height: 100px;
+  margin-top: auto;
 }
 
 /* ============================================

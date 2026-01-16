@@ -55,6 +55,7 @@ export const navigationData: NavSection[] = [
       { label: "Card", href: "/components/card" },
       { label: "Checkbox", href: "/components/checkbox" },
       { label: "Chip", href: "/components/chip" },
+      { label: "Divider", href: "/components/divider" },
       { label: "Input", href: "/components/input" },
       { label: "Menu", href: "/components/menu" },
       { label: "Select", href: "/components/select" },

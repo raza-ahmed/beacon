@@ -22,6 +22,38 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.5",
+    "date": "2026-01-16",
+    "added": [
+      {
+        "description": "New Divider component for visually separating content"
+      },
+      {
+        "description": "Supports horizontal and vertical orientations"
+      },
+      {
+        "description": "Optional slot for icons or custom content with configurable positions (default, center, left, right, top, bottom)"
+      },
+      {
+        "description": "Custom color and width props for flexible styling"
+      },
+      {
+        "description": "Slot automatically shows/hides based on slotPosition selection (default = no slot, others = slot shown)"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Divider component default state now properly displays when no slot is present"
+      },
+      {
+        "description": "Vertical dividers in preview container no longer overflow outside boundaries"
+      },
+      {
+        "description": "Divider anatomy diagram no longer shows primary color background"
+      }
+    ]
+  },
+  {
     "version": "3.5.4",
     "date": "2026-01-15",
     "changed": [

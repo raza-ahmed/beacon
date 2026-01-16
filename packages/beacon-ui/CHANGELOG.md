@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.5] - 2026-01-16
+
+### Added
+- New Divider component for visually separating content
+  - Supports horizontal and vertical orientations
+  - Optional slot for icons or custom content with configurable positions (default, center, left, right, top, bottom)
+  - Custom color and width props for flexible styling
+  - Slot automatically shows/hides based on slotPosition selection (default = no slot, others = slot shown)
+
+### Fixed
+- Divider component default state now properly displays when no slot is present
+- Vertical dividers in preview container no longer overflow outside boundaries
+- Divider anatomy diagram no longer shows primary color background
+
 ## [3.5.4] - 2026-01-15
 
 ### Changed
