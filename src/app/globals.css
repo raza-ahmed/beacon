@@ -497,13 +497,13 @@ body {
 }
 
 .ds-sidebar__nav-item:hover {
-  background-color: var(--bg-page-secondary);
+  background-color: var(--bg-page-primary);
   color: var(--fg-neutral);
 }
 
 .ds-sidebar__nav-item.active {
-  background-color: var(--bg-primary-tonal);
-  color: var(--fg-primary-on-tonal);
+  background-color: var(--bg-page-secondary);
+  color: var(--fg-neutral);
   font-weight: var(--font-weight-secondary-medium);
 }
 

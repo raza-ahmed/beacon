@@ -34,7 +34,7 @@ export function MenuItem({
 
   // Background colors based on state
   const backgroundColor = isActive
-    ? "var(--bg-primary-tonal)"
+    ? "var(--bg-page-secondary)"
     : isHovered
     ? "var(--bg-page-primary)"
     : isDisabled
@@ -43,25 +43,21 @@ export function MenuItem({
 
   // Text colors based on state
   const textColor = isActive
-    ? "var(--fg-primary-on-tonal)"
+    ? "var(--fg-neutral)"
     : isDisabled
     ? "var(--fg-on-disabled)"
-    : isHovered
-    ? "var(--fg-neutral)"
-    : "var(--fg-neutral-secondary)";
+    : "var(--fg-neutral)";
 
   // Icon colors based on state
   const iconColor = isActive
-    ? "var(--fg-primary-on-tonal)"
+    ? "var(--fg-neutral)"
     : isDisabled
     ? "var(--fg-on-disabled)"
-    : isHovered
-    ? "var(--fg-neutral)"
-    : "var(--fg-neutral-secondary)";
+    : "var(--fg-neutral)";
 
   // Chevron colors based on state
   const chevronColor = isActive
-    ? "var(--fg-primary-on-tonal)"
+    ? "var(--fg-neutral)"
     : isDisabled
     ? "var(--fg-on-disabled)"
     : "var(--fg-neutral)";

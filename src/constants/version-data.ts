@@ -22,6 +22,15 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.6",
+    "date": "2026-01-16",
+    "changed": [
+      {
+        "description": "Updated version synchronization and documentation"
+      }
+    ]
+  },
+  {
     "version": "3.5.5",
     "date": "2026-01-16",
     "added": [
