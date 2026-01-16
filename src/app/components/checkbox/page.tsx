@@ -346,8 +346,10 @@ export default function CheckboxPage() {
                 <CodeCopyButton
                   code={`interface CheckboxProps {
   checked?: boolean;
+  disabled?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
+  showLabel?: boolean;
   onChange?: (checked: boolean) => void;
 }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
@@ -372,8 +374,10 @@ export default function CheckboxPage() {
                 >
                   {`interface CheckboxProps {
   checked?: boolean;
+  disabled?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
+  showLabel?: boolean;
   onChange?: (checked: boolean) => void;
 }`}
                 </SyntaxHighlighter>
@@ -422,6 +426,34 @@ export default function CheckboxPage() {
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Text label displayed next to the checkbox.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>showLabel</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>boolean</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>false</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Whether to display the label text. When false, label is only used for accessibility.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>disabled</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>boolean</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>false</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Whether the checkbox is disabled. When true, prevents interaction and applies disabled styling.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -494,7 +526,7 @@ export default function CheckboxPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Checkbox label="Accept terms and conditions" />
+                      <Checkbox label="Accept terms and conditions" showLabel />
                     </div>
                   </div>
                 </div>
@@ -505,6 +537,7 @@ export default function CheckboxPage() {
 
 <Checkbox 
   label="Accept terms and conditions"
+  showLabel
 />`}
                     />
                     <SyntaxHighlighter
@@ -529,6 +562,7 @@ export default function CheckboxPage() {
 
 <Checkbox 
   label="Accept terms and conditions"
+  showLabel
 />`}
                     </SyntaxHighlighter>
                   </div>
@@ -541,7 +575,7 @@ export default function CheckboxPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Checkbox checked label="I agree" />
+                      <Checkbox checked label="I agree" showLabel />
                     </div>
                   </div>
                 </div>
@@ -553,6 +587,7 @@ export default function CheckboxPage() {
 <Checkbox 
   checked
   label="I agree"
+  showLabel
 />`}
                     />
                     <SyntaxHighlighter
@@ -578,6 +613,7 @@ export default function CheckboxPage() {
 <Checkbox 
   checked
   label="I agree"
+  showLabel
 />`}
                     </SyntaxHighlighter>
                   </div>
@@ -590,7 +626,7 @@ export default function CheckboxPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <Checkbox checked status="disabled" label="Cannot change" />
+                      <Checkbox checked disabled label="Cannot change" showLabel />
                     </div>
                   </div>
                 </div>
@@ -601,8 +637,9 @@ export default function CheckboxPage() {
 
 <Checkbox 
   checked
-  status="disabled"
+  disabled
   label="Cannot change"
+  showLabel
 />`}
                     />
                     <SyntaxHighlighter
@@ -627,8 +664,9 @@ export default function CheckboxPage() {
 
 <Checkbox 
   checked
-  status="disabled"
+  disabled
   label="Cannot change"
+  showLabel
 />`}
                     </SyntaxHighlighter>
                   </div>
@@ -641,11 +679,11 @@ export default function CheckboxPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas" style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
-                      <Checkbox label="Default" status="default" />
-                      <Checkbox label="Hovered" status="hovered" />
-                      <Checkbox label="Focused" status="focused" />
-                      <Checkbox label="Pressed" status="pressed" />
-                      <Checkbox label="Disabled" status="disabled" />
+                      <Checkbox label="Default" status="default" showLabel />
+                      <Checkbox label="Hovered" status="hovered" showLabel />
+                      <Checkbox label="Focused" status="focused" showLabel />
+                      <Checkbox label="Pressed" status="pressed" showLabel />
+                      <Checkbox label="Disabled" disabled showLabel />
                     </div>
                   </div>
                 </div>
@@ -654,11 +692,11 @@ export default function CheckboxPage() {
                     <CodeCopyButton
                       code={`import { Checkbox } from 'beacon-ui';
 
-<Checkbox label="Default" status="default" />
-<Checkbox label="Hovered" status="hovered" />
-<Checkbox label="Focused" status="focused" />
-<Checkbox label="Pressed" status="pressed" />
-<Checkbox label="Disabled" status="disabled" />`}
+<Checkbox label="Default" status="default" showLabel />
+<Checkbox label="Hovered" status="hovered" showLabel />
+<Checkbox label="Focused" status="focused" showLabel />
+<Checkbox label="Pressed" status="pressed" showLabel />
+<Checkbox label="Disabled" disabled showLabel />`}
                     />
                     <SyntaxHighlighter
                       language="tsx"
@@ -680,11 +718,11 @@ export default function CheckboxPage() {
                     >
                       {`import { Checkbox } from 'beacon-ui';
 
-<Checkbox label="Default" status="default" />
-<Checkbox label="Hovered" status="hovered" />
-<Checkbox label="Focused" status="focused" />
-<Checkbox label="Pressed" status="pressed" />
-<Checkbox label="Disabled" status="disabled" />`}
+<Checkbox label="Default" status="default" showLabel />
+<Checkbox label="Hovered" status="hovered" showLabel />
+<Checkbox label="Focused" status="focused" showLabel />
+<Checkbox label="Pressed" status="pressed" showLabel />
+<Checkbox label="Disabled" disabled showLabel />`}
                     </SyntaxHighlighter>
                   </div>
                 </div>
@@ -697,9 +735,9 @@ export default function CheckboxPage() {
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
                       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-300)" }}>
-                        <Checkbox label="Option 1" />
-                        <Checkbox label="Option 2" checked />
-                        <Checkbox label="Option 3" />
+                        <Checkbox label="Option 1" showLabel />
+                        <Checkbox label="Option 2" checked showLabel />
+                        <Checkbox label="Option 3" showLabel />
                       </div>
                     </div>
                   </div>
@@ -710,9 +748,9 @@ export default function CheckboxPage() {
                       code={`import { Checkbox } from 'beacon-ui';
 
 <div>
-  <Checkbox label="Option 1" />
-  <Checkbox label="Option 2" checked />
-  <Checkbox label="Option 3" />
+  <Checkbox label="Option 1" showLabel />
+  <Checkbox label="Option 2" checked showLabel />
+  <Checkbox label="Option 3" showLabel />
 </div>`}
                     />
                     <SyntaxHighlighter
@@ -736,9 +774,9 @@ export default function CheckboxPage() {
                       {`import { Checkbox } from 'beacon-ui';
 
 <div>
-  <Checkbox label="Option 1" />
-  <Checkbox label="Option 2" checked />
-  <Checkbox label="Option 3" />
+  <Checkbox label="Option 1" showLabel />
+  <Checkbox label="Option 2" checked showLabel />
+  <Checkbox label="Option 3" showLabel />
 </div>`}
                     </SyntaxHighlighter>
                   </div>

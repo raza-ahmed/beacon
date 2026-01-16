@@ -337,8 +337,10 @@ export default function RadioButtonPage() {
                 <CodeCopyButton
                   code={`interface RadioButtonProps {
   selected?: boolean;
+  disabled?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
+  showLabel?: boolean;
   onChange?: (selected: boolean) => void;
 }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
@@ -363,8 +365,10 @@ export default function RadioButtonPage() {
                 >
                   {`interface RadioButtonProps {
   selected?: boolean;
+  disabled?: boolean;
   status?: "default" | "hovered" | "focused" | "pressed" | "disabled";
   label?: string;
+  showLabel?: boolean;
   onChange?: (selected: boolean) => void;
 }`}
                 </SyntaxHighlighter>
@@ -413,6 +417,34 @@ export default function RadioButtonPage() {
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Text label displayed next to the radio button.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>showLabel</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>boolean</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>true</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Whether to display the label text. When false, label is only used for accessibility.
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>disabled</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>boolean</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>false</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Whether the radio button is disabled. When true, prevents interaction and applies disabled styling.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -581,7 +613,7 @@ export default function RadioButtonPage() {
                 <div className="ds-card-example-preview">
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
-                      <RadioButton selected status="disabled" label="Disabled" />
+                      <RadioButton selected disabled label="Disabled" />
                     </div>
                   </div>
                 </div>
@@ -592,7 +624,7 @@ export default function RadioButtonPage() {
 
 <RadioButton 
   selected
-  status="disabled"
+  disabled
   label="Disabled"
 />`}
                     />
@@ -618,7 +650,7 @@ export default function RadioButtonPage() {
 
 <RadioButton 
   selected
-  status="disabled"
+  disabled
   label="Disabled"
 />`}
                     </SyntaxHighlighter>
@@ -692,7 +724,7 @@ export default function RadioButtonPage() {
                         <RadioButton label="Hovered" status="hovered" />
                         <RadioButton label="Focused" status="focused" />
                         <RadioButton label="Pressed" status="pressed" />
-                        <RadioButton label="Disabled" status="disabled" />
+                        <RadioButton label="Disabled" disabled />
                       </div>
                     </div>
                   </div>
@@ -706,7 +738,7 @@ export default function RadioButtonPage() {
 <RadioButton label="Hovered" status="hovered" />
 <RadioButton label="Focused" status="focused" />
 <RadioButton label="Pressed" status="pressed" />
-<RadioButton label="Disabled" status="disabled" />`}
+<RadioButton label="Disabled" disabled />`}
                     />
                     <SyntaxHighlighter
                       language="tsx"
@@ -732,7 +764,7 @@ export default function RadioButtonPage() {
 <RadioButton label="Hovered" status="hovered" />
 <RadioButton label="Focused" status="focused" />
 <RadioButton label="Pressed" status="pressed" />
-<RadioButton label="Disabled" status="disabled" />`}
+<RadioButton label="Disabled" disabled />`}
                     </SyntaxHighlighter>
                   </div>
                 </div>

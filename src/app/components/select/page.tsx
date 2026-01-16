@@ -268,15 +268,18 @@ export default function SelectPage() {
                   code={`interface SelectProps {
   label?: string;
   size?: "sm" | "md" | "lg" | "xl";
-  status?: "default" | "hover" | "active";
+  status?: "default" | "hover" | "active" | "disabled";
   showLabel?: boolean;
+  showStartIcon?: boolean;
+  showEndIcon?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  placeholder?: string;
   selectedValue?: string;
   options?: SelectOption[];
   onSelect?: (value: string) => void;
   fullWidth?: boolean;
+  cornerRadius?: CornerRadiusStep;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
                 />
@@ -301,15 +304,18 @@ export default function SelectPage() {
                   {`interface SelectProps {
   label?: string;
   size?: "sm" | "md" | "lg" | "xl";
-  status?: "default" | "hover" | "active";
+  status?: "default" | "hover" | "active" | "disabled";
   showLabel?: boolean;
+  showStartIcon?: boolean;
+  showEndIcon?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  placeholder?: string;
   selectedValue?: string;
   options?: SelectOption[];
   onSelect?: (value: string) => void;
   fullWidth?: boolean;
+  cornerRadius?: CornerRadiusStep;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }`}
                 </SyntaxHighlighter>
               </div>
@@ -328,9 +334,14 @@ export default function SelectPage() {
                   <div className="ds-card-example-container">
                     <div className="ds-card-example-canvas">
                       <Select
-                        options={DEFAULT_OPTIONS}
+                        options={[
+                          { value: "1", label: "Option 1" },
+                          { value: "2", label: "Option 2" },
+                          { value: "3", label: "Option 3" },
+                        ]}
                         selectedValue={config.selectedValue}
                         onSelect={(value) => updateConfig({ selectedValue: value })}
+                        showStartIcon={false}
                         fullWidth={false}
                         style={{ width: "232px" }}
                       />
@@ -352,6 +363,7 @@ const options = [
   options={options}
   selectedValue={selectedValue}
   onSelect={setSelectedValue}
+  showStartIcon={false}
 />`}
                     />
                     <SyntaxHighlighter
@@ -384,6 +396,7 @@ const options = [
   options={options}
   selectedValue={selectedValue}
   onSelect={setSelectedValue}
+  showStartIcon={false}
 />`}
                     </SyntaxHighlighter>
                   </div>
