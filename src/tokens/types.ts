@@ -206,6 +206,20 @@ export type SpacingToken =
   | "Spacing.2000"
   | "Spacing.None";
 
+export type CornerRadiusToken =
+  | "Corner_Radius.25"
+  | "Corner_Radius.50"
+  | "Corner_Radius.100"
+  | "Corner_Radius.200"
+  | "Corner_Radius.300"
+  | "Corner_Radius.400"
+  | "Corner_Radius.450"
+  | "Corner_Radius.500"
+  | "Corner_Radius.550"
+  | "Corner_Radius.600"
+  | "Corner_Radius.None"
+  | "Corner_Radius.Full";
+
 export type BackgroundToken =
   | "Background.Page_Base"
   | "Background.Page_Primary"

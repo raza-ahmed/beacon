@@ -14,6 +14,18 @@
   font-size: var(--fonts-title-regular-text-size);
   line-height: var(--fonts-title-regular-line-height);
 }
+.text-title-medium {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-secondary-medium);
+  font-size: var(--fonts-title-medium-text-size);
+  line-height: var(--fonts-title-medium-line-height);
+}
+.text-title-large {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-secondary-medium);
+  font-size: var(--fonts-title-large-text-size);
+  line-height: var(--fonts-title-large-line-height);
+}
 .text-heading-h1 {
   font-family: var(--font-primary);
   font-weight: var(--font-weight-primary-semibold);

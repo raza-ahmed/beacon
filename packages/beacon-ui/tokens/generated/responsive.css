@@ -49,6 +49,12 @@
   --fonts-title-regular-text-size: 20px;
   --fonts-title-regular-paragraph-spacing: 26px;
   --fonts-title-regular-line-height: 26px;
+  --fonts-title-medium-text-size: 24px;
+  --fonts-title-medium-paragraph-spacing: 28px;
+  --fonts-title-medium-line-height: 28px;
+  --fonts-title-large-text-size: 32px;
+  --fonts-title-large-paragraph-spacing: 36px;
+  --fonts-title-large-line-height: 36px;
   --body-extra-small-text-size: 12px;
   --fonts-body-extra-small-text-size: 12px;
   --body-extra-small-paragraph-spacing: 18px;
@@ -127,6 +133,12 @@
     --fonts-title-regular-text-size: 20px;
     --fonts-title-regular-paragraph-spacing: 26px;
     --fonts-title-regular-line-height: 26px;
+    --fonts-title-medium-text-size: 24px;
+    --fonts-title-medium-paragraph-spacing: 28px;
+    --fonts-title-medium-line-height: 28px;
+    --fonts-title-large-text-size: 28px;
+    --fonts-title-large-paragraph-spacing: 32px;
+    --fonts-title-large-line-height: 32px;
     --body-extra-small-text-size: 12px;
     --fonts-body-extra-small-text-size: 12px;
     --body-extra-small-paragraph-spacing: 18px;
@@ -206,6 +218,12 @@
     --fonts-title-regular-text-size: 20px;
     --fonts-title-regular-paragraph-spacing: 26px;
     --fonts-title-regular-line-height: 26px;
+    --fonts-title-medium-text-size: 24px;
+    --fonts-title-medium-paragraph-spacing: 28px;
+    --fonts-title-medium-line-height: 28px;
+    --fonts-title-large-text-size: 28px;
+    --fonts-title-large-paragraph-spacing: 32px;
+    --fonts-title-large-line-height: 32px;
     --body-extra-small-text-size: 12px;
     --fonts-body-extra-small-text-size: 12px;
     --body-extra-small-paragraph-spacing: 18px;

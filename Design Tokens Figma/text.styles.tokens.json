@@ -23,6 +23,30 @@
         "textTransform": "none",
         "textDecoration": "none"
       }
+    },
+    "Medium": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{Font.Secondary.Family}",
+        "fontSize": "{Fonts.Title.Medium.Text Size}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
+        "letterSpacing": "0%",
+        "lineHeight": "{Fonts.Title.Medium.Line Height}",
+        "textTransform": "none",
+        "textDecoration": "none"
+      }
+    },
+    "Large": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{Font.Secondary.Family}",
+        "fontSize": "{Fonts.Title.Large.Text Size}",
+        "fontWeight": "{Font.Secondary.Weight.Medium}",
+        "letterSpacing": "0%",
+        "lineHeight": "{Fonts.Title.Large.Line Height}",
+        "textTransform": "none",
+        "textDecoration": "none"
+      }
     }
   },
   "Heading": {

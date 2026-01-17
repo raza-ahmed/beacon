@@ -571,6 +571,12 @@
   --fonts-title-regular-text-size: 20px;
   --fonts-title-regular-paragraph-spacing: 26px;
   --fonts-title-regular-line-height: 26px;
+  --fonts-title-medium-text-size: 24px;
+  --fonts-title-medium-paragraph-spacing: 28px;
+  --fonts-title-medium-line-height: 28px;
+  --fonts-title-large-text-size: 32px;
+  --fonts-title-large-paragraph-spacing: 36px;
+  --fonts-title-large-line-height: 36px;
   --body-extra-small-text-size: 12px;
   --fonts-body-extra-small-text-size: 12px;
   --body-extra-small-paragraph-spacing: 18px;
@@ -649,6 +655,12 @@
     --fonts-title-regular-text-size: 20px;
     --fonts-title-regular-paragraph-spacing: 26px;
     --fonts-title-regular-line-height: 26px;
+    --fonts-title-medium-text-size: 24px;
+    --fonts-title-medium-paragraph-spacing: 28px;
+    --fonts-title-medium-line-height: 28px;
+    --fonts-title-large-text-size: 28px;
+    --fonts-title-large-paragraph-spacing: 32px;
+    --fonts-title-large-line-height: 32px;
     --body-extra-small-text-size: 12px;
     --fonts-body-extra-small-text-size: 12px;
     --body-extra-small-paragraph-spacing: 18px;
@@ -728,6 +740,12 @@
     --fonts-title-regular-text-size: 20px;
     --fonts-title-regular-paragraph-spacing: 26px;
     --fonts-title-regular-line-height: 26px;
+    --fonts-title-medium-text-size: 24px;
+    --fonts-title-medium-paragraph-spacing: 28px;
+    --fonts-title-medium-line-height: 28px;
+    --fonts-title-large-text-size: 28px;
+    --fonts-title-large-paragraph-spacing: 32px;
+    --fonts-title-large-line-height: 32px;
     --body-extra-small-text-size: 12px;
     --fonts-body-extra-small-text-size: 12px;
     --body-extra-small-paragraph-spacing: 18px;
@@ -782,6 +800,18 @@
   font-weight: var(--font-weight-secondary-medium);
   font-size: var(--fonts-title-regular-text-size);
   line-height: var(--fonts-title-regular-line-height);
+}
+.text-title-medium {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-secondary-medium);
+  font-size: var(--fonts-title-medium-text-size);
+  line-height: var(--fonts-title-medium-line-height);
+}
+.text-title-large {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-secondary-medium);
+  font-size: var(--fonts-title-large-text-size);
+  line-height: var(--fonts-title-large-line-height);
 }
 .text-heading-h1 {
   font-family: var(--font-primary);

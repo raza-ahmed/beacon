@@ -22,6 +22,18 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.8",
+    "date": "2026-01-18",
+    "fixed": [
+      {
+        "description": "Added missing typography utility classes `.text-title-medium` and `.text-title-large` to beacon-ui package"
+      },
+      {
+        "description": "All four title typography classes (small, regular, medium, large) are now available in the package"
+      }
+    ]
+  },
+  {
     "version": "3.5.7",
     "date": "2026-01-17",
     "added": [

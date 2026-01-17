@@ -144,6 +144,34 @@
           "$type": "dimension",
           "$value": "26px"
         }
+      },
+      "Medium": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "28px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "28px"
+        }
+      },
+      "Large": {
+        "Text_Size": {
+          "$type": "dimension",
+          "$value": "32px"
+        },
+        "Paragraph_Spacing": {
+          "$type": "dimension",
+          "$value": "36px"
+        },
+        "Line_Height": {
+          "$type": "dimension",
+          "$value": "36px"
+        }
       }
     },
     "Body": {
