@@ -266,21 +266,21 @@ export default function SelectPage() {
               <div style={{ position: "relative" }}>
                 <CodeCopyButton
                   code={`interface SelectProps {
-  label?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-  status?: "default" | "hover" | "active" | "disabled";
-  showLabel?: boolean;
-  showStartIcon?: boolean;
-  showEndIcon?: boolean;
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  selectedValue?: string;
-  options?: SelectOption[];
-  onSelect?: (value: string) => void;
-  fullWidth?: boolean;
-  cornerRadius?: CornerRadiusStep;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}`}
+                    label?: string;
+                    size?: "sm" | "md" | "lg" | "xl";
+                    status?: "default" | "hover" | "active" | "disabled";
+                    showLabel?: boolean;
+                    showStartIcon?: boolean;
+                    showEndIcon?: boolean;
+                    startIcon?: React.ReactNode;
+                    endIcon?: React.ReactNode;
+                    selectedValue?: string;
+                    options?: SelectOption[];
+                    onSelect?: (value: string) => void;
+                    fullWidth?: boolean;
+                    cornerRadius?: CornerRadiusStep;
+                    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+                  }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
                 />
                 <SyntaxHighlighter
@@ -302,21 +302,21 @@ export default function SelectPage() {
                   PreTag="div"
                 >
                   {`interface SelectProps {
-  label?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-  status?: "default" | "hover" | "active" | "disabled";
-  showLabel?: boolean;
-  showStartIcon?: boolean;
-  showEndIcon?: boolean;
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  selectedValue?: string;
-  options?: SelectOption[];
-  onSelect?: (value: string) => void;
-  fullWidth?: boolean;
-  cornerRadius?: CornerRadiusStep;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}`}
+                label?: string;
+                size?: "sm" | "md" | "lg" | "xl";
+                status?: "default" | "hover" | "active" | "disabled";
+                showLabel?: boolean;
+                showStartIcon?: boolean;
+                showEndIcon?: boolean;
+                startIcon?: React.ReactNode;
+                endIcon?: React.ReactNode;
+                selectedValue?: string;
+                options?: SelectOption[];
+                onSelect?: (value: string) => void;
+                fullWidth?: boolean;
+                cornerRadius?: CornerRadiusStep;
+                onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+              }`}
                 </SyntaxHighlighter>
               </div>
             </div>
@@ -352,19 +352,18 @@ export default function SelectPage() {
                   <div style={{ position: "relative" }}>
                     <CodeCopyButton
                       code={`import { Select } from 'beacon-ui';
+                    const options = [
+                      { value: "1", label: "Option 1" },
+                      { value: "2", label: "Option 2" },
+                      { value: "3", label: "Option 3" },
+                    ];
 
-const options = [
-  { value: "1", label: "Option 1" },
-  { value: "2", label: "Option 2" },
-  { value: "3", label: "Option 3" },
-];
-
-<Select 
-  options={options}
-  selectedValue={selectedValue}
-  onSelect={setSelectedValue}
-  showStartIcon={false}
-/>`}
+                    <Select 
+                      options={options}
+                      selectedValue={selectedValue}
+                      onSelect={setSelectedValue}
+                      showStartIcon={false}
+                    />`}
                     />
                     <SyntaxHighlighter
                       language="tsx"
@@ -385,19 +384,18 @@ const options = [
                       PreTag="div"
                     >
                       {`import { Select } from 'beacon-ui';
+                      const options = [
+                        { value: "1", label: "Option 1" },
+                        { value: "2", label: "Option 2" },
+                        { value: "3", label: "Option 3" },
+                      ];
 
-const options = [
-  { value: "1", label: "Option 1" },
-  { value: "2", label: "Option 2" },
-  { value: "3", label: "Option 3" },
-];
-
-<Select 
-  options={options}
-  selectedValue={selectedValue}
-  onSelect={setSelectedValue}
-  showStartIcon={false}
-/>`}
+                      <Select 
+                        options={options}
+                        selectedValue={selectedValue}
+                        onSelect={setSelectedValue}
+                        showStartIcon={false}
+                      />`}
                     </SyntaxHighlighter>
                   </div>
                 </div>
@@ -425,16 +423,16 @@ const options = [
                   <div style={{ position: "relative" }}>
                     <CodeCopyButton
                       code={`import { Select } from 'beacon-ui';
-import { UserPersonIcon } from 'beacon-ui/icons';
+                      import { UserPersonIcon } from 'beacon-ui/icons';
 
-<Select 
-  label="Choose an option"
-  options={options}
-  selectedValue={selectedValue}
-  onSelect={setSelectedValue}
-  startIcon={<UserPersonIcon size="xs" />}
-/>`}
-                    />
+                      <Select 
+                        label="Choose an option"
+                        options={options}
+                        selectedValue={selectedValue}
+                        onSelect={setSelectedValue}
+                        startIcon={<UserPersonIcon size="xs" />}
+                      />`}
+                                          />
                     <SyntaxHighlighter
                       language="tsx"
                       style={syntaxTheme}
@@ -454,15 +452,15 @@ import { UserPersonIcon } from 'beacon-ui/icons';
                       PreTag="div"
                     >
                       {`import { Select } from 'beacon-ui';
-import { UserPersonIcon } from 'beacon-ui/icons';
+                        import { UserPersonIcon } from 'beacon-ui/icons';
 
-<Select 
-  label="Choose an option"
-  options={options}
-  selectedValue={selectedValue}
-  onSelect={setSelectedValue}
-  startIcon={<UserPersonIcon size="xs" />}
-/>`}
+                        <Select 
+                          label="Choose an option"
+                          options={options}
+                          selectedValue={selectedValue}
+                          onSelect={setSelectedValue}
+                          startIcon={<UserPersonIcon size="xs" />}
+                        />`}
                     </SyntaxHighlighter>
                   </div>
                 </div>

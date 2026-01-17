@@ -898,6 +898,13 @@ function generateTypes(): string {
   lines.push(spacingPaths.join("\n") + ";");
   lines.push("");
 
+  // Generate corner radius types
+  lines.push("export type CornerRadiusToken =");
+  const cornerRadiusTokens = extractTokens(semantic.Corner_Radius as TokenFile, "Corner_Radius");
+  const cornerRadiusPaths = Array.from(cornerRadiusTokens.keys()).map((p) => `  | "${p}"`);
+  lines.push(cornerRadiusPaths.join("\n") + ";");
+  lines.push("");
+
   // Generate brand token types
   lines.push("export type BackgroundToken =");
   const bgTokens = extractTokens(brandLight.Background as TokenFile, "Background");

@@ -22,6 +22,26 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.7",
+    "date": "2026-01-17",
+    "added": [
+      {
+        "description": "Added `CornerRadiusToken` type export for TypeScript support"
+      },
+      {
+        "description": "All corner radius tokens (25, 50, 100, 200, 300, 400, 450, 500, 550, 600, none, full) are now available as CSS variables"
+      },
+      {
+        "description": "Corner radius tokens 500, 550, and 600 are now accessible for use in custom CSS"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Updated token build script to automatically generate `CornerRadiusToken` type from design tokens"
+      }
+    ]
+  },
+  {
     "version": "3.5.6",
     "date": "2026-01-16",
     "changed": [

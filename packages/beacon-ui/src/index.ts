@@ -44,6 +44,7 @@ export type {
   ColorPrimitive,
   SemanticColor,
   SpacingToken,
+  CornerRadiusToken,
   BackgroundToken,
   ForegroundToken,
   BorderToken,
