@@ -29,8 +29,10 @@ const TYPOGRAPHY_STYLES: Array<{ name: string; className: string; category: "hea
   { name: "H4", className: "text-heading-h4", category: "heading" },
   { name: "H5", className: "text-heading-h5", category: "heading" },
   { name: "H6", className: "text-heading-h6", category: "heading" },
-  { name: "Title Regular", className: "text-title-regular", category: "title" },
   { name: "Title Small", className: "text-title-small", category: "title" },
+  { name: "Title Regular", className: "text-title-regular", category: "title" },
+  { name: "Title Medium", className: "text-title-medium", category: "title" },
+  { name: "Title Large", className: "text-title-large", category: "title" },
   { name: "Body4 Regular", className: "text-body4-regular", category: "body" },
   { name: "Body4 Medium", className: "text-body4-medium", category: "body" },
   { name: "Body3 Regular", className: "text-body3-regular", category: "body" },
@@ -846,8 +848,10 @@ export default function RootLayout({ children }) {
                   </code>
                 </div>
                 <div className={style.className} style={{ color: "var(--fg-neutral)" }}>
-                  {style.name === "Title Regular" && "Title Regular"}
                   {style.name === "Title Small" && "Title Small"}
+                  {style.name === "Title Regular" && "Title Regular"}
+                  {style.name === "Title Medium" && "Title Medium"}
+                  {style.name === "Title Large" && "Title Large"}
                 </div>
               </div>
             ))}
