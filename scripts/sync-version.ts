@@ -15,6 +15,7 @@ const PROJECT_ROOT = path.resolve(__dirname, "..");
 const BEACON_UI_PACKAGE_JSON = path.join(PROJECT_ROOT, "packages", "beacon-ui", "package.json");
 const VERSION_TS = path.join(PROJECT_ROOT, "src", "constants", "version.ts");
 const README_MD = path.join(PROJECT_ROOT, "README.md");
+const PACKAGE_README_MD = path.join(PROJECT_ROOT, "packages", "beacon-ui", "README.md");
 
 // Read version from beacon-ui package.json
 function getVersion(): string {
@@ -38,21 +39,27 @@ function updateVersionTs(version: string): void {
 }
 
 // Update README.md if it has a hardcoded version
-function updateReadme(version: string): void {
-  const content = fs.readFileSync(README_MD, "utf-8");
+function updateReadme(version: string, readmePath: string, readmeName: string): void {
+  if (!fs.existsSync(readmePath)) {
+    console.log(`- ${readmeName} not found, skipping`);
+    return;
+  }
+  
+  const content = fs.readFileSync(readmePath, "utf-8");
   // Update version references in README (e.g., "Version: 3.1.4" or "Current version: **3.1.4**")
   // Match patterns like "- **Version**: `3.1.4`" or "Current version: **3.1.4**"
   const updated = content
     .replace(/- \*\*Version\*\*: `[\d.]+`/g, `- **Version**: \`${version}\``)
     .replace(/Current version: \*\*[\d.]+\*\*/g, `Current version: **${version}**`)
+    .replace(/Current version: \*\*[\d.]+/g, `Current version: **${version}`)
     .replace(/Version\*\*: `[\d.]+`/g, `Version**: \`${version}\``)
     .replace(/- \*\*Version\*\*: [\d.]+/g, `- **Version**: ${version}`);
   
   if (updated !== content) {
-    fs.writeFileSync(README_MD, updated, "utf-8");
-    console.log(`✓ Updated ${README_MD}`);
+    fs.writeFileSync(readmePath, updated, "utf-8");
+    console.log(`✓ Updated ${readmeName}`);
   } else {
-    console.log(`- No version references found in ${README_MD}`);
+    console.log(`- No version references found in ${readmeName}`);
   }
 }
 
@@ -73,7 +80,8 @@ try {
   console.log(`Syncing version ${version}...\n`);
   
   updateVersionTs(version);
-  updateReadme(version);
+  updateReadme(version, README_MD, "README.md");
+  updateReadme(version, PACKAGE_README_MD, "packages/beacon-ui/README.md");
   generateVersionData();
   
   console.log(`\n✓ Version sync complete!`);

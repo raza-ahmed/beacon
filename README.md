@@ -1,6 +1,6 @@
 # Beacon Design System
 
-A comprehensive design system with 9 production-ready React components, design tokens, and complete documentation. Built with TypeScript and token-driven architecture for consistency and scalability.
+A comprehensive design system with production-ready React components, design tokens, and complete documentation. Built with TypeScript and token-driven architecture for consistency and scalability.
 
 ## 📦 NPM Packages
 
@@ -67,14 +67,19 @@ function App() {
 - Card
 - Checkbox
 - Chip
+- Divider
 - Input
 - Menu
 - Radio Button
+- Select
+- Slider
 - Switch
+- Tab
+- Toast
 
 ### Features
 
-- ✅ 10 production-ready components
+- ✅ 15 production-ready components
 - ✅ Complete design token system
 - ✅ TypeScript support
 - ✅ Theme support (light/dark)
@@ -182,20 +187,35 @@ beacon/
 ├── packages/
 │   ├── beacon-ui/          # NPM package (beacon-ui)
 │   │   ├── src/            # Source code
-│   │   ├── dist/            # Compiled output
-│   │   ├── tokens/          # Generated CSS tokens
+│   │   │   ├── components/ # React components
+│   │   │   ├── providers/  # Theme provider
+│   │   │   └── tokens/     # Token type definitions
+│   │   ├── dist/           # Compiled output
+│   │   ├── tokens/         # Generated CSS tokens
+│   │   ├── assets/         # Static assets (images, etc.)
 │   │   └── package.json
 │   └── beacon-icons/       # NPM package (beacon-icons)
 │       ├── src/            # Icon components
-│       ├── dist/            # Compiled output
+│       ├── dist/           # Compiled output
 │       └── package.json
 ├── scripts/
-│   └── build-tokens.ts     # Token build script
+│   ├── build-tokens.ts     # Token build script
+│   ├── sync-version.ts     # Version synchronization
+│   ├── generate-version-data.ts  # Version data generator
+│   ├── copy-assets.ts      # Asset copying script
+│   └── deploy.ts           # Deployment script
 ├── src/
 │   ├── app/                # Next.js app (documentation site)
+│   │   ├── components/     # Component documentation pages
+│   │   ├── foundations/    # Foundation documentation pages
+│   │   ├── motion/         # Motion/animation pages
+│   │   └── utility/        # Utility pages
 │   ├── components/         # Documentation components
-│   ├── tokens/             # Token types and generated CSS
-│   └── providers/          # Theme provider
+│   ├── constants/         # Constants (version data, etc.)
+│   ├── hooks/             # Custom hooks
+│   ├── providers/         # Theme provider
+│   ├── tokens/            # Token types and generated CSS
+│   └── utils/             # Utility functions
 ├── public/                 # Static assets
 └── out/                    # Static export output
 ```

@@ -1,6 +1,6 @@
 # Beacon Design System
 
-A comprehensive React design system with 9 production-ready components and design tokens. Built with TypeScript and token-driven architecture for consistency and scalability.
+A comprehensive React design system with 15 production-ready components and design tokens. Built with TypeScript and token-driven architecture for consistency and scalability.
 
 ## Installation
 
@@ -347,13 +347,19 @@ function SettingsForm() {
 
 - **Avatar** - User avatars with icon, text, or image support
 - **Button** - Multiple variants (filled, tonal, outline, link) with sizes and states
+- **Button Icon** - Icon-only button interactions with support for all button variants
 - **Card** - Flexible card components (product, experience, info, generic)
 - **Checkbox** - Accessible checkbox with label support
 - **Chip** - Compact labels and tags
+- **Divider** - Visual separator with optional slot for icons or custom content
 - **Input** - Form inputs with icons, labels, and error states
 - **Menu** - Navigation menus for desktop, tablet, and mobile
 - **Radio Button** - Radio button groups with label support
+- **Select** - Dropdown select component with search and filtering support
+- **Slider** - Range slider for selecting single values or ranges with tooltips
 - **Switch** - Toggle switches with optional icons
+- **Tab** - Tab navigation component with configurable styles and placements
+- **Toast** - Notification toasts with variants (default, success, error, warning)
 
 ## Component APIs
 
@@ -469,6 +475,7 @@ import type {
   ColorPrimitive,
   SemanticColor,
   SpacingToken,
+  CornerRadiusToken,
   BackgroundToken,
   ForegroundToken,
   BorderToken
@@ -575,7 +582,7 @@ https://beacon.uxraza.com/
 
 ## Version
 
-Current version: **3.4.5**
+Current version: **3.5.8**
 
 ## License
 
