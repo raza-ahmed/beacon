@@ -171,15 +171,15 @@
       },
       "400": {
         "$type": "color",
-        "$value": "#05faf2"
+        "$value": "#0dc8c2"
       },
       "500": {
         "$type": "color",
-        "$value": "#03a09b"
+        "$value": "#029792"
       },
       "600": {
         "$type": "color",
-        "$value": "#018f8a"
+        "$value": "#008681"
       },
       "700": {
         "$type": "color",

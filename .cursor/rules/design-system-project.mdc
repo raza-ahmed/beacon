@@ -3,27 +3,61 @@ alwaysApply: false
 ---
 # Project Rule: Figma-Aligned TypeScript Design System
 
+> **Note**: For detailed workflows, step-by-step guides, and code examples, see `AGENTS.md` in the project root.
+
 ## Source of Truth
 - Figma tokens and components are the primary reference.
-- Do not introduce new colors, spacing values, typography scales, radii, or motion values unless they match Figma or are approved extensions.
+- Token files exported from Figma are stored in `Design Tokens Figma/` directory.
+- Always check Figma first before creating or modifying components.
+- Do not introduce new design values unless they match Figma or are approved extensions.
 
 ## Token Usage
-- All style values must reference typed tokens (color, spacing, typography, radius, motion).
-- Avoid hard-coded values such as hex codes, numeric spacing, or arbitrary durations.
-- Tokens must come from a centralized token module with full TypeScript typing.
+- All style values must use CSS variables: `var(--token-name)` (e.g., `var(--bg-primary)`, `var(--spacing-400)`).
+- Never use hard-coded values: no hex codes, pixel values, or arbitrary durations.
+- Run `npm run build:tokens` after Figma token updates.
+- Validate with `npm run validate:css-vars` before committing.
 
-## Component Architecture
-- Each component must map directly to its Figma definition.
-- Component props must reflect Figma variants, states, and interactions.
-- Components must be written as pure, composable TypeScript/React functions.
-- Ensure strict naming consistency with Figma variant names.
+## Component Standards
+
+### File Structure
+- Component: `packages/beacon-ui/src/components/[ComponentName].tsx` (PascalCase)
+- Documentation: `src/app/components/[component-name]/page.tsx` (kebab-case)
+- Preview: `src/components/[ComponentName]Preview.tsx`
+- Controls: `src/components/[ComponentName]Controls.tsx`
+- Export: Add to `packages/beacon-ui/src/index.ts`
+
+### Code Requirements
+- Named exports only: `export function ComponentName()` (never default exports)
+- Extend HTML props: `ComponentPropsWithRef<"element">`
+- Always call `useThemeSafe()` at component start
+- Pure React functions, no side effects in render
+- TypeScript interfaces for props (no `any`)
+- Inline styles with `React.CSSProperties`, all values use tokens
+- Use `useMemo` for computed styles when dependencies change
+- Support `className` and `style` props
+
+### Figma Alignment
+- Map directly to Figma definition
+- Props reflect Figma variants, states, and interactions exactly
+- Strict naming consistency with Figma (case-sensitive)
+
+### Accessibility & Theme
+- WCAG 2.1 AA compliance required
+- Proper ARIA attributes, keyboard navigation, focus management
+- Work in both light and dark themes
+- Support all hue variants (primary, success, warning, critical)
 
 ## Documentation Requirements
-- Each component must include:
-  - A clear purpose statement.
-  - Prop definitions with TypeScript types.
-  - Developers must be able to select and copy examples directly from definition.
-  - Allowed token references.
-  - Usage examples and code snippets.
-  - Documentation must be accessible to designers and developers through the web project.
-  - Usage guidelines for both designers and developers.
+- Follow structure from `src/app/components/button/page.tsx`
+- Required sections: Overview, Interactive Playground, Anatomy, Variants & States, Usage Guidelines, API Reference, Usage Examples
+- Use `PageLayout`, `CodeCopyButton`, `SyntaxHighlighter` components
+- All code examples must be valid TypeScript, use tokens, and be copyable
+
+## Reference Existing Components
+- See `packages/beacon-ui/src/components/Button.tsx` for component patterns
+- See `packages/beacon-ui/src/components/Card.tsx` for styling patterns
+- See `src/app/components/button/page.tsx` for documentation structure
+
+## Quality Checks
+- Run validation commands (see `AGENTS.md` for details)
+- Verify tokens, types, Figma alignment, documentation completeness, accessibility, theme support
