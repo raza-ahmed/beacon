@@ -15,6 +15,7 @@
     "start": "next start",
     "lint": "next lint",
     "validate:css-vars": "npx tsx scripts/validate-css-vars.ts",
+    "prepare:icons": "npx tsx scripts/prepare-icons.ts",
     "watch:docs": "tsx scripts/watch-docs.ts",
     "check:docs": "tsx scripts/check-docs-sync.ts",
     "deploy": "npx tsx scripts/deploy.ts"

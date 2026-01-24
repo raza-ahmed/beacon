@@ -5,6 +5,7 @@ This document provides specific instructions for AI agents working on the Beacon
 ## Table of Contents
 
 - [Token Workflow](#token-workflow)
+- [Icon Workflow](#icon-workflow)
 - [Component Creation Workflow](#component-creation-workflow)
 - [Documentation Standards](#documentation-standards)
 - [File Structure & Conventions](#file-structure--conventions)
@@ -63,6 +64,22 @@ Tokens are exported from Figma and stored in `Design Tokens Figma/`:
 - **Always reference tokens** via CSS variables: `var(--token-name)`
 - **Use TypeScript types** from `src/tokens/types.ts` for type safety
 - **Follow token naming** exactly as defined in Figma
+
+---
+
+## Icon Workflow
+
+### Adding New Icons
+
+The project uses an automation script to convert SVGs into React components.
+
+1. **Place SVGs**: Drop your `.svg` files into the `/icons` directory at the root.
+2. **Run Preparation**: Run `npm run prepare:icons`.
+   - This sanitizes the name (PascalCase + "Icon" suffix).
+   - Converts SVG attributes to React-compatible JSX.
+   - Updates the library files and documentation gallery automatically.
+3. **Build Package**: Run `npm run build:icons` to update the distribution files.
+4. **Cleanup**: Remove the source SVGs from the `/icons` folder to avoid duplication on next run.
 
 ---
 

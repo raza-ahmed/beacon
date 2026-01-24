@@ -24,6 +24,21 @@ function MyComponent() {
 }
 ```
 
+## Adding New Icons
+
+To add new icons to the library:
+
+1. Place your `.svg` files in the `icons/` directory at the project root.
+2. Run the preparation script from the root:
+   ```bash
+   npm run prepare:icons
+   ```
+3. Rebuild the icons package:
+   ```bash
+   npm run build:icons
+   ```
+4. Remove the source SVG files from the `icons/` directory to avoid duplication in future runs.
+
 ## Icon Props
 
 ```tsx
@@ -123,7 +138,7 @@ Or use className for custom styling:
 
 ## Version
 
-Current version: **3.1.6**
+Current version: **3.1.7**
 
 ## License
 

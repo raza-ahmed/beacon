@@ -203,6 +203,7 @@ beacon/
 │   ├── sync-version.ts     # Version synchronization
 │   ├── generate-version-data.ts  # Version data generator
 │   ├── copy-assets.ts      # Asset copying script
+│   ├── prepare-icons.ts    # Icon automation script
 │   └── deploy.ts           # Deployment script
 ├── src/
 │   ├── app/                # Next.js app (documentation site)
@@ -254,6 +255,9 @@ npm run build:package
 
 # Build icons package
 npm run build:icons
+
+# Prepare new icons from SVGs in /icons folder
+npm run prepare:icons
 
 # Publish components package
 npm run publish:package
