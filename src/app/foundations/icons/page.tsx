@@ -92,7 +92,6 @@ import {
   DeviceMobilePhoneFilledIcon,
   DotCirclePointIcon,
   DotCirclePointFilledIcon,
-  ArrowDownFallSlotIcon,
   QuoteUpIcon,
   QuoteDowncon,
   QuoteUpFilledIcon,
@@ -146,6 +145,10 @@ import {
   VolumeSpeakIcon,
   VolumeSpeakFilledIcon,
   ArrowDownLeftIcon,
+  ArrowDotChevronReplaceIcon,
+  DownloadInDownAddArrowDashedDownIcon,
+  PlayMusicIcon,
+  PlayMusicFilledIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -155,6 +158,10 @@ interface IconItem {
 }
 
 const ALL_ICONS: IconItem[] = [
+  { name: "PlayMusicIcon", component: PlayMusicIcon },
+  { name: "PlayMusicFilledIcon", component: PlayMusicFilledIcon },
+  { name: "ArrowDotChevronReplaceIcon", component: ArrowDotChevronReplaceIcon },
+  { name: "DownloadInDownAddArrowDashedDownIcon", component: DownloadInDownAddArrowDashedDownIcon },
   { name: "UploadFileSendShareIcon", component: UploadFileSendShareIcon },
   { name: "ArrowDownFallTurnRightIcon", component: ArrowDownFallTurnRightIcon },
   { name: "ArrowsExpandMoveHorizontalIcon", component: ArrowsExpandMoveHorizontalIcon },
@@ -293,7 +300,6 @@ const ALL_ICONS: IconItem[] = [
   { name: "DeviceMobilePhoneFilledIcon", component: DeviceMobilePhoneFilledIcon },
   { name: "DotCirclePointIcon", component: DotCirclePointIcon },
   { name: "DotCirclePointFilledIcon", component: DotCirclePointFilledIcon },
-  { name: "ArrowDownFallSlotIcon", component: ArrowDownFallSlotIcon },
   { name: "QuoteUpIcon", component: QuoteUpIcon },
   { name: "QuoteDowncon", component: QuoteDowncon },
   { name: "QuoteUpFilledIcon", component: QuoteUpFilledIcon },
