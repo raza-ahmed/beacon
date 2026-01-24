@@ -149,6 +149,11 @@ import {
   DownloadInDownAddArrowDashedDownIcon,
   PlayMusicIcon,
   PlayMusicFilledIcon,
+  HistoryClockIcon,
+  PlusAddIcon,
+  WorldGlobeIcon,
+  AddPlusCircleSlotIcon,
+  DownloadDownDashedIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -158,6 +163,11 @@ interface IconItem {
 }
 
 const ALL_ICONS: IconItem[] = [
+  { name: "HistoryClockIcon", component: HistoryClockIcon },
+  { name: "PlusAddIcon", component: PlusAddIcon },
+  { name: "WorldGlobeIcon", component: WorldGlobeIcon },
+  { name: "AddPlusCircleSlotIcon", component: AddPlusCircleSlotIcon },
+  { name: "DownloadDownDashedIcon", component: DownloadDownDashedIcon },
   { name: "PlayMusicIcon", component: PlayMusicIcon },
   { name: "PlayMusicFilledIcon", component: PlayMusicFilledIcon },
   { name: "ArrowDotChevronReplaceIcon", component: ArrowDotChevronReplaceIcon },
