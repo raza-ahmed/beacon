@@ -154,6 +154,8 @@ import {
   WorldGlobeIcon,
   AddPlusCircleSlotIcon,
   DownloadDownDashedIcon,
+  EyeViewShowIcon,
+  EyeViewShowFilledIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -163,6 +165,8 @@ interface IconItem {
 }
 
 const ALL_ICONS: IconItem[] = [
+  { name: "EyeViewShowIcon", component: EyeViewShowIcon },
+  { name: "EyeViewShowFilledIcon", component: EyeViewShowFilledIcon },
   { name: "HistoryClockIcon", component: HistoryClockIcon },
   { name: "PlusAddIcon", component: PlusAddIcon },
   { name: "WorldGlobeIcon", component: WorldGlobeIcon },
