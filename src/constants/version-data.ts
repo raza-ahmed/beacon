@@ -22,6 +22,15 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.9",
+    "date": "2026-01-25",
+    "added": [
+      {
+        "description": "Tooltip component for displaying contextual information on hover or focus"
+      }
+    ]
+  },
+  {
     "version": "3.5.8",
     "date": "2026-01-18",
     "fixed": [

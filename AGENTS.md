@@ -323,7 +323,7 @@ beacon/
 ### Version Management
 
 - Follow semantic versioning (MAJOR.MINOR.PATCH)
-- Current version: 3.5.8
+- Current version: 3.5.9
 - Update in `src/constants/version.ts`
 - Run `sync:version` to update all package.json files
 

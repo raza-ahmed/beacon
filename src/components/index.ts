@@ -26,5 +26,7 @@ export { MenuPreview } from "./MenuPreview";
 export { MenuControls } from "./MenuControls";
 export { ToastPreview } from "./ToastPreview";
 export { ToastControls } from "./ToastControls";
+export { TooltipPreview } from "./TooltipPreview";
+export { TooltipControls } from "./TooltipControls";
 export { AnimationShowcase } from "./AnimationShowcase";
 
