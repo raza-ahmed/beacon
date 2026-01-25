@@ -138,7 +138,7 @@ Or use className for custom styling:
 
 ## Version
 
-Current version: **3.2.0**
+Current version: **3.2.1**
 
 ## License
 
