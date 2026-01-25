@@ -5248,7 +5248,7 @@ export function RotateClockwiseIcon({ size = "xs", className, color }: IconProps
 }
 
 
-export function IocnsTemperatureThermomemterIcon({ size = "xs", className, color }: IconProps) {
+export function IconsTemperatureThermomemterIcon({ size = "xs", className, color }: IconProps) {
   const { width, height, style } = getSvgSizeProps(size);
   return (
     <svg

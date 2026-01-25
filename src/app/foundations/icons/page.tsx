@@ -280,7 +280,7 @@ import {
   MenuCenterIcon,
   RotateAnticlockwiseIcon,
   RotateClockwiseIcon,
-  IocnsTemperatureThermomemterIcon,
+  IconsTemperatureThermomemterIcon,
   DotsVerticalIcon,
   EyeOffIcon,
 } from "beacon-icons";
@@ -416,7 +416,7 @@ const ALL_ICONS_UNSORTED: IconItem[] = [
   { name: "MenuCenterIcon", component: MenuCenterIcon },
   { name: "RotateAnticlockwiseIcon", component: RotateAnticlockwiseIcon },
   { name: "RotateClockwiseIcon", component: RotateClockwiseIcon },
-  { name: "IocnsTemperatureThermomemterIcon", component: IocnsTemperatureThermomemterIcon },
+  { name: "IconsTemperatureThermomemterIcon", component: IconsTemperatureThermomemterIcon },
   { name: "DotsVerticalIcon", component: DotsVerticalIcon },
   { name: "EyeOffIcon", component: EyeOffIcon },
   { name: "EyeViewShowIcon", component: EyeViewShowIcon },
