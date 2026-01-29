@@ -20,6 +20,7 @@ interface ToastConfig {
   showIcon: boolean;
   fullWidth: boolean;
   showBorder: boolean;
+  duration: number;
 }
 
 const VARIANT_LABELS: Record<ToastVariant, string> = {
@@ -64,6 +65,10 @@ function generateToastCode(config: ToastConfig): string {
     props.push(`showBorder`);
   }
 
+  if (config.duration > 0) {
+    props.push(`duration={${config.duration}}`);
+  }
+
   if (props.length === 0) {
     return `<Toast />`;
   }
@@ -85,7 +90,9 @@ export default function ToastPage() {
     showIcon: true,
     fullWidth: false,
     showBorder: false,
+    duration: 0,
   });
+  const [toastKey, setToastKey] = useState(0);
 
   const syntaxTheme = useMemo(() => createThemeAwareSyntaxTheme(theme), [theme]);
 
@@ -140,6 +147,7 @@ export default function ToastPage() {
               showIcon={config.showIcon}
               fullWidth={config.fullWidth}
               showBorder={config.showBorder}
+              duration={config.duration}
               theme={theme}
               hue={hue}
               onVariantChange={(variant) => updateConfig({ variant })}
@@ -150,6 +158,10 @@ export default function ToastPage() {
               onShowIconChange={(showIcon) => updateConfig({ showIcon })}
               onFullWidthChange={(fullWidth) => updateConfig({ fullWidth })}
               onShowBorderChange={(showBorder) => updateConfig({ showBorder })}
+              onDurationChange={(duration) => {
+                updateConfig({ duration });
+                setToastKey((k) => k + 1);
+              }}
               onThemeChange={setTheme}
               onHueChange={setHue}
             />
@@ -157,6 +169,7 @@ export default function ToastPage() {
             <div className="ds-toast-preview-section">
               <div className="ds-toast-preview">
                 <ToastPreview
+                  key={toastKey}
                   variant={config.variant}
                   message={config.message}
                   actionLabel={config.actionLabel}
@@ -165,8 +178,10 @@ export default function ToastPage() {
                   showIcon={config.showIcon}
                   fullWidth={config.fullWidth}
                   showBorder={config.showBorder}
+                  duration={config.duration}
                   theme={theme}
                   hue={hue}
+                  onDismiss={() => setToastKey((k) => k + 1)}
                 />
               </div>
               <div className="ds-toast-preview-code">
@@ -383,6 +398,7 @@ export default function ToastPage() {
   showIcon?: boolean;
   closeIcon?: React.ReactNode;
   fullWidth?: boolean;
+  duration?: number;
 }`}
                   style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
                 />
@@ -416,6 +432,7 @@ export default function ToastPage() {
   showIcon?: boolean;
   closeIcon?: React.ReactNode;
   fullWidth?: boolean;
+  duration?: number;
 }`}
                 </SyntaxHighlighter>
               </div>
@@ -519,6 +536,20 @@ export default function ToastPage() {
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
                     Stretch to the parent's width
+                  </div>
+                </div>
+                <div className="ds-api-reference__props-row">
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--name">
+                    <code>duration</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
+                    <code>number</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
+                    <code>undefined</code>
+                  </div>
+                  <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
+                    Auto-dismiss duration in milliseconds
                   </div>
                 </div>
               </div>

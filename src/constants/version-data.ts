@@ -22,6 +22,21 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.10",
+    "date": "2026-01-30",
+    "added": [
+      {
+        "description": "Toast component now supports `duration` prop for auto-dismiss functionality"
+      },
+      {
+        "description": "When duration is set (in milliseconds), toast automatically calls `onDismiss` after the specified time"
+      },
+      {
+        "description": "Duration control added to Toast playground with preset options (Off, 3s, 5s, 7s, 10s)"
+      }
+    ]
+  },
+  {
     "version": "3.5.9",
     "date": "2026-01-25",
     "added": [

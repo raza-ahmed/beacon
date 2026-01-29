@@ -16,6 +16,7 @@ interface ToastControlsProps {
   showIcon?: boolean;
   fullWidth?: boolean;
   showBorder?: boolean;
+  duration?: number;
   theme?: Theme;
   hue?: HueVariant;
   onVariantChange?: (variant: ToastVariant) => void;
@@ -26,6 +27,7 @@ interface ToastControlsProps {
   onShowIconChange?: (show: boolean) => void;
   onFullWidthChange?: (fullWidth: boolean) => void;
   onShowBorderChange?: (show: boolean) => void;
+  onDurationChange?: (duration: number) => void;
   onThemeChange?: (theme: Theme) => void;
   onHueChange?: (hue: HueVariant) => void;
 }
@@ -43,6 +45,14 @@ const HUE_OPTIONS: { value: HueVariant; label: string; color: string }[] = [
   { value: "hue-indigo", label: "Indigo", color: "var(--color-purple-500)" },
 ];
 
+const DURATION_OPTIONS: { value: string; label: string }[] = [
+  { value: "0", label: "Off" },
+  { value: "3000", label: "3 seconds" },
+  { value: "5000", label: "5 seconds" },
+  { value: "7000", label: "7 seconds" },
+  { value: "10000", label: "10 seconds" },
+];
+
 export function ToastControls({
   variant = "default",
   message = "Toast Info",
@@ -52,6 +62,7 @@ export function ToastControls({
   showIcon = true,
   fullWidth = false,
   showBorder = false,
+  duration = 0,
   theme,
   hue,
   onVariantChange,
@@ -62,6 +73,7 @@ export function ToastControls({
   onShowIconChange,
   onFullWidthChange,
   onShowBorderChange,
+  onDurationChange,
   onThemeChange,
   onHueChange,
 }: ToastControlsProps) {
@@ -111,6 +123,21 @@ export function ToastControls({
             selectedValue={variant}
             options={VARIANT_OPTIONS as SelectOption[]}
             onSelect={(value) => onVariantChange?.(value as ToastVariant)}
+          />
+        </div>
+        <div className="ds-toast-control-field">
+          <label htmlFor="toast-duration-select" className="ds-toast-control-label">
+            Duration
+          </label>
+          <Select
+            id="toast-duration-select"
+            size="md"
+            showLabel={false}
+            showStartIcon={false}
+            showEndIcon={true}
+            selectedValue={String(duration)}
+            options={DURATION_OPTIONS as SelectOption[]}
+            onSelect={(value) => onDurationChange?.(Number(value))}
           />
         </div>
       </div>

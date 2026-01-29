@@ -12,8 +12,10 @@ interface ToastPreviewProps {
   showIcon?: boolean;
   fullWidth?: boolean;
   showBorder?: boolean;
+  duration?: number;
   theme?: Theme;
   hue?: HueVariant;
+  onDismiss?: () => void;
 }
 
 export function ToastPreview({
@@ -25,8 +27,10 @@ export function ToastPreview({
   showIcon = true,
   fullWidth = false,
   showBorder = false,
+  duration,
   theme,
   hue,
+  onDismiss,
 }: ToastPreviewProps) {
   return (
     <div className="ds-toast-preview-container">
@@ -40,8 +44,9 @@ export function ToastPreview({
           showIcon={showIcon}
           fullWidth={fullWidth}
           showBorder={showBorder}
+          duration={duration}
           onAction={() => {}}
-          onDismiss={() => {}}
+          onDismiss={onDismiss ?? (() => {})}
         />
       </div>
     </div>

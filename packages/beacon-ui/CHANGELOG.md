@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.10] - 2026-01-30
+
+### Added
+- Toast component now supports `duration` prop for auto-dismiss functionality
+- When duration is set (in milliseconds), toast automatically calls `onDismiss` after the specified time
+- Duration control added to Toast playground with preset options (Off, 3s, 5s, 7s, 10s)
+
 ## [3.5.9] - 2026-01-25
 
 ### Added

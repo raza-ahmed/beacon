@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, type ComponentPropsWithRef } from "react";
+import { useEffect, useMemo, type ComponentPropsWithRef } from "react";
 import { useThemeSafe } from "../providers/ThemeProvider";
 import { AlertTriangleErrorIcon, CheckIcon, CircleErrorIcon, CloseIcon } from "../icons";
 
@@ -55,6 +55,12 @@ export interface ToastProps extends ComponentPropsWithRef<"div"> {
    * Show border around the toast.
    */
   showBorder?: boolean;
+  /**
+   * Auto-dismiss duration in milliseconds.
+   * If set, the toast will automatically call onDismiss after the specified time.
+   * Set to 0 or undefined to disable auto-dismiss.
+   */
+  duration?: number;
 }
 
 type VariantConfig = {
@@ -114,12 +120,23 @@ export function Toast({
   closeIcon,
   fullWidth = false,
   showBorder = false,
+  duration,
   className,
   style,
   role = "status",
   ...rest
 }: ToastProps) {
   useThemeSafe();
+
+  useEffect(() => {
+    if (!duration || duration <= 0 || !onDismiss) return;
+
+    const timer = setTimeout(() => {
+      onDismiss();
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [duration, onDismiss]);
 
   const config = VARIANT_CONFIG[variant];
 
