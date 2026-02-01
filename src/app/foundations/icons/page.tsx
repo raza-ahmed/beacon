@@ -283,6 +283,11 @@ import {
   IconsTemperatureThermomemterIcon,
   DotsVerticalIcon,
   EyeOffIcon,
+  ClockTimeIcon,
+  ClockTimeFilledIcon,
+  CloudIcon,
+  CloudFilledIcon,
+  HandStopCursorIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -575,7 +580,12 @@ const ALL_ICONS_UNSORTED: IconItem[] = [
 ];
 
 // Sort icons alphabetically by name
-const ALL_ICONS: IconItem[] = [...ALL_ICONS_UNSORTED].sort((a, b) => a.name.localeCompare(b.name));
+const ALL_ICONS: IconItem[] = [
+  { name: "ClockTimeIcon", component: ClockTimeIcon },
+  { name: "ClockTimeFilledIcon", component: ClockTimeFilledIcon },
+  { name: "CloudIcon", component: CloudIcon },
+  { name: "CloudFilledIcon", component: CloudFilledIcon },
+  { name: "HandStopCursorIcon", component: HandStopCursorIcon },...ALL_ICONS_UNSORTED].sort((a, b) => a.name.localeCompare(b.name));
 
 async function copyToClipboard(text: string) {
   if (navigator.clipboard?.writeText) {
