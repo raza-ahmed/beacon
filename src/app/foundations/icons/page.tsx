@@ -288,6 +288,10 @@ import {
   CloudIcon,
   CloudFilledIcon,
   HandStopCursorIcon,
+  ChartBarLeaderboardIcon,
+  ChartBarLeaderboardFilledIcon,
+  GraphInvestChartIcon,
+  GraphInvestChartFilledIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -581,6 +585,10 @@ const ALL_ICONS_UNSORTED: IconItem[] = [
 
 // Sort icons alphabetically by name
 const ALL_ICONS: IconItem[] = [
+  { name: "ChartBarLeaderboardIcon", component: ChartBarLeaderboardIcon },
+  { name: "ChartBarLeaderboardFilledIcon", component: ChartBarLeaderboardFilledIcon },
+  { name: "GraphInvestChartIcon", component: GraphInvestChartIcon },
+  { name: "GraphInvestChartFilledIcon", component: GraphInvestChartFilledIcon },
   { name: "ClockTimeIcon", component: ClockTimeIcon },
   { name: "ClockTimeFilledIcon", component: ClockTimeFilledIcon },
   { name: "CloudIcon", component: CloudIcon },

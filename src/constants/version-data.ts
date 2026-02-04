@@ -22,6 +22,15 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.11",
+    "date": "2026-02-05",
+    "added": [
+      {
+        "description": "Tab and TabItem component updates (documentation and playground)"
+      }
+    ]
+  },
+  {
     "version": "3.5.10",
     "date": "2026-01-30",
     "added": [
