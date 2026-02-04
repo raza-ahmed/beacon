@@ -21,13 +21,15 @@ export function Tab({
   useThemeSafe();
 
   const containerStyles = useMemo(() => {
+    const isSide = tabStyle === "side";
     return {
-      display: "inline-flex",
-      gap: 0,
-      backgroundColor: "var(--bg-page-primary)",
-      border: "var(--border-width-25) solid var(--border-strong-200)",
+      display: "flex",
+      flexDirection: isSide ? "column" : "row",
+      gap: isSide ? "var(--spacing-50)" : 0,
+      backgroundColor: isSide ? "transparent" : "var(--bg-page-primary)",
+      border: isSide ? "none" : "var(--border-width-25) solid var(--border-strong-200)",
       borderRadius: tabStyle === "pill" ? "var(--corner-radius-200)" : "var(--corner-radius-200)",
-      padding: "2px",
+      padding: isSide ? 0 : "2px",
       overflow: "hidden",
       ...inlineStyle,
     } as React.CSSProperties;

@@ -5,7 +5,7 @@ import { useThemeSafe } from "../providers/ThemeProvider";
 
 export type TabItemState = "default" | "active" | "hover" | "disabled";
 export type TabItemSize = "sm" | "md";
-export type TabItemStyle = "default" | "pill";
+export type TabItemStyle = "default" | "pill" | "side";
 
 export interface TabItemProps extends Omit<ComponentPropsWithRef<"button">, "onClick"> {
   tabName?: string;
@@ -61,7 +61,7 @@ export function TabItem({
 
   const buttonStyles = useMemo(() => {
     const baseStyles: React.CSSProperties = {
-      flex: "1",
+      flex: tabStyle === "side" ? "0 0 auto" : "1",
       padding: `${sizeConfig.paddingY} ${sizeConfig.paddingX}`,
       border: "none",
       backgroundColor: "transparent",
@@ -72,7 +72,12 @@ export function TabItem({
       fontWeight: "var(--font-weight-secondary-medium)",
       cursor: isDisabled ? "not-allowed" : "pointer",
       transition: "background-color 0.15s ease, color 0.15s ease",
-      borderRadius: tabStyle === "pill" ? "var(--corner-radius-100)" : "0",
+      borderRadius:
+        tabStyle === "pill"
+          ? "var(--corner-radius-100)"
+          : tabStyle === "side"
+            ? "var(--corner-radius-200)"
+            : "0",
       whiteSpace: "nowrap",
       ...inlineStyle,
     };

@@ -8,7 +8,7 @@ import type { SelectOption } from "beacon-ui";
 
 type TabItemState = "Default" | "Active" | "Hover" | "Disabled";
 type TabItemSize = "Small" | "Medium";
-type TabItemStyle = "Default" | "Pill";
+type TabItemStyle = "Default" | "Pill" | "Side";
 type TabItemPlacement = "Horizontal" | "Vertical";
 type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -52,6 +52,7 @@ const SIZE_OPTIONS: { value: TabItemSize; label: string }[] = [
 const STYLE_OPTIONS: { value: TabItemStyle; label: string }[] = [
   { value: "Default", label: "Default" },
   { value: "Pill", label: "Pill" },
+  { value: "Side", label: "Side" },
 ];
 
 const PLACEMENT_OPTIONS: { value: TabItemPlacement; label: string }[] = [

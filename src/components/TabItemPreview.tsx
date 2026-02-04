@@ -6,7 +6,7 @@ import { PageFileIcon, ChevronRightIcon } from "./icons";
 
 type TabItemState = "Default" | "Active" | "Hover" | "Disabled";
 type TabItemSize = "Small" | "Medium";
-type TabItemStyle = "Default" | "Pill";
+type TabItemStyle = "Default" | "Pill" | "Side";
 type TabItemPlacement = "Horizontal" | "Vertical";
 type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -138,6 +138,30 @@ export function TabItemPreview({
       return pillStyles;
     }
 
+    if (style === "Side") {
+      const sidePaddingX = size === "Small" ? "var(--spacing-200)" : "var(--spacing-300)";
+      const sideStyles: React.CSSProperties = {
+        ...baseStyles,
+        paddingLeft: sidePaddingX,
+        paddingRight: sidePaddingX,
+        paddingTop: 0,
+        paddingBottom: 0,
+        borderRadius: "var(--corner-radius-200)",
+      };
+
+      if (state === "Active") {
+        sideStyles.backgroundColor = "var(--bg-primary-tonal)";
+      } else if (state === "Hover") {
+        sideStyles.backgroundColor = "var(--bg-page-secondary)";
+      } else if (state === "Disabled") {
+        sideStyles.backgroundColor = "transparent";
+      } else {
+        sideStyles.backgroundColor = "transparent";
+      }
+
+      return sideStyles;
+    }
+
     return baseStyles;
   }, [style, size, state, cornerRadius, fullWidth]);
 
@@ -175,9 +199,15 @@ export function TabItemPreview({
     };
 
     if (state === "Active") {
+      const activeColor =
+        style === "Pill"
+          ? "var(--fg-neutral)"
+          : style === "Side"
+            ? "var(--fg-primary-on-tonal)"
+            : "var(--fg-primary)";
       return {
         ...baseStyles,
-        color: style === "Pill" ? "var(--fg-neutral)" : "var(--fg-primary)",
+        color: activeColor,
         fontWeight: "var(--font-weight-secondary-medium)",
       };
     } else if (state === "Hover") {

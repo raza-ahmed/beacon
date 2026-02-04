@@ -13,12 +13,12 @@ import { CodeCopyButton } from "@/components/CodeCopyButton";
 
 type TabItemState = "Default" | "Active" | "Hover" | "Disabled";
 type TabItemSize = "Small" | "Medium";
-type TabItemStyle = "Default" | "Pill";
+type TabItemStyle = "Default" | "Pill" | "Side";
 type TabItemPlacement = "Horizontal" | "Vertical";
 type CornerRadiusStep = 0 | 1 | 2 | 3 | 4 | 5;
 type TabSize = "Small" | "Medium";
 type TabItemWidth = "Auto" | "Equal";
-type TabStyle = "Default" | "Pill";
+type TabStyle = "Default" | "Pill" | "Side";
 
 interface TabItemConfig {
   tabName: string;
@@ -47,6 +47,7 @@ const SIZE_LABELS: Record<TabItemSize, string> = {
 const STYLE_LABELS: Record<TabItemStyle, string> = {
   Default: "default",
   Pill: "pill",
+  Side: "side",
 };
 
 const PLACEMENT_LABELS: Record<TabItemPlacement, string> = {
@@ -399,6 +400,43 @@ export default function TabsPage() {
                 />
               </div>
             </div>
+                <div className="ds-button-variant-card">
+              <h6 className="ds-button-variant-card__title">Side Style</h6>
+              <p className="ds-button-variant-card__desc">
+                Vertical sidebar tabs with full background highlight for active state. Use for side navigation.
+              </p>
+              <div className="ds-button-variant-card__preview">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "var(--spacing-50)",
+                    alignItems: "stretch",
+                  }}
+                >
+                  <TabItemPreview
+                    tabName="Active"
+                    state="Active"
+                    size="Small"
+                    style="Side"
+                    placement="Horizontal"
+                    showStartIcon={false}
+                    showEndIcon={false}
+                    showTabLabel={true}
+                  />
+                  <TabItemPreview
+                    tabName="Tab #1"
+                    state="Default"
+                    size="Small"
+                    style="Side"
+                    placement="Horizontal"
+                    showStartIcon={false}
+                    showEndIcon={false}
+                    showTabLabel={true}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="ds-button-variant-card">
               <h6 className="ds-button-variant-card__title">Medium Size</h6>
               <p className="ds-button-variant-card__desc">
@@ -493,7 +531,7 @@ export default function TabsPage() {
   tabName?: string;
   state?: "default" | "active" | "hover" | "disabled";
   size?: "sm" | "md";
-  style?: "default" | "pill";
+  style?: "default" | "pill" | "side";
   placement?: "horizontal" | "vertical";
   showStartIcon?: boolean;
   showEndIcon?: boolean;
@@ -528,7 +566,7 @@ export default function TabsPage() {
   tabName?: string;
   state?: "default" | "active" | "hover" | "disabled";
   size?: "sm" | "md";
-  style?: "default" | "pill";
+  style?: "default" | "pill" | "side";
   placement?: "horizontal" | "vertical";
   showStartIcon?: boolean;
   showEndIcon?: boolean;
@@ -549,7 +587,7 @@ export default function TabsPage() {
                   code={`interface TabProps {
   size?: "sm" | "md";
   itemWidth?: "auto" | "equal";
-  style?: "default" | "pill";
+  style?: "default" | "pill" | "side";
   placement?: "horizontal";
   cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
   children: React.ReactNode;
@@ -578,7 +616,7 @@ export default function TabsPage() {
                   {`interface TabProps {
   size?: "sm" | "md";
   itemWidth?: "auto" | "equal";
-  style?: "default" | "pill";
+  style?: "default" | "pill" | "side";
   placement?: "horizontal";
   cornerRadius?: 0 | 1 | 2 | 3 | 4 | 5;
   children: React.ReactNode;
@@ -633,7 +671,7 @@ export default function TabsPage() {
                     <code>style</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>"default" | "pill"</code>
+                    <code>"default" | "pill" | "side"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
                     <code>"default"</code>
@@ -748,13 +786,13 @@ export default function TabsPage() {
                     <code>style</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--type">
-                    <code>"default" | "pill"</code>
+                    <code>"default" | "pill" | "side"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--default">
                     <code>"default"</code>
                   </div>
                   <div className="ds-api-reference__props-cell ds-api-reference__props-cell--desc">
-                    Visual style variant
+                    Visual style variant. Use "side" for vertical sidebar tabs.
                   </div>
                 </div>
                 <div className="ds-api-reference__props-row">
@@ -1158,6 +1196,84 @@ import { PageFileIcon } from 'beacon-icons';
   <TabItem tabName="Tab #1" placement="vertical" startIcon={<PageFileIcon size={16} />} />
   <TabItem tabName="Tab #2" placement="vertical" startIcon={<PageFileIcon size={16} />} />
 </Tab>`}
+                    </SyntaxHighlighter>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="ds-code-example">
+              <h6 className="ds-code-example__title">Side Style</h6>
+              <div className="ds-card-example-section">
+                <div className="ds-card-example-preview">
+                  <div className="ds-card-example-container">
+                    <div
+                      className="ds-card-example-canvas"
+                      style={{
+                        minHeight: "auto",
+                        alignItems: "stretch",
+                        justifyContent: "flex-start",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "var(--spacing-50)",
+                      }}
+                    >
+                      <TabItemPreview
+                        tabName="Active"
+                        state="Active"
+                        size="Small"
+                        style="Side"
+                        placement="Horizontal"
+                        showStartIcon={false}
+                        showEndIcon={false}
+                        showTabLabel={true}
+                      />
+                      <TabItemPreview
+                        tabName="Tab #1"
+                        state="Default"
+                        size="Small"
+                        style="Side"
+                        placement="Horizontal"
+                        showStartIcon={false}
+                        showEndIcon={false}
+                        showTabLabel={true}
+                      />
+                      <TabItemPreview
+                        tabName="Tab #2"
+                        state="Default"
+                        size="Small"
+                        style="Side"
+                        placement="Horizontal"
+                        showStartIcon={false}
+                        showEndIcon={false}
+                        showTabLabel={true}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="ds-card-example-code">
+                  <div style={{ position: "relative" }}>
+                    <CodeCopyButton
+                      code={generateTabCode("Small", "Auto", "Side", ["Active", "Tab #1", "Tab #2"])}
+                    />
+                    <SyntaxHighlighter
+                      language="tsx"
+                      style={syntaxTheme}
+                      customStyle={{
+                        margin: 0,
+                        padding: "var(--spacing-300)",
+                        backgroundColor: "var(--bg-page-secondary)",
+                        fontSize: "var(--fonts-body-small-text-size)",
+                        borderRadius: "var(--corner-radius-200)",
+                        height: "100%",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                        },
+                      }}
+                      PreTag="div"
+                    >
+                      {generateTabCode("Small", "Auto", "Side", ["Active", "Tab #1", "Tab #2"])}
                     </SyntaxHighlighter>
                   </div>
                 </div>
