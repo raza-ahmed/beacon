@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.12] - 2026-02-05
+
+### Added
+- Select component `labelPosition` prop ("top" | "left"), default "left", for label placement
+- `SelectLabelPosition` type export
+
 ## [3.5.11] - 2026-02-05
 
 ### Added

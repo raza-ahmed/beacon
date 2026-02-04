@@ -22,6 +22,18 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.12",
+    "date": "2026-02-05",
+    "added": [
+      {
+        "description": "Select component `labelPosition` prop (\"top\" | \"left\"), default \"left\", for label placement"
+      },
+      {
+        "description": "`SelectLabelPosition` type export"
+      }
+    ]
+  },
+  {
     "version": "3.5.11",
     "date": "2026-02-05",
     "added": [

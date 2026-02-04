@@ -25,7 +25,7 @@ export type { CardProps, CardStatus, CardShadow } from "./components/Card";
 export type { CheckboxProps, CheckboxStatus } from "./components/Checkbox";
 export type { SwitchProps, SwitchStatus } from "./components/Switch";
 export type { InputProps, InputSize, InputStatus } from "./components/Input";
-export type { SelectProps, SelectSize, SelectStatus, SelectOption } from "./components/Select";
+export type { SelectProps, SelectSize, SelectStatus, SelectOption, SelectLabelPosition } from "./components/Select";
 export type { AvatarProps, AvatarSize, AvatarType, AvatarColor, AvatarVariant } from "./components/Avatar";
 export type { ChipProps, ChipSize, ChipColor } from "./components/Chip";
 export type { DividerProps, DividerOrientation, DividerSlotPosition } from "./components/Divider";

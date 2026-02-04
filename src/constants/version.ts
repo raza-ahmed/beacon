@@ -9,7 +9,7 @@
  * 
  * Format: Major.Minor.Patch (e.g., "3.1.6")
  */
-export const DESIGN_SYSTEM_VERSION = "3.5.11";
+export const DESIGN_SYSTEM_VERSION = "3.5.12";
 
 /**
  * Get formatted version string with optional prefix

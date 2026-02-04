@@ -7,6 +7,7 @@ import type { CornerRadiusStep } from "./Button";
 
 export type SelectSize = "sm" | "md" | "lg" | "xl";
 export type SelectStatus = "default" | "hover" | "active" | "disabled";
+export type SelectLabelPosition = "top" | "left";
 
 export interface SelectOption {
   value: string;
@@ -25,6 +26,7 @@ const CORNER_RADIUS_MAP: Record<CornerRadiusStep, string> = {
 
 export interface SelectProps extends Omit<ComponentPropsWithoutRef<"button">, "size" | "onClick" | "onSelect"> {
   label?: string;
+  labelPosition?: SelectLabelPosition;
   size?: SelectSize;
   status?: SelectStatus;
   showLabel?: boolean;
@@ -107,6 +109,7 @@ const SIZE_CONFIG: Record<
 
 export function Select({
   label,
+  labelPosition = "left",
   size = "md",
   status: statusProp,
   showLabel = true,
@@ -183,8 +186,9 @@ export function Select({
       lineHeight: sizeConfig.labelLineHeight,
       fontFamily: "var(--font-secondary)",
       color: status === "disabled" ? "var(--fg-disabled)" : "var(--fg-neutral)",
+      ...(labelPosition === "left" && { flexShrink: 0 }),
     } as React.CSSProperties;
-  }, [sizeConfig, status]);
+  }, [sizeConfig, status, labelPosition]);
 
   const textStyles = useMemo(() => {
     return {
@@ -337,36 +341,32 @@ export function Select({
   const generatedId = useId();
   const selectId = id || generatedId;
 
-  return (
-    <div
-      ref={selectRef}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--spacing-100)",
-        width: fullWidth ? "100%" : "fit-content",
-        position: "relative",
-        overflow: "visible",
-      }}
+  const wrapperStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: labelPosition === "left" ? "row" : "column",
+    alignItems: labelPosition === "left" ? "center" : undefined,
+    gap: "var(--spacing-100)",
+    width: fullWidth ? "100%" : "fit-content",
+    position: "relative",
+    overflow: "visible",
+  };
+
+  const buttonContent = (
+    <button
+      id={selectId}
+      type="button"
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{ ...containerStyles, ...style }}
+      className={className}
+      aria-expanded={isOpen || status === "active"}
+      aria-haspopup="listbox"
+      aria-disabled={status === "disabled"}
+      aria-labelledby={showLabel && label ? undefined : undefined}
+      disabled={status === "disabled"}
+      {...rest}
     >
-      {showLabel && label && (
-        <label htmlFor={selectId} style={labelStyles}>{label}</label>
-      )}
-      <button
-        id={selectId}
-        type="button"
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{ ...containerStyles, ...style }}
-        className={className}
-        aria-expanded={isOpen || status === "active"}
-        aria-haspopup="listbox"
-        aria-disabled={status === "disabled"}
-        aria-labelledby={showLabel && label ? undefined : undefined}
-        disabled={status === "disabled"}
-        {...rest}
-      >
         {showStartIcon && (
           <div 
             style={{ 
@@ -408,7 +408,19 @@ export function Select({
             )}
           </div>
         )}
-      </button>
+    </button>
+  );
+
+  return (
+    <div ref={selectRef} style={wrapperStyle}>
+      {showLabel && label && (
+        <label htmlFor={selectId} style={labelStyles}>{label}</label>
+      )}
+      {labelPosition === "left" && fullWidth ? (
+        <div style={{ flex: "1 1 0", minWidth: 0 }}>{buttonContent}</div>
+      ) : (
+        buttonContent
+      )}
       {(isOpen || status === "active") && status !== "disabled" && options.length > 0 && (
         <div style={dropdownStyles} role="listbox">
           {options.map((option, index) => {
