@@ -100,3 +100,90 @@
 - Use appropriate corner radius tokens based on element size and context
 - Always check Figma for available tokens before creating custom values
 - When a token doesn't exist, request it in Figma rather than hardcoding values
+
+## Design Audit Instructions
+
+When auditing a Figma design for token compliance:
+
+### Audit Process
+1. **Get design context** - Use `get_design_context` to retrieve the actual code/properties applied to elements
+2. **Get variable definitions** - Use `get_variable_defs` to see available tokens (but note: this shows resolved values, not whether elements use tokens)
+3. **Inspect actual properties** - Check the design context code for hardcoded hex colors, pixel values, etc.
+4. **Compare against tokens** - Verify that properties use token references (e.g., `Foreground/White`) rather than hardcoded values (e.g., `#ffffff`)
+5. **Check all elements** - Inspect text, icons, backgrounds, borders, spacing, and other visible properties
+6. **Only check what's available** - Don't audit properties that don't exist in the design
+
+### Response Format
+Format audit results with clear visual indicators:
+
+- ✅ **Pass** - Property correctly uses design tokens
+- ❌ **Fail** - Property uses hardcoded values or doesn't use tokens
+
+### Response Structure
+Keep the audit response **very short** and focused:
+
+1. **Passed items** (✅) - List properties that correctly use tokens
+2. **Failed items** (❌) - List properties that fail with brief reason
+
+Example format:
+```
+✅ Colors: All colors use semantic tokens (Foreground/Primary, Background/Success)
+✅ Spacing: Padding and margins use spacing tokens (Spacing/200, Spacing/400)
+❌ Typography: Font size hardcoded as 14px instead of Body2/Regular token
+❌ Border Radius: Uses 4px instead of Corner Radius/200 token
+```
+
+### How to Detect Hardcoded Values
+
+When reviewing design context code, look for:
+
+**Hardcoded colors (FAIL):**
+- Direct hex values: `#ffffff`, `#056dff`, `rgb(255, 255, 255)`
+- Should use tokens instead: `Foreground/White`, `Border/Primary`
+
+**Hardcoded spacing (FAIL):**
+- Pixel values: `8px`, `16px`, `24px`
+- Should use tokens instead: `Spacing/200`, `Spacing/400`, `Spacing/500`
+
+**Hardcoded typography (FAIL):**
+- Direct font sizes: `14px`, `font-size: 14`
+- Should use typography tokens: `Body2/Medium`, `Body2/Regular`
+
+**Hardcoded border radius (FAIL):**
+- Pixel values: `8px`, `16px`
+- Should use tokens: `Corner Radius/200`, `Corner Radius/400`
+
+**Token usage (PASS):**
+- References to Figma variables: `Foreground/White`, `Spacing/200`, `Body2/Medium`
+- These appear as variable names in the design context, not resolved values
+
+### Important Note
+- `get_variable_defs` returns resolved values (e.g., `Foreground/White: "#ffffff"`) but doesn't indicate if elements use tokens
+- Always check the actual design context code to see if properties reference tokens or have hardcoded values
+- A hex value in variable definitions doesn't mean the design uses that token - it could be hardcoded
+
+### What to Check
+Only audit properties that are visible/applied in the design:
+- Colors (fill, stroke, text) - check for hex codes vs token references
+- Spacing (padding, margin, gap) - check for pixel values vs spacing tokens
+- Typography (if text elements exist) - check for font-size values vs typography tokens
+- Corner radius (if rounded elements exist) - check for pixel values vs radius tokens
+- Border width (if borders exist) - check for pixel values vs border width tokens
+- Icon sizes (if icons exist) - check for pixel values vs icon size tokens
+- Backgrounds (if background colors exist) - check for hex codes vs background tokens
+
+### Common Audit Mistakes
+
+**Mistake: Assuming variable definitions mean token usage**
+- ❌ Wrong: Seeing `Foreground/White: "#ffffff"` in variable definitions and assuming the design uses the token
+- ✅ Correct: Check the actual design context code to see if text color is `Foreground/White` (token) or `#ffffff` (hardcoded)
+
+**Mistake: Only checking variable definitions**
+- ❌ Wrong: Only calling `get_variable_defs` and assuming all properties use tokens
+- ✅ Correct: Call `get_design_context` to see actual property values applied to elements
+
+**How to verify:**
+1. Get design context code - look for actual property values in the code output
+2. Search for hex codes (`#` followed by 6 hex digits) - these indicate hardcoded colors
+3. Search for pixel values (`px` suffix) - these may indicate hardcoded spacing/sizing
+4. Compare found values against available tokens - if a hex matches a token value but isn't referenced as a token, it's hardcoded
