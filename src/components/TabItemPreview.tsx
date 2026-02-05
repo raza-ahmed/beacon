@@ -146,11 +146,13 @@ export function TabItemPreview({
         paddingRight: sidePaddingX,
         paddingTop: 0,
         paddingBottom: 0,
-        borderRadius: "var(--corner-radius-200)",
+        borderRadius: "0",
+        transition: "background-color 0.15s ease, border-left 0.15s ease",
       };
 
       if (state === "Active") {
         sideStyles.backgroundColor = "var(--bg-primary-tonal)";
+        sideStyles.borderLeft = "var(--border-width-50) solid var(--border-primary)";
       } else if (state === "Hover") {
         sideStyles.backgroundColor = "var(--bg-page-secondary)";
       } else if (state === "Disabled") {
@@ -233,7 +235,11 @@ export function TabItemPreview({
 
   const iconColor = useMemo(() => {
     if (state === "Active") {
-      return style === "Pill" ? "var(--fg-neutral)" : "var(--fg-primary)";
+      return style === "Pill" 
+        ? "var(--fg-neutral)" 
+        : style === "Side"
+          ? "var(--fg-primary-on-tonal)"
+          : "var(--fg-primary)";
     } else if (state === "Hover") {
       return "var(--fg-neutral-secondary)";
     } else if (state === "Disabled") {

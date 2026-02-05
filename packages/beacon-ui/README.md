@@ -582,7 +582,7 @@ https://beacon.uxraza.com/
 
 ## Version
 
-Current version: **3.5.12**
+Current version: **3.5.13**
 
 ## License
 

@@ -71,12 +71,12 @@ export function TabItem({
       lineHeight: sizeConfig.lineHeight,
       fontWeight: "var(--font-weight-secondary-medium)",
       cursor: isDisabled ? "not-allowed" : "pointer",
-      transition: "background-color 0.15s ease, color 0.15s ease",
+      transition: "background-color 0.15s ease, color 0.15s ease, border-left 0.15s ease",
       borderRadius:
         tabStyle === "pill"
           ? "var(--corner-radius-100)"
           : tabStyle === "side"
-            ? "var(--corner-radius-200)"
+            ? "0"
             : "0",
       whiteSpace: "nowrap",
       ...inlineStyle,
@@ -84,6 +84,9 @@ export function TabItem({
 
     if (isActive) {
       baseStyles.backgroundColor = "var(--bg-primary-tonal)";
+      if (tabStyle === "side") {
+        baseStyles.borderLeft = "var(--border-width-50) solid var(--border-primary)";
+      }
     } else if (isHovered) {
       baseStyles.backgroundColor = "var(--bg-page-secondary)";
     }

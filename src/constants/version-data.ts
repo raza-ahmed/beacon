@@ -22,6 +22,18 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.5.13",
+    "date": "2026-02-05",
+    "fixed": [
+      {
+        "description": "Tab component side variant: removed rounded corners (borderRadius set to 0)"
+      },
+      {
+        "description": "Tab component side variant: added left-edge primary indicator (borderLeft) for active state"
+      }
+    ]
+  },
+  {
     "version": "3.5.12",
     "date": "2026-02-05",
     "added": [
