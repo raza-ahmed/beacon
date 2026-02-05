@@ -17,6 +17,9 @@ alwaysApply: false
 - Run `npm run build:tokens` after Figma token updates.
 - Validate with `npm run validate:css-vars` before committing.
 
+## Design Tokens
+- See `design-tokens-rule.md` for comprehensive guidelines on using Figma variables and design tokens
+
 ## Component Standards
 
 ### File Structure
