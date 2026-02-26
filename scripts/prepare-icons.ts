@@ -1,5 +1,5 @@
 /**
- * Prepare Icons Script
+ * Prepare Icons Script - npm run prepare:icons
  * 
  * Automatically converts SVG files from the icons/ directory into React components
  * and updates the design system's icon packages and documentation.

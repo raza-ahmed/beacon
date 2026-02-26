@@ -14,6 +14,8 @@ export { Checkbox } from "./Checkbox";
 export { CheckboxControls } from "./CheckboxControls";
 export { InputPreview } from "./InputPreview";
 export { InputControls } from "./InputControls";
+export { SelectableInputPreview } from "./SelectableInputPreview";
+export { SelectableInputControls } from "./SelectableInputControls";
 export { SelectControls } from "./SelectControls";
 export { ChipPreview } from "./ChipPreview";
 export { ChipControls } from "./ChipControls";

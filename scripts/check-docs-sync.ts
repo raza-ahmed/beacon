@@ -1,5 +1,5 @@
 /**
- * Documentation Sync Checker
+ * Documentation Sync Checker - npm run check:docs
  * 
  * Compares package component APIs with documentation pages
  * and generates suggestions for updates.

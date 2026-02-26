@@ -1,5 +1,5 @@
 /**
- * File Watcher for Documentation Sync
+ * File Watcher for Documentation Sync - npm run watch:docs
  * 
  * Monitors changes in packages/beacon-ui and automatically
  * checks if documentation needs updates.

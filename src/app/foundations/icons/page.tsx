@@ -292,6 +292,9 @@ import {
   ChartBarLeaderboardFilledIcon,
   GraphInvestChartIcon,
   GraphInvestChartFilledIcon,
+  CubeBoxIcon,
+  EyeglassSpecIcon,
+  KayakBoatIcon,
 } from "beacon-icons";
 import { Input } from "beacon-ui";
 
@@ -585,6 +588,9 @@ const ALL_ICONS_UNSORTED: IconItem[] = [
 
 // Sort icons alphabetically by name
 const ALL_ICONS: IconItem[] = [
+  { name: "KayakBoatIcon", component: KayakBoatIcon },
+  { name: "EyeglassSpecIcon", component: EyeglassSpecIcon },
+  { name: "CubeBoxIcon", component: CubeBoxIcon },
   { name: "ChartBarLeaderboardIcon", component: ChartBarLeaderboardIcon },
   { name: "ChartBarLeaderboardFilledIcon", component: ChartBarLeaderboardFilledIcon },
   { name: "GraphInvestChartIcon", component: GraphInvestChartIcon },

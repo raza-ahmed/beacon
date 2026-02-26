@@ -17,6 +17,7 @@ export { Toast } from "./components/Toast";
 export { Tab } from "./components/Tab";
 export { TabItem } from "./components/TabItem";
 export { Tooltip } from "./components/Tooltip";
+export { SelectableInput } from "./components/SelectableInput";
 
 // Component Props Types
 export type { ButtonProps, ButtonVariant, ButtonSize, CornerRadiusStep, JustifyContent, ButtonState, ButtonColor } from "./components/Button";
@@ -36,6 +37,7 @@ export type { ToastProps, ToastVariant } from "./components/Toast";
 export type { TabProps } from "./components/Tab";
 export type { TabItemProps, TabItemState, TabItemSize, TabItemStyle } from "./components/TabItem";
 export type { TooltipProps, TooltipPosition, TooltipTrigger } from "./components/Tooltip";
+export type { SelectableInputProps, SelectableInputSize } from "./components/SelectableInput";
 
 // Providers
 export { ThemeProvider, useTheme, useThemeSafe } from "./providers/ThemeProvider";

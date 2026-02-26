@@ -1,5 +1,5 @@
 /**
- * Deployment script for GoDaddy hosting via FTP
+ * Deployment script for GoDaddy hosting via FTP - npm run deploy
  * 
  * This script:
  * 1. Builds the Next.js project

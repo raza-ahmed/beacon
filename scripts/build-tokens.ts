@@ -1,5 +1,5 @@
 /**
- * Token Build Script
+ * Token Build Script - npm run build:tokens
  *
  * Transforms Figma-exported DTCG tokens into:
  * - CSS custom properties organized by layer

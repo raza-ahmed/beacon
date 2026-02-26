@@ -1,5 +1,5 @@
 /**
- * Copy assets from beacon-ui package to public directory for Next.js
+ * Copy assets from beacon-ui package to public directory for Next.js - npm run copy:assets
  * 
  * NOTE: This creates duplication, but it's necessary for Next.js static export.
  * Images exist in two places:

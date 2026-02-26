@@ -1,5 +1,5 @@
 /**
- * Version Sync Script
+ * Version Sync Script - npm run sync:version
  * 
  * Syncs the version from packages/beacon-ui/package.json (source of truth)
  * to all other locations that need the version:
