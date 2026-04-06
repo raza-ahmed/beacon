@@ -20,6 +20,7 @@ export const navigationData: NavSection[] = [
     items: [
       { label: "Introduction", href: "/" },
       { label: "How to Use", href: "/how-to-use" },
+      { label: "AI Quickstart", href: "/ai-quickstart" },
       {
         label: "Versions",
         children: [
