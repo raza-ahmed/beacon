@@ -10,7 +10,47 @@ import { CodeCopyButton } from "@/components/CodeCopyButton";
 const tocItems: TocItem[] = [
   { id: "overview", label: "Overview" },
   { id: "step-1", label: "Step 1 — Scaffold" },
+  { id: "step-2", label: "Step 2 — Install & Verify" },
 ];
+
+const step2Prompt = `The project has already been scaffolded with all files and package.json.
+Now do the following steps in order:
+
+## Step 1 — Install dependencies
+Run:
+npm install
+
+## Step 2 — Fix any peer dependency or version conflicts
+After install, check the terminal output for any warnings or errors.
+If there are peer dependency conflicts, resolve them automatically.
+Do NOT downgrade next, react, or react-dom.
+
+## Step 3 — Verify the dev server runs
+Run:
+npm run dev
+
+Confirm the dev server starts successfully on localhost:3000 with no errors.
+If there are TypeScript or config errors, fix them before moving on.
+
+## Step 4 — Verify the build works
+Stop the dev server, then run:
+npm run build
+
+Confirm the build completes with no errors.
+If there are any errors, fix them and re-run until the build is clean.
+
+## Step 5 — Report back
+Once everything is working, give me a summary of:
+- All installed package versions (from node_modules, not package.json)
+- Any conflicts you resolved and how
+- Confirmation that dev server and build both pass
+- Any warnings I should know about
+
+## Instructions
+- Do NOT add or remove any packages I didn't ask for
+- Do NOT modify the project structure
+- Do NOT add any code beyond what's already scaffolded
+- Fix only what's broken, nothing else`;
 
 const step1Prompt = `Create a new Next.js project from scratch in the current empty folder with the following exact setup:
 
@@ -180,6 +220,7 @@ export default function AiQuickstartPage() {
             </ul>
           </div>
 
+
           <div className="ds-content__code-container">
             <div className="ds-content__code-copy-button">
               <CodeCopyButton code={step1Prompt} style={{ position: "relative", top: 0, right: 0 }} />
@@ -204,6 +245,91 @@ export default function AiQuickstartPage() {
               PreTag="div"
             >
               {step1Prompt}
+            </SyntaxHighlighter>
+          </div>
+        </section>
+
+        <section id="step-2" className="ds-content__section">
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-300)", marginBottom: "var(--spacing-400)" }}>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: "var(--spacing-600)",
+              height: "var(--spacing-600)",
+              borderRadius: "50%",
+              backgroundColor: "var(--bg-brand-primary)",
+              color: "var(--fg-on-brand)",
+              fontFamily: "var(--font-primary)",
+              fontSize: "var(--fonts-body-small-text-size)",
+              fontWeight: 600,
+              flexShrink: 0,
+            }}>2</span>
+            <h6 className="ds-content__section-title" style={{ margin: 0 }}>Install & Verify</h6>
+          </div>
+
+          <p className="ds-content__text">
+            With the project scaffolded, run this prompt to install dependencies, resolve any conflicts, and confirm both the dev server and production build work correctly.
+          </p>
+
+          <div style={{
+            backgroundColor: "var(--bg-page-secondary)",
+            border: "var(--border-width-25) solid var(--border-strong-100)",
+            borderRadius: "var(--corner-radius-200)",
+            padding: "var(--spacing-400)",
+            marginTop: "var(--spacing-400)",
+            marginBottom: "var(--spacing-500)",
+          }}>
+            <p style={{
+              fontFamily: "var(--font-secondary)",
+              fontSize: "var(--fonts-body-small-text-size)",
+              lineHeight: "var(--fonts-body-small-line-height)",
+              color: "var(--fg-neutral-secondary)",
+              margin: 0,
+              marginBottom: "var(--spacing-200)",
+              fontWeight: 600,
+            }}>Before you run this prompt</p>
+            <ul style={{
+              fontFamily: "var(--font-secondary)",
+              fontSize: "var(--fonts-body-small-text-size)",
+              lineHeight: "var(--fonts-body-small-line-height)",
+              color: "var(--fg-neutral-secondary)",
+              margin: 0,
+              paddingLeft: "var(--spacing-500)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--spacing-100)",
+            }}>
+              <li>Make sure Step 1 is complete — all project files must be scaffolded before running this</li>
+              <li>Run this prompt from inside your project folder with your AI assistant open in that same directory</li>
+              <li>The AI will run terminal commands — make sure it has access to your terminal or shell</li>
+            </ul>
+          </div>
+
+          <div className="ds-content__code-container">
+            <div className="ds-content__code-copy-button">
+              <CodeCopyButton code={step2Prompt} style={{ position: "relative", top: 0, right: 0 }} />
+            </div>
+            <SyntaxHighlighter
+              language="markdown"
+              style={syntaxTheme}
+              customStyle={{
+                margin: 0,
+                padding: "var(--spacing-400)",
+                backgroundColor: "var(--bg-page-secondary)",
+                fontSize: "var(--fonts-body-small-text-size)",
+                borderRadius: "var(--corner-radius-200)",
+                border: "var(--border-width-25) solid var(--border-strong-200)",
+                overflow: "auto",
+              }}
+              codeTagProps={{
+                style: {
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                },
+              }}
+              PreTag="div"
+            >
+              {step2Prompt}
             </SyntaxHighlighter>
           </div>
         </section>
