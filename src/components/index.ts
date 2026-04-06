@@ -31,4 +31,6 @@ export { ToastControls } from "./ToastControls";
 export { TooltipPreview } from "./TooltipPreview";
 export { TooltipControls } from "./TooltipControls";
 export { AnimationShowcase } from "./AnimationShowcase";
+export { CodeDownloadButton } from "./CodeDownloadButton";
+export { CollapsibleCode } from "./CollapsibleCode";
 
