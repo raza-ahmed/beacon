@@ -6,6 +6,7 @@ import { useTheme } from "@/providers/ThemeProvider";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { createThemeAwareSyntaxTheme } from "@/utils/syntaxTheme";
 import { CodeCopyButton } from "@/components/CodeCopyButton";
+import { Avatar } from "beacon-ui";
 
 const tocItems: TocItem[] = [
   { id: "overview", label: "Overview" },
@@ -158,20 +159,14 @@ export default function AiQuickstartPage() {
 
         <section id="step-1" className="ds-content__section">
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-300)", marginBottom: "var(--spacing-400)" }}>
-            <span style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "var(--spacing-600)",
-              height: "var(--spacing-600)",
-              borderRadius: "50%",
-              backgroundColor: "var(--bg-brand-primary)",
-              color: "var(--fg-on-brand)",
-              fontFamily: "var(--font-primary)",
-              fontSize: "var(--fonts-body-small-text-size)",
-              fontWeight: 600,
-              flexShrink: 0,
-            }}>1</span>
+          <Avatar
+          size="sm"
+          type="text"
+          color="neutral"
+          isRound
+          hasStroke
+          initials="1"
+        />
             <h6 className="ds-content__section-title" style={{ margin: 0 }}>Scaffold the Project</h6>
           </div>
 
@@ -251,20 +246,14 @@ export default function AiQuickstartPage() {
 
         <section id="step-2" className="ds-content__section">
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-300)", marginBottom: "var(--spacing-400)" }}>
-            <span style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "var(--spacing-600)",
-              height: "var(--spacing-600)",
-              borderRadius: "50%",
-              backgroundColor: "var(--bg-brand-primary)",
-              color: "var(--fg-on-brand)",
-              fontFamily: "var(--font-primary)",
-              fontSize: "var(--fonts-body-small-text-size)",
-              fontWeight: 600,
-              flexShrink: 0,
-            }}>2</span>
+          <Avatar
+          size="sm"
+          type="text"
+          color="neutral"
+          isRound
+          hasStroke
+          initials="2"
+        />
             <h6 className="ds-content__section-title" style={{ margin: 0 }}>Install & Verify</h6>
           </div>
 
