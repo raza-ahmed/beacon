@@ -40,6 +40,7 @@ const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "chromatic-prime", label: "Chromatic" },
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
+  { value: "hue-kelly-green", label: "Kelly Green" },
 ];
 
 const THEME_OPTIONS: { value: Theme; label: string }[] = [
@@ -1765,7 +1766,7 @@ export default function ColorsPage() {
           </p>
           <ul className="ds-content__bullet-list">
             <li><code>data-theme</code> (light/dark) overrides brand role tokens.</li>
-            <li><code>data-hue</code> (chromatic/sky/indigo) changes the semantic primary palette that brand roles reference.</li>
+            <li><code>data-hue</code> (chromatic/sky/indigo/kelly-green) changes the semantic primary palette that brand roles reference.</li>
           </ul>
         </section>
 
@@ -1794,7 +1795,7 @@ export default function ColorsPage() {
               </div>
               <code className="ds-token-mapping__example">--color-primary-500</code>
               <p className="ds-token-mapping__desc">
-                Context-aware colors that reference primitives. The primary color changes based on the selected hue (chromatic/sky/indigo).
+                Context-aware colors that reference primitives. The primary color changes based on the selected hue (chromatic/sky/indigo/kelly-green).
               </p>
             </div>
 

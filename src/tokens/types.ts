@@ -49,6 +49,15 @@ export type ColorPrimitive =
   | "Color.Green.600"
   | "Color.Green.700"
   | "Color.Green.800"
+  | "Color.KellyGreen.100"
+  | "Color.KellyGreen.200"
+  | "Color.KellyGreen.300"
+  | "Color.KellyGreen.400"
+  | "Color.KellyGreen.500"
+  | "Color.KellyGreen.600"
+  | "Color.KellyGreen.700"
+  | "Color.KellyGreen.800"
+  | "Color.KellyGreen.900"
   | "Color.Red.100"
   | "Color.Red.200"
   | "Color.Red.300"
@@ -298,4 +307,4 @@ export type BorderToken =
 
 export type Theme = "light" | "dark";
 
-export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo";
+export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo" | "hue-kelly-green";

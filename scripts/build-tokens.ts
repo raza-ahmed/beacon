@@ -336,6 +336,7 @@ const HUE_VARIANTS = [
   { name: "chromatic-prime", file: "Semantic.Chromatic Prime.tokens.json", isDefault: true },
   { name: "hue-sky", file: "Semantic.Hue Sky.tokens.json", isDefault: false },
   { name: "hue-indigo", file: "Semantic.Hue Indigo.tokens.json", isDefault: false },
+  { name: "hue-kelly-green", file: "Semantic.Hue Kelly Green.tokens.json", isDefault: false },
 ] as const;
 
 /**
@@ -929,7 +930,8 @@ function generateTypes(): string {
   lines.push("");
 
   // Hue type
-  lines.push('export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo";');
+  const hueUnion = HUE_VARIANTS.map((v) => `"${v.name}"`).join(" | ");
+  lines.push(`export type HueVariant = ${hueUnion};`);
   lines.push("");
 
   return lines.join("\n");

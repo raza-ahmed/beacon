@@ -190,6 +190,44 @@
         "$value": "#014a47"
       }
     },
+    "KellyGreen": {
+      "100": {
+        "$type": "color",
+        "$value": "#e8fce8"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#c0f5c0"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#7de87d"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#2ecc2e"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#00A600"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#008000"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#005c00"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#003800"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#001f00"
+      }
+    },
     "Red": {
       "100": {
         "$type": "color",

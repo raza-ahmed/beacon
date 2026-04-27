@@ -22,6 +22,7 @@ const HUE_OPTIONS: SelectOption[] = [
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
   { value: "chromatic-prime", label: "Chromatic" },
+  { value: "hue-kelly-green", label: "Kelly Green" },
 ];
 
 interface HeaderProps {

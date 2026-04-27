@@ -16,6 +16,7 @@ const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "chromatic-prime", label: "Chromatic Prime" },
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
+  { value: "hue-kelly-green", label: "Kelly Green" },
 ];
 
 function useComputedTokenValues(theme: Theme, hue: HueVariant, cssVars: `--${string}`[]): Record<string, string> {
@@ -176,7 +177,7 @@ export default function ThemesPage() {
         <header className="ds-content__header">
           <h3 className="ds-content__title">Themes</h3>
           <p className="ds-content__subtitle">
-            The design system supports two themes (Light and Dark) and three hue variants (Chromatic Prime, Hue Sky, and Hue Indigo), providing 6 unique combinations.
+            The design system supports two themes (Light and Dark) and four hue variants (Chromatic Prime, Hue Sky, Hue Indigo, and Kelly Green), providing 8 unique combinations.
           </p>
         </header>
 
@@ -312,6 +313,10 @@ export default function ThemesPage() {
 
                   [data-hue="hue-indigo"] {
                     --color-primary-500: var(--color-purple-500);
+                  }
+
+                  [data-hue="hue-kelly-green"] {
+                    --color-primary-500: var(--color-kellygreen-500);
                   }`}
                 style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
               />
@@ -343,6 +348,10 @@ export default function ThemesPage() {
 
                 [data-hue="hue-indigo"] {
                   --color-primary-500: var(--color-purple-500);
+                }
+
+                [data-hue="hue-kelly-green"] {
+                  --color-primary-500: var(--color-kellygreen-500);
                 }`}
               </SyntaxHighlighter>
             </div>
@@ -489,6 +498,9 @@ color: #000000;`}
               </li>
               <li>
                 <strong>Hue Indigo:</strong> Indigo-based palette. Use for applications that need a vibrant, energetic feel.
+              </li>
+              <li>
+                <strong>Kelly Green:</strong> Kelly Green-based palette (#00A600). Use for applications that need a fresh, nature-inspired feel.
               </li>
             </ul>
           </div>
