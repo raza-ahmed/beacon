@@ -22,6 +22,40 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.6.0",
+    "date": "2026-04-30",
+    "added": [
+      {
+        "description": "Kelly Green hue variant (`hue-kelly-green`) with Chivo as primary font and IBM Plex Sans as secondary font"
+      },
+      {
+        "description": "Chivo and IBM Plex Sans loaded via `next/font/google` and registered as `--font-chivo` and `--font-ibm-plex-sans` CSS variables"
+      },
+      {
+        "description": "Chivo and IBM Plex Sans added to typography configuration and primitive token layer"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Invalid CSS variable references across components: `--spacing-150` → `--spacing-200`, `--spacing-250` → `--spacing-300`, `--fg-primary-on-primary` → `--fg-on-action`, `--fg-brand-primary` → `--fg-primary`, `--fg-neutral-primary` → `--fg-neutral`"
+      },
+      {
+        "description": "Package tokens rebuilt to include K_Green primitive palette and new font variables"
+      },
+      {
+        "description": "Themes page documentation corrected: `--color-kellygreen-500` → `--color-k-green-500`"
+      }
+    ],
+    "changed": [
+      {
+        "description": "Removed on-dark contrast pairings (on-primary dark, on-success dark, on-warning dark, on-critical dark) from colors page contrast section — these combinations are not intended for use together"
+      },
+      {
+        "description": "Typography documentation updated: Required Fonts table, Next.js and CSS setup code blocks, and Font Variables Reference table now include all six font families and the Kelly Green hue row"
+      }
+    ]
+  },
+  {
     "version": "3.5.13",
     "date": "2026-02-05",
     "fixed": [

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.0] - 2026-04-30
+
+### Added
+- Kelly Green hue variant (`hue-kelly-green`) with Chivo as primary font and IBM Plex Sans as secondary font
+- Chivo and IBM Plex Sans loaded via `next/font/google` and registered as `--font-chivo` and `--font-ibm-plex-sans` CSS variables
+- Chivo and IBM Plex Sans added to typography configuration and primitive token layer
+
+### Fixed
+- Invalid CSS variable references across components: `--spacing-150` → `--spacing-200`, `--spacing-250` → `--spacing-300`, `--fg-primary-on-primary` → `--fg-on-action`, `--fg-brand-primary` → `--fg-primary`, `--fg-neutral-primary` → `--fg-neutral`
+- Package tokens rebuilt to include K_Green primitive palette and new font variables
+- Themes page documentation corrected: `--color-kellygreen-500` → `--color-k-green-500`
+
+### Changed
+- Removed on-dark contrast pairings (on-primary dark, on-success dark, on-warning dark, on-critical dark) from colors page contrast section — these combinations are not intended for use together
+- Typography documentation updated: Required Fonts table, Next.js and CSS setup code blocks, and Font Variables Reference table now include all six font families and the Kelly Green hue row
+
 ## [3.5.13] - 2026-02-05
 
 ### Fixed
