@@ -103,7 +103,7 @@ export function CollapsibleCode({
           cursor: "pointer",
           fontFamily: "var(--font-secondary)",
           fontSize: "var(--fonts-body-small-text-size)",
-          color: "var(--fg-brand-primary)",
+          color: "var(--fg-primary)",
           fontWeight: 500,
         }}
         aria-expanded={expanded}

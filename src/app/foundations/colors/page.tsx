@@ -1557,34 +1557,6 @@ function ContrastSection({
         fg: "--fg-on-action",
         guidance: "Text on critical action backgrounds (buttons).",
       },
-      {
-        id: "primary-dark",
-        label: "On-primary dark",
-        bg: "--bg-primary-dark",
-        fg: "--fg-on-action",
-        guidance: "Text on high-contrast brand surfaces.",
-      },
-      {
-        id: "success-dark",
-        label: "On-success dark",
-        bg: "--bg-success-dark",
-        fg: "--fg-on-action",
-        guidance: "Text on high-contrast success surfaces.",
-      },
-      {
-        id: "warning-dark",
-        label: "On-warning dark",
-        bg: "--bg-warning-dark",
-        fg: "--fg-on-action",
-        guidance: "Text on high-contrast warning surfaces.",
-      },
-      {
-        id: "critical-dark",
-        label: "On-critical dark",
-        bg: "--bg-critical-dark",
-        fg: "--fg-on-action",
-        guidance: "Text on high-contrast critical surfaces.",
-      },
     ];
 
     return pairings.map((p) => {
@@ -1698,18 +1670,14 @@ export default function ColorsPage() {
       "--bg-success-tonal",
       "--fg-success",
       "--fg-success-on-tonal",
-      "--bg-success-dark",
       "--bg-warning",
       "--bg-warning-tonal",
       "--fg-warning",
       "--fg-warning-on-tonal",
-      "--bg-warning-dark",
       "--bg-critical",
       "--bg-critical-tonal",
       "--fg-critical",
       "--fg-critical-on-tonal",
-      "--bg-critical-dark",
-      "--bg-primary-dark",
     ].forEach((v) => vars.add(v as `--${string}`));
     return Array.from(vars);
   }, [groups, palette]);

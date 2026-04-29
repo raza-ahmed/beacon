@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono } from "next/font/google";
+import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono, Chivo, IBM_Plex_Sans } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
 import "@/tokens/generated/index.css";
@@ -32,6 +32,20 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const chivo = Chivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-chivo",
+  display: "swap",
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Design System Beacon",
   description: "Design system documentation and reference",
@@ -54,7 +68,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${ibmPlexSerif.variable} ${inter.variable} ${geistMono.variable}`}
+      className={`${dmSans.variable} ${ibmPlexSerif.variable} ${inter.variable} ${geistMono.variable} ${chivo.variable} ${ibmPlexSans.variable}`}
     >
       <head>
         <script

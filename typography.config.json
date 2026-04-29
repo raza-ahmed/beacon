@@ -27,6 +27,16 @@
       "name": "Geist Mono",
       "fallback": "monospace",
       "cssVar": "fonts-geist-mono-style-geist-mono"
+    },
+    "Chivo": {
+      "name": "Chivo",
+      "fallback": "sans-serif",
+      "cssVar": "fonts-chivo-style-chivo"
+    },
+    "IBM_Plex_Sans": {
+      "name": "IBM Plex Sans",
+      "fallback": "sans-serif",
+      "cssVar": "fonts-ibm-plex-sans-style-ibm-plex-sans"
     }
   }
 }

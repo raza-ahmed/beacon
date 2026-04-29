@@ -316,7 +316,7 @@ export default function ThemesPage() {
                   }
 
                   [data-hue="hue-kelly-green"] {
-                    --color-primary-500: var(--color-kellygreen-500);
+                    --color-primary-500: var(--color-k-green-500);
                   }`}
                 style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
               />
@@ -351,7 +351,7 @@ export default function ThemesPage() {
                 }
 
                 [data-hue="hue-kelly-green"] {
-                  --color-primary-500: var(--color-kellygreen-500);
+                  --color-primary-500: var(--color-k-green-500);
                 }`}
               </SyntaxHighlighter>
             </div>

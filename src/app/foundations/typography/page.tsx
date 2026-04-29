@@ -59,7 +59,7 @@ const FONT_MAPPING_CODE = [
   "--font-inter: 'Inter', sans-serif;",
   "",
   "/* Token layer maps to primitive */",
-  "--fonts-inter-style-inter: var(--font-inter), sans-serif;",
+  "--fonts-inter-style-inter: 'Inter', sans-serif;",
   "",
   "/* Semantic layer sets primary/secondary per hue */",
   "[data-hue=\"chromatic-prime\"] {",
@@ -295,7 +295,7 @@ export default function TypographyPage() {
               Required Fonts
             </h6>
             <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
-              The design system uses four font families across different hue variants. Load all fonts and set their corresponding CSS variables:
+              The design system uses six font families across different hue variants. Load all fonts and set their corresponding CSS variables:
             </p>
             <div className="ds-spacing-table" style={{ marginBottom: "var(--spacing-300)" }}>
               <div className="ds-spacing-table__row ds-spacing-table__row--head ds-spacing-table__row--three-col">
@@ -331,6 +331,20 @@ export default function TypographyPage() {
                 </div>
                 <div className="ds-spacing-table__cell" data-label="Type">Monospace</div>
               </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Font">Chivo</div>
+                <div className="ds-spacing-table__cell" data-label="CSS Variable">
+                  <code className="ds-token-row__code">--font-chivo</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Type">Sans-serif</div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--three-col">
+                <div className="ds-spacing-table__cell" data-label="Font">IBM Plex Sans</div>
+                <div className="ds-spacing-table__cell" data-label="CSS Variable">
+                  <code className="ds-token-row__code">--font-ibm-plex-sans</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Type">Sans-serif</div>
+              </div>
             </div>
           </div>
 
@@ -343,7 +357,7 @@ export default function TypographyPage() {
             </p>
             <div style={{ position: "relative" }}>
               <CodeCopyButton
-                code={`import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono } from "next/font/google";
+                code={`import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono, Chivo, IBM_Plex_Sans } from "next/font/google";
 import "beacon-ui/tokens";
 
 const dmSans = DM_Sans({
@@ -374,9 +388,23 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const chivo = Chivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-chivo",
+  display: "swap",
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
+  display: "swap",
+});
+
 export default function RootLayout({ children }) {
   return (
-    <html className={\`\${dmSans.variable} \${ibmPlexSerif.variable} \${inter.variable} \${geistMono.variable}\`}>
+    <html className={\`\${dmSans.variable} \${ibmPlexSerif.variable} \${inter.variable} \${geistMono.variable} \${chivo.variable} \${ibmPlexSans.variable}\`}>
       <body>{children}</body>
     </html>
   );
@@ -402,7 +430,7 @@ export default function RootLayout({ children }) {
                 }}
                 PreTag="div"
               >
-                {`import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono } from "next/font/google";
+                {`import { DM_Sans, IBM_Plex_Serif, Inter, Geist_Mono, Chivo, IBM_Plex_Sans } from "next/font/google";
 import "beacon-ui/tokens";
 
 const dmSans = DM_Sans({
@@ -433,9 +461,23 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const chivo = Chivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-chivo",
+  display: "swap",
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
+  display: "swap",
+});
+
 export default function RootLayout({ children }) {
   return (
-    <html className={\`\${dmSans.variable} \${ibmPlexSerif.variable} \${inter.variable} \${geistMono.variable}\`}>
+    <html className={\`\${dmSans.variable} \${ibmPlexSerif.variable} \${inter.variable} \${geistMono.variable} \${chivo.variable} \${ibmPlexSans.variable}\`}>
       <body>{children}</body>
     </html>
   );
@@ -454,7 +496,7 @@ export default function RootLayout({ children }) {
             <div style={{ position: "relative" }}>
               <CodeCopyButton
                 code={`/* Load all required fonts from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=Chivo:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
 /* Set font CSS variables */
 :root {
@@ -462,6 +504,8 @@ export default function RootLayout({ children }) {
   --font-ibm-plex-serif: 'IBM Plex Serif', serif;
   --font-inter: 'Inter', sans-serif;
   --font-geist-mono: 'Geist Mono', monospace;
+  --font-chivo: 'Chivo', sans-serif;
+  --font-ibm-plex-sans: 'IBM Plex Sans', sans-serif;
 }`}
                 style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
               />
@@ -485,7 +529,7 @@ export default function RootLayout({ children }) {
                 PreTag="div"
               >
                 {`/* Load all required fonts from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=Chivo:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
 /* Set font CSS variables */
 :root {
@@ -493,6 +537,8 @@ export default function RootLayout({ children }) {
   --font-ibm-plex-serif: 'IBM Plex Serif', serif;
   --font-inter: 'Inter', sans-serif;
   --font-geist-mono: 'Geist Mono', monospace;
+  --font-chivo: 'Chivo', sans-serif;
+  --font-ibm-plex-sans: 'IBM Plex Sans', sans-serif;
 }`}
               </SyntaxHighlighter>
             </div>
@@ -588,6 +634,20 @@ export default function RootLayout({ children }) {
                 </div>
                 <div className="ds-spacing-table__cell" data-label="Selector">
                   <code className="ds-token-row__code">[data-hue=&quot;hue-indigo&quot;]</code>
+                </div>
+              </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--four-col">
+                <div className="ds-spacing-table__cell" data-label="Hue Variant">
+                  <code className="ds-token-row__code">hue-kelly-green</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Primary Font">
+                  Chivo
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Secondary Font">
+                  IBM Plex Sans
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Selector">
+                  <code className="ds-token-row__code">[data-hue=&quot;hue-kelly-green&quot;]</code>
                 </div>
               </div>
             </div>

@@ -114,6 +114,48 @@
         "$value": "#1d1e25"
       }
     },
+    "Dove_Gray": {
+      "50": {
+        "$type": "color",
+        "$value": "#f6f6f6"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#f0efef"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#e8e6e3"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#c7c7c6"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#918d8a"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#4f4945"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#393330"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#292524"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#1c1a18"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#0d0b0a"
+      }
+    },
     "Gray": {
       "50": {
         "$type": "color",
@@ -129,11 +171,11 @@
       },
       "300": {
         "$type": "color",
-        "$value": "#959ba0"
+        "$value": "#a4a5a7"
       },
       "400": {
         "$type": "color",
-        "$value": "#686e70"
+        "$value": "#737576"
       },
       "500": {
         "$type": "color",
@@ -188,44 +230,6 @@
       "800": {
         "$type": "color",
         "$value": "#014a47"
-      }
-    },
-    "KellyGreen": {
-      "100": {
-        "$type": "color",
-        "$value": "#e8fce8"
-      },
-      "200": {
-        "$type": "color",
-        "$value": "#c0f5c0"
-      },
-      "300": {
-        "$type": "color",
-        "$value": "#7de87d"
-      },
-      "400": {
-        "$type": "color",
-        "$value": "#2ecc2e"
-      },
-      "500": {
-        "$type": "color",
-        "$value": "#00A600"
-      },
-      "600": {
-        "$type": "color",
-        "$value": "#008000"
-      },
-      "700": {
-        "$type": "color",
-        "$value": "#005c00"
-      },
-      "800": {
-        "$type": "color",
-        "$value": "#003800"
-      },
-      "900": {
-        "$type": "color",
-        "$value": "#001f00"
       }
     },
     "Red": {
@@ -411,6 +415,44 @@
         "$type": "color",
         "$value": "#ffffff"
       }
+    },
+    "K_Green": {
+      "100": {
+        "$type": "color",
+        "$value": "#d3ffd3"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#9aff9a"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#00f000"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#00c400"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#00ad00"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#007f00"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#004600"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#002600"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#001800"
+      }
     }
   },
   "Scale": {
@@ -564,6 +606,54 @@
       "Inter": {
         "$type": "string",
         "$value": "Inter"
+      },
+      "Weight": {
+        "Regular": {
+          "$type": "string",
+          "$value": "Regular"
+        },
+        "Medium": {
+          "$type": "string",
+          "$value": "Medium"
+        },
+        "Semibold": {
+          "$type": "string",
+          "$value": "SemiBold"
+        },
+        "Bold": {
+          "$type": "string",
+          "$value": "Bold"
+        }
+      }
+    },
+    "IBM_Plex_Sans": {
+      "IBM_Plex_Sans": {
+        "$type": "string",
+        "$value": "IBM Plex Sans"
+      },
+      "Weight": {
+        "Regular": {
+          "$type": "string",
+          "$value": "Regular"
+        },
+        "Medium": {
+          "$type": "string",
+          "$value": "Medium"
+        },
+        "Semibold": {
+          "$type": "string",
+          "$value": "SemiBold"
+        },
+        "Bold": {
+          "$type": "string",
+          "$value": "Bold"
+        }
+      }
+    },
+    "Chivo": {
+      "Chivo": {
+        "$type": "string",
+        "$value": "Chivo"
       },
       "Weight": {
         "Regular": {

@@ -94,7 +94,7 @@
         "fontWeight": "{Font.Secondary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H4.Line Height}",
-        "textTransform": "capitalize",
+        "textTransform": "none",
         "textDecoration": "none"
       }
     },
@@ -106,7 +106,7 @@
         "fontWeight": "{Font.Secondary.Weight.Semibold}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H5.Line Height}",
-        "textTransform": "capitalize",
+        "textTransform": "none",
         "textDecoration": "none"
       }
     },

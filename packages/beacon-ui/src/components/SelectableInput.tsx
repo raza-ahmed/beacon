@@ -42,7 +42,7 @@ const SIZE_CONFIG: Record<
     iconSize: 20,
     fontSize: "var(--body-small-text-size)",
     lineHeight: "var(--body-small-line-height)",
-    gap: "var(--spacing-150)",
+    gap: "var(--spacing-200)",
     minWidth: "100px",
     minHeight: "100px",
   },
@@ -60,7 +60,7 @@ const SIZE_CONFIG: Record<
     iconSize: 28,
     fontSize: "var(--body-regular-text-size)",
     lineHeight: "var(--body-regular-line-height)",
-    gap: "var(--spacing-250)",
+    gap: "var(--spacing-300)",
     minWidth: "140px",
     minHeight: "140px",
   },
@@ -139,7 +139,7 @@ export function SelectableInput({
   const iconStyles = useMemo(() => {
     return {
       color: selected
-        ? "var(--fg-primary-on-primary)"
+        ? "var(--fg-on-action)"
         : disabled
         ? "var(--fg-disabled)"
         : "var(--fg-neutral)",
@@ -155,7 +155,7 @@ export function SelectableInput({
       fontSize: sizeConfig.fontSize,
       lineHeight: sizeConfig.lineHeight,
       color: selected
-        ? "var(--fg-primary-on-primary)"
+        ? "var(--fg-on-action)"
         : disabled
         ? "var(--fg-disabled)"
         : "var(--fg-neutral)",

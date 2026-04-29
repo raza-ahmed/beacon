@@ -31,6 +31,16 @@ export type ColorPrimitive =
   | "Color.Chromatic.700"
   | "Color.Chromatic.800"
   | "Color.Chromatic.900"
+  | "Color.Dove_Gray.50"
+  | "Color.Dove_Gray.100"
+  | "Color.Dove_Gray.200"
+  | "Color.Dove_Gray.300"
+  | "Color.Dove_Gray.400"
+  | "Color.Dove_Gray.500"
+  | "Color.Dove_Gray.600"
+  | "Color.Dove_Gray.700"
+  | "Color.Dove_Gray.800"
+  | "Color.Dove_Gray.900"
   | "Color.Gray.50"
   | "Color.Gray.100"
   | "Color.Gray.200"
@@ -92,7 +102,16 @@ export type ColorPrimitive =
   | "Color.White.600"
   | "Color.White.700"
   | "Color.White.800"
-  | "Color.White.1000";
+  | "Color.White.1000"
+  | "Color.K_Green.100"
+  | "Color.K_Green.200"
+  | "Color.K_Green.300"
+  | "Color.K_Green.400"
+  | "Color.K_Green.500"
+  | "Color.K_Green.600"
+  | "Color.K_Green.700"
+  | "Color.K_Green.800"
+  | "Color.K_Green.900";
 
 export type ScaleToken =
   | "Scale.0"
@@ -298,4 +317,4 @@ export type BorderToken =
 
 export type Theme = "light" | "dark";
 
-export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo";
+export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo" | "hue-kelly-green";

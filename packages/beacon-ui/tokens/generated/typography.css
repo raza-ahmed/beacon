@@ -50,14 +50,12 @@
 .text-heading-h4 {
   font-family: var(--font-secondary);
   font-weight: var(--font-weight-secondary-semibold);
-  text-transform: capitalize;
   font-size: var(--fonts-heading-h4-text-size);
   line-height: var(--fonts-heading-h4-line-height);
 }
 .text-heading-h5 {
   font-family: var(--font-secondary);
   font-weight: var(--font-weight-secondary-semibold);
-  text-transform: capitalize;
   font-size: var(--fonts-heading-h5-text-size);
   line-height: var(--fonts-heading-h5-line-height);
 }

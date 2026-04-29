@@ -126,7 +126,7 @@ public/        (empty)
 const instructionFileContent = `# Beacon Design System — AI Coding Instructions
 
 ## Core Rules
-- All style values must use CSS variables: \`var(--token-name)\`
+- All style values must use CSS variables: \`var(--bg-primary)\`
 - Never use hard-coded values: no hex codes, pixel values, or arbitrary durations
 - All components must work in light and dark themes
 - Named exports only: \`export function ComponentName()\` — never default exports
@@ -134,10 +134,10 @@ const instructionFileContent = `# Beacon Design System — AI Coding Instruction
 
 ## Token Reference
 - Spacing: \`var(--spacing-100)\` → \`var(--spacing-900)\`
-- Backgrounds: \`var(--bg-primary)\`, \`var(--bg-page-secondary)\`, \`var(--bg-surface-overlay)\`
-- Foreground: \`var(--fg-neutral-primary)\`, \`var(--fg-neutral-secondary)\`
+- Backgrounds: \`var(--bg-primary)\`, \`var(--bg-page-secondary)\`, \`var(--util-overlay-medium)\`
+- Foreground: \`var(--fg-neutral)\`, \`var(--fg-neutral-secondary)\`
 - Borders: \`var(--border-strong-100)\`, \`var(--border-strong-200)\`
-- Typography: \`var(--fonts-body-small-text-size)\`, \`var(--fonts-heading-h6-size)\`, \`var(--font-secondary)\`
+- Typography: \`var(--fonts-body-small-text-size)\`, \`var(--heading-h6-text-size)\`, \`var(--font-secondary)\`
 - Corner radius: \`var(--corner-radius-100)\` → \`var(--corner-radius-400)\`
 - Border width: \`var(--border-width-25)\`, \`var(--border-width-50)\`
 
@@ -367,7 +367,7 @@ export default function AiQuickstartPage() {
                 <code style={{
                   fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   fontSize: "var(--fonts-body-small-text-size)",
-                  color: "var(--fg-neutral-primary)",
+                  color: "var(--fg-neutral)",
                   display: "block",
                   marginBottom: "var(--spacing-100)",
                 }}>{file}</code>
@@ -378,7 +378,7 @@ export default function AiQuickstartPage() {
                   margin: 0,
                   lineHeight: "var(--fonts-body-small-line-height)",
                 }}>
-                  <strong style={{ color: "var(--fg-neutral-primary)" }}>{editor}</strong> — {desc}
+                  <strong style={{ color: "var(--fg-neutral)" }}>{editor}</strong> — {desc}
                 </p>
               </div>
             ))}
