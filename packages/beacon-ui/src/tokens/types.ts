@@ -326,4 +326,4 @@ export type BorderToken =
 
 export type Theme = "light" | "dark";
 
-export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo" | "hue-kelly-green";
+export type HueVariant = "chromatic-prime" | "hue-sky" | "hue-indigo" | "hue-kelly-green" | "hue-ginger-orange";

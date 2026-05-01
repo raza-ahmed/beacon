@@ -320,6 +320,43 @@
   --color-neutral-900: var(--color-gray-900);
 }
 
+/* hue-ginger-orange */
+[data-hue="hue-ginger-orange"] {
+  --font-primary: var(--fonts-chivo-style-chivo);
+  --font-secondary: var(--fonts-ibm-plex-sans-style-ibm-plex-sans);
+  --font-weight-primary-regular: var(--fonts-chivo-weight-regular);
+  --font-weight-primary-medium: var(--fonts-chivo-weight-medium);
+  --font-weight-primary-semibold: var(--fonts-chivo-weight-semibold);
+  --font-weight-primary-bold: var(--fonts-chivo-weight-bold);
+  --font-weight-secondary-regular: var(--fonts-ibm-plex-sans-weight-regular);
+  --font-weight-secondary-medium: var(--fonts-ibm-plex-sans-weight-medium);
+  --font-weight-secondary-semibold: var(--fonts-ibm-plex-sans-weight-semibold);
+  --font-weight-secondary-bold: var(--fonts-ibm-plex-sans-weight-bold);
+  --font-weight-regular: var(--font-weight-secondary-regular);
+  --font-weight-medium: var(--font-weight-secondary-medium);
+  --font-weight-semibold: var(--font-weight-secondary-semibold);
+  --font-weight-bold: var(--font-weight-secondary-bold);
+  --color-primary-100: var(--color-ginger-100);
+  --color-primary-200: var(--color-ginger-200);
+  --color-primary-300: var(--color-ginger-300);
+  --color-primary-400: var(--color-ginger-400);
+  --color-primary-500: var(--color-ginger-500);
+  --color-primary-600: var(--color-ginger-600);
+  --color-primary-700: var(--color-ginger-700);
+  --color-primary-800: var(--color-ginger-800);
+  --color-primary-900: var(--color-ginger-900);
+  --color-neutral-50: var(--color-dove-gray-50);
+  --color-neutral-100: var(--color-dove-gray-100);
+  --color-neutral-200: var(--color-dove-gray-200);
+  --color-neutral-300: var(--color-dove-gray-300);
+  --color-neutral-400: var(--color-dove-gray-400);
+  --color-neutral-500: var(--color-dove-gray-500);
+  --color-neutral-600: var(--color-dove-gray-600);
+  --color-neutral-700: var(--color-dove-gray-700);
+  --color-neutral-800: var(--color-dove-gray-800);
+  --color-neutral-900: var(--color-dove-gray-900);
+}
+
 /* Shared semantic tokens (same across all hues) */
 :root {
   --color-neutral-white: var(--color-white-1000);
