@@ -650,6 +650,20 @@ export default function RootLayout({ children }) {
                   <code className="ds-token-row__code">[data-hue=&quot;hue-kelly-green&quot;]</code>
                 </div>
               </div>
+              <div className="ds-spacing-table__row ds-spacing-table__row--four-col">
+                <div className="ds-spacing-table__cell" data-label="Hue Variant">
+                  <code className="ds-token-row__code">hue-ginger-orange</code>
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Primary Font">
+                  Chivo
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Secondary Font">
+                  IBM Plex Sans
+                </div>
+                <div className="ds-spacing-table__cell" data-label="Selector">
+                  <code className="ds-token-row__code">[data-hue=&quot;hue-ginger-orange&quot;]</code>
+                </div>
+              </div>
             </div>
           </div>
 

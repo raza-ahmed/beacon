@@ -453,6 +453,44 @@
         "$type": "color",
         "$value": "#001800"
       }
+    },
+    "Ginger": {
+      "100": {
+        "$type": "color",
+        "$value": "#f8e9dc"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#f0d1b8"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#e5b18c"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#da8a5d"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#d06635"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#bb4f2c"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#993c24"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#7e2e1f"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#471912"
+      }
     }
   },
   "Scale": {

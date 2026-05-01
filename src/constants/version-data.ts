@@ -22,6 +22,26 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.7.0",
+    "date": "2026-05-01",
+    "added": [
+      {
+        "description": "Ginger Orange hue variant (`hue-ginger-orange`) with Chivo as primary font and IBM Plex Sans as secondary font"
+      },
+      {
+        "description": "Ginger primitive color palette (`--color-ginger-100` through `--color-ginger-900`) added to token system"
+      },
+      {
+        "description": "`hue-ginger-orange` entry added to `HueVariant` TypeScript type"
+      }
+    ],
+    "fixed": [
+      {
+        "description": "Ginger Orange uses Dove Gray neutral palette (warm-toned) matching its token definition, consistent with Chromatic Prime"
+      }
+    ]
+  },
+  {
     "version": "3.6.0",
     "date": "2026-04-30",
     "added": [

@@ -111,7 +111,16 @@ export type ColorPrimitive =
   | "Color.K_Green.600"
   | "Color.K_Green.700"
   | "Color.K_Green.800"
-  | "Color.K_Green.900";
+  | "Color.K_Green.900"
+  | "Color.Ginger.100"
+  | "Color.Ginger.200"
+  | "Color.Ginger.300"
+  | "Color.Ginger.400"
+  | "Color.Ginger.500"
+  | "Color.Ginger.600"
+  | "Color.Ginger.700"
+  | "Color.Ginger.800"
+  | "Color.Ginger.900";
 
 export type ScaleToken =
   | "Scale.0"

@@ -41,19 +41,19 @@
     "Neutral": {
       "50": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.50}"
+        "$value": "{Color.Gray.50}"
       },
       "100": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.100}"
+        "$value": "{Color.Gray.100}"
       },
       "200": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.200}"
+        "$value": "{Color.Gray.200}"
       },
       "300": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.300}"
+        "$value": "{Color.Gray.300}"
       },
       "400": {
         "$type": "color",
@@ -61,23 +61,23 @@
       },
       "500": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.500}"
+        "$value": "{Color.Gray.500}"
       },
       "600": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.600}"
+        "$value": "{Color.Gray.600}"
       },
       "700": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.700}"
+        "$value": "{Color.Gray.700}"
       },
       "800": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.800}"
+        "$value": "{Color.Gray.800}"
       },
       "900": {
         "$type": "color",
-        "$value": "{Color.Dove_Gray.900}"
+        "$value": "{Color.Gray.900}"
       },
       "White": {
         "$type": "color",

@@ -3,39 +3,39 @@
     "Primary": {
       "100": {
         "$type": "color",
-        "$value": "{Color.Chromatic.100}"
+        "$value": "{Color.Ginger.100}"
       },
       "200": {
         "$type": "color",
-        "$value": "{Color.Chromatic.200}"
+        "$value": "{Color.Ginger.200}"
       },
       "300": {
         "$type": "color",
-        "$value": "{Color.Chromatic.300}"
+        "$value": "{Color.Ginger.300}"
       },
       "400": {
         "$type": "color",
-        "$value": "{Color.Chromatic.400}"
+        "$value": "{Color.Ginger.400}"
       },
       "500": {
         "$type": "color",
-        "$value": "{Color.Chromatic.500}"
+        "$value": "{Color.Ginger.500}"
       },
       "600": {
         "$type": "color",
-        "$value": "{Color.Chromatic.600}"
+        "$value": "{Color.Ginger.600}"
       },
       "700": {
         "$type": "color",
-        "$value": "{Color.Chromatic.700}"
+        "$value": "{Color.Ginger.700}"
       },
       "800": {
         "$type": "color",
-        "$value": "{Color.Chromatic.800}"
+        "$value": "{Color.Ginger.800}"
       },
       "900": {
         "$type": "color",
-        "$value": "{Color.Chromatic.900}"
+        "$value": "{Color.Ginger.900}"
       }
     },
     "Neutral": {
@@ -385,48 +385,48 @@
     "Primary": {
       "Family": {
         "$type": "string",
-        "$value": "{Font.Geist_Mono.Geist_Mono}"
+        "$value": "{Font.Chivo.Chivo}"
       },
       "Weight": {
         "Regular": {
           "$type": "string",
-          "$value": "{Font.Geist_Mono.Weight.Regular}"
+          "$value": "{Font.Chivo.Weight.Regular}"
         },
         "Medium": {
           "$type": "string",
-          "$value": "{Font.Geist_Mono.Weight.Medium}"
+          "$value": "{Font.Chivo.Weight.Medium}"
         },
         "Semibold": {
           "$type": "string",
-          "$value": "{Font.Geist_Mono.Weight.Semibold}"
+          "$value": "{Font.Chivo.Weight.Semibold}"
         },
         "Bold": {
           "$type": "string",
-          "$value": "{Font.Geist_Mono.Weight.Bold}"
+          "$value": "{Font.Chivo.Weight.Bold}"
         }
       }
     },
     "Secondary": {
       "Family": {
         "$type": "string",
-        "$value": "{Font.Inter.Inter}"
+        "$value": "{Font.IBM_Plex_Sans.IBM_Plex_Sans}"
       },
       "Weight": {
         "Regular": {
           "$type": "string",
-          "$value": "{Font.Inter.Weight.Regular}"
+          "$value": "{Font.IBM_Plex_Sans.Weight.Regular}"
         },
         "Medium": {
           "$type": "string",
-          "$value": "{Font.Inter.Weight.Medium}"
+          "$value": "{Font.IBM_Plex_Sans.Weight.Medium}"
         },
         "Semibold": {
           "$type": "string",
-          "$value": "{Font.Inter.Weight.Semibold}"
+          "$value": "{Font.IBM_Plex_Sans.Weight.Semibold}"
         },
         "Bold": {
           "$type": "string",
-          "$value": "{Font.Inter.Weight.Bold}"
+          "$value": "{Font.IBM_Plex_Sans.Weight.Bold}"
         }
       }
     }

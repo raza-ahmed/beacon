@@ -17,6 +17,7 @@ const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
   { value: "hue-kelly-green", label: "Kelly Green" },
+  { value: "hue-ginger-orange", label: "Ginger Orange" },
 ];
 
 function useComputedTokenValues(theme: Theme, hue: HueVariant, cssVars: `--${string}`[]): Record<string, string> {
@@ -177,7 +178,7 @@ export default function ThemesPage() {
         <header className="ds-content__header">
           <h3 className="ds-content__title">Themes</h3>
           <p className="ds-content__subtitle">
-            The design system supports two themes (Light and Dark) and four hue variants (Chromatic Prime, Hue Sky, Hue Indigo, and Kelly Green), providing 8 unique combinations.
+            The design system supports two themes (Light and Dark) and five hue variants (Chromatic Prime, Hue Sky, Hue Indigo, Kelly Green, and Ginger Orange), providing 10 unique combinations.
           </p>
         </header>
 
@@ -231,7 +232,7 @@ export default function ThemesPage() {
         <section id="combinations" className="ds-content__section">
           <h6 className="ds-content__section-title">Theme Combinations</h6>
           <p className="ds-content__text">
-            Preview all 6 theme and hue combinations. Click "Apply" on any preview to switch the entire documentation site to that combination.
+            Preview all 10 theme and hue combinations. Click "Apply" on any preview to switch the entire documentation site to that combination.
           </p>
           <div className="ds-theme-preview">
             {allCombinations.map((combo) => (
@@ -317,6 +318,10 @@ export default function ThemesPage() {
 
                   [data-hue="hue-kelly-green"] {
                     --color-primary-500: var(--color-k-green-500);
+                  }
+
+                  [data-hue="hue-ginger-orange"] {
+                    --color-primary-500: var(--color-ginger-500);
                   }`}
                 style={{ position: "absolute", top: "var(--spacing-200)", right: "var(--spacing-200)", zIndex: 1 }}
               />
@@ -352,6 +357,10 @@ export default function ThemesPage() {
 
                 [data-hue="hue-kelly-green"] {
                   --color-primary-500: var(--color-k-green-500);
+                }
+
+                [data-hue="hue-ginger-orange"] {
+                  --color-primary-500: var(--color-ginger-500);
                 }`}
               </SyntaxHighlighter>
             </div>
@@ -501,6 +510,9 @@ color: #000000;`}
               </li>
               <li>
                 <strong>Kelly Green:</strong> Kelly Green-based palette (#00A600). Use for applications that need a fresh, nature-inspired feel.
+              </li>
+              <li>
+                <strong>Ginger Orange:</strong> Warm orange-based palette. Use for applications that need an energetic, earthy feel.
               </li>
             </ul>
           </div>

@@ -111,6 +111,15 @@
   --color-k-green-700: #004600;
   --color-k-green-800: #002600;
   --color-k-green-900: #001800;
+  --color-ginger-100: #f8e9dc;
+  --color-ginger-200: #f0d1b8;
+  --color-ginger-300: #e5b18c;
+  --color-ginger-400: #da8a5d;
+  --color-ginger-500: #d06635;
+  --color-ginger-600: #bb4f2c;
+  --color-ginger-700: #993c24;
+  --color-ginger-800: #7e2e1f;
+  --color-ginger-900: #471912;
   --scale-0: 0px;
   --scale-25: 1px;
   --scale-50: 2px;
@@ -188,15 +197,16 @@
   --color-primary-700: var(--color-chromatic-700);
   --color-primary-800: var(--color-chromatic-800);
   --color-primary-900: var(--color-chromatic-900);
-  --color-neutral-50: var(--color-gray-50);
-  --color-neutral-100: var(--color-gray-100);
-  --color-neutral-200: var(--color-gray-200);
-  --color-neutral-300: var(--color-gray-300);
-  --color-neutral-500: var(--color-gray-500);
-  --color-neutral-600: var(--color-gray-600);
-  --color-neutral-700: var(--color-gray-700);
-  --color-neutral-800: var(--color-gray-800);
-  --color-neutral-900: var(--color-gray-900);
+  --color-neutral-50: var(--color-dove-gray-50);
+  --color-neutral-100: var(--color-dove-gray-100);
+  --color-neutral-200: var(--color-dove-gray-200);
+  --color-neutral-300: var(--color-dove-gray-300);
+  --color-neutral-400: var(--color-dove-gray-400);
+  --color-neutral-500: var(--color-dove-gray-500);
+  --color-neutral-600: var(--color-dove-gray-600);
+  --color-neutral-700: var(--color-dove-gray-700);
+  --color-neutral-800: var(--color-dove-gray-800);
+  --color-neutral-900: var(--color-dove-gray-900);
 }
 
 /* hue-sky */
@@ -228,6 +238,7 @@
   --color-neutral-100: var(--color-gray-100);
   --color-neutral-200: var(--color-gray-200);
   --color-neutral-300: var(--color-gray-300);
+  --color-neutral-400: var(--color-gray-400);
   --color-neutral-500: var(--color-gray-500);
   --color-neutral-600: var(--color-gray-600);
   --color-neutral-700: var(--color-gray-700);
@@ -264,6 +275,7 @@
   --color-neutral-100: var(--color-gray-100);
   --color-neutral-200: var(--color-gray-200);
   --color-neutral-300: var(--color-gray-300);
+  --color-neutral-400: var(--color-gray-400);
   --color-neutral-500: var(--color-gray-500);
   --color-neutral-600: var(--color-gray-600);
   --color-neutral-700: var(--color-gray-700);
@@ -296,20 +308,20 @@
   --color-primary-700: var(--color-k-green-700);
   --color-primary-800: var(--color-k-green-800);
   --color-primary-900: var(--color-k-green-900);
-  --color-neutral-50: var(--color-dove-gray-50);
-  --color-neutral-100: var(--color-dove-gray-100);
-  --color-neutral-200: var(--color-dove-gray-200);
-  --color-neutral-300: var(--color-dove-gray-300);
-  --color-neutral-500: var(--color-dove-gray-500);
-  --color-neutral-600: var(--color-dove-gray-600);
-  --color-neutral-700: var(--color-dove-gray-700);
-  --color-neutral-800: var(--color-dove-gray-800);
-  --color-neutral-900: var(--color-dove-gray-900);
+  --color-neutral-50: var(--color-gray-50);
+  --color-neutral-100: var(--color-gray-100);
+  --color-neutral-200: var(--color-gray-200);
+  --color-neutral-300: var(--color-gray-300);
+  --color-neutral-400: var(--color-gray-400);
+  --color-neutral-500: var(--color-gray-500);
+  --color-neutral-600: var(--color-gray-600);
+  --color-neutral-700: var(--color-gray-700);
+  --color-neutral-800: var(--color-gray-800);
+  --color-neutral-900: var(--color-gray-900);
 }
 
 /* Shared semantic tokens (same across all hues) */
 :root {
-  --color-neutral-400: var(--color-gray-400);
   --color-neutral-white: var(--color-white-1000);
   --color-neutral-black: var(--color-black-1000);
   --color-success-100: var(--color-green-100);

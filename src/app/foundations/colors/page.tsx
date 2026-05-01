@@ -41,6 +41,7 @@ const HUE_OPTIONS: { value: HueVariant; label: string }[] = [
   { value: "hue-sky", label: "Hue Sky" },
   { value: "hue-indigo", label: "Hue Indigo" },
   { value: "hue-kelly-green", label: "Kelly Green" },
+  { value: "hue-ginger-orange", label: "Ginger Orange" },
 ];
 
 const THEME_OPTIONS: { value: Theme; label: string }[] = [
