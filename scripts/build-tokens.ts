@@ -337,6 +337,7 @@ const HUE_VARIANTS = [
   { name: "hue-sky", file: "Semantic.Hue Sky.tokens.json", isDefault: false },
   { name: "hue-indigo", file: "Semantic.Hue Indigo.tokens.json", isDefault: false },
   { name: "hue-kelly-green", file: "Semantic.Hue Kelly Green.tokens.json", isDefault: false },
+  { name: "hue-ginger-orange", file: "Semantic.Ginger Orange.tokens.json", isDefault: false },
 ] as const;
 
 /**
