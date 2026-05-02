@@ -333,8 +333,8 @@ function generatePrimitivesCss(): string {
  * Hue variant configuration
  */
 const HUE_VARIANTS = [
-  { name: "chromatic-prime", file: "Semantic.Chromatic Prime.tokens.json", isDefault: true },
-  { name: "hue-sky", file: "Semantic.Hue Sky.tokens.json", isDefault: false },
+  { name: "chromatic-prime", file: "Semantic.Chromatic Prime.tokens.json", isDefault: false },
+  { name: "hue-sky", file: "Semantic.Hue Sky.tokens.json", isDefault: true },
   { name: "hue-indigo", file: "Semantic.Hue Indigo.tokens.json", isDefault: false },
   { name: "hue-kelly-green", file: "Semantic.Hue Kelly Green.tokens.json", isDefault: false },
   { name: "hue-ginger-orange", file: "Semantic.Ginger Orange.tokens.json", isDefault: false },

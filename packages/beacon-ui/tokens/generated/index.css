@@ -173,7 +173,7 @@
 /* Semantic tokens - all hue variants */
 
 /* chromatic-prime */
-:root, [data-hue="chromatic-prime"] {
+[data-hue="chromatic-prime"] {
   --font-primary: var(--fonts-geist-mono-style-geist-mono);
   --font-secondary: var(--fonts-inter-style-inter);
   --font-weight-primary-regular: var(--fonts-geist-mono-weight-regular);
@@ -210,7 +210,7 @@
 }
 
 /* hue-sky */
-[data-hue="hue-sky"] {
+:root, [data-hue="hue-sky"] {
   --font-primary: var(--fonts-ibm-plex-serif-style-ibm-plex-serif);
   --font-secondary: var(--fonts-dm-sans-style-dm-sans);
   --font-weight-primary-regular: var(--fonts-ibm-plex-serif-weight-regular);
