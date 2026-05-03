@@ -15,6 +15,7 @@ interface TypographyStyle {
   fontSize: string;
   fontWeight: string;
   lineHeight: string;
+  letterSpacing: string;
 }
 
 interface ColorPreview {
@@ -116,6 +117,7 @@ function useComputedTypography() {
         fontSize: computedStyle.fontSize,
         fontWeight: computedStyle.fontWeight,
         lineHeight: computedStyle.lineHeight,
+        letterSpacing: computedStyle.letterSpacing,
       });
     });
 
@@ -259,6 +261,7 @@ export default function TypographyPage() {
                 <div className="ds-spacing-table__cell">Class</div>
                 <div className="ds-spacing-table__cell">Font Size</div>
                 <div className="ds-spacing-table__cell">Line Height</div>
+                <div className="ds-spacing-table__cell">Letter Spacing</div>
                 <div className="ds-spacing-table__cell">Actions</div>
               </div>
               {typographyStyles.map((style) => (
@@ -274,6 +277,9 @@ export default function TypographyPage() {
                   </div>
                   <div className="ds-spacing-table__cell" data-label="Line Height">
                     {style.lineHeight}
+                  </div>
+                  <div className="ds-spacing-table__cell" data-label="Letter Spacing">
+                    {style.letterSpacing && style.letterSpacing !== "normal" ? style.letterSpacing : "—"}
                   </div>
                   <div className="ds-spacing-table__cell ds-spacing-table__cell--actions" data-label="Actions">
                     <TokenCopyButton text={style.className} label="class" />
@@ -684,7 +690,7 @@ export default function RootLayout({ children }) {
                   <code className="ds-token-row__code">--font-primary</code>
                 </div>
                 <div className="ds-spacing-table__cell" data-label="Used By">
-                  H1, H2, H3 headings
+                  H1, H2, H3 headings; Body1 Medium
                 </div>
               </div>
               <div className="ds-spacing-table__row ds-spacing-table__row--two-col">
@@ -871,8 +877,8 @@ export default function RootLayout({ children }) {
             </p>
             <ul className="ds-content__bullet-list">
               <li><strong>400 (Regular)</strong> - Body text default</li>
-              <li><strong>500 (Medium)</strong> - Medium emphasis, titles</li>
-              <li><strong>600 (Semibold)</strong> - Headings, strong emphasis</li>
+              <li><strong>500 (Medium)</strong> - All headings (H1–H6), medium emphasis, titles, Body1 Medium</li>
+              <li><strong>600 (Semibold)</strong> - Strong emphasis</li>
               <li><strong>700 (Bold)</strong> - Maximum emphasis (optional)</li>
             </ul>
           </div>
@@ -1014,7 +1020,7 @@ export default function RootLayout({ children }) {
             </p>
             <div style={{ position: "relative" }}>
               <CodeCopyButton
-                code={`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>
+                code={`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)" }}>
   Section Title
 </h6>
 <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>
@@ -1044,7 +1050,7 @@ export default function RootLayout({ children }) {
                 }}
                 PreTag="div"
               >
-                {`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)", textTransform: "none" }}>
+                {`<h6 className="text-heading-h6" style={{ margin: 0, color: "var(--fg-neutral)" }}>
   Section Title
 </h6>
 <p className="text-body2-regular" style={{ margin: 0, color: "var(--fg-neutral-secondary)" }}>
@@ -1062,26 +1068,25 @@ export default function RootLayout({ children }) {
               Overriding Default Styles
             </h6>
             <p className="ds-content__text" style={{ marginBottom: "var(--spacing-300)" }}>
-              Heading classes include <code className="ds-token-row__code">text-transform: capitalize</code> by default. Override it with <code className="ds-token-row__code">textTransform: "none"</code> when needed. You can also override font weight for specific use cases.
+              H1 has a letter-spacing of <code className="ds-token-row__code">-3%</code> and H2/H3 have <code className="ds-token-row__code">-2%</code> by default. Override these or the font weight for specific use cases.
             </p>
             <div style={{ position: "relative" }}>
               <CodeCopyButton
-                code={`// Override text-transform for headings
-<h3 className="text-heading-h3" style={{ textTransform: "none" }}>
-  Custom Heading Without Capitalization
-</h3>
+                code={`// Override letter-spacing for a large display heading
+<h1 className="text-heading-h1" style={{ letterSpacing: "0" }}>
+  Heading Without Tight Tracking
+</h1>
 
 // Override font weight for body text
-<p className="text-body3-regular" style={{ fontWeight: "var(--font-weight-secondary-semibold)" }}>
+<p className="text-body3-regular" style={{ fontWeight: "var(--font-weight-semibold)" }}>
   Body text with semibold weight
 </p>
 
 // Combine multiple overrides
-<h6 className="text-heading-h6" style={{ 
-  margin: 0, 
-  color: "var(--fg-neutral)", 
-  textTransform: "none",
-  fontWeight: "var(--font-weight-secondary-semibold)"
+<h6 className="text-heading-h6" style={{
+  margin: 0,
+  color: "var(--fg-neutral)",
+  fontWeight: "var(--font-weight-semibold)"
 }}>
   Custom Styled Heading
 </h6>`}
@@ -1106,22 +1111,21 @@ export default function RootLayout({ children }) {
                 }}
                 PreTag="div"
               >
-                {`// Override text-transform for headings
-<h3 className="text-heading-h3" style={{ textTransform: "none" }}>
-  Custom Heading Without Capitalization
-</h3>
+                {`// Override letter-spacing for a large display heading
+<h1 className="text-heading-h1" style={{ letterSpacing: "0" }}>
+  Heading Without Tight Tracking
+</h1>
 
 // Override font weight for body text
-<p className="text-body3-regular" style={{ fontWeight: "var(--font-weight-secondary-semibold)" }}>
+<p className="text-body3-regular" style={{ fontWeight: "var(--font-weight-semibold)" }}>
   Body text with semibold weight
 </p>
 
 // Combine multiple overrides
-<h6 className="text-heading-h6" style={{ 
-  margin: 0, 
-  color: "var(--fg-neutral)", 
-  textTransform: "none",
-  fontWeight: "var(--font-weight-secondary-semibold)"
+<h6 className="text-heading-h6" style={{
+  margin: 0,
+  color: "var(--fg-neutral)",
+  fontWeight: "var(--font-weight-semibold)"
 }}>
   Custom Styled Heading
 </h6>`}
@@ -1137,7 +1141,7 @@ export default function RootLayout({ children }) {
               <li>Always use typography classes instead of inline font styles for consistency</li>
               <li>Use semantic HTML elements (<code className="ds-token-row__code">&lt;h1&gt;</code> through <code className="ds-token-row__code">&lt;h6&gt;</code>, <code className="ds-token-row__code">&lt;p&gt;</code>) with appropriate typography classes</li>
               <li>Apply color, margin, and other non-typography properties via inline styles when needed</li>
-              <li>Override <code className="ds-token-row__code">text-transform</code> for headings when capitalization is not desired</li>
+              <li>Override <code className="ds-token-row__code">letter-spacing</code> on H1–H3 when tight tracking is not appropriate for your context</li>
               <li>Choose the appropriate body size (Body1-Body4) based on your content hierarchy</li>
               <li>Use Medium weight variants for emphasis within body text</li>
             </ul>

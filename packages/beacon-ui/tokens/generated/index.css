@@ -947,41 +947,40 @@
 }
 .text-heading-h1 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
-  text-transform: capitalize;
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-heading-h1-text-size);
   line-height: var(--fonts-heading-h1-line-height);
+  letter-spacing: -3%;
 }
 .text-heading-h2 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
-  text-transform: capitalize;
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-heading-h2-text-size);
   line-height: var(--fonts-heading-h2-line-height);
+  letter-spacing: -2%;
 }
 .text-heading-h3 {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-primary-semibold);
-  text-transform: capitalize;
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-heading-h3-text-size);
   line-height: var(--fonts-heading-h3-line-height);
+  letter-spacing: -2%;
 }
 .text-heading-h4 {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-semibold);
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-heading-h4-text-size);
   line-height: var(--fonts-heading-h4-line-height);
 }
 .text-heading-h5 {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-semibold);
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-heading-h5-text-size);
   line-height: var(--fonts-heading-h5-line-height);
 }
 .text-heading-h6 {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-semibold);
-  text-transform: capitalize;
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-heading-h6-text-size);
   line-height: var(--fonts-heading-h6-line-height);
 }
@@ -993,7 +992,7 @@
 }
 .text-body1-medium {
   font-family: var(--font-secondary);
-  font-weight: var(--font-weight-secondary-regular);
+  font-weight: var(--font-weight-primary-medium);
   font-size: var(--fonts-body-extra-small-text-size);
   line-height: var(--fonts-body-extra-small-line-height);
 }

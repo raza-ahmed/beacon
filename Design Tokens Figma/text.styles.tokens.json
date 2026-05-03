@@ -55,10 +55,10 @@
       "$value": {
         "fontFamily": "{Font.Primary.Family}",
         "fontSize": "{Fonts.Heading.H1.Text Size}",
-        "fontWeight": "{Font.Primary.Weight.Semibold}",
-        "letterSpacing": "0%",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
+        "letterSpacing": "-3%",
         "lineHeight": "{Fonts.Heading.H1.Line Height}",
-        "textTransform": "capitalize",
+        "textTransform": "none",
         "textDecoration": "none"
       }
     },
@@ -67,10 +67,10 @@
       "$value": {
         "fontFamily": "{Font.Primary.Family}",
         "fontSize": "{Fonts.Heading.H2.Text Size}",
-        "fontWeight": "{Font.Primary.Weight.Semibold}",
-        "letterSpacing": "0%",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
+        "letterSpacing": "-2%",
         "lineHeight": "{Fonts.Heading.H2.Line Height}",
-        "textTransform": "capitalize",
+        "textTransform": "none",
         "textDecoration": "none"
       }
     },
@@ -79,10 +79,10 @@
       "$value": {
         "fontFamily": "{Font.Primary.Family}",
         "fontSize": "{Fonts.Heading.H3.Text Size}",
-        "fontWeight": "{Font.Primary.Weight.Semibold}",
-        "letterSpacing": "0%",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
+        "letterSpacing": "-2%",
         "lineHeight": "{Fonts.Heading.H3.Line Height}",
-        "textTransform": "capitalize",
+        "textTransform": "none",
         "textDecoration": "none"
       }
     },
@@ -91,7 +91,7 @@
       "$value": {
         "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Heading.H4.Text Size}",
-        "fontWeight": "{Font.Secondary.Weight.Semibold}",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H4.Line Height}",
         "textTransform": "none",
@@ -103,7 +103,7 @@
       "$value": {
         "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Heading.H5.Text Size}",
-        "fontWeight": "{Font.Secondary.Weight.Semibold}",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H5.Line Height}",
         "textTransform": "none",
@@ -115,10 +115,10 @@
       "$value": {
         "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Heading.H6.Text Size}",
-        "fontWeight": "{Font.Secondary.Weight.Semibold}",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Heading.H6.Line Height}",
-        "textTransform": "capitalize",
+        "textTransform": "none",
         "textDecoration": "none"
       }
     }
@@ -141,7 +141,7 @@
       "$value": {
         "fontFamily": "{Font.Secondary.Family}",
         "fontSize": "{Fonts.Body.Extra Small.Text Size}",
-        "fontWeight": "{Font.Secondary.Weight.Regular}",
+        "fontWeight": "{Font.Primary.Weight.Medium}",
         "letterSpacing": "0%",
         "lineHeight": "{Fonts.Body.Extra Small.Line Height}",
         "textTransform": "none",

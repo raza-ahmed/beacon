@@ -50,13 +50,13 @@ function App() {
 
 **beacon-ui** (Components & Tokens)
 - **Package Name**: `beacon-ui`
-- **Version**: 3.6.0
+- **Version**: 3.7.3
 - **NPM**: https://www.npmjs.com/package/beacon-ui
 - **Documentation**: https://beacon.uxraza.com/
 
 **beacon-icons** (Icon Components)
 - **Package Name**: `beacon-icons`
-- **Version**: 3.6.0
+- **Version**: 3.7.3
 - **NPM**: https://www.npmjs.com/package/beacon-icons
 
 ### Included Components
@@ -123,7 +123,7 @@ npm run build
 npm start
 ```
 
-The documentation site is built with Next.js and deployed as a static site.
+The documentation site is built with Next.js and \ed as a static site.
 
 ---
 
@@ -281,7 +281,7 @@ The design system follows semantic versioning:
 - **MINOR**: New features (backward compatible)
 - **PATCH**: Bug fixes (backward compatible)
 
-Current version: **3.6.0**
+Current version: **3.7.3**
 
 ---
 
