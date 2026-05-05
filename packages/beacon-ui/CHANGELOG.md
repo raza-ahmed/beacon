@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.4] - 2026-05-06
+
+### Fixed
+- Button `lg` size font corrected to Body2/Medium (`--body-small-text-size`, 14px) — was incorrectly using `--body-medium-text-size` (20px)
+- Button padding-Y corrected for all sizes to match Figma specs:
+  - `xs`: `--spacing-50` (2px) → `--spacing-100` (4px)
+  - `sm`: `--spacing-100` (4px) → `--spacing-200` (8px)
+  - `md`: `--spacing-200` (8px) → `--spacing-300` (12px)
+  - `lg`: `--spacing-300` (12px) → `--spacing-400` (16px)
+  - `xl`: `--spacing-400` (16px) → `--spacing-450` (20px)
+- Button `xl` size border width corrected to `--border-width-50` (2px) — was using `--border-width-25` (1px)
+
 ## [3.7.0] - 2026-05-01
 
 ### Added

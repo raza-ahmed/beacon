@@ -22,6 +22,36 @@ export interface VersionEntry {
 
 const versionData: VersionEntry[] = [
   {
+    "version": "3.7.4",
+    "date": "2026-05-06",
+    "fixed": [
+      {
+        "description": "Button `lg` size font corrected to Body2/Medium (`--body-small-text-size`, 14px) — was incorrectly using `--body-medium-text-size` (20px)"
+      },
+      {
+        "description": "Button padding-Y corrected for all sizes to match Figma specs:"
+      },
+      {
+        "description": "`xs`: `--spacing-50` (2px) → `--spacing-100` (4px)"
+      },
+      {
+        "description": "`sm`: `--spacing-100` (4px) → `--spacing-200` (8px)"
+      },
+      {
+        "description": "`md`: `--spacing-200` (8px) → `--spacing-300` (12px)"
+      },
+      {
+        "description": "`lg`: `--spacing-300` (12px) → `--spacing-400` (16px)"
+      },
+      {
+        "description": "`xl`: `--spacing-400` (16px) → `--spacing-450` (20px)"
+      },
+      {
+        "description": "Button `xl` size border width corrected to `--border-width-50` (2px) — was using `--border-width-25` (1px)"
+      }
+    ]
+  },
+  {
     "version": "3.7.0",
     "date": "2026-05-01",
     "added": [

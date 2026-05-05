@@ -43,42 +43,48 @@ const SIZE_CONFIG: Record<
     paddingX: string;
     paddingY: string;
     fontSize: string;
+    borderWidth: string;
     iconSize: "xs" | "sm" | "rg" | "md" | "rm";
   }
 > = {
   xs: {
     height: "28px",
     paddingX: "var(--spacing-200)",
-    paddingY: "var(--spacing-50)",
+    paddingY: "var(--spacing-100)",
     fontSize: "var(--body-extra-small-text-size)",
+    borderWidth: "var(--border-width-25)",
     iconSize: "xs",
   },
   sm: {
     height: "36px",
     paddingX: "var(--spacing-300)",
-    paddingY: "var(--spacing-100)",
+    paddingY: "var(--spacing-200)",
     fontSize: "var(--body-small-text-size)",
+    borderWidth: "var(--border-width-25)",
     iconSize: "xs",
   },
   md: {
     height: "44px",
     paddingX: "var(--spacing-400)",
-    paddingY: "var(--spacing-200)",
-    fontSize: "var(--body-regular-text-size)",
+    paddingY: "var(--spacing-300)",
+    fontSize: "var(--body-small-text-size)",
+    borderWidth: "var(--border-width-25)",
     iconSize: "sm",
   },
   lg: {
     height: "56px",
     paddingX: "var(--spacing-500)",
-    paddingY: "var(--spacing-300)",
-    fontSize: "var(--body-medium-text-size)",
+    paddingY: "var(--spacing-400)",
+    fontSize: "var(--body-small-text-size)",
+    borderWidth: "var(--border-width-25)",
     iconSize: "rg",
   },
   xl: {
     height: "68px",
     paddingX: "var(--spacing-600)",
-    paddingY: "var(--spacing-400)",
+    paddingY: "var(--spacing-450)",
     fontSize: "var(--body-medium-text-size)",
+    borderWidth: "var(--border-width-50)",
     iconSize: "rm",
   },
 };
@@ -200,7 +206,7 @@ export function Button({
         fontSize: sizeConfig.fontSize,
         lineHeight: "1",
         fontWeight: "var(--font-weight-secondary-medium)",
-        borderWidth: "var(--border-width-25)",
+        borderWidth: sizeConfig.borderWidth,
         borderStyle: "solid",
         borderColor: "transparent",
         borderRadius,
