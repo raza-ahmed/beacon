@@ -76,10 +76,11 @@ function App() {
 - Switch
 - Tab
 - Toast
+- Tooltip
 
 ### Features
 
-- ✅ 15 production-ready components
+- ✅ 16 production-ready components
 - ✅ Complete design token system
 - ✅ TypeScript support
 - ✅ Theme support (light/dark)
@@ -123,7 +124,7 @@ npm run build
 npm start
 ```
 
-The documentation site is built with Next.js and \ed as a static site.
+The documentation site is built with Next.js and exported as a static site.
 
 ---
 
