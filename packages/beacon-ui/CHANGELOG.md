@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.5] - 2026-05-14
+
+### Fixed
+- Button filled variant now renders isometric depth effect matching Figma: outer drop shadow (`0px 1px 8px rgba(0,0,0,0.15)`) and two inner shadows (`inset 0px 3px 4px rgba(255,255,255,0.25)` top highlight, `inset 0px -3px 4px rgba(0,0,0,0.25)` bottom shadow)
+- Button filled `pressed` state border now correctly uses `--border-primary-pressed` (lighter blue) instead of `--bg-primary-pressed` (dark blue), matching Figma spec
+- Button focus ring offset corrected from `2px` to `5px` to match Figma's 5px gap between button edge and focus indicator
+- Button `lg` size font size updated to `--body-regular-text-size` (16px) — Figma specifies Body/Regular for large buttons across all non-default states
+- Button `xs` size minimum height corrected from `28px` to `26px` to match Figma dimensions
+
 ## [3.7.4] - 2026-05-06
 
 ### Fixed

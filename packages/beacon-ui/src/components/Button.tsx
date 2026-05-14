@@ -48,7 +48,7 @@ const SIZE_CONFIG: Record<
   }
 > = {
   xs: {
-    height: "28px",
+    height: "26px",
     paddingX: "var(--spacing-200)",
     paddingY: "var(--spacing-100)",
     fontSize: "var(--body-extra-small-text-size)",
@@ -75,7 +75,7 @@ const SIZE_CONFIG: Record<
     height: "56px",
     paddingX: "var(--spacing-500)",
     paddingY: "var(--spacing-400)",
-    fontSize: "var(--body-small-text-size)",
+    fontSize: "var(--body-regular-text-size)",
     borderWidth: "var(--border-width-25)",
     iconSize: "rg",
   },
@@ -227,6 +227,7 @@ export function Button({
       const bgTonalToken = `--bg-${colorPrefix}-tonal`;
       const bgHoverToken = `--bg-${colorPrefix}-on-hover`;
       const bgPressedToken = color === "primary" ? `--bg-${colorPrefix}-pressed` : `--bg-${colorPrefix}-on-hover`;
+      const borderPressedToken = color === "primary" ? `--border-${colorPrefix}-pressed` : `--bg-${colorPrefix}-on-hover`;
       const bgFocusedToken = color === "primary" ? `--bg-${colorPrefix}-on-focused` : `--bg-${colorPrefix}-on-hover`;
       const bgTonalHoverToken = color === "primary" ? `--bg-${colorPrefix}-tonal-on-hover` : `--bg-${colorPrefix}-tonal`;
       const fgToken = `--fg-${colorPrefix}`;
@@ -245,6 +246,7 @@ export function Button({
             backgroundColor: `var(${bgToken})`,
             color: "var(--fg-on-action)",
             borderColor: `var(${bgToken})`,
+            boxShadow: "0px 1px 8px rgba(0, 0, 0, 0.15), inset 0px 3px 4px rgba(255, 255, 255, 0.25), inset 0px -3px 4px rgba(0, 0, 0, 0.25)",
           };
           break;
         case "tonal":
@@ -308,7 +310,7 @@ export function Button({
       } else if (!isLoading && currentState === "pressed") {
         if (variant === "filled") {
           stateStyles.backgroundColor = `var(${bgPressedToken})`;
-          stateStyles.borderColor = `var(${bgPressedToken})`;
+          stateStyles.borderColor = `var(${borderPressedToken})`;
         } else if (variant === "tonal") {
           stateStyles.backgroundColor = `var(${bgTonalHoverToken})`;
         }
@@ -320,7 +322,7 @@ export function Button({
           stateStyles.borderColor = `var(${borderToken})`;
         }
         stateStyles.outline = `2px solid var(${borderToken})`;
-        stateStyles.outlineOffset = "2px";
+        stateStyles.outlineOffset = "5px";
       }
 
       return { ...baseStyles, ...variantStyles, ...stateStyles, ...style };
