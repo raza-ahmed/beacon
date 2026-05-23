@@ -644,7 +644,7 @@ body {
 }
 
 .ds-content__image-placeholder {
-  width: 400px;
+  width: 640px;
   max-width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
